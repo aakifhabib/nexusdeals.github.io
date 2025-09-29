@@ -1115,6 +1115,7 @@
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 40px;
+            justify-content: center;
         }
 
         .team-member {
@@ -1122,6 +1123,8 @@
             transform-style: preserve-3d;
             perspective: 1000px;
             transition: all 0.3s ease;
+            max-width: 300px;
+            margin: 0 auto;
         }
 
         .team-member:hover {
@@ -1826,7 +1829,7 @@
             .dashboard-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
-
+            
             .contact-container {
                 grid-template-columns: 1fr;
             }
@@ -1836,38 +1839,38 @@
             header {
                 padding: 15px 20px;
             }
-
+            
             nav ul {
                 display: none;
             }
-
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
-
+            
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-
+            
             .deals-filters {
                 flex-direction: column;
                 align-items: stretch;
             }
-
+            
             .search-box {
                 width: 100%;
             }
-
+            
             .deal-card {
                 flex-direction: column;
             }
-
+            
             .deal-image {
                 width: 100%;
                 height: 200px;
             }
-
+            
             .auth-container {
                 width: 90%;
                 max-height: 95vh;
@@ -2155,7 +2158,7 @@
                     <h2>Dashboard</h2>
                     <p>Monitor your performance and earnings</p>
                 </div>
-
+                
                 <div class="dashboard-stats">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -2170,7 +2173,7 @@
                             <span>12.5% from last month</span>
                         </div>
                     </div>
-
+                    
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">Total Sales</div>
@@ -2184,7 +2187,7 @@
                             <span>8.3% from last month</span>
                         </div>
                     </div>
-
+                    
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">Revenue</div>
@@ -2198,7 +2201,7 @@
                             <span>15.7% from last month</span>
                         </div>
                     </div>
-
+                    
                     <div class="stat-card">
                         <div class="stat-header">
                             <div class="stat-title">Conversion Rate</div>
@@ -2213,7 +2216,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="dashboard-chart">
                     <div class="chart-header">
                         <div class="chart-title">Revenue Overview</div>
@@ -2248,7 +2251,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="activity-feed">
                     <div class="activity-header">Recent Activity</div>
                     <div class="activity-item">
@@ -2303,7 +2306,7 @@
                     <h2>All Deals</h2>
                     <p>Browse through our extensive collection of deals</p>
                 </div>
-
+                
                 <div class="deals-filters">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
@@ -2328,7 +2331,7 @@
                         </select>
                     </div>
                 </div>
-
+                
                 <div class="deals-container">
                     <div class="deal-card">
                         <img src="https://picsum.photos/seed/deal4/300/200.jpg" alt="Wireless Earbuds" class="deal-image">
@@ -2346,7 +2349,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="deal-card">
                         <img src="https://picsum.photos/seed/deal5/300/200.jpg" alt="Running Shoes" class="deal-image">
                         <div class="deal-content">
@@ -2363,7 +2366,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="deal-card">
                         <img src="https://picsum.photos/seed/deal6/300/200.jpg" alt="Smart Thermostat" class="deal-image">
                         <div class="deal-content">
@@ -2380,7 +2383,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="deal-card">
                         <img src="https://picsum.photos/seed/deal7/300/200.jpg" alt="Yoga Mat" class="deal-image">
                         <div class="deal-content">
@@ -2397,7 +2400,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="deal-card">
                         <img src="https://picsum.photos/seed/deal8/300/200.jpg" alt="Cookbook" class="deal-image">
                         <div class="deal-content">
@@ -2414,7 +2417,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="deal-card">
                         <img src="https://picsum.photos/seed/deal9/300/200.jpg" alt="Gaming Mouse" class="deal-image">
                         <div class="deal-content">
@@ -2432,7 +2435,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="pagination">
                     <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
                     <button class="page-btn active">1</button>
@@ -2454,7 +2457,7 @@
                     <h2>All Categories</h2>
                     <p>Browse deals by category</p>
                 </div>
-
+                
                 <div class="cards-grid">
                     <div class="category-card">
                         <div class="category-icon">
@@ -2553,7 +2556,7 @@
                     <h2>Contact Us</h2>
                     <p>We'd love to hear from you</p>
                 </div>
-
+                
                 <div class="contact-container">
                     <div class="contact-info">
                         <h3>Get in Touch</h3>
@@ -2594,7 +2597,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="contact-form">
                         <h3>Send us a Message</h3>
                         <form id="contactForm">
@@ -2630,18 +2633,18 @@
                     <h2>About Us</h2>
                     <p>Learn more about NexusDeal</p>
                 </div>
-
+                
                 <div class="about-content">
                     <h2>Our Story</h2>
                     <p>NexusDeal was founded in 2020 with a simple mission: to help people find the best deals on products they love. Our team of tech enthusiasts and deal hunters work tirelessly to scour the internet for the most valuable discounts and promotions.</p>
                     <p>What started as a small project has quickly grown into a trusted platform used by thousands of shoppers every day. We believe that everyone deserves access to great products at fair prices, and our AI-powered technology makes it easier than ever to save money without sacrificing quality.</p>
-
+                    
                     <h3>Our Mission</h3>
                     <p>Our mission is to make smart shopping accessible to everyone. We use advanced algorithms to analyze thousands of products and deals, ensuring that our users always get the best value for their money.</p>
-
+                    
                     <h3>How It Works</h3>
                     <p>Our platform uses cutting-edge technology to monitor prices across multiple retailers. When we find a great deal, we verify its authenticity and add it to our database. Our users can then browse these deals, filter by category, and save money on products they were already planning to buy.</p>
-
+                    
                     <h3>Why Choose NexusDeal</h3>
                     <ul>
                         <li><strong>Verified Deals:</strong> All deals on our platform are verified by our team to ensure they're genuine and valuable.</li>
@@ -2649,28 +2652,13 @@
                         <li><strong>User-Friendly Interface:</strong> Our platform is designed to be intuitive and easy to use, even for those who aren't tech-savvy.</li>
                         <li><strong>Personalized Experience:</strong> We use AI to recommend deals based on your browsing history and preferences.</li>
                     </ul>
-
+                    
                     <h3>Our Team</h3>
                     <div class="team-grid">
                         <div class="team-member">
-                            <img src="https://picsum.photos/seed/team1/150/150.jpg" alt="Team Member">
-                            <h4>Alex Johnson</h4>
+                            <img src="https://z-cdn-media.chatglm.cn/files/d820f0e2-965d-4a98-b22d-75df1f57be13_Gemini_Generated_Image_ofhkx1ofhkx1ofhk.png?auth_key=1790713874-a28a8ddafbf94ae095d61cabd0f6547b-0-59fc3e6872accd03b7aa2889efcbb98b" alt="Team Member">
+                            <h4>Aakif</h4>
                             <p>CEO & Founder</p>
-                        </div>
-                        <div class="team-member">
-                            <img src="https://picsum.photos/seed/team2/150/150.jpg" alt="Team Member">
-                            <h4>Sarah Williams</h4>
-                            <p>CTO</p>
-                        </div>
-                        <div class="team-member">
-                            <img src="https://picsum.photos/seed/team3/150/150.jpg" alt="Team Member">
-                            <h4>Michael Chen</h4>
-                            <p>Head of Marketing</p>
-                        </div>
-                        <div class="team-member">
-                            <img src="https://picsum.photos/seed/team4/150/150.jpg" alt="Team Member">
-                            <h4>Emily Rodriguez</h4>
-                            <p>Lead Developer</p>
                         </div>
                     </div>
                 </div>
@@ -2686,12 +2674,12 @@
                     <h2>Privacy Policy</h2>
                     <p>How we handle your data</p>
                 </div>
-
+                
                 <div class="legal-container">
                     <div class="legal-content">
                         <h2>Privacy Policy</h2>
                         <p>Last updated: January 1, 2023</p>
-
+                        
                         <h3>Information We Collect</h3>
                         <p>We collect several types of information from and about users of our website, including:</p>
                         <ul>
@@ -2700,7 +2688,7 @@
                             <li><strong>Cookies and Tracking Technologies:</strong> We use cookies and similar tracking technologies to track activity on our website and hold certain information.</li>
                             <li><strong>Device Information:</strong> Information about the device you use to access our website, including IP address, browser type, and operating system.</li>
                         </ul>
-
+                        
                         <h3>How We Use Your Information</h3>
                         <p>We use the information we collect for various purposes, including:</p>
                         <ul>
@@ -2711,7 +2699,7 @@
                             <li>To monitor the usage of our website</li>
                             <li>To detect, prevent and address technical issues</li>
                         </ul>
-
+                        
                         <h3>Information Sharing</h3>
                         <p>We may share your information with third-party service providers in the following circumstances:</p>
                         <ul>
@@ -2719,16 +2707,16 @@
                             <li><strong>For Business Transfers:</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
                             <li><strong>With Affiliates:</strong> We may share your information with our affiliates, in which case we will require those affiliates to honor this privacy policy.</li>
                         </ul>
-
+                        
                         <h3>Data Security</h3>
                         <p>The security of your data is important to us. We use reasonable administrative, technical, and physical measures to protect your personal information from unauthorized access, use, or disclosure. However, remember that no method of transmission over the Internet or method of electronic storage is 100% secure.</p>
-
+                        
                         <h3>Your Privacy Rights</h3>
                         <p>You have certain data protection rights. We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your personal data. If you wish to be informed what personal information we hold about you or if you want it to be removed from our systems, please contact us.</p>
-
+                        
                         <h3>Children's Privacy</h3>
                         <p>Our website is not intended for use by children under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us.</p>
-
+                        
                         <h3>Changes to This Privacy Policy</h3>
                         <p>We may update our privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page and updating the "Last updated" date at the top of this privacy policy.</p>
                     </div>
@@ -2745,15 +2733,15 @@
                     <h2>Terms of Service</h2>
                     <p>Rules and guidelines for using our website</p>
                 </div>
-
+                
                 <div class="legal-container">
                     <div class="legal-content">
                         <h2>Terms of Service</h2>
                         <p>Last updated: January 1, 2023</p>
-
+                        
                         <h3>Acceptance of Terms</h3>
                         <p>Welcome to NexusDeal. These Terms of Service govern your use of our website and services. By accessing or using our website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our website.</p>
-
+                        
                         <h3>Use License</h3>
                         <p>Permission is granted to temporarily download one copy of the materials on NexusDeal's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
                         <ul>
@@ -2763,22 +2751,22 @@
                             <li>Remove any copyright or other proprietary notations from the materials</li>
                             <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
                         </ul>
-
+                        
                         <h3>Disclaimer</h3>
                         <p>The materials on NexusDeal's website are provided on an 'as is' basis. NexusDeal makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
-
+                        
                         <h3>Limitations</h3>
                         <p>In no event shall NexusDeal or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on NexusDeal's website, even if NexusDeal or a NexusDeal authorized representative has been notified orally or in writing of the possibility of such damage.</p>
-
+                        
                         <h3>Accuracy of Materials</h3>
                         <p>The materials appearing on NexusDeal's website could include technical, typographical, or photographic errors. NexusDeal does not warrant that any of the materials on its website are accurate, complete, or current. NexusDeal may make changes to the materials contained on its website at any time without notice. However, NexusDeal does not make any commitment to update the materials.</p>
-
+                        
                         <h3>Links</h3>
                         <p>NexusDeal has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by NexusDeal of the site. Use of any such linked website is at the user's own risk.</p>
-
+                        
                         <h3>Termination</h3>
                         <p>NexusDeal may terminate your access to its website, without cause, at any time and without notice. Upon termination, your viewing right to the materials on this website will also terminate.</p>
-
+                        
                         <h3>Governing Law</h3>
                         <p>These Terms of Service and any separate agreements whereby we provide you services shall be governed by and construed in accordance with the laws of the State of New York, United States.</p>
                     </div>
@@ -2795,18 +2783,18 @@
                     <h2>Affiliate Disclosure</h2>
                     <p>How we make money</p>
                 </div>
-
+                
                 <div class="legal-container">
                     <div class="legal-content">
                         <h2>Affiliate Disclosure</h2>
                         <p>Last updated: January 1, 2023</p>
-
+                        
                         <h3>What Are Affiliate Links?</h3>
                         <p>NexusDeal participates in various affiliate marketing programs, which means we may earn a commission when you click on certain links on our website and make a purchase from the retailer. These affiliate links allow us to earn a small percentage of the sale at no additional cost to you.</p>
-
+                        
                         <h3>How We Use Affiliate Links</h3>
                         <p>We use affiliate links to help support the operation of our website and continue providing valuable content to our users. When you click on an affiliate link and make a purchase, we may receive a commission from the retailer. This commission helps us cover the costs of running our website, including hosting, content creation, and maintenance.</p>
-
+                        
                         <h3>Our Affiliate Partners</h3>
                         <p>We work with a variety of reputable retailers and affiliate networks, including but not limited to:</p>
                         <ul>
@@ -2817,16 +2805,16 @@
                             <li>Impact</li>
                             <li>Rakuten Advertising</li>
                         </ul>
-
+                        
                         <h3>Impact on Pricing</h3>
                         <p>The use of affiliate links does not affect the price you pay for products or services. In fact, in some cases, we may be able to negotiate special discounts for our users that are not available elsewhere. Our primary goal is to provide you with the best deals and value, regardless of whether we earn a commission.</p>
-
+                        
                         <h3>Editorial Integrity</h3>
                         <p>Our editorial content is independent and not influenced by our affiliate relationships. We only promote products and services that we believe will provide value to our users. Our reviews and recommendations are based on our honest opinions and experiences, and we strive to provide accurate and helpful information to assist you in making informed purchasing decisions.</p>
-
+                        
                         <h3>Transparency</h3>
                         <p>We are committed to transparency in our business practices. All affiliate links on our website are clearly disclosed in accordance with the Federal Trade Commission (FTC) guidelines. We believe that being upfront about how we make money helps build trust with our users and ensures that you can make informed decisions when using our website.</p>
-
+                        
                         <h3>Your Support</h3>
                         <p>By using our affiliate links when making purchases, you are supporting our website and helping us continue to provide valuable content and deals to our users. We appreciate your support and are committed to providing you with the best possible experience on our website.</p>
                     </div>
@@ -2841,12 +2829,12 @@
             <!-- Sign In Card -->
             <div class="auth-card front">
                 <div class="auth-particles" id="signinParticles"></div>
-
+                
                 <!-- 3D Geometric Shapes -->
                 <div class="auth-shape cube"></div>
                 <div class="auth-shape pyramid"></div>
                 <div class="auth-shape sphere"></div>
-
+                
                 <button class="auth-close" id="authClose">
                     <i class="fas fa-times"></i>
                 </button>
@@ -2895,16 +2883,16 @@
                     <p>Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
                 </div>
             </div>
-
+            
             <!-- Sign Up Card -->
             <div class="auth-card back">
                 <div class="auth-particles" id="signupParticles"></div>
-
+                
                 <!-- 3D Geometric Shapes -->
                 <div class="auth-shape cube"></div>
                 <div class="auth-shape pyramid"></div>
                 <div class="auth-shape sphere"></div>
-
+                
                 <button class="auth-close" id="authCloseBack">
                     <i class="fas fa-times"></i>
                 </button>
@@ -3023,37 +3011,37 @@
         // Custom Cursor
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
-
+        
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-
+            
             setTimeout(() => {
                 cursorFollower.style.left = e.clientX + 'px';
                 cursorFollower.style.top = e.clientY + 'px';
             }, 100);
         });
-
+        
         // Page Navigation
         const navLinks = document.querySelectorAll('.nav-link');
         const pages = document.querySelectorAll('.page');
-
+        
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetPage = link.getAttribute('data-page');
-
+                
                 pages.forEach(page => {
                     page.classList.remove('active');
                 });
-
+                
                 document.getElementById(targetPage).classList.add('active');
-
+                
                 // Scroll to top
                 window.scrollTo(0, 0);
             });
         });
-
+        
         // Enhanced Auth Modal with Advanced 3D Animation
         const authModal = document.getElementById('authModal');
         const authContainer = document.getElementById('authContainer');
@@ -3065,17 +3053,17 @@
         const switchToSignin = document.getElementById('switchToSignin');
         const signinParticles = document.getElementById('signinParticles');
         const signupParticles = document.getElementById('signupParticles');
-
+        
         // Create advanced 3D particles for auth modal
         function createAdvancedParticles(container, count) {
             for (let i = 0; i < count; i++) {
                 const particle = document.createElement('div');
-
+                
                 // Random particle type
                 const types = ['type-1', 'type-2', 'type-3', 'type-4'];
                 const randomType = types[Math.floor(Math.random() * types.length)];
                 particle.className = `auth-particle ${randomType}`;
-
+                
                 // Random size based on type
                 let size;
                 switch(randomType) {
@@ -3092,45 +3080,45 @@
                         size = Math.random() * 5 + 3;
                         break;
                 }
-
+                
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-
+                
                 // Random position
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-
+                
                 // Random animation delay
                 particle.style.animationDelay = `${Math.random() * 15}s`;
-
+                
                 // Random animation duration
                 const duration = Math.random() * 10 + 15;
                 particle.style.animationDuration = `${duration}s`;
-
+                
                 container.appendChild(particle);
             }
         }
-
+        
         // Initialize particles when modal is opened
         function initAdvancedParticles() {
             // Clear existing particles
             signinParticles.innerHTML = '';
             signupParticles.innerHTML = '';
-
+            
             // Create new particles
             createAdvancedParticles(signinParticles, 30);
             createAdvancedParticles(signupParticles, 30);
         }
-
+        
         // Add 3D geometric shapes
         function create3DShapes() {
             const shapes = document.querySelectorAll('.auth-shape');
-
+            
             shapes.forEach(shape => {
                 // Random rotation speed
                 const speed = Math.random() * 20 + 10;
                 shape.style.animationDuration = `${speed}s`;
-
+                
                 // Random position adjustments
                 if (shape.classList.contains('cube')) {
                     const randomX = Math.random() * 20;
@@ -3147,73 +3135,73 @@
                 }
             });
         }
-
+        
         signInBtn.addEventListener('click', () => {
             authModal.classList.add('active');
             authContainer.classList.remove('flipped');
             initAdvancedParticles();
             create3DShapes();
         });
-
+        
         signUpBtn.addEventListener('click', () => {
             authModal.classList.add('active');
             authContainer.classList.add('flipped');
             initAdvancedParticles();
             create3DShapes();
         });
-
+        
         authClose.addEventListener('click', () => {
             authModal.classList.remove('active');
         });
-
+        
         authCloseBack.addEventListener('click', () => {
             authModal.classList.remove('active');
         });
-
+        
         switchToSignup.addEventListener('click', (e) => {
             e.preventDefault();
             authContainer.classList.add('flipped');
         });
-
+        
         switchToSignin.addEventListener('click', (e) => {
             e.preventDefault();
             authContainer.classList.remove('flipped');
         });
-
+        
         // Close modal when clicking outside
         authModal.addEventListener('click', (e) => {
             if (e.target === authModal) {
                 authModal.classList.remove('active');
             }
         });
-
+        
         // Enhanced input field animations
         const inputFields = document.querySelectorAll('.input-3d input');
-
+        
         inputFields.forEach(input => {
             input.addEventListener('focus', () => {
                 // Add a subtle glow effect to the parent
                 input.parentElement.style.boxShadow = '0 0 20px rgba(99, 102, 241, 0.3)';
             });
-
+            
             input.addEventListener('blur', () => {
                 // Remove the glow effect
                 input.parentElement.style.boxShadow = '';
             });
         });
-
+        
         // Notification
         const notification = document.getElementById('notification');
         const notificationClose = notification.querySelector('.notification-close');
-
+        
         function showNotification(title, message, type = 'success') {
             const notificationTitle = notification.querySelector('.notification-title');
             const notificationMessage = notification.querySelector('.notification-message');
             const notificationIcon = notification.querySelector('.notification-icon i');
-
+            
             notificationTitle.textContent = title;
             notificationMessage.textContent = message;
-
+            
             if (type === 'success') {
                 notificationIcon.className = 'fas fa-check-circle';
             } else if (type === 'error') {
@@ -3221,43 +3209,43 @@
             } else if (type === 'info') {
                 notificationIcon.className = 'fas fa-info-circle';
             }
-
+            
             notification.classList.add('show');
-
+            
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
-
+        
         notificationClose.addEventListener('click', () => {
             notification.classList.remove('show');
         });
-
+        
         // Form Submissions
         document.getElementById('signinForm').addEventListener('submit', (e) => {
             e.preventDefault();
             authModal.classList.remove('active');
             showNotification('Welcome Back!', 'You have successfully signed in.');
         });
-
+        
         document.getElementById('signupForm').addEventListener('submit', (e) => {
             e.preventDefault();
             authModal.classList.remove('active');
             showNotification('Account Created!', 'Your account has been successfully created.');
         });
-
+        
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             e.target.reset();
             showNotification('Message Sent!', 'We have received your message and will get back to you soon.');
         });
-
+        
         document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
             e.preventDefault();
             e.target.reset();
             showNotification('Subscribed!', 'You have successfully subscribed to our newsletter.');
         });
-
+        
         // Hero Buttons
         document.getElementById('exploreDealsBtn').addEventListener('click', () => {
             pages.forEach(page => {
@@ -3265,14 +3253,14 @@
             });
             document.getElementById('deals').classList.add('active');
         });
-
+        
         document.getElementById('viewDashboardBtn').addEventListener('click', () => {
             pages.forEach(page => {
                 page.classList.remove('active');
             });
             document.getElementById('dashboard').classList.add('active');
         });
-
+        
         // Logo Click
         document.querySelector('.logo').addEventListener('click', () => {
             pages.forEach(page => {
@@ -3280,14 +3268,14 @@
             });
             document.getElementById('home').classList.add('active');
         });
-
+        
         // Deal Buttons
         document.querySelectorAll('.deal-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 showNotification('Redirecting...', 'You are being redirected to the deal page.');
             });
         });
-
+        
         // Category Cards
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', () => {
@@ -3295,31 +3283,31 @@
                 showNotification('Category Selected', `You selected the ${categoryName} category.`);
             });
         });
-
+        
         // Dashboard Period Buttons
         document.querySelectorAll('.period-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
+                
                 const period = btn.textContent;
                 showNotification('Period Updated', `Dashboard updated to show ${period.toLowerCase()} data.`);
             });
         });
-
+        
         // Pagination
         document.querySelectorAll('.page-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (!btn.classList.contains('active') && !btn.querySelector('i')) {
                     document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-
+                    
                     const page = btn.textContent;
                     showNotification('Page Changed', `You are now viewing page ${page} of deals.`);
                 }
             });
         });
-
+        
         // Social Login Buttons
         document.querySelectorAll('.social-btn').forEach(btn => {
             btn.addEventListener('click', () => {
