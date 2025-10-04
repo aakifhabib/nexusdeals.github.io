@@ -1153,6 +1153,270 @@ color: var(--text-dim);
 transform: translateZ(10px);
 }
 
+/* Product Detail Page */
+.product-detail {
+display: flex;
+flex-direction: column;
+gap: 40px;
+}
+
+.product-header {
+display: flex;
+gap: 40px;
+align-items: flex-start;
+}
+
+.product-image-container {
+flex: 1;
+position: relative;
+}
+
+.product-image {
+width: 100%;
+height: 400px;
+object-fit: cover;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.product-badge {
+position: absolute;
+top: 20px;
+right: 20px;
+padding: 8px 16px;
+background: var(--accent);
+color: white;
+border-radius: 30px;
+font-weight: 600;
+font-size: 1rem;
+}
+
+.product-info {
+flex: 1;
+}
+
+.product-category {
+display: inline-block;
+padding: 6px 12px;
+background: rgba(99, 102, 241, 0.2);
+color: var(--primary);
+border-radius: 5px;
+font-size: 0.9rem;
+margin-bottom: 15px;
+}
+
+.product-title {
+font-size: 2.2rem;
+margin-bottom: 15px;
+line-height: 1.2;
+}
+
+.product-description {
+font-size: 1.1rem;
+color: var(--text-dim);
+margin-bottom: 25px;
+line-height: 1.6;
+}
+
+.product-price {
+display: flex;
+align-items: center;
+gap: 15px;
+margin-bottom: 30px;
+}
+
+.product-current-price {
+font-size: 2rem;
+font-weight: 700;
+}
+
+.product-original-price {
+font-size: 1.3rem;
+color: var(--text-dim);
+text-decoration: line-through;
+}
+
+.product-discount {
+padding: 6px 12px;
+background: rgba(236, 72, 153, 0.2);
+color: var(--accent);
+border-radius: 5px;
+font-size: 1rem;
+font-weight: 600;
+}
+
+.product-actions {
+display: flex;
+gap: 15px;
+}
+
+.product-buy-btn {
+flex: 1;
+padding: 15px 30px;
+background: linear-gradient(45deg, var(--primary), var(--secondary));
+color: white;
+border: none;
+border-radius: 30px;
+font-weight: 600;
+font-size: 1.1rem;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.product-buy-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+}
+
+.product-save-btn {
+padding: 15px 30px;
+background: transparent;
+color: var(--text);
+border: 2px solid var(--primary);
+border-radius: 30px;
+font-weight: 600;
+font-size: 1.1rem;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.product-save-btn:hover {
+background: var(--primary);
+color: white;
+}
+
+.product-details {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 40px;
+}
+
+.product-features, .product-specifications {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 30px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-features h3, .product-specifications h3 {
+font-size: 1.5rem;
+margin-bottom: 20px;
+}
+
+.product-features ul {
+list-style: none;
+}
+
+.product-features li {
+margin-bottom: 12px;
+padding-left: 25px;
+position: relative;
+}
+
+.product-features li::before {
+content: '\f00c';
+font-family: 'Font Awesome 5 Free';
+font-weight: 900;
+position: absolute;
+left: 0;
+top: 0;
+color: var(--primary);
+}
+
+.product-specifications ul {
+list-style: none;
+}
+
+.product-specifications li {
+margin-bottom: 12px;
+display: flex;
+}
+
+.product-specifications li strong {
+flex: 1;
+}
+
+.product-specifications li span {
+flex: 2;
+color: var(--text-dim);
+}
+
+.related-products {
+margin-top: 60px;
+}
+
+.related-products h3 {
+font-size: 1.8rem;
+margin-bottom: 30px;
+text-align: center;
+}
+
+.related-products-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 30px;
+}
+
+.related-product-card {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+transition: all 0.3s ease;
+border: 1px solid rgba(255, 255, 255, 0.1);
+cursor: pointer;
+}
+
+.related-product-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+}
+
+.related-product-image {
+width: 100%;
+height: 180px;
+object-fit: cover;
+}
+
+.related-product-content {
+padding: 20px;
+}
+
+.related-product-category {
+display: inline-block;
+padding: 4px 8px;
+background: rgba(99, 102, 241, 0.2);
+color: var(--primary);
+border-radius: 5px;
+font-size: 0.8rem;
+margin-bottom: 8px;
+}
+
+.related-product-title {
+font-size: 1.1rem;
+margin-bottom: 8px;
+}
+
+.related-product-price {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.related-product-current-price {
+font-size: 1.2rem;
+font-weight: 700;
+}
+
+.related-product-original-price {
+font-size: 0.9rem;
+color: var(--text-dim);
+text-decoration: line-through;
+}
+
 /* Tabs */
 .tabs {
 display: flex;
@@ -1834,6 +2098,18 @@ grid-template-columns: repeat(2, 1fr);
 .contact-container {
 grid-template-columns: 1fr;
 }
+
+.product-details {
+grid-template-columns: 1fr;
+}
+
+.product-header {
+flex-direction: column;
+}
+
+.product-image {
+height: 300px;
+}
 }
 
 @media (max-width: 768px) {
@@ -1875,6 +2151,14 @@ height: 200px;
 .auth-container {
 width: 90%;
 max-height: 95vh;
+}
+
+.product-actions {
+flex-direction: column;
+}
+
+.related-products-grid {
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 }
 </style>
@@ -1983,7 +2267,7 @@ max-height: 95vh;
 <span class="deal-current-price">$59.99</span>
 <span class="deal-original-price">$99.99</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="1">View Deal</button>
 </div>
 </div>
 </div>
@@ -2001,7 +2285,7 @@ max-height: 95vh;
 <span class="deal-current-price">$129.99</span>
 <span class="deal-original-price">$199.99</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="2">View Deal</button>
 </div>
 </div>
 </div>
@@ -2019,7 +2303,7 @@ max-height: 95vh;
 <span class="deal-current-price">$24.99</span>
 <span class="deal-original-price">$49.99</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="3">View Deal</button>
 </div>
 </div>
 </div>
@@ -2346,7 +2630,7 @@ max-height: 95vh;
 <span class="deal-original-price">$129.99</span>
 <span class="deal-discount">-38%</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="4">View Deal</button>
 </div>
 </div>
 </div>
@@ -2363,7 +2647,7 @@ max-height: 95vh;
 <span class="deal-original-price">$89.99</span>
 <span class="deal-discount">-44%</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="5">View Deal</button>
 </div>
 </div>
 </div>
@@ -2380,7 +2664,7 @@ max-height: 95vh;
 <span class="deal-original-price">$149.99</span>
 <span class="deal-discount">-40%</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="6">View Deal</button>
 </div>
 </div>
 </div>
@@ -2397,7 +2681,7 @@ max-height: 95vh;
 <span class="deal-original-price">$49.99</span>
 <span class="deal-discount">-40%</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="7">View Deal</button>
 </div>
 </div>
 </div>
@@ -2414,7 +2698,7 @@ max-height: 95vh;
 <span class="deal-original-price">$34.99</span>
 <span class="deal-discount">-43%</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="8">View Deal</button>
 </div>
 </div>
 </div>
@@ -2431,7 +2715,7 @@ max-height: 95vh;
 <span class="deal-original-price">$69.99</span>
 <span class="deal-discount">-43%</span>
 </div>
-<button class="deal-btn">View Deal</button>
+<button class="deal-btn view-deal-btn" data-product-id="9">View Deal</button>
 </div>
 </div>
 </div>
@@ -2445,6 +2729,120 @@ max-height: 95vh;
 <button class="page-btn">4</button>
 <button class="page-btn">5</button>
 <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Product Detail Page -->
+<div class="page" id="product">
+<section class="section">
+<div class="container">
+<div class="product-detail">
+<div class="product-header">
+<div class="product-image-container">
+<img id="productImage" src="" alt="" class="product-image">
+<div id="productBadge" class="product-badge"></div>
+</div>
+<div class="product-info">
+<div id="productCategory" class="product-category"></div>
+<h1 id="productTitle" class="product-title"></h1>
+<p id="productDescription" class="product-description"></p>
+<div class="product-price">
+<span id="productCurrentPrice" class="product-current-price"></span>
+<span id="productOriginalPrice" class="product-original-price"></span>
+<span id="productDiscount" class="product-discount"></span>
+</div>
+<div class="product-actions">
+<a id="productBuyLink" href="#" target="_blank" class="product-buy-btn">Buy Now</a>
+<button id="productSaveBtn" class="product-save-btn">Save for Later</button>
+</div>
+</div>
+</div>
+
+<div class="product-details">
+<div class="product-features">
+<h3>Key Features</h3>
+<ul id="productFeatures"></ul>
+</div>
+<div class="product-specifications">
+<h3>Specifications</h3>
+<ul id="productSpecifications"></ul>
+</div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="description">Description</button>
+<button class="tab" data-tab="reviews">Reviews</button>
+<button class="tab" data-tab="shipping">Shipping</button>
+</div>
+
+<div class="tab-content active" id="description-tab">
+<p id="fullProductDescription"></p>
+</div>
+<div class="tab-content" id="reviews-tab">
+<div class="reviews-container">
+<div class="review">
+<div class="review-header">
+<div class="reviewer-info">
+<img src="https://picsum.photos/seed/reviewer1/50/50.jpg" alt="Reviewer" class="reviewer-avatar">
+<div>
+<h4 class="reviewer-name">John Smith</h4>
+<div class="review-date">Posted on March 15, 2023</div>
+</div>
+</div>
+<div class="review-rating">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+</div>
+</div>
+<div class="review-content">
+<p>This product exceeded my expectations. The quality is outstanding and the price was unbeatable. I highly recommend it to anyone looking for a reliable solution.</p>
+</div>
+</div>
+<div class="review">
+<div class="review-header">
+<div class="reviewer-info">
+<img src="https://picsum.photos/seed/reviewer2/50/50.jpg" alt="Reviewer" class="reviewer-avatar">
+<div>
+<h4 class="reviewer-name">Sarah Johnson</h4>
+<div class="review-date">Posted on March 10, 2023</div>
+</div>
+</div>
+<div class="review-rating">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="far fa-star"></i>
+</div>
+</div>
+<div class="review-content">
+<p>Good product overall. It does what it's supposed to do, but I had some issues with the setup process. Once I got it working, it's been great.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-content" id="shipping-tab">
+<div class="shipping-info">
+<h4>Shipping Information</h4>
+<p>We offer free shipping on all orders over $50. Standard shipping takes 3-5 business days, while express shipping takes 1-2 business days.</p>
+<h4>Return Policy</h4>
+<p>We offer a 30-day money-back guarantee on all products. If you're not satisfied with your purchase, simply return it for a full refund.</p>
+<h4>Customer Support</h4>
+<p>Our customer support team is available 24/7 to assist you with any questions or concerns you may have.</p>
+</div>
+</div>
+
+<div class="related-products">
+<h3>Related Products</h3>
+<div class="related-products-grid" id="relatedProductsGrid">
+<!-- Related products will be dynamically loaded here -->
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -3011,6 +3409,262 @@ Google
 </footer>
 
 <script>
+// Product data
+const products = {
+    1: {
+        title: "Wireless Noise-Canceling Headphones",
+        category: "Electronics",
+        description: "Premium sound quality with active noise cancellation. 30-hour battery life and comfortable fit.",
+        fullDescription: "Premium sound quality with active noise cancellation. 30-hour battery life and comfortable fit. Experience crystal-clear audio with deep bass and crisp highs. These headphones are designed for all-day comfort with soft ear cushions and an adjustable headband. The active noise cancellation technology blocks out ambient noise, allowing you to focus on your music or calls. With a battery life of up to 30 hours, you can enjoy uninterrupted listening throughout the day. The Bluetooth 5.0 connectivity ensures a stable connection with your devices, and the quick charge feature gives you hours of playback with just a few minutes of charging.",
+        currentPrice: "$59.99",
+        originalPrice: "$99.99",
+        discount: "-40%",
+        image: "https://picsum.photos/seed/deal1/600/600.jpg",
+        affiliateLink: "https://example.com/product1",
+        features: [
+            "Active noise cancellation",
+            "30-hour battery life",
+            "Comfortable over-ear design",
+            "High-resolution audio",
+            "Bluetooth 5.0 connectivity"
+        ],
+        specifications: [
+            "Driver Size: 40mm",
+            "Frequency Response: 20Hz - 20kHz",
+            "Impedance: 32 Ohms",
+            "Battery Life: 30 hours (ANC off), 25 hours (ANC on)",
+            "Charging Time: 2 hours (full), 15 minutes (3 hours playback)",
+            "Bluetooth Version: 5.0",
+            "Weight: 250g",
+            "Included: Headphones, carrying case, audio cable, USB charging cable"
+        ]
+    },
+    2: {
+        title: "Smart Fitness Watch",
+        category: "Electronics",
+        description: "Track your health and fitness with this advanced smartwatch. Heart rate monitor, GPS, and 7-day battery life.",
+        fullDescription: "Track your health and fitness with this advanced smartwatch. Heart rate monitor, GPS, and 7-day battery life. This smartwatch is designed to be your perfect fitness companion, tracking your steps, distance, calories burned, and sleep quality. The built-in GPS allows you to accurately track your outdoor activities without needing your phone. With a heart rate monitor and multiple workout modes, you can get real-time data about your performance. The 7-day battery life ensures you can wear it all week without needing to charge it.",
+        currentPrice: "$129.99",
+        originalPrice: "$199.99",
+        discount: "-35%",
+        image: "https://picsum.photos/seed/deal2/600/600.jpg",
+        affiliateLink: "https://example.com/product2",
+        features: [
+            "Heart rate monitoring",
+            "Built-in GPS",
+            "7-day battery life",
+            "Water resistant up to 50m",
+            "Multiple workout modes"
+        ],
+        specifications: [
+            "Display: 1.3-inch AMOLED",
+            "Battery: 410mAh",
+            "Compatibility: Android 6.0+, iOS 10.0+",
+            "Sensors: Accelerometer, Gyroscope, Heart rate, GPS",
+            "Water Resistance: 5ATM (50 meters)",
+            "Battery Life: Up to 7 days",
+            "Charging Time: 2 hours",
+            "Included: Watch, magnetic charging cable, quick start guide"
+        ]
+    },
+    3: {
+        title: "Adjustable Laptop Stand",
+        category: "Accessories",
+        description: "Ergonomic aluminum laptop stand with adjustable height and angle. Compatible with all laptop sizes.",
+        fullDescription: "Ergonomic aluminum laptop stand with adjustable height and angle. Compatible with all laptop sizes. This laptop stand is designed to improve your posture and reduce neck and back strain while working. The adjustable height and angle allow you to customize your viewing position for maximum comfort. Made from high-quality aluminum, it's both lightweight and durable, providing excellent stability for your laptop. The open design improves airflow to keep your laptop cool during extended use.",
+        currentPrice: "$24.99",
+        originalPrice: "$49.99",
+        discount: "-50%",
+        image: "https://picsum.photos/seed/deal3/600/600.jpg",
+        affiliateLink: "https://example.com/product3",
+        features: [
+            "Adjustable height and angle",
+            "Ergonomic design",
+            "Aluminum construction",
+            "Improves airflow",
+            "Compatible with all laptop sizes"
+        ],
+        specifications: [
+            "Material: Aluminum alloy",
+            "Weight: 1.2kg",
+            "Adjustable Height: 15-45cm",
+            "Adjustable Angle: 0-45 degrees",
+            "Max Load: 10kg",
+            "Compatible: All laptops from 10 to 17 inches",
+            "Non-slip silicone pads",
+            "Foldable for easy storage"
+        ]
+    },
+    4: {
+        title: "Premium Wireless Earbuds",
+        category: "Electronics",
+        description: "High-quality sound with active noise cancellation. 24-hour battery life and IPX7 water resistance.",
+        fullDescription: "High-quality sound with active noise cancellation. 24-hour battery life and IPX7 water resistance. These wireless earbuds deliver exceptional audio quality with deep bass and clear highs. The active noise cancellation feature blocks out ambient noise, allowing you to focus on your music or calls. With a total battery life of 24 hours (including the charging case), you can enjoy uninterrupted listening throughout the day. The IPX7 water resistance makes them perfect for workouts and outdoor activities.",
+        currentPrice: "$79.99",
+        originalPrice: "$129.99",
+        discount: "-38%",
+        image: "https://picsum.photos/seed/deal4/600/600.jpg",
+        affiliateLink: "https://example.com/product4",
+        features: [
+            "Active noise cancellation",
+            "24-hour battery life",
+            "IPX7 water resistance",
+            "Touch controls",
+            "Wireless charging case"
+        ],
+        specifications: [
+            "Driver: 11mm dynamic",
+            "Frequency Response: 20Hz - 20kHz",
+            "Battery Life: 6 hours (earbuds) + 18 hours (case)",
+            "Charging Time: 1.5 hours (case), 1 hour (earbuds)",
+            "Connectivity: Bluetooth 5.2",
+            "Water Resistance: IPX7",
+            "Weight: 5g per earbud",
+            "Included: Earbuds, charging case, ear tips, USB-C cable"
+        ]
+    },
+    5: {
+        title: "Men's Running Shoes",
+        category: "Fashion",
+        description: "Lightweight and breathable running shoes with advanced cushioning technology for maximum comfort.",
+        fullDescription: "Lightweight and breathable running shoes with advanced cushioning technology for maximum comfort. These running shoes are designed to provide the perfect balance of comfort and performance. The lightweight construction reduces fatigue during long runs, while the breathable upper keeps your feet cool and dry. The advanced cushioning technology absorbs impact and provides excellent energy return, helping you run faster and longer.",
+        currentPrice: "$49.99",
+        originalPrice: "$89.99",
+        discount: "-44%",
+        image: "https://picsum.photos/seed/deal5/600/600.jpg",
+        affiliateLink: "https://example.com/product5",
+        features: [
+            "Lightweight construction",
+            "Breathable upper",
+            "Advanced cushioning",
+            "Durable outsole",
+            "Secure fit"
+        ],
+        specifications: [
+            "Upper: Mesh and synthetic materials",
+            "Midsole: Advanced cushioning foam",
+            "Outsole: Durable rubber with flex grooves",
+            "Weight: 280g (size 9)",
+            "Drop: 8mm",
+            "Available in multiple colors",
+            "Sizes: 7-13 (US)",
+            "Included: Shoes, extra laces"
+        ]
+    },
+    6: {
+        title: "Smart Home Thermostat",
+        category: "Home & Garden",
+        description: "Control your home temperature from anywhere. Save energy with smart scheduling and geofencing.",
+        fullDescription: "Control your home temperature from anywhere. Save energy with smart scheduling and geofencing. This smart thermostat makes it easy to control your home's heating and cooling from your smartphone or tablet. The smart scheduling feature learns your preferences and automatically adjusts the temperature for maximum comfort and energy savings. With geofencing, the thermostat can detect when you're away and adjust the temperature to save energy, then restore your preferred settings when you return.",
+        currentPrice: "$89.99",
+        originalPrice: "$149.99",
+        discount: "-40%",
+        image: "https://picsum.photos/seed/deal6/600/600.jpg",
+        affiliateLink: "https://example.com/product6",
+        features: [
+            "Remote control via app",
+            "Smart scheduling",
+            "Geofencing",
+            "Energy saving",
+            "Easy installation"
+        ],
+        specifications: [
+            "Compatibility: Most HVAC systems",
+            "Power: 24V AC, C-wire required",
+            "Display: Full-color touchscreen",
+            "Connectivity: Wi-Fi",
+            "App Support: iOS and Android",
+            "Dimensions: 3.3\" x 3.3\" x 1.1\"",
+            "Weight: 6.7 oz",
+            "Included: Thermostat, mounting hardware, quick start guide"
+        ]
+    },
+    7: {
+        title: "Premium Yoga Mat",
+        category: "Fitness",
+        description: "Extra thick, non-slip yoga mat with alignment lines. Includes carrying strap and cleaning spray.",
+        fullDescription: "Extra thick, non-slip yoga mat with alignment lines. Includes carrying strap and cleaning spray. This premium yoga mat provides excellent cushioning and support for all types of yoga and exercise. The extra-thick design protects your joints during floor exercises, while the non-slip surface ensures stability even during the most challenging poses. The alignment lines help you maintain proper form and positioning. The included carrying strap makes it easy to transport your mat to and from class, and the cleaning spray keeps it fresh and hygienic.",
+        currentPrice: "$29.99",
+        originalPrice: "$49.99",
+        discount: "-40%",
+        image: "https://picsum.photos/seed/deal7/600/600.jpg",
+        affiliateLink: "https://example.com/product7",
+        features: [
+            "Extra thick for joint protection",
+            "Non-slip surface",
+            "Alignment lines for proper form",
+            "Includes carrying strap",
+            "Comes with cleaning spray"
+        ],
+        specifications: [
+            "Material: High-density TPE",
+            "Thickness: 6mm",
+            "Size: 72\" x 24\"",
+            "Weight: 2.5 lbs",
+            "Alignment Lines: Center and 45-degree lines",
+            "Carrying Strap: Adjustable shoulder strap",
+            "Cleaning Spray: Natural, eco-friendly formula",
+            "Care: Wipe clean with damp cloth"
+        ]
+    },
+    8: {
+        title: "Healthy Cooking Cookbook",
+        category: "Books",
+        description: "200+ delicious and healthy recipes with step-by-step instructions and nutritional information.",
+        fullDescription: "200+ delicious and healthy recipes with step-by-step instructions and nutritional information. This comprehensive cookbook is packed with nutritious and delicious recipes that make healthy eating easy and enjoyable. Each recipe includes detailed step-by-step instructions, full-color photos, and complete nutritional information to help you make informed choices about what you eat. From quick weeknight dinners to impressive weekend meals, this cookbook has something for everyone.",
+        currentPrice: "$19.99",
+        originalPrice: "$34.99",
+        discount: "-43%",
+        image: "https://picsum.photos/seed/deal8/600/600.jpg",
+        affiliateLink: "https://example.com/product8",
+        features: [
+            "200+ healthy recipes",
+            "Step-by-step instructions",
+            "Nutritional information",
+            "Full-color photos",
+            "Variety of dietary options"
+        ],
+        specifications: [
+            "Pages: 320",
+            "Format: Paperback",
+            "Dimensions: 8.5\" x 1\" x 10\"",
+            "Weight: 2.2 lbs",
+            "Publisher: Healthy Living Press",
+            "Language: English",
+            "ISBN-10: 1234567890",
+            "ISBN-13: 978-1234567890"
+        ]
+    },
+    9: {
+        title: "Gaming Mouse with RGB",
+        category: "Gaming",
+        description: "High-precision gaming mouse with customizable RGB lighting and programmable buttons.",
+        fullDescription: "High-precision gaming mouse with customizable RGB lighting and programmable buttons. This gaming mouse is designed for precision and performance, with a high-precision sensor that tracks movement accurately even at high speeds. The customizable RGB lighting allows you to personalize your setup with millions of color options and effects. With programmable buttons, you can customize the mouse to suit your gaming style and preferences, giving you a competitive edge in your favorite games.",
+        currentPrice: "$39.99",
+        originalPrice: "$69.99",
+        discount: "-43%",
+        image: "https://picsum.photos/seed/deal9/600/600.jpg",
+        affiliateLink: "https://example.com/product9",
+        features: [
+            "High-precision sensor",
+            "Customizable RGB lighting",
+            "Programmable buttons",
+            "Ergonomic design",
+            "On-the-fly DPI adjustment"
+        ],
+        specifications: [
+            "Sensor: High-precision optical sensor",
+            "DPI: 16000 adjustable",
+            "Buttons: 8 programmable buttons",
+            "Lighting: RGB with 16.8 million colors",
+            "Connection: Wired USB",
+            "Polling Rate: 1000Hz",
+            "Weight: 105g",
+            "Included: Mouse, user manual"
+        ]
+    }
+};
+
 // Custom Cursor
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
@@ -3041,7 +3695,8 @@ this.routes = {
 'about': 'about',
 'privacy': 'privacy',
 'terms': 'terms',
-'disclosure': 'disclosure'
+'disclosure': 'disclosure',
+'product': 'product'
 };
 this.init();
 }
@@ -3059,6 +3714,13 @@ handleInitialLoad() {
 const path = window.location.pathname;
 if (path === '/' || path === '/index.html') {
 this.navigateTo('home', false);
+} else if (path.startsWith('/product/')) {
+const productId = path.split('/')[2];
+if (productId && products[productId]) {
+this.showProductDetail(productId, false);
+} else {
+this.navigateTo('home', false);
+}
 } else {
 const page = path.replace('/', '');
 if (this.routes[page]) {
@@ -3102,16 +3764,120 @@ history.pushState({ pageId }, '', url);
 window.scrollTo(0, 0);
 }
 
+showProductDetail(productId, updateHistory = true) {
+// Hide all pages
+pages.forEach(page => {
+page.classList.remove('active');
+});
+
+// Show product page
+const productPage = document.getElementById('product');
+if (productPage) {
+productPage.classList.add('active');
+this.populateProductDetails(productId);
+}
+
+// Update browser history
+if (updateHistory) {
+const url = `/product/${productId}`;
+history.pushState({ productId }, '', url);
+}
+
+// Scroll to top
+window.scrollTo(0, 0);
+}
+
+populateProductDetails(productId) {
+const product = products[productId];
+if (!product) return;
+
+// Update product details
+document.getElementById('productImage').src = product.image;
+document.getElementById('productImage').alt = product.title;
+document.getElementById('productBadge').textContent = product.discount;
+document.getElementById('productCategory').textContent = product.category;
+document.getElementById('productTitle').textContent = product.title;
+document.getElementById('productDescription').textContent = product.description;
+document.getElementById('fullProductDescription').textContent = product.fullDescription;
+document.getElementById('productCurrentPrice').textContent = product.currentPrice;
+document.getElementById('productOriginalPrice').textContent = product.originalPrice;
+document.getElementById('productDiscount').textContent = product.discount;
+document.getElementById('productBuyLink').href = product.affiliateLink;
+
+// Update features
+const featuresList = document.getElementById('productFeatures');
+featuresList.innerHTML = '';
+product.features.forEach(feature => {
+const li = document.createElement('li');
+li.textContent = feature;
+featuresList.appendChild(li);
+});
+
+// Update specifications
+const specsList = document.getElementById('productSpecifications');
+specsList.innerHTML = '';
+product.specifications.forEach(spec => {
+const li = document.createElement('li');
+li.innerHTML = `<strong>${spec.split(':')[0]}:</strong> ${spec.split(':').slice(1).join(':')}`;
+specsList.appendChild(li);
+});
+
+// Update related products
+this.updateRelatedProducts(productId);
+}
+
+updateRelatedProducts(currentProductId) {
+const relatedGrid = document.getElementById('relatedProductsGrid');
+relatedGrid.innerHTML = '';
+
+// Get related products (exclude current product)
+const relatedProducts = Object.keys(products)
+.filter(id => id !== currentProductId)
+.slice(0, 4);
+
+relatedProducts.forEach(productId => {
+const product = products[productId];
+const productCard = document.createElement('div');
+productCard.className = 'related-product-card';
+productCard.innerHTML = `
+<img src="${product.image}" alt="${product.title}" class="related-product-image">
+<div class="related-product-content">
+<div class="related-product-category">${product.category}</div>
+<h3 class="related-product-title">${product.title}</h3>
+<div class="related-product-price">
+<span class="related-product-current-price">${product.currentPrice}</span>
+<span class="related-product-original-price">${product.originalPrice}</span>
+</div>
+</div>
+`;
+productCard.addEventListener('click', () => {
+this.showProductDetail(productId);
+});
+relatedGrid.appendChild(productCard);
+});
+}
+
 handleRouteChange() {
 const path = window.location.pathname;
+if (path === '/' || path === '/index.html') {
+this.navigateTo('home', false);
+} else if (path.startsWith('/product/')) {
+const productId = path.split('/')[2];
+if (productId && products[productId]) {
+this.showProductDetail(productId, false);
+} else {
+this.navigateTo('home', false);
+}
+} else {
 let pageId = 'home';
-if (path !== '/' && path !== '/index.html') {
+if (path !== '/') {
 pageId = path.replace('/', '');
 if (!this.routes[pageId]) {
 pageId = 'home';
 }
 }
 this.navigateTo(pageId, false);
+}
 }
 }
 
@@ -3356,9 +4122,12 @@ router.navigateTo('home');
 });
 
 // Deal Buttons
-document.querySelectorAll('.deal-btn').forEach(btn => {
+document.querySelectorAll('.view-deal-btn').forEach(btn => {
 btn.addEventListener('click', () => {
-showNotification('Redirecting...', 'You are being redirected to the deal page.');
+const productId = btn.getAttribute('data-product-id');
+if (productId && products[productId]) {
+router.showProductDetail(productId);
+}
 });
 });
 
@@ -3400,6 +4169,27 @@ btn.addEventListener('click', () => {
 const platform = btn.textContent.trim();
 showNotification('Redirecting...', `You are being redirected to ${platform} for authentication.`);
 });
+});
+
+// Product Page Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+tab.addEventListener('click', () => {
+// Remove active class from all tabs and tab contents
+document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+// Add active class to clicked tab
+tab.classList.add('active');
+    
+// Show corresponding tab content
+const tabId = tab.getAttribute('data-tab');
+document.getElementById(`${tabId}-tab`).classList.add('active');
+});
+});
+
+// Product Save Button
+document.getElementById('productSaveBtn').addEventListener('click', () => {
+showNotification('Saved!', 'This product has been saved to your favorites.');
 });
 </script>
 </body>
