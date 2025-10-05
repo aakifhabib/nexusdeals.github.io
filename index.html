@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="verify-admitad" content="f75ecbf022" />
-<title>NexusDeal - Interactive Affiliate Platform</title>
+<title>Financify - Personal Finance & Productivity Hub</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
@@ -17,6 +16,8 @@
 --card-bg: rgba(30, 41, 59, 0.7);
 --text: #e2e8f0;
 --text-dim: #94a3b8;
+--premium: #f59e0b;
+--premium-gradient: linear-gradient(45deg, #f59e0b, #ef4444);
 }
 
 * {
@@ -285,6 +286,17 @@ transform: translateY(-3px);
 box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
 }
 
+.btn-premium {
+background: var(--premium-gradient);
+color: white;
+border: none;
+}
+
+.btn-premium:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+}
+
 /* Page Container */
 .page {
 display: none;
@@ -313,6 +325,31 @@ transform: translateY(0);
 max-width: 1200px;
 margin: 0 auto;
 padding: 0 20px;
+}
+
+/* Ad Container */
+.ad-container {
+background: rgba(255, 255, 255, 0.05);
+border-radius: 10px;
+padding: 15px;
+margin: 20px 0;
+text-align: center;
+border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.ad-label {
+font-size: 0.8rem;
+color: var(--text-dim);
+margin-bottom: 10px;
+}
+
+.ad-content {
+min-height: 90px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(255, 255, 255, 0.03);
+border-radius: 5px;
 }
 
 /* Hero Section */
@@ -447,6 +484,616 @@ margin-bottom: 20px;
 transform: translateZ(10px);
 }
 
+/* Tool Card */
+.tool-card {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+transition: all 0.3s ease;
+border: 1px solid rgba(255, 255, 255, 0.1);
+overflow: hidden;
+position: relative;
+transform-style: preserve-3d;
+perspective: 1000px;
+cursor: pointer;
+}
+
+.tool-card:hover {
+transform: translateY(-10px) rotateX(5deg);
+box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+}
+
+.tool-card-header {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+}
+
+.tool-icon {
+width: 50px;
+height: 50px;
+background: linear-gradient(45deg, var(--primary), var(--secondary));
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+color: white;
+margin-right: 15px;
+transform: translateZ(20px);
+}
+
+.tool-info h3 {
+font-size: 1.3rem;
+margin-bottom: 5px;
+transform: translateZ(15px);
+}
+
+.tool-info p {
+color: var(--text-dim);
+font-size: 0.9rem;
+transform: translateZ(10px);
+}
+
+.tool-description {
+color: var(--text-dim);
+margin-bottom: 20px;
+transform: translateZ(10px);
+}
+
+.tool-badge {
+position: absolute;
+top: 15px;
+right: 15px;
+padding: 5px 10px;
+background: rgba(245, 158, 11, 0.2);
+color: var(--premium);
+border-radius: 20px;
+font-size: 0.8rem;
+font-weight: 600;
+}
+
+/* Calculator */
+.calculator {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 30px;
+}
+
+.calculator-header {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.calculator-header h3 {
+font-size: 1.5rem;
+margin-bottom: 10px;
+}
+
+.calculator-inputs {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+margin-bottom: 20px;
+}
+
+.calculator-input {
+display: flex;
+flex-direction: column;
+}
+
+.calculator-input label {
+margin-bottom: 5px;
+color: var(--text-dim);
+font-size: 0.9rem;
+}
+
+.calculator-input input {
+padding: 10px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px;
+color: var(--text);
+font-size: 14px;
+outline: none;
+transition: all 0.3s ease;
+}
+
+.calculator-input input:focus {
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.calculator-result {
+background: rgba(99, 102, 241, 0.1);
+border-radius: 10px;
+padding: 15px;
+text-align: center;
+margin-top: 15px;
+}
+
+.calculator-result h4 {
+font-size: 1.2rem;
+margin-bottom: 10px;
+}
+
+.calculator-result-value {
+font-size: 2rem;
+font-weight: 700;
+color: var(--primary);
+}
+
+/* Timer */
+.timer-container {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 30px;
+text-align: center;
+}
+
+.timer-display {
+font-size: 4rem;
+font-weight: 700;
+margin: 20px 0;
+font-family: 'Courier New', monospace;
+}
+
+.timer-controls {
+display: flex;
+justify-content: center;
+gap: 15px;
+}
+
+.timer-btn {
+padding: 10px 20px;
+background: linear-gradient(45deg, var(--primary), var(--secondary));
+color: white;
+border: none;
+border-radius: 30px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.timer-btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+}
+
+.timer-btn.reset {
+background: rgba(239, 68, 68, 0.8);
+}
+
+.timer-btn.reset:hover {
+box-shadow: 0 10px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* Todo List */
+.todo-container {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 30px;
+}
+
+.todo-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.todo-header h3 {
+font-size: 1.5rem;
+}
+
+.todo-input-container {
+display: flex;
+margin-bottom: 20px;
+}
+
+.todo-input {
+flex: 1;
+padding: 12px 15px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px 0 0 8px;
+color: var(--text);
+font-size: 14px;
+outline: none;
+}
+
+.todo-add-btn {
+padding: 0 15px;
+background: linear-gradient(45deg, var(--primary), var(--secondary));
+color: white;
+border: none;
+border-radius: 0 8px 8px 0;
+cursor: pointer;
+}
+
+.todo-list {
+list-style: none;
+}
+
+.todo-item {
+display: flex;
+align-items: center;
+padding: 12px 0;
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.todo-item:last-child {
+border-bottom: none;
+}
+
+.todo-checkbox {
+margin-right: 15px;
+width: 20px;
+height: 20px;
+cursor: pointer;
+}
+
+.todo-text {
+flex: 1;
+}
+
+.todo-text.completed {
+text-decoration: line-through;
+color: var(--text-dim);
+}
+
+.todo-delete {
+color: #ef4444;
+cursor: pointer;
+font-size: 1.2rem;
+}
+
+/* Expense Tracker */
+.expense-tracker {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 30px;
+}
+
+.expense-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.expense-header h3 {
+font-size: 1.5rem;
+}
+
+.expense-summary {
+display: flex;
+justify-content: space-between;
+margin-bottom: 20px;
+}
+
+.expense-summary-item {
+text-align: center;
+}
+
+.expense-summary-item h4 {
+font-size: 0.9rem;
+color: var(--text-dim);
+margin-bottom: 5px;
+}
+
+.expense-summary-item .value {
+font-size: 1.5rem;
+font-weight: 700;
+}
+
+.expense-summary-item.income .value {
+color: #10b981;
+}
+
+.expense-summary-item.expense .value {
+color: #ef4444;
+}
+
+.expense-input-container {
+display: flex;
+margin-bottom: 20px;
+}
+
+.expense-input {
+flex: 1;
+padding: 12px 15px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px 0 0 8px;
+color: var(--text);
+font-size: 14px;
+outline: none;
+}
+
+.expense-add-btn {
+padding: 0 15px;
+background: linear-gradient(45deg, var(--primary), var(--secondary));
+color: white;
+border: none;
+border-radius: 0 8px 8px 0;
+cursor: pointer;
+}
+
+.expense-list {
+max-height: 300px;
+overflow-y: auto;
+}
+
+.expense-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 12px 0;
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.expense-item:last-child {
+border-bottom: none;
+}
+
+.expense-item-info {
+flex: 1;
+}
+
+.expense-item-name {
+font-weight: 600;
+margin-bottom: 3px;
+}
+
+.expense-item-date {
+font-size: 0.8rem;
+color: var(--text-dim);
+}
+
+.expense-item-amount {
+font-weight: 700;
+}
+
+.expense-item-amount.income {
+color: #10b981;
+}
+
+.expense-item-amount.expense {
+color: #ef4444;
+}
+
+.expense-item-delete {
+color: #ef4444;
+cursor: pointer;
+font-size: 1.2rem;
+margin-left: 10px;
+}
+
+/* Habit Tracker */
+.habit-tracker {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 30px;
+}
+
+.habit-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.habit-header h3 {
+font-size: 1.5rem;
+}
+
+.habit-input-container {
+display: flex;
+margin-bottom: 20px;
+}
+
+.habit-input {
+flex: 1;
+padding: 12px 15px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px 0 0 8px;
+color: var(--text);
+font-size: 14px;
+outline: none;
+}
+
+.habit-add-btn {
+padding: 0 15px;
+background: linear-gradient(45deg, var(--primary), var(--secondary));
+color: white;
+border: none;
+border-radius: 0 8px 8px 0;
+cursor: pointer;
+}
+
+.habit-list {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 15px;
+}
+
+.habit-item {
+background: rgba(255, 255, 255, 0.05);
+border-radius: 10px;
+padding: 15px;
+}
+
+.habit-item-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.habit-item-name {
+font-weight: 600;
+}
+
+.habit-item-delete {
+color: #ef4444;
+cursor: pointer;
+font-size: 1rem;
+}
+
+.habit-streak {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.habit-streak i {
+color: var(--premium);
+margin-right: 5px;
+}
+
+.habit-streak span {
+font-size: 0.9rem;
+}
+
+.habit-days {
+display: flex;
+gap: 5px;
+}
+
+.habit-day {
+width: 30px;
+height: 30px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.8rem;
+background: rgba(255, 255, 255, 0.1);
+}
+
+.habit-day.completed {
+background: rgba(16, 185, 129, 0.2);
+color: #10b981;
+}
+
+.habit-day.today {
+border: 2px solid var(--primary);
+}
+
+/* Article Card */
+.article-card {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+transition: all 0.3s ease;
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 20px;
+cursor: pointer;
+}
+
+.article-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+}
+
+.article-image {
+width: 100%;
+height: 180px;
+object-fit: cover;
+}
+
+.article-content {
+padding: 20px;
+}
+
+.article-category {
+display: inline-block;
+padding: 4px 8px;
+background: rgba(99, 102, 241, 0.2);
+color: var(--primary);
+border-radius: 5px;
+font-size: 0.8rem;
+margin-bottom: 8px;
+}
+
+.article-title {
+font-size: 1.3rem;
+margin-bottom: 10px;
+}
+
+.article-excerpt {
+color: var(--text-dim);
+margin-bottom: 15px;
+}
+
+.article-meta {
+display: flex;
+justify-content: space-between;
+color: var(--text-dim);
+font-size: 0.9rem;
+}
+
+/* Premium Promotion */
+.premium-promo {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 40px;
+text-align: center;
+transform-style: preserve-3d;
+perspective: 1000px;
+}
+
+.premium-promo:hover {
+transform: translateY(-5px) rotateX(5deg);
+box-shadow: 0 15px 40px rgba(245, 158, 11, 0.3);
+}
+
+.premium-promo h3 {
+font-size: 1.5rem;
+margin-bottom: 15px;
+background: var(--premium-gradient);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+transform: translateZ(20px);
+}
+
+.premium-promo p {
+color: var(--text-dim);
+margin-bottom: 20px;
+transform: translateZ(15px);
+}
+
 /* Dashboard */
 .dashboard-stats {
 display: grid;
@@ -534,1211 +1181,44 @@ color: #10b981;
 color: #ef4444;
 }
 
-.dashboard-chart {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 25px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-margin-bottom: 40px;
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.chart-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 20px;
-transform: translateZ(20px);
-}
-
-.chart-title {
-font-size: 1.3rem;
-}
-
-.chart-period {
-display: flex;
-gap: 10px;
-}
-
-.period-btn {
-padding: 8px 15px;
-background: transparent;
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 8px;
-color: var(--text-dim);
-cursor: pointer;
-transition: all 0.3s ease;
-}
-
-.period-btn.active {
-background: var(--primary);
-color: white;
-border-color: var(--primary);
-}
-
-.chart-container {
-height: 300px;
-position: relative;
-transform: translateZ(10px);
-}
-
-.chart-bar {
-position: absolute;
-bottom: 0;
-width: 40px;
-background: linear-gradient(to top, var(--primary), var(--secondary));
-border-radius: 5px 5px 0 0;
-transition: all 0.5s ease;
-transform-style: preserve-3d;
-}
-
-.chart-bar:hover {
-transform: scaleY(1.05) rotateX(5deg);
-filter: brightness(1.2);
-}
-
-.chart-label {
-position: absolute;
-bottom: -25px;
-font-size: 0.8rem;
-color: var(--text-dim);
-width: 40px;
-text-align: center;
-}
-
-.activity-feed {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 25px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.activity-header {
-font-size: 1.3rem;
-margin-bottom: 20px;
-transform: translateZ(20px);
-}
-
-.activity-item {
-display: flex;
-align-items: center;
-padding: 15px 0;
-border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.activity-item:hover {
-transform: translateX(5px) rotateY(5deg);
-}
-
-.activity-item:last-child {
-border-bottom: none;
-}
-
-.activity-icon {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-right: 15px;
-font-size: 16px;
-}
-
-.activity-icon.sale {
-background: rgba(16, 185, 129, 0.2);
-color: #10b981;
-}
-
-.activity-icon.subscriber {
-background: rgba(99, 102, 241, 0.2);
-color: var(--primary);
-}
-
-.activity-icon.commission {
-background: rgba(236, 72, 153, 0.2);
-color: var(--accent);
-}
-
-.activity-icon.traffic {
-background: rgba(245, 158, 11, 0.2);
-color: #f59e0b;
-}
-
-.activity-content {
-flex: 1;
-}
-
-.activity-title {
-font-weight: 600;
-margin-bottom: 5px;
-}
-
-.activity-time {
-font-size: 0.8rem;
-color: var(--text-dim);
-}
-
-/* Deals */
-.deals-filters {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 30px;
-flex-wrap: wrap;
-gap: 20px;
-}
-
-.search-box {
-position: relative;
-width: 300px;
-}
-
-.search-box input {
-width: 100%;
-padding: 12px 20px 12px 45px;
-background: var(--card-bg);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 30px;
-color: var(--text);
-font-size: 14px;
-outline: none;
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.search-box input:focus {
-border-color: var(--primary);
-box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-transform: translateZ(10px);
-}
-
-.search-box i {
-position: absolute;
-left: 15px;
-top: 50%;
-transform: translateY(-50%);
-color: var(--text-dim);
-}
-
-.filter-options {
-display: flex;
-gap: 15px;
-}
-
-.filter-select {
-padding: 10px 15px;
-background: var(--card-bg);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 8px;
-color: var(--text);
-outline: none;
-cursor: pointer;
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.filter-select:hover {
-transform: translateZ(5px);
-}
-
-.deal-card {
-display: flex;
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-overflow: hidden;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-transition: all 0.3s ease;
-border: 1px solid rgba(255, 255, 255, 0.1);
-margin-bottom: 20px;
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.deal-card:hover {
-transform: translateY(-5px) rotateX(5deg);
-box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
-}
-
-.deal-image {
-width: 200px;
-height: 200px;
-object-fit: cover;
-transform: translateZ(20px);
-}
-
-.deal-content {
-flex: 1;
-padding: 20px;
-display: flex;
-flex-direction: column;
-transform: translateZ(10px);
-}
-
-.deal-category {
-display: inline-block;
-padding: 5px 10px;
-background: rgba(99, 102, 241, 0.2);
-color: var(--primary);
-border-radius: 5px;
-font-size: 0.8rem;
-margin-bottom: 10px;
-width: fit-content;
-}
-
-.deal-title {
-font-size: 1.3rem;
-margin-bottom: 10px;
-}
-
-.deal-description {
-color: var(--text-dim);
-margin-bottom: 15px;
-flex: 1;
-}
-
-.deal-footer {
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-.deal-price {
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-.deal-current-price {
-font-size: 1.5rem;
-font-weight: 700;
-}
-
-.deal-original-price {
-font-size: 1rem;
-color: var(--text-dim);
-text-decoration: line-through;
-}
-
-.deal-discount {
-padding: 5px 10px;
-background: rgba(236, 72, 153, 0.2);
-color: var(--accent);
-border-radius: 5px;
-font-size: 0.8rem;
-font-weight: 600;
-}
-
-.deal-btn {
-padding: 10px 20px;
-background: linear-gradient(45deg, var(--primary), var(--secondary));
-color: white;
-border: none;
-border-radius: 30px;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.deal-btn:hover {
-transform: translateY(-3px) rotateX(5deg);
-box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
-}
-
-.pagination {
-display: flex;
-justify-content: center;
-margin-top: 40px;
-gap: 10px;
-}
-
-.page-btn {
-width: 40px;
-height: 40px;
-display: flex;
-align-items: center;
-justify-content: center;
-background: var(--card-bg);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 8px;
-color: var(--text);
-cursor: pointer;
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.page-btn:hover {
-background: var(--primary);
-border-color: var(--primary);
-transform: translateZ(10px);
-}
-
-.page-btn.active {
-background: var(--primary);
-border-color: var(--primary);
-}
-
-/* Categories */
-.category-card {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 30px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-transition: all 0.3s ease;
-border: 1px solid rgba(255, 255, 255, 0.1);
-text-align: center;
-cursor: pointer;
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.category-card:hover {
-transform: translateY(-10px) rotateX(5deg);
-box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
-}
-
-.category-icon {
-width: 80px;
-height: 80px;
-background: linear-gradient(45deg, var(--primary), var(--secondary));
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 30px;
-color: white;
-margin: 0 auto 20px;
-transform: translateZ(20px);
-}
-
-.category-name {
-font-size: 1.3rem;
-margin-bottom: 10px;
-transform: translateZ(15px);
-}
-
-.category-count {
-color: var(--text-dim);
-transform: translateZ(10px);
-}
-
-/* Contact */
-.contact-container {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 40px;
-}
-
-.contact-info {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 30px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.contact-info h3 {
-font-size: 1.5rem;
-margin-bottom: 20px;
-transform: translateZ(20px);
-}
-
-.contact-item {
-display: flex;
-align-items: center;
-margin-bottom: 20px;
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.contact-item:hover {
-transform: translateX(5px) rotateY(5deg);
-}
-
-.contact-icon {
-width: 50px;
-height: 50px;
-background: rgba(99, 102, 241, 0.2);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--primary);
-margin-right: 15px;
-font-size: 20px;
-}
-
-.contact-text h4 {
-margin-bottom: 5px;
-}
-
-.contact-text p {
-color: var(--text-dim);
-}
-
-.contact-form {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 30px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.form-group {
-margin-bottom: 20px;
-}
-
-.form-group label {
-display: block;
-margin-bottom: 8px;
-font-weight: 500;
-transform: translateZ(10px);
-}
-
-.form-group input,
-.form-group textarea {
-width: 100%;
-padding: 12px 15px;
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 8px;
-color: var(--text);
-font-size: 14px;
-outline: none;
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-border-color: var(--primary);
-box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-transform: translateZ(10px);
-}
-
-.form-group textarea {
-resize: vertical;
-min-height: 120px;
-}
-
-/* Legal Pages */
-.legal-container {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 40px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.legal-content h2 {
-font-size: 2rem;
-margin-bottom: 20px;
-transform: translateZ(20px);
-}
-
-.legal-content h3 {
-font-size: 1.5rem;
-margin: 30px 0 15px;
-transform: translateZ(15px);
-}
-
-.legal-content p {
-margin-bottom: 15px;
-line-height: 1.6;
-color: var(--text-dim);
-transform: translateZ(10px);
-}
-
-.legal-content ul {
-margin-left: 20px;
-margin-bottom: 15px;
-}
-
-.legal-content li {
-margin-bottom: 10px;
-color: var(--text-dim);
-}
-
-/* About */
-.about-content {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 40px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.about-content h2 {
-font-size: 2rem;
-margin-bottom: 20px;
-transform: translateZ(20px);
-}
-
-.about-content h3 {
-font-size: 1.5rem;
-margin: 30px 0 15px;
-transform: translateZ(15px);
-}
-
-.about-content p {
-margin-bottom: 15px;
-line-height: 1.6;
-color: var(--text-dim);
-transform: translateZ(10px);
-}
-
-.team-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-gap: 30px;
-margin-top: 40px;
-justify-content: center;
-}
-
-.team-member {
-text-align: center;
-transform-style: preserve-3d;
-perspective: 1000px;
-transition: all 0.3s ease;
-max-width: 300px;
-margin: 0 auto;
-}
-
-.team-member:hover {
-transform: translateY(-10px) rotateX(5deg);
-}
-
-.team-member img {
-width: 150px;
-height: 150px;
-border-radius: 50%;
-object-fit: cover;
-margin-bottom: 15px;
-border: 3px solid var(--primary);
-transform: translateZ(20px);
-}
-
-.team-member h4 {
-font-size: 1.2rem;
-margin-bottom: 5px;
-transform: translateZ(15px);
-}
-
-.team-member p {
-color: var(--text-dim);
-transform: translateZ(10px);
-}
-
-/* Product Detail Page */
-.product-detail {
-display: flex;
-flex-direction: column;
-gap: 40px;
-}
-
-.product-header {
-display: flex;
-gap: 40px;
-align-items: flex-start;
-}
-
-.product-image-container {
-flex: 1;
-position: relative;
-}
-
-.product-image {
-width: 100%;
-height: 400px;
-object-fit: cover;
-border-radius: 15px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.product-badge {
-position: absolute;
-top: 20px;
-right: 20px;
-padding: 8px 16px;
-background: var(--accent);
-color: white;
-border-radius: 30px;
-font-weight: 600;
-font-size: 1rem;
-}
-
-.product-info {
-flex: 1;
-}
-
-.product-category {
-display: inline-block;
-padding: 6px 12px;
-background: rgba(99, 102, 241, 0.2);
-color: var(--primary);
-border-radius: 5px;
-font-size: 0.9rem;
-margin-bottom: 15px;
-}
-
-.product-title {
-font-size: 2.2rem;
-margin-bottom: 15px;
-line-height: 1.2;
-}
-
-.product-description {
-font-size: 1.1rem;
-color: var(--text-dim);
-margin-bottom: 25px;
-line-height: 1.6;
-}
-
-.product-price {
-display: flex;
-align-items: center;
-gap: 15px;
-margin-bottom: 30px;
-}
-
-.product-current-price {
-font-size: 2rem;
-font-weight: 700;
-}
-
-.product-original-price {
-font-size: 1.3rem;
-color: var(--text-dim);
-text-decoration: line-through;
-}
-
-.product-discount {
-padding: 6px 12px;
-background: rgba(236, 72, 153, 0.2);
-color: var(--accent);
-border-radius: 5px;
-font-size: 1rem;
-font-weight: 600;
-}
-
-.product-actions {
-display: flex;
-gap: 15px;
-}
-
-.product-buy-btn {
-flex: 1;
-padding: 15px 30px;
-background: linear-gradient(45deg, var(--primary), var(--secondary));
-color: white;
-border: none;
-border-radius: 30px;
-font-weight: 600;
-font-size: 1.1rem;
-cursor: pointer;
-transition: all 0.3s ease;
-}
-
-.product-buy-btn:hover {
-transform: translateY(-3px);
-box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
-}
-
-.product-save-btn {
-padding: 15px 30px;
-background: transparent;
-color: var(--text);
-border: 2px solid var(--primary);
-border-radius: 30px;
-font-weight: 600;
-font-size: 1.1rem;
-cursor: pointer;
-transition: all 0.3s ease;
-}
-
-.product-save-btn:hover {
-background: var(--primary);
-color: white;
-}
-
-.product-details {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 40px;
-}
-
-.product-features, .product-specifications {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-padding: 30px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.product-features h3, .product-specifications h3 {
-font-size: 1.5rem;
-margin-bottom: 20px;
-}
-
-.product-features ul {
-list-style: none;
-}
-
-.product-features li {
-margin-bottom: 12px;
-padding-left: 25px;
-position: relative;
-}
-
-.product-features li::before {
-content: '\f00c';
-font-family: 'Font Awesome 5 Free';
-font-weight: 900;
-position: absolute;
-left: 0;
-top: 0;
-color: var(--primary);
-}
-
-.product-specifications ul {
-list-style: none;
-}
-
-.product-specifications li {
-margin-bottom: 12px;
-display: flex;
-}
-
-.product-specifications li strong {
-flex: 1;
-}
-
-.product-specifications li span {
-flex: 2;
-color: var(--text-dim);
-}
-
-.related-products {
-margin-top: 60px;
-}
-
-.related-products h3 {
-font-size: 1.8rem;
-margin-bottom: 30px;
-text-align: center;
-}
-
-.related-products-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-gap: 30px;
-}
-
-.related-product-card {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 15px;
-overflow: hidden;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-transition: all 0.3s ease;
-border: 1px solid rgba(255, 255, 255, 0.1);
-cursor: pointer;
-}
-
-.related-product-card:hover {
-transform: translateY(-10px);
-box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
-}
-
-.related-product-image {
-width: 100%;
-height: 180px;
-object-fit: cover;
-}
-
-.related-product-content {
-padding: 20px;
-}
-
-.related-product-category {
-display: inline-block;
-padding: 4px 8px;
-background: rgba(99, 102, 241, 0.2);
-color: var(--primary);
-border-radius: 5px;
-font-size: 0.8rem;
-margin-bottom: 8px;
-}
-
-.related-product-title {
-font-size: 1.1rem;
-margin-bottom: 8px;
-}
-
-.related-product-price {
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.related-product-current-price {
-font-size: 1.2rem;
-font-weight: 700;
-}
-
-.related-product-original-price {
-font-size: 0.9rem;
-color: var(--text-dim);
-text-decoration: line-through;
-}
-
-/* Tabs */
-.tabs {
-display: flex;
-border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-margin-bottom: 30px;
-}
-
-.tab {
-padding: 15px 25px;
-background: transparent;
-border: none;
-color: var(--text-dim);
-cursor: pointer;
-position: relative;
-transition: all 0.3s ease;
-font-size: 16px;
-font-weight: 500;
-}
-
-.tab:hover {
-color: var(--text);
-}
-
-.tab.active {
-color: var(--primary);
-}
-
-.tab.active::after {
-content: '';
-position: absolute;
-bottom: -1px;
-left: 0;
-width: 100%;
-height: 3px;
-background: var(--primary);
-}
-
-.tab-content {
-display: none;
-}
-
-.tab-content.active {
-display: block;
-animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Enhanced Auth Modal with Advanced 3D Animation */
-.auth-modal {
+/* Premium Modal */
+.premium-modal {
 position: fixed;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background: rgba(0, 0, 0, 0.7);
+background: rgba(0, 0, 0, 0.8);
 backdrop-filter: blur(5px);
-z-index: 10000;
+z-index: 10001;
 display: flex;
 align-items: center;
 justify-content: center;
 opacity: 0;
 visibility: hidden;
 transition: all 0.3s ease;
-perspective: 1500px;
-overflow-y: auto;
 }
 
-.auth-modal.active {
+.premium-modal.active {
 opacity: 1;
 visibility: visible;
 }
 
-.auth-container {
-width: 450px;
-min-height: 550px;
-max-height: 90vh;
-position: relative;
-transform-style: preserve-3d;
-transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-margin: 20px 0;
-}
-
-.auth-container.flipped {
-transform: rotateY(180deg);
-}
-
-.auth-card {
-position: absolute;
-width: 100%;
-height: 100%;
-backface-visibility: hidden;
+.premium-content {
 background: var(--card-bg);
 backdrop-filter: blur(10px);
 border-radius: 20px;
 padding: 40px;
+max-width: 800px;
+width: 90%;
+position: relative;
 box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 border: 1px solid rgba(255, 255, 255, 0.1);
-overflow: hidden;
-display: flex;
-flex-direction: column;
-}
-
-.auth-card.back {
-transform: rotateY(180deg);
-}
-
-.auth-header {
-text-align: center;
-margin-bottom: 30px;
-position: relative;
-z-index: 2;
-}
-
-.auth-header h2 {
-font-size: 2rem;
-margin-bottom: 10px;
-background: linear-gradient(45deg, var(--primary), var(--accent));
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-}
-
-.auth-header p {
-color: var(--text-dim);
-}
-
-.auth-form {
-flex: 1;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-position: relative;
-z-index: 2;
-overflow-y: auto;
-padding-right: 10px;
-}
-
-/* Custom scrollbar for auth form */
-.auth-form::-webkit-scrollbar {
-width: 6px;
-}
-
-.auth-form::-webkit-scrollbar-track {
-background: rgba(255, 255, 255, 0.05);
-border-radius: 3px;
-}
-
-.auth-form::-webkit-scrollbar-thumb {
-background: rgba(99, 102, 241, 0.3);
-border-radius: 3px;
-}
-
-.auth-form::-webkit-scrollbar-thumb:hover {
-background: rgba(99, 102, 241, 0.5);
-}
-
-.form-group {
-margin-bottom: 25px;
-position: relative;
-}
-
-.form-group label {
-display: block;
-margin-bottom: 10px;
-font-weight: 500;
-color: var(--text);
-transform: translateZ(20px);
-}
-
-.form-group input {
-width: 100%;
-padding: 15px;
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 10px;
-color: var(--text);
-font-size: 16px;
-outline: none;
-transition: all 0.3s ease;
 transform-style: preserve-3d;
-position: relative;
-z-index: 1;
+perspective: 1000px;
 }
 
-.form-group input:focus {
-border-color: var(--primary);
-box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-transform: translateZ(10px);
-}
-
-.form-group input:focus + .input-icon {
-color: var(--primary);
-transform: translateZ(25px) scale(1.1);
-}
-
-.input-icon {
-position: absolute;
-right: 15px;
-top: 50%;
-transform: translateY(-50%);
-color: var(--text-dim);
-transition: all 0.3s ease;
-transform-style: preserve-3d;
-z-index: 2;
-}
-
-.form-options {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 25px;
-transform: translateZ(10px);
-}
-
-.remember-me {
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.remember-me input {
-width: auto;
-}
-
-.forgot-password {
-color: var(--primary);
-text-decoration: none;
-font-size: 14px;
-}
-
-.forgot-password:hover {
-text-decoration: underline;
-}
-
-.auth-submit {
-width: 100%;
-padding: 15px;
-background: linear-gradient(45deg, var(--primary), var(--secondary));
-color: white;
-border: none;
-border-radius: 10px;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.3s ease;
-margin-bottom: 25px;
-transform-style: preserve-3d;
-position: relative;
-overflow: hidden;
-z-index: 1;
-}
-
-.auth-submit:hover {
-transform: translateY(-3px) rotateX(5deg);
-box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4);
-}
-
-.auth-submit::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-transition: all 0.5s ease;
-}
-
-.auth-submit:hover::before {
-left: 100%;
-}
-
-.auth-divider {
-text-align: center;
-margin: 20px 0;
-position: relative;
-transform: translateZ(10px);
-}
-
-.auth-divider::before {
-content: '';
-position: absolute;
-top: 50%;
-left: 0;
-width: 100%;
-height: 1px;
-background: rgba(255, 255, 255, 0.1);
-}
-
-.auth-divider span {
-background: var(--card-bg);
-padding: 0 15px;
-position: relative;
-color: var(--text-dim);
-}
-
-.social-login {
-display: flex;
-gap: 15px;
-transform: translateZ(10px);
-}
-
-.social-btn {
-flex: 1;
-padding: 12px;
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 10px;
-color: var(--text);
-cursor: pointer;
-transition: all 0.3s ease;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-transform-style: preserve-3d;
-}
-
-.social-btn:hover {
-background: rgba(255, 255, 255, 0.1);
-transform: translateY(-3px) rotateX(5deg);
-}
-
-.auth-close {
+.premium-close {
 position: absolute;
 top: 20px;
 right: 20px;
@@ -1756,274 +1236,289 @@ transform-style: preserve-3d;
 z-index: 3;
 }
 
-.auth-close:hover {
+.premium-close:hover {
 background: rgba(255, 255, 255, 0.2);
 transform: rotate(90deg);
 }
 
-.auth-switch {
+.premium-header {
 text-align: center;
-margin-top: 20px;
-transform: translateZ(10px);
-position: relative;
-z-index: 2;
+margin-bottom: 30px;
+transform: translateZ(20px);
 }
 
-.auth-switch p {
+.premium-header h2 {
+font-size: 2.5rem;
+margin-bottom: 15px;
+background: var(--premium-gradient);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.premium-header p {
 color: var(--text-dim);
+font-size: 1.1rem;
 }
 
-.auth-switch a {
-color: var(--primary);
-text-decoration: none;
+.premium-plans {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 30px;
+margin-bottom: 30px;
+}
+
+.plan {
+background: rgba(255, 255, 255, 0.05);
+border-radius: 15px;
+padding: 30px;
+text-align: center;
+transition: all 0.3s ease;
+transform-style: preserve-3d;
+perspective: 1000px;
+border: 1px solid rgba(255, 255, 255, 0.1);
+position: relative;
+}
+
+.plan:hover {
+transform: translateY(-10px) rotateX(5deg);
+box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+}
+
+.plan.featured {
+border: 2px solid var(--premium);
+transform: scale(1.05);
+}
+
+.plan.featured:hover {
+transform: scale(1.05) translateY(-10px) rotateX(5deg);
+}
+
+.plan-badge {
+position: absolute;
+top: -15px;
+left: 50%;
+transform: translateX(-50%);
+background: var(--premium-gradient);
+color: white;
+padding: 5px 15px;
+border-radius: 20px;
+font-size: 0.8rem;
 font-weight: 600;
 }
 
-.auth-switch a:hover {
-text-decoration: underline;
+.plan h3 {
+font-size: 1.8rem;
+margin-bottom: 15px;
 }
 
-/* Advanced 3D Particles for Auth Modal */
-.auth-particles {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-overflow: hidden;
-border-radius: 20px;
-z-index: 1;
-}
-
-.auth-particle {
-position: absolute;
-border-radius: 50%;
-pointer-events: none;
-transform-style: preserve-3d;
-}
-
-.auth-particle.type-1 {
-width: 10px;
-height: 10px;
-background: rgba(99, 102, 241, 0.2);
-animation: float1 20s infinite linear;
-}
-
-.auth-particle.type-2 {
-width: 15px;
-height: 15px;
-background: rgba(139, 92, 246, 0.2);
-animation: float2 25s infinite linear;
-}
-
-.auth-particle.type-3 {
-width: 20px;
-height: 20px;
-background: rgba(236, 72, 153, 0.2);
-animation: float3 30s infinite linear;
-}
-
-.auth-particle.type-4 {
-width: 5px;
-height: 5px;
-background: rgba(99, 102, 241, 0.3);
-animation: float4 15s infinite linear;
-}
-
-@keyframes float1 {
-0% {
-transform: translateY(0) translateX(0) rotate(0deg) translateZ(0);
-opacity: 0;
-}
-10% {
-opacity: 1;
-}
-90% {
-opacity: 1;
-}
-100% {
-transform: translateY(-100vh) translateX(100px) rotate(360deg) translateZ(50px);
-opacity: 0;
-}
-}
-
-@keyframes float2 {
-0% {
-transform: translateY(0) translateX(0) rotate(0deg) translateZ(0);
-opacity: 0;
-}
-10% {
-opacity: 1;
-}
-90% {
-opacity: 1;
-}
-100% {
-transform: translateY(-100vh) translateX(-100px) rotate(-360deg) translateZ(30px);
-opacity: 0;
-}
-}
-
-@keyframes float3 {
-0% {
-transform: translateY(0) translateX(0) rotate(0deg) translateZ(0);
-opacity: 0;
-}
-10% {
-opacity: 1;
-}
-90% {
-opacity: 1;
-}
-100% {
-transform: translateY(-100vh) translateX(50px) rotate(180deg) translateZ(70px);
-opacity: 0;
-}
-}
-
-@keyframes float4 {
-0% {
-transform: translateY(0) translateX(0) rotate(0deg) translateZ(0);
-opacity: 0;
-}
-10% {
-opacity: 1;
-}
-90% {
-opacity: 1;
-}
-100% {
-transform: translateY(-100vh) translateX(-50px) rotate(-180deg) translateZ(20px);
-opacity: 0;
-}
-}
-
-/* 3D Geometric Shapes */
-.auth-shape {
-position: absolute;
-transform-style: preserve-3d;
-animation: rotate3d 30s infinite linear;
-}
-
-.auth-shape.cube {
-width: 50px;
-height: 50px;
-top: 10%;
-left: 10%;
-animation-delay: 0s;
-}
-
-.auth-shape.pyramid {
-width: 0;
-height: 0;
-border-left: 25px solid transparent;
-border-right: 25px solid transparent;
-border-bottom: 50px solid rgba(99, 102, 241, 0.1);
-top: 20%;
-right: 10%;
-animation-delay: 5s;
-}
-
-.auth-shape.sphere {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background: rgba(139, 92, 246, 0.1);
-bottom: 20%;
-left: 15%;
-animation-delay: 10s;
-}
-
-@keyframes rotate3d {
-0% {
-transform: rotateX(0) rotateY(0) rotateZ(0);
-}
-100% {
-transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
-}
-}
-
-/* 3D Input Field Effects */
-.input-3d {
-position: relative;
-transform-style: preserve-3d;
-perspective: 1000px;
-}
-
-.input-3d::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(45deg, var(--primary), var(--secondary));
-border-radius: 10px;
-opacity: 0;
-z-index: -1;
-transition: all 0.3s ease;
-transform: translateZ(-20px);
-}
-
-.input-3d:focus-within::before {
-opacity: 0.1;
-}
-
-/* Footer */
-footer {
-background: rgba(15, 23, 42, 0.8);
-backdrop-filter: blur(10px);
-padding: 50px 0 20px;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer-content {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-gap: 40px;
-margin-bottom: 40px;
-}
-
-.footer-column h3 {
-font-size: 1.2rem;
-margin-bottom: 20px;
-position: relative;
-padding-bottom: 10px;
-}
-
-.footer-column h3::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 0;
-width: 50px;
-height: 2px;
-background: var(--primary);
-}
-
-.footer-column ul {
-list-style: none;
-}
-
-.footer-column ul li {
+.plan .price {
+font-size: 3rem;
+font-weight: 700;
 margin-bottom: 10px;
 }
 
-.footer-column ul li a {
+.plan .price span {
+font-size: 1rem;
 color: var(--text-dim);
-text-decoration: none;
+}
+
+.plan ul {
+list-style: none;
+margin: 25px 0;
+text-align: left;
+}
+
+.plan li {
+margin-bottom: 12px;
+padding-left: 30px;
+position: relative;
+}
+
+.plan li::before {
+content: '\f00c';
+font-family: 'Font Awesome 5 Free';
+font-weight: 900;
+position: absolute;
+left: 0;
+top: 0;
+color: var(--premium);
+}
+
+.plan button {
+width: 100%;
+padding: 15px;
+background: var(--premium-gradient);
+color: white;
+border: none;
+border-radius: 10px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+transform-style: preserve-3d;
+}
+
+.plan button:hover {
+transform: translateY(-3px) rotateX(5deg);
+box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+}
+
+.premium-features {
+background: rgba(255, 255, 255, 0.05);
+border-radius: 15px;
+padding: 30px;
+margin-top: 30px;
+transform: translateZ(10px);
+}
+
+.premium-features h3 {
+font-size: 1.5rem;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.premium-features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 20px;
+}
+
+.premium-feature {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+
+.premium-feature-icon {
+width: 60px;
+height: 60px;
+background: rgba(245, 158, 11, 0.2);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+color: var(--premium);
+margin-bottom: 15px;
+}
+
+.premium-feature h4 {
+font-size: 1.2rem;
+margin-bottom: 10px;
+}
+
+.premium-feature p {
+color: var(--text-dim);
+font-size: 0.9rem;
+}
+
+/* Premium Only Content */
+.premium-only {
+filter: blur(4px);
+pointer-events: none;
+position: relative;
+}
+
+.premium-only::after {
+content: "PREMIUM";
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background: var(--premium-gradient);
+color: white;
+padding: 5px 10px;
+border-radius: 5px;
+font-size: 0.8rem;
+font-weight: bold;
+z-index: 1;
+}
+
+/* Contact Form */
+.contact-form {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 30px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-form h3 {
+font-size: 1.8rem;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.form-group {
+margin-bottom: 20px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 8px;
+font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+width: 100%;
+padding: 12px 15px;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px;
+color: var(--text);
+font-size: 14px;
+outline: none;
 transition: all 0.3s ease;
 }
 
-.footer-column ul li a:hover {
-color: var(--primary);
-padding-left: 5px;
+.form-group input:focus,
+.form-group textarea:focus {
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.footer-bottom {
-text-align: center;
-padding-top: 20px;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
+.form-group textarea {
+resize: vertical;
+min-height: 120px;
+}
+
+/* Legal Pages */
+.legal-container {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 40px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+margin-bottom: 40px;
+}
+
+.legal-content h2 {
+font-size: 2rem;
+margin-bottom: 20px;
+}
+
+.legal-content h3 {
+font-size: 1.5rem;
+margin: 30px 0 15px;
+}
+
+.legal-content p {
+margin-bottom: 15px;
+line-height: 1.6;
+color: var(--text-dim);
+}
+
+.legal-content ul {
+margin-left: 20px;
+margin-bottom: 15px;
+}
+
+.legal-content li {
+margin-bottom: 10px;
 color: var(--text-dim);
 }
 
@@ -2089,26 +1584,72 @@ font-size: 18px;
 transform: translateZ(5px);
 }
 
+/* Footer */
+footer {
+background: rgba(15, 23, 42, 0.8);
+backdrop-filter: blur(10px);
+padding: 50px 0 20px;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 40px;
+margin-bottom: 40px;
+}
+
+.footer-column h3 {
+font-size: 1.2rem;
+margin-bottom: 20px;
+position: relative;
+padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 50px;
+height: 2px;
+background: var(--primary);
+}
+
+.footer-column ul {
+list-style: none;
+}
+
+.footer-column ul li {
+margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+color: var(--text-dim);
+text-decoration: none;
+transition: all 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+color: var(--primary);
+padding-left: 5px;
+}
+
+.footer-bottom {
+text-align: center;
+padding-top: 20px;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+color: var(--text-dim);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
 .dashboard-stats {
 grid-template-columns: repeat(2, 1fr);
 }
 
-.contact-container {
+.premium-plans {
 grid-template-columns: 1fr;
-}
-
-.product-details {
-grid-template-columns: 1fr;
-}
-
-.product-header {
-flex-direction: column;
-}
-
-.product-image {
-height: 300px;
 }
 }
 
@@ -2130,35 +1671,24 @@ flex-direction: column;
 align-items: center;
 }
 
-.deals-filters {
-flex-direction: column;
-align-items: stretch;
+.calculator-inputs {
+grid-template-columns: 1fr;
 }
 
-.search-box {
-width: 100%;
+.timer-display {
+font-size: 3rem;
 }
 
-.deal-card {
-flex-direction: column;
+.premium-content {
+padding: 20px;
 }
 
-.deal-image {
-width: 100%;
-height: 200px;
+.premium-plans {
+gap: 20px;
 }
 
-.auth-container {
-width: 90%;
-max-height: 95vh;
-}
-
-.product-actions {
-flex-direction: column;
-}
-
-.related-products-grid {
-grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+.plan {
+padding: 20px;
 }
 }
 </style>
@@ -2184,20 +1714,23 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
 <!-- Header -->
 <header>
-<div class="logo">NexusDeal</div>
+<div class="logo">Financify</div>
 <nav>
 <ul>
 <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Tools</a></li>
+<li><a href="#" class="nav-link" data-page="articles">Articles</a></li>
 <li><a href="#" class="nav-link" data-page="dashboard">Dashboard</a></li>
-<li><a href="#" class="nav-link" data-page="deals">Deals</a></li>
-<li><a href="#" class="nav-link" data-page="categories">Categories</a></li>
 <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+<li><a href="#" class="nav-link" data-page="privacy">Privacy Policy</a></li>
+<li><a href="#" class="nav-link" data-page="terms">Terms of Service</a></li>
 <li><a href="#" class="nav-link" data-page="about">About</a></li>
 </ul>
 </nav>
 <div class="auth-buttons">
 <button class="btn btn-outline" id="signInBtn">Sign In</button>
 <button class="btn btn-primary" id="signUpBtn">Sign Up</button>
+<button class="btn btn-premium" id="upgradeBtn">Go Premium</button>
 </div>
 </header>
 
@@ -2205,11 +1738,84 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <div class="page active" id="home">
 <section class="hero">
 <div class="container">
-<h1>Discover Amazing Deals</h1>
-<p>Find the best products at unbeatable prices. Our AI-powered platform scans thousands of deals to bring you only the best offers.</p>
+<h1>Master Your Finances & Productivity</h1>
+<p>Free tools and resources to help you save money, track habits, and achieve your goals</p>
 <div class="hero-buttons">
-<button class="btn btn-primary" id="exploreDealsBtn">Explore Deals</button>
-<button class="btn btn-outline" id="viewDashboardBtn">View Dashboard</button>
+<button class="btn btn-primary" id="exploreToolsBtn">Explore Tools</button>
+<button class="btn btn-outline" id="viewDashboardBtn">My Dashboard</button>
+</div>
+</div>
+</section>
+
+<!-- Ad Banner -->
+<div class="ad-container">
+<div class="ad-label">Advertisement</div>
+<div class="ad-content">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+<!-- Homepage Leaderboard -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="XXXXXXXXXX"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>
+
+<section class="section">
+<div class="container">
+<div class="section-title">
+<h2>Popular Tools</h2>
+<p>Try our most popular free tools to improve your finances and productivity</p>
+</div>
+<div class="cards-grid">
+<div class="tool-card" data-tool="budget">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-calculator"></i>
+</div>
+<div class="tool-info">
+<h3>Budget Calculator</h3>
+<p>Plan your monthly budget</p>
+</div>
+</div>
+<div class="tool-description">
+Create a personalized budget based on your income and expenses. Track where your money goes and find opportunities to save.
+</div>
+<span class="tool-badge">FREE</span>
+</div>
+<div class="tool-card" data-tool="expense">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-receipt"></i>
+</div>
+<div class="tool-info">
+<h3>Expense Tracker</h3>
+<p>Track your daily expenses</p>
+</div>
+</div>
+<div class="tool-description">
+Monitor your income and expenses in real-time. Categorize your spending and identify areas where you can cut back.
+</div>
+<span class="tool-badge">FREE</span>
+</div>
+<div class="tool-card" data-tool="pomodoro">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-clock"></i>
+</div>
+<div class="tool-info">
+<h3>Pomodoro Timer</h3>
+<p>Boost your productivity</p>
+</div>
+</div>
+<div class="tool-description">
+Use the Pomodoro Technique to break your work into focused intervals. Stay productive and avoid burnout.
+</div>
+<span class="tool-badge">FREE</span>
+</div>
 </div>
 </div>
 </section>
@@ -2217,95 +1823,86 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <section class="section">
 <div class="container">
 <div class="section-title">
-<h2>Why Choose NexusDeal</h2>
-<p>We provide the best deals with a seamless experience</p>
+<h2>Premium Features</h2>
+<p>Unlock advanced tools to take your finances and productivity to the next level</p>
+</div>
+<div class="cards-grid">
+<div class="tool-card premium-only" data-tool="investment">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-chart-line"></i>
+</div>
+<div class="tool-info">
+<h3>Investment Calculator</h3>
+<p>Plan your investment growth</p>
+</div>
+</div>
+<div class="tool-description">
+Calculate how your investments will grow over time with compound interest. Plan for retirement and other financial goals.
+</div>
+<span class="tool-badge">PREMIUM</span>
+</div>
+<div class="tool-card premium-only" data-tool="networth">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-wallet"></i>
+</div>
+<div class="tool-info">
+<h3>Net Worth Calculator</h3>
+<p>Track your net worth</p>
+</div>
+</div>
+<div class="tool-description">
+Calculate and track your net worth over time. See how your assets and liabilities change and track your financial progress.
+</div>
+<span class="tool-badge">PREMIUM</span>
+</div>
+<div class="tool-card premium-only" data-tool="habit">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-tasks"></i>
+</div>
+<div class="tool-info">
+<h3>Habit Tracker</h3>
+<p>Build better habits</p>
+</div>
+</div>
+<div class="tool-description">
+Track your daily habits and build consistency. Visualize your progress and stay motivated to reach your goals.
+</div>
+<span class="tool-badge">PREMIUM</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="section-title">
+<h2>Why Choose Financify</h2>
+<p>We provide the tools you need to take control of your finances and productivity</p>
 </div>
 <div class="cards-grid">
 <div class="card">
 <div class="card-icon">
-<i class="fas fa-robot"></i>
+<i class="fas fa-dollar-sign"></i>
 </div>
-<h3>AI-Powered</h3>
-<p>Our advanced algorithms analyze thousands of products to find the best deals for you.</p>
+<h3>100% Free</h3>
+<p>All our core tools are completely free to use with no hidden fees or subscriptions required.</p>
 </div>
 <div class="card">
 <div class="card-icon">
 <i class="fas fa-shield-alt"></i>
 </div>
-<h3>Trusted Sources</h3>
-<p>We only partner with reputable retailers to ensure quality and reliability.</p>
+<h3>Secure & Private</h3>
+<p>Your data is stored locally in your browser. We don't collect or share your personal information.</p>
 </div>
 <div class="card">
 <div class="card-icon">
-<i class="fas fa-bolt"></i>
+<i class="fas fa-mobile-alt"></i>
 </div>
-<h3>Real-Time Updates</h3>
-<p>Get instant notifications when new deals become available in your favorite categories.</p>
-</div>
-</div>
-</div>
-</section>
-
-<section class="section">
-<div class="container">
-<div class="section-title">
-<h2>Featured Deals</h2>
-<p>Check out our handpicked deals of the day</p>
-</div>
-<div class="cards-grid">
-<div class="card deal-card">
-<div class="deal-image-container">
-<img src="https://picsum.photos/seed/deal1/300/200.jpg" alt="Wireless Headphones" class="deal-image">
-<div class="deal-discount">-40%</div>
-</div>
-<div class="deal-content">
-<div class="deal-category">Electronics</div>
-<h3 class="deal-title">Wireless Noise-Canceling Headphones</h3>
-<p class="deal-description">Premium sound quality with active noise cancellation. 30-hour battery life and comfortable fit.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$59.99</span>
-<span class="deal-original-price">$99.99</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="1">View Deal</button>
-</div>
-</div>
-</div>
-<div class="card deal-card">
-<div class="deal-image-container">
-<img src="https://picsum.photos/seed/deal2/300/200.jpg" alt="Smart Watch" class="deal-image">
-<div class="deal-discount">-35%</div>
-</div>
-<div class="deal-content">
-<div class="deal-category">Electronics</div>
-<h3 class="deal-title">Smart Fitness Watch</h3>
-<p class="deal-description">Track your health and fitness with this advanced smartwatch. Heart rate monitor, GPS, and 7-day battery life.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$129.99</span>
-<span class="deal-original-price">$199.99</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="2">View Deal</button>
-</div>
-</div>
-</div>
-<div class="card deal-card">
-<div class="deal-image-container">
-<img src="https://picsum.photos/seed/deal3/300/200.jpg" alt="Laptop Stand" class="deal-image">
-<div class="deal-discount">-50%</div>
-</div>
-<div class="deal-content">
-<div class="deal-category">Accessories</div>
-<h3 class="deal-title">Adjustable Laptop Stand</h3>
-<p class="deal-description">Ergonomic aluminum laptop stand with adjustable height and angle. Compatible with all laptop sizes.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$24.99</span>
-<span class="deal-original-price">$49.99</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="3">View Deal</button>
-</div>
-</div>
+<h3>Works Everywhere</h3>
+<p>Access our tools from any device with an internet connection. No downloads or installations needed.</p>
 </div>
 </div>
 </div>
@@ -2314,51 +1911,45 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <section class="section">
 <div class="container">
 <div class="section-title">
-<h2>Popular Categories</h2>
-<p>Explore deals in your favorite categories</p>
+<h2>Recent Articles</h2>
+<p>Learn how to improve your finances and productivity with our latest articles</p>
 </div>
 <div class="cards-grid">
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-laptop"></i>
+<div class="article-card" data-article="1">
+<img src="https://picsum.photos/seed/finance1/600/400.jpg" alt="Budgeting Tips" class="article-image">
+<div class="article-content">
+<div class="article-category">Personal Finance</div>
+<h3 class="article-title">10 Simple Budgeting Tips for Beginners</h3>
+<p class="article-excerpt">Learn how to create a budget that works for you with these easy-to-follow tips and strategies.</p>
+<div class="article-meta">
+<span>5 min read</span>
+<span>May 15, 2023</span>
 </div>
-<h3 class="category-name">Electronics</h3>
-<p class="category-count">245 Deals</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-tshirt"></i>
 </div>
-<h3 class="category-name">Fashion</h3>
-<p class="category-count">189 Deals</p>
+<div class="article-card" data-article="2">
+<img src="https://picsum.photos/seed/productivity1/600/400.jpg" alt="Productivity Hacks" class="article-image">
+<div class="article-content">
+<div class="article-category">Productivity</div>
+<h3 class="article-title">5 Productivity Hacks to Transform Your Workday</h3>
+<p class="article-excerpt">Discover simple yet effective techniques to get more done in less time and reduce stress.</p>
+<div class="article-meta">
+<span>7 min read</span>
+<span>May 10, 2023</span>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-home"></i>
 </div>
-<h3 class="category-name">Home & Garden</h3>
-<p class="category-count">156 Deals</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-dumbbell"></i>
+<div class="article-card" data-article="3">
+<img src="https://picsum.photos/seed/savings1/600/400.jpg" alt="Saving Money" class="article-image">
+<div class="article-content">
+<div class="article-category">Savings</div>
+<h3 class="article-title">How to Save $1,000 in 30 Days</h3>
+<p class="article-excerpt">Follow this practical challenge to build your emergency fund and develop better money habits.</p>
+<div class="article-meta">
+<span>6 min read</span>
+<span>May 5, 2023</span>
 </div>
-<h3 class="category-name">Fitness</h3>
-<p class="category-count">98 Deals</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-book"></i>
-</div>
-<h3 class="category-name">Books</h3>
-<p class="category-count">124 Deals</p>
-</div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-gamepad"></i>
-</div>
-<h3 class="category-name">Gaming</h3>
-<p class="category-count">87 Deals</p>
 </div>
 </div>
 </div>
@@ -2368,19 +1959,19 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <div class="container">
 <div class="section-title">
 <h2>What Our Users Say</h2>
-<p>Join thousands of satisfied customers</p>
+<p>Join thousands of satisfied users who have transformed their finances and productivity</p>
 </div>
 <div class="cards-grid">
 <div class="card">
 <div class="testimonial">
 <div class="testimonial-content">
-<p>"NexusDeal has saved me hundreds of dollars on electronics. The deals are always genuine and the prices are unbeatable!"</p>
+<p>"Financify helped me create a budget that actually works. I've saved over $500 in just two months!"</p>
 </div>
 <div class="testimonial-author">
 <img src="https://picsum.photos/seed/user1/100/100.jpg" alt="User">
 <div>
 <h4>Sarah Johnson</h4>
-<p>Regular Customer</p>
+<p>Teacher</p>
 </div>
 </div>
 </div>
@@ -2388,13 +1979,13 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <div class="card">
 <div class="testimonial">
 <div class="testimonial-content">
-<p>"I love how easy it is to find great deals on NexusDeal. The interface is intuitive and the notifications keep me updated on new offers."</p>
+<p>"The Pomodoro timer has completely changed how I work. I'm more focused and productive than ever before."</p>
 </div>
 <div class="testimonial-author">
 <img src="https://picsum.photos/seed/user2/100/100.jpg" alt="User">
 <div>
 <h4>Michael Chen</h4>
-<p>Tech Enthusiast</p>
+<p>Software Developer</p>
 </div>
 </div>
 </div>
@@ -2402,34 +1993,402 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <div class="card">
 <div class="testimonial">
 <div class="testimonial-content">
-<p>"As a busy mom, NexusDeal helps me save time and money. I can quickly find the best deals on everything my family needs."</p>
+<p>"I love that all the tools are free and easy to use. Financify has become an essential part of my daily routine."</p>
 </div>
 <div class="testimonial-author">
 <img src="https://picsum.photos/seed/user3/100/100.jpg" alt="User">
 <div>
 <h4>Emily Rodriguez</h4>
-<p>Parent & Shopper</p>
-</div>
+<p>Freelancer</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
+</div>
 
+<!-- Tools Page -->
+<div class="page" id="tools">
 <section class="section">
 <div class="container">
 <div class="section-title">
-<h2>Stay Updated</h2>
-<p>Subscribe to our newsletter for the latest deals</p>
+<h2>Financial Tools</h2>
+<p>Take control of your money with these free calculators and trackers</p>
 </div>
-<div class="newsletter">
-<form class="newsletter-form">
-<div class="form-group">
-<input type="email" placeholder="Enter your email address" required>
+
+<div class="calculator">
+<div class="calculator-header">
+<h3>Budget Calculator</h3>
+<p>Plan your monthly budget based on your income and expenses</p>
 </div>
-<button type="submit" class="btn btn-primary">Subscribe</button>
-</form>
+<div class="calculator-inputs">
+<div class="calculator-input">
+<label for="monthly-income">Monthly Income ($)</label>
+<input type="number" id="monthly-income" placeholder="Enter your monthly income">
+</div>
+<div class="calculator-input">
+<label for="housing">Housing ($)</label>
+<input type="number" id="housing" placeholder="Rent, mortgage, utilities">
+</div>
+<div class="calculator-input">
+<label for="transportation">Transportation ($)</label>
+<input type="number" id="transportation" placeholder="Car payment, gas, public transit">
+</div>
+<div class="calculator-input">
+<label for="food">Food ($)</label>
+<input type="number" id="food" placeholder="Groceries, dining out">
+</div>
+<div class="calculator-input">
+<label for="utilities">Utilities ($)</label>
+<input type="number" id="utilities" placeholder="Electricity, water, internet">
+</div>
+<div class="calculator-input">
+<label for="entertainment">Entertainment ($)</label>
+<input type="number" id="entertainment" placeholder="Movies, hobbies, subscriptions">
+</div>
+</div>
+<button class="btn btn-primary" id="calculate-budget">Calculate Budget</button>
+<div class="calculator-result" id="budget-result" style="display: none;">
+<h4>Your Budget Summary</h4>
+<div class="calculator-result-value" id="budget-remaining">$0</div>
+<p>Remaining after expenses</p>
+</div>
+</div>
+
+<div class="calculator">
+<div class="calculator-header">
+<h3>Savings Goal Calculator</h3>
+<p>Calculate how long it will take to reach your savings goal</p>
+</div>
+<div class="calculator-inputs">
+<div class="calculator-input">
+<label for="savings-goal">Savings Goal ($)</label>
+<input type="number" id="savings-goal" placeholder="Enter your savings goal">
+</div>
+<div class="calculator-input">
+<label for="current-savings">Current Savings ($)</label>
+<input type="number" id="current-savings" placeholder="Enter your current savings">
+</div>
+<div class="calculator-input">
+<label for="monthly-contribution">Monthly Contribution ($)</label>
+<input type="number" id="monthly-contribution" placeholder="Enter monthly contribution">
+</div>
+<div class="calculator-input">
+<label for="interest-rate">Annual Interest Rate (%)</label>
+<input type="number" id="interest-rate" placeholder="Enter interest rate" step="0.1">
+</div>
+</div>
+<button class="btn btn-primary" id="calculate-savings">Calculate Savings</button>
+<div class="calculator-result" id="savings-result" style="display: none;">
+<h4>Time to Reach Your Goal</h4>
+<div class="calculator-result-value" id="savings-time">0 months</div>
+<p>With your current contributions</p>
+</div>
+</div>
+
+<div class="calculator">
+<div class="calculator-header">
+<h3>Debt Payoff Calculator</h3>
+<p>Calculate how long it will take to pay off your debt</p>
+</div>
+<div class="calculator-inputs">
+<div class="calculator-input">
+<label for="debt-amount">Debt Amount ($)</label>
+<input type="number" id="debt-amount" placeholder="Enter your total debt">
+</div>
+<div class="calculator-input">
+<label for="interest-rate-debt">Annual Interest Rate (%)</label>
+<input type="number" id="interest-rate-debt" placeholder="Enter interest rate" step="0.1">
+</div>
+<div class="calculator-input">
+<label for="monthly-payment">Monthly Payment ($)</label>
+<input type="number" id="monthly-payment" placeholder="Enter monthly payment">
+</div>
+</div>
+<button class="btn btn-primary" id="calculate-debt">Calculate Debt Payoff</button>
+<div class="calculator-result" id="debt-result" style="display: none;">
+<h4>Debt Payoff Timeline</h4>
+<div class="calculator-result-value" id="debt-time">0 months</div>
+<p>To become debt-free</p>
+</div>
+</div>
+
+<div class="expense-tracker">
+<div class="expense-header">
+<h3>Expense Tracker</h3>
+<p>Track your income and expenses in real-time</p>
+</div>
+<div class="expense-summary">
+<div class="expense-summary-item income">
+<h4>Total Income</h4>
+<div class="value" id="total-income">$0</div>
+</div>
+<div class="expense-summary-item expense">
+<h4>Total Expenses</h4>
+<div class="value" id="total-expenses">$0</div>
+</div>
+<div class="expense-summary-item balance">
+<h4>Balance</h4>
+<div class="value" id="balance">$0</div>
+</div>
+</div>
+<div class="expense-input-container">
+<input type="text" class="expense-input" id="expense-name" placeholder="Description">
+<input type="number" class="expense-input" id="expense-amount" placeholder="Amount">
+<select class="expense-input" id="expense-type">
+<option value="income">Income</option>
+<option value="expense">Expense</option>
+</select>
+<button class="expense-add-btn" id="add-expense">Add</button>
+</div>
+<div class="expense-list" id="expense-list">
+<!-- Expense items will be added here dynamically -->
+</div>
+</div>
+
+<div class="section-title">
+<h2>Premium Tools</h2>
+<p>Unlock advanced features with our premium subscription</p>
+</div>
+
+<div class="calculator premium-only">
+<div class="calculator-header">
+<h3>Investment Calculator</h3>
+<p>Calculate how your investments will grow over time</p>
+</div>
+<div class="calculator-inputs">
+<div class="calculator-input">
+<label for="initial-investment">Initial Investment ($)</label>
+<input type="number" id="initial-investment" placeholder="Enter initial investment">
+</div>
+<div class="calculator-input">
+<label for="monthly-contribution-inv">Monthly Contribution ($)</label>
+<input type="number" id="monthly-contribution-inv" placeholder="Enter monthly contribution">
+</div>
+<div class="calculator-input">
+<label for="annual-return">Annual Return (%)</label>
+<input type="number" id="annual-return" placeholder="Enter annual return" step="0.1">
+</div>
+<div class="calculator-input">
+<label for="investment-years">Years</label>
+<input type="number" id="investment-years" placeholder="Enter number of years">
+</div>
+</div>
+<button class="btn btn-primary" id="calculate-investment">Calculate Investment</button>
+<div class="calculator-result" id="investment-result" style="display: none;">
+<h4>Future Value of Investment</h4>
+<div class="calculator-result-value" id="investment-value">$0</div>
+<p>After the specified period</p>
+</div>
+</div>
+
+<div class="calculator premium-only">
+<div class="calculator-header">
+<h3>Net Worth Calculator</h3>
+<p>Calculate and track your net worth over time</p>
+</div>
+<div class="calculator-inputs">
+<div class="calculator-input">
+<label for="assets">Total Assets ($)</label>
+<input type="number" id="assets" placeholder="Enter total assets">
+</div>
+<div class="calculator-input">
+<label for="liabilities">Total Liabilities ($)</label>
+<input type="number" id="liabilities" placeholder="Enter total liabilities">
+</div>
+</div>
+<button class="btn btn-primary" id="calculate-networth">Calculate Net Worth</button>
+<div class="calculator-result" id="networth-result" style="display: none;">
+<h4>Your Net Worth</h4>
+<div class="calculator-result-value" id="networth-value">$0</div>
+<p>Assets minus liabilities</p>
+</div>
+</div>
+
+<div class="section-title">
+<h2>Productivity Tools</h2>
+<p>Boost your productivity with these free timers and trackers</p>
+</div>
+
+<div class="timer-container">
+<div class="calculator-header">
+<h3>Pomodoro Timer</h3>
+<p>Work in focused 25-minute intervals with 5-minute breaks</p>
+</div>
+<div class="timer-display" id="timer-display">25:00</div>
+<div class="timer-controls">
+<button class="timer-btn" id="start-timer">Start</button>
+<button class="timer-btn" id="pause-timer">Pause</button>
+<button class="timer-btn reset" id="reset-timer">Reset</button>
+</div>
+</div>
+
+<div class="todo-container">
+<div class="todo-header">
+<h3>To-Do List</h3>
+<p>Keep track of your tasks and stay organized</p>
+</div>
+<div class="todo-input-container">
+<input type="text" class="todo-input" id="todo-input" placeholder="Add a new task...">
+<button class="todo-add-btn" id="add-todo">Add</button>
+</div>
+<ul class="todo-list" id="todo-list">
+<!-- Todo items will be added here dynamically -->
+</ul>
+</div>
+
+<div class="habit-tracker premium-only">
+<div class="habit-header">
+<h3>Habit Tracker</h3>
+<p>Track your daily habits and build consistency</p>
+</div>
+<div class="habit-input-container">
+<input type="text" class="habit-input" id="habit-input" placeholder="Add a new habit...">
+<button class="habit-add-btn" id="add-habit">Add</button>
+</div>
+<div class="habit-list" id="habit-list">
+<!-- Habit items will be added here dynamically -->
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Articles Page -->
+<div class="page" id="articles">
+<section class="section">
+<div class="container">
+<div class="section-title">
+<h2>Personal Finance Articles</h2>
+<p>Learn how to manage your money, save more, and build wealth</p>
+</div>
+
+<div class="cards-grid">
+<div class="article-card" data-article="1">
+<img src="https://picsum.photos/seed/finance1/600/400.jpg" alt="Budgeting Tips" class="article-image">
+<div class="article-content">
+<div class="article-category">Personal Finance</div>
+<h3 class="article-title">10 Simple Budgeting Tips for Beginners</h3>
+<p class="article-excerpt">Learn how to create a budget that works for you with these easy-to-follow tips and strategies.</p>
+<div class="article-meta">
+<span>5 min read</span>
+<span>May 15, 2023</span>
+</div>
+</div>
+</div>
+<div class="article-card" data-article="2">
+<img src="https://picsum.photos/seed/finance2/600/400.jpg" alt="Emergency Fund" class="article-image">
+<div class="article-content">
+<div class="article-category">Personal Finance</div>
+<h3 class="article-title">How to Build an Emergency Fund in 6 Months</h3>
+<p class="article-excerpt">An emergency fund is essential for financial security. Here's how to build yours quickly.</p>
+<div class="article-meta">
+<span>8 min read</span>
+<span>May 12, 2023</span>
+</div>
+</div>
+</div>
+<div class="article-card" data-article="3">
+<img src="https://picsum.photos/seed/finance3/600/400.jpg" alt="Debt Reduction" class="article-image">
+<div class="article-content">
+<div class="article-category">Personal Finance</div>
+<h3 class="article-title">5 Strategies to Pay Off Debt Faster</h3>
+<p class="article-excerpt">Tired of being in debt? These strategies can help you become debt-free sooner.</p>
+<div class="article-meta">
+<span>7 min read</span>
+<span>May 8, 2023</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section-title">
+<h2>Investing Articles</h2>
+<p>Learn how to grow your wealth through smart investing</p>
+</div>
+
+<div class="cards-grid">
+<div class="article-card" data-article="4">
+<img src="https://picsum.photos/seed/investing1/600/400.jpg" alt="Investing Basics" class="article-image">
+<div class="article-content">
+<div class="article-category">Investing</div>
+<h3 class="article-title">Investing 101: A Beginner's Guide</h3>
+<p class="article-excerpt">New to investing? This guide covers the basics to help you get started on your investment journey.</p>
+<div class="article-meta">
+<span>10 min read</span>
+<span>May 5, 2023</span>
+</div>
+</div>
+</div>
+<div class="article-card" data-article="5">
+<img src="https://picsum.photos/seed/investing2/600/400.jpg" alt="Retirement Planning" class="article-image">
+<div class="article-content">
+<div class="article-category">Investing</div>
+<h3 class="article-title">Retirement Planning in Your 20s and 30s</h3>
+<p class="article-excerpt">It's never too early to start planning for retirement. Here's how to get started.</p>
+<div class="article-meta">
+<span>12 min read</span>
+<span>May 1, 2023</span>
+</div>
+</div>
+</div>
+<div class="article-card" data-article="6">
+<img src="https://picsum.photos/seed/investing3/600/400.jpg" alt="Index Funds" class="article-image">
+<div class="article-content">
+<div class="article-category">Investing</div>
+<h3 class="article-title">Why Index Funds Are Perfect for Beginners</h3>
+<p class="article-excerpt">Index funds offer a simple, low-cost way to invest in the stock market. Learn why they're ideal for new investors.</p>
+<div class="article-meta">
+<span>8 min read</span>
+<span>April 28, 2023</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section-title">
+<h2>Productivity Articles</h2>
+<p>Learn how to be more productive and achieve your goals</p>
+</div>
+
+<div class="cards-grid">
+<div class="article-card" data-article="7">
+<img src="https://picsum.photos/seed/productivity1/600/400.jpg" alt="Productivity Hacks" class="article-image">
+<div class="article-content">
+<div class="article-category">Productivity</div>
+<h3 class="article-title">5 Productivity Hacks to Transform Your Workday</h3>
+<p class="article-excerpt">Discover simple yet effective techniques to get more done in less time and reduce stress.</p>
+<div class="article-meta">
+<span>7 min read</span>
+<span>May 10, 2023</span>
+</div>
+</div>
+</div>
+<div class="article-card" data-article="8">
+<img src="https://picsum.photos/seed/productivity2/600/400.jpg" alt="Time Management" class="article-image">
+<div class="article-content">
+<div class="article-category">Productivity</div>
+<h3 class="article-title">Mastering Time Management: A Beginner's Guide</h3>
+<p class="article-excerpt">Learn how to manage your time effectively and accomplish more of what matters to you.</p>
+<div class="article-meta">
+<span>10 min read</span>
+<span>May 5, 2023</span>
+</div>
+</div>
+</div>
+<div class="article-card" data-article="9">
+<img src="https://picsum.photos/seed/productivity3/600/400.jpg" alt="Habit Formation" class="article-image">
+<div class="article-content">
+<div class="article-category">Productivity</div>
+<h3 class="article-title">The Science of Building Good Habits</h3>
+<p class="article-excerpt">Understand how habits work and learn practical strategies to build good habits that stick.</p>
+<div class="article-meta">
+<span>9 min read</span>
+<span>May 1, 2023</span>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -2440,507 +2399,195 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <section class="section">
 <div class="container">
 <div class="section-title">
-<h2>Dashboard</h2>
-<p>Monitor your performance and earnings</p>
+<h2>Your Dashboard</h2>
+<p>Track your progress and access your personalized tools</p>
+</div>
+
+<!-- Premium Promotion -->
+<div class="premium-promo">
+<h3>Unlock Premium Features</h3>
+<p>Get advanced tools, personalized insights, and an ad-free experience</p>
+<button class="btn btn-primary" onclick="showPremiumModal()">Upgrade Now</button>
 </div>
 
 <div class="dashboard-stats">
 <div class="stat-card">
 <div class="stat-header">
-<div class="stat-title">Total Visitors</div>
+<div class="stat-title">Budget Progress</div>
 <div class="stat-icon">
-<i class="fas fa-users"></i>
+<i class="fas fa-chart-pie"></i>
 </div>
 </div>
-<div class="stat-value">24,568</div>
+<div class="stat-value">75%</div>
 <div class="stat-change positive">
 <i class="fas fa-arrow-up"></i>
-<span>12.5% from last month</span>
+<span>10% from last month</span>
 </div>
 </div>
 
 <div class="stat-card">
 <div class="stat-header">
-<div class="stat-title">Total Sales</div>
+<div class="stat-title">Savings Rate</div>
 <div class="stat-icon">
-<i class="fas fa-shopping-cart"></i>
+<i class="fas fa-piggy-bank"></i>
 </div>
 </div>
-<div class="stat-value">1,428</div>
+<div class="stat-value">18%</div>
 <div class="stat-change positive">
 <i class="fas fa-arrow-up"></i>
-<span>8.3% from last month</span>
+<span>3% from last month</span>
 </div>
 </div>
 
 <div class="stat-card">
 <div class="stat-header">
-<div class="stat-title">Revenue</div>
+<div class="stat-title">Tasks Completed</div>
 <div class="stat-icon">
-<i class="fas fa-dollar-sign"></i>
+<i class="fas fa-tasks"></i>
 </div>
 </div>
-<div class="stat-value">$42,560</div>
+<div class="stat-value">24</div>
 <div class="stat-change positive">
 <i class="fas fa-arrow-up"></i>
-<span>15.7% from last month</span>
+<span>8 from last week</span>
 </div>
 </div>
 
 <div class="stat-card">
 <div class="stat-header">
-<div class="stat-title">Conversion Rate</div>
+<div class="stat-title">Focus Time</div>
 <div class="stat-icon">
-<i class="fas fa-chart-line"></i>
+<i class="fas fa-clock"></i>
 </div>
 </div>
-<div class="stat-value">5.8%</div>
+<div class="stat-value">12.5h</div>
 <div class="stat-change negative">
 <i class="fas fa-arrow-down"></i>
-<span>2.1% from last month</span>
+<span>2h from last week</span>
 </div>
 </div>
 </div>
 
-<div class="dashboard-chart">
-<div class="chart-header">
-<div class="chart-title">Revenue Overview</div>
-<div class="chart-period">
-<button class="period-btn active">Today</button>
-<button class="period-btn">This Week</button>
-<button class="period-btn">This Month</button>
-<button class="period-btn">This Year</button>
-</div>
-</div>
-<div class="chart-container">
-<div class="chart-bar" style="height: 60%; left: 5%;">
-<div class="chart-label">Mon</div>
-</div>
-<div class="chart-bar" style="height: 80%; left: 15%;">
-<div class="chart-label">Tue</div>
-</div>
-<div class="chart-bar" style="height: 45%; left: 25%;">
-<div class="chart-label">Wed</div>
-</div>
-<div class="chart-bar" style="height: 90%; left: 35%;">
-<div class="chart-label">Thu</div>
-</div>
-<div class="chart-bar" style="height: 75%; left: 45%;">
-<div class="chart-label">Fri</div>
-</div>
-<div class="chart-bar" style="height: 85%; left: 55%;">
-<div class="chart-label">Sat</div>
-</div>
-<div class="chart-bar" style="height: 70%; left: 65%;">
-<div class="chart-label">Sun</div>
-</div>
+<!-- Ad Banner -->
+<div class="ad-container">
+<div class="ad-label">Advertisement</div>
+<div class="ad-content">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+<!-- Dashboard Banner -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="XXXXXXXXXX"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 </div>
 </div>
 
-<div class="activity-feed">
-<div class="activity-header">Recent Activity</div>
-<div class="activity-item">
-<div class="activity-icon sale">
-<i class="fas fa-shopping-bag"></i>
-</div>
-<div class="activity-content">
-<div class="activity-title">New Sale: Wireless Headphones</div>
-<div class="activity-time">2 minutes ago</div>
-</div>
-<div class="activity-value">+$59.99</div>
-</div>
-<div class="activity-item">
-<div class="activity-icon subscriber">
-<i class="fas fa-user-plus"></i>
-</div>
-<div class="activity-content">
-<div class="activity-title">New Subscriber: john@example.com</div>
-<div class="activity-time">15 minutes ago</div>
-</div>
-</div>
-<div class="activity-item">
-<div class="activity-icon commission">
-<i class="fas fa-coins"></i>
-</div>
-<div class="activity-content">
-<div class="activity-title">Commission Received: Smart Watch</div>
-<div class="activity-time">1 hour ago</div>
-</div>
-<div class="activity-value">+$25.99</div>
-</div>
-<div class="activity-item">
-<div class="activity-icon traffic">
-<i class="fas fa-chart-bar"></i>
-</div>
-<div class="activity-content">
-<div class="activity-title">Traffic Spike: Electronics Category</div>
-<div class="activity-time">3 hours ago</div>
-</div>
-<div class="activity-value">+245 visitors</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-
-<!-- Deals Page -->
-<div class="page" id="deals">
-<section class="section">
-<div class="container">
 <div class="section-title">
-<h2>All Deals</h2>
-<p>Browse through our extensive collection of deals</p>
-</div>
-
-<div class="deals-filters">
-<div class="search-box">
-<i class="fas fa-search"></i>
-<input type="text" placeholder="Search for deals...">
-</div>
-<div class="filter-options">
-<select class="filter-select">
-<option>All Categories</option>
-<option>Electronics</option>
-<option>Fashion</option>
-<option>Home & Garden</option>
-<option>Fitness</option>
-<option>Books</option>
-<option>Gaming</option>
-</select>
-<select class="filter-select">
-<option>Sort by: Newest</option>
-<option>Sort by: Price: Low to High</option>
-<option>Sort by: Price: High to Low</option>
-<option>Sort by: Discount %</option>
-<option>Sort by: Popularity</option>
-</select>
-</div>
-</div>
-
-<div class="deals-container">
-<div class="deal-card">
-<img src="https://picsum.photos/seed/deal4/300/200.jpg" alt="Wireless Earbuds" class="deal-image">
-<div class="deal-content">
-<div class="deal-category">Electronics</div>
-<h3 class="deal-title">Premium Wireless Earbuds with Noise Cancellation</h3>
-<p class="deal-description">High-quality sound with active noise cancellation. 24-hour battery life and IPX7 water resistance. Perfect for workouts and daily use.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$79.99</span>
-<span class="deal-original-price">$129.99</span>
-<span class="deal-discount">-38%</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="4">View Deal</button>
-</div>
-</div>
-</div>
-
-<div class="deal-card">
-<img src="https://picsum.photos/seed/deal5/300/200.jpg" alt="Running Shoes" class="deal-image">
-<div class="deal-content">
-<div class="deal-category">Fashion</div>
-<h3 class="deal-title">Men's Running Shoes</h3>
-<p class="deal-description">Lightweight and breathable running shoes with advanced cushioning technology for maximum comfort.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$49.99</span>
-<span class="deal-original-price">$89.99</span>
-<span class="deal-discount">-44%</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="5">View Deal</button>
-</div>
-</div>
-</div>
-
-<div class="deal-card">
-<img src="https://picsum.photos/seed/deal6/300/200.jpg" alt="Smart Thermostat" class="deal-image">
-<div class="deal-content">
-<div class="deal-category">Home & Garden</div>
-<h3 class="deal-title">Smart Home Thermostat</h3>
-<p class="deal-description">Control your home temperature from anywhere. Save energy with smart scheduling and geofencing.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$89.99</span>
-<span class="deal-original-price">$149.99</span>
-<span class="deal-discount">-40%</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="6">View Deal</button>
-</div>
-</div>
-</div>
-
-<div class="deal-card">
-<img src="https://picsum.photos/seed/deal7/300/200.jpg" alt="Yoga Mat" class="deal-image">
-<div class="deal-content">
-<div class="deal-category">Fitness</div>
-<h3 class="deal-title">Premium Yoga Mat</h3>
-<p class="deal-description">Extra thick, non-slip yoga mat with alignment lines. Includes carrying strap and cleaning spray.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$29.99</span>
-<span class="deal-original-price">$49.99</span>
-<span class="deal-discount">-40%</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="7">View Deal</button>
-</div>
-</div>
-</div>
-
-<div class="deal-card">
-<img src="https://picsum.photos/seed/deal8/300/200.jpg" alt="Cookbook" class="deal-image">
-<div class="deal-content">
-<div class="deal-category">Books</div>
-<h3 class="deal-title">Healthy Cooking Cookbook</h3>
-<p class="deal-description">200+ delicious and healthy recipes with step-by-step instructions and nutritional information.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$19.99</span>
-<span class="deal-original-price">$34.99</span>
-<span class="deal-discount">-43%</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="8">View Deal</button>
-</div>
-</div>
-</div>
-
-<div class="deal-card">
-<img src="https://picsum.photos/seed/deal9/300/200.jpg" alt="Gaming Mouse" class="deal-image">
-<div class="deal-content">
-<div class="deal-category">Gaming</div>
-<h3 class="deal-title">Gaming Mouse with RGB</h3>
-<p class="deal-description">High-precision gaming mouse with customizable RGB lighting and programmable buttons.</p>
-<div class="deal-footer">
-<div class="deal-price">
-<span class="deal-current-price">$39.99</span>
-<span class="deal-original-price">$69.99</span>
-<span class="deal-discount">-43%</span>
-</div>
-<button class="deal-btn view-deal-btn" data-product-id="9">View Deal</button>
-</div>
-</div>
-</div>
-</div>
-
-<div class="pagination">
-<button class="page-btn"><i class="fas fa-chevron-left"></i></button>
-<button class="page-btn active">1</button>
-<button class="page-btn">2</button>
-<button class="page-btn">3</button>
-<button class="page-btn">4</button>
-<button class="page-btn">5</button>
-<button class="page-btn"><i class="fas fa-chevron-right"></i></button>
-</div>
-</div>
-</section>
-</div>
-
-<!-- Product Detail Page -->
-<div class="page" id="product">
-<section class="section">
-<div class="container">
-<div class="product-detail">
-<div class="product-header">
-<div class="product-image-container">
-<img id="productImage" src="" alt="" class="product-image">
-<div id="productBadge" class="product-badge"></div>
-</div>
-<div class="product-info">
-<div id="productCategory" class="product-category"></div>
-<h1 id="productTitle" class="product-title"></h1>
-<p id="productDescription" class="product-description"></p>
-<div class="product-price">
-<span id="productCurrentPrice" class="product-current-price"></span>
-<span id="productOriginalPrice" class="product-original-price"></span>
-<span id="productDiscount" class="product-discount"></span>
-</div>
-<div class="product-actions">
-<a id="productBuyLink" href="#" target="_blank" class="product-buy-btn">Buy Now</a>
-<button id="productSaveBtn" class="product-save-btn">Save for Later</button>
-</div>
-</div>
-</div>
-
-<div class="product-details">
-<div class="product-features">
-<h3>Key Features</h3>
-<ul id="productFeatures"></ul>
-</div>
-<div class="product-specifications">
-<h3>Specifications</h3>
-<ul id="productSpecifications"></ul>
-</div>
-</div>
-
-<div class="tabs">
-<button class="tab active" data-tab="description">Description</button>
-<button class="tab" data-tab="reviews">Reviews</button>
-<button class="tab" data-tab="shipping">Shipping</button>
-</div>
-
-<div class="tab-content active" id="description-tab">
-<p id="fullProductDescription"></p>
-</div>
-<div class="tab-content" id="reviews-tab">
-<div class="reviews-container">
-<div class="review">
-<div class="review-header">
-<div class="reviewer-info">
-<img src="https://picsum.photos/seed/reviewer1/50/50.jpg" alt="Reviewer" class="reviewer-avatar">
-<div>
-<h4 class="reviewer-name">John Smith</h4>
-<div class="review-date">Posted on March 15, 2023</div>
-</div>
-</div>
-<div class="review-rating">
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-</div>
-</div>
-<div class="review-content">
-<p>This product exceeded my expectations. The quality is outstanding and the price was unbeatable. I highly recommend it to anyone looking for a reliable solution.</p>
-</div>
-</div>
-<div class="review">
-<div class="review-header">
-<div class="reviewer-info">
-<img src="https://picsum.photos/seed/reviewer2/50/50.jpg" alt="Reviewer" class="reviewer-avatar">
-<div>
-<h4 class="reviewer-name">Sarah Johnson</h4>
-<div class="review-date">Posted on March 10, 2023</div>
-</div>
-</div>
-<div class="review-rating">
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="fas fa-star"></i>
-<i class="far fa-star"></i>
-</div>
-</div>
-<div class="review-content">
-<p>Good product overall. It does what it's supposed to do, but I had some issues with the setup process. Once I got it working, it's been great.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="tab-content" id="shipping-tab">
-<div class="shipping-info">
-<h4>Shipping Information</h4>
-<p>We offer free shipping on all orders over $50. Standard shipping takes 3-5 business days, while express shipping takes 1-2 business days.</p>
-<h4>Return Policy</h4>
-<p>We offer a 30-day money-back guarantee on all products. If you're not satisfied with your purchase, simply return it for a full refund.</p>
-<h4>Customer Support</h4>
-<p>Our customer support team is available 24/7 to assist you with any questions or concerns you may have.</p>
-</div>
-</div>
-
-<div class="related-products">
-<h3>Related Products</h3>
-<div class="related-products-grid" id="relatedProductsGrid">
-<!-- Related products will be dynamically loaded here -->
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-
-<!-- Categories Page -->
-<div class="page" id="categories">
-<section class="section">
-<div class="container">
-<div class="section-title">
-<h2>All Categories</h2>
-<p>Browse deals by category</p>
+<h2>Quick Tools</h2>
+<p>Access your most frequently used tools</p>
 </div>
 
 <div class="cards-grid">
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-laptop"></i>
+<div class="tool-card" data-tool="budget">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-calculator"></i>
 </div>
-<h3 class="category-name">Electronics</h3>
-<p class="category-count">245 Deals</p>
+<div class="tool-info">
+<h3>Budget Calculator</h3>
+<p>Plan your monthly budget</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-tshirt"></i>
 </div>
-<h3 class="category-name">Fashion</h3>
-<p class="category-count">189 Deals</p>
+<div class="tool-description">
+Create a personalized budget based on your income and expenses.
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-home"></i>
+<span class="tool-badge">FREE</span>
 </div>
-<h3 class="category-name">Home & Garden</h3>
-<p class="category-count">156 Deals</p>
+<div class="tool-card" data-tool="expense">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-receipt"></i>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-dumbbell"></i>
+<div class="tool-info">
+<h3>Expense Tracker</h3>
+<p>Track your daily expenses</p>
 </div>
-<h3 class="category-name">Fitness</h3>
-<p class="category-count">98 Deals</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-book"></i>
+<div class="tool-description">
+Monitor your income and expenses in real-time.
 </div>
-<h3 class="category-name">Books</h3>
-<p class="category-count">124 Deals</p>
+<span class="tool-badge">FREE</span>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-gamepad"></i>
+<div class="tool-card" data-tool="pomodoro">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-clock"></i>
 </div>
-<h3 class="category-name">Gaming</h3>
-<p class="category-count">87 Deals</p>
+<div class="tool-info">
+<h3>Pomodoro Timer</h3>
+<p>Boost your productivity</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-utensils"></i>
 </div>
-<h3 class="category-name">Kitchen</h3>
-<p class="category-count">112 Deals</p>
+<div class="tool-description">
+Use the Pomodoro Technique to break your work into focused intervals.
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-car"></i>
+<span class="tool-badge">FREE</span>
 </div>
-<h3 class="category-name">Automotive</h3>
-<p class="category-count">76 Deals</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-baby"></i>
+
+<div class="section-title">
+<h2>Premium Tools</h2>
+<p>Unlock advanced features with our premium subscription</p>
 </div>
-<h3 class="category-name">Baby & Kids</h3>
-<p class="category-count">93 Deals</p>
+
+<div class="cards-grid">
+<div class="tool-card premium-only" data-tool="investment">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-chart-line"></i>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-paw"></i>
+<div class="tool-info">
+<h3>Investment Calculator</h3>
+<p>Plan your investment growth</p>
 </div>
-<h3 class="category-name">Pets</h3>
-<p class="category-count">67 Deals</p>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-plane"></i>
+<div class="tool-description">
+Calculate how your investments will grow over time with compound interest.
 </div>
-<h3 class="category-name">Travel</h3>
-<p class="category-count">84 Deals</p>
+<span class="tool-badge">PREMIUM</span>
 </div>
-<div class="category-card">
-<div class="category-icon">
-<i class="fas fa-heartbeat"></i>
+<div class="tool-card premium-only" data-tool="networth">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-wallet"></i>
 </div>
-<h3 class="category-name">Health</h3>
-<p class="category-count">105 Deals</p>
+<div class="tool-info">
+<h3>Net Worth Calculator</h3>
+<p>Track your net worth</p>
+</div>
+</div>
+<div class="tool-description">
+Calculate and track your net worth over time.
+</div>
+<span class="tool-badge">PREMIUM</span>
+</div>
+<div class="tool-card premium-only" data-tool="habit">
+<div class="tool-card-header">
+<div class="tool-icon">
+<i class="fas fa-tasks"></i>
+</div>
+<div class="tool-info">
+<h3>Habit Tracker</h3>
+<p>Build better habits</p>
+</div>
+</div>
+<div class="tool-description">
+Track your daily habits and build consistency.
+</div>
+<span class="tool-badge">PREMIUM</span>
 </div>
 </div>
 </div>
@@ -2954,47 +2601,6 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <div class="section-title">
 <h2>Contact Us</h2>
 <p>We'd love to hear from you</p>
-</div>
-
-<div class="contact-container">
-<div class="contact-info">
-<h3>Get in Touch</h3>
-<div class="contact-item">
-<div class="contact-icon">
-<i class="fas fa-map-marker-alt"></i>
-</div>
-<div class="contact-text">
-<h4>Address</h4>
-<p>123 Business Ave, Suite 100<br>New York, NY 10001</p>
-</div>
-</div>
-<div class="contact-item">
-<div class="contact-icon">
-<i class="fas fa-phone-alt"></i>
-</div>
-<div class="contact-text">
-<h4>Phone</h4>
-<p>+923329938777</p>
-</div>
-</div>
-<div class="contact-item">
-<div class="contact-icon">
-<i class="fas fa-envelope"></i>
-</div>
-<div class="contact-text">
-<h4>Email</h4>
-<p>nexusdeals235@gmail.com</p>
-</div>
-</div>
-<div class="contact-item">
-<div class="contact-icon">
-<i class="fas fa-clock"></i>
-</div>
-<div class="contact-text">
-<h4>Business Hours</h4>
-<p>Monday - Friday: 9am - 6pm<br>Saturday: 10am - 4pm<br>Sunday: Closed</p>
-</div>
-</div>
 </div>
 
 <div class="contact-form">
@@ -3019,46 +2625,23 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <button type="submit" class="btn btn-primary">Send Message</button>
 </form>
 </div>
+
+<div class="cards-grid">
+<div class="card">
+<div class="card-icon">
+<i class="fas fa-envelope"></i>
 </div>
+<h3>Email Us</h3>
+<p>Have questions or feedback? Reach out to us at:</p>
+<p><strong>support@financify.com</strong></p>
 </div>
-</section>
+<div class="card">
+<div class="card-icon">
+<i class="fas fa-comments"></i>
 </div>
-
-<!-- About Page -->
-<div class="page" id="about">
-<section class="section">
-<div class="container">
-<div class="section-title">
-<h2>About Us</h2>
-<p>Learn more about NexusDeal</p>
-</div>
-
-<div class="about-content">
-<h2>Our Story</h2>
-<p>NexusDeal was founded in 2020 with a simple mission: to help people find the best deals on products they love. Our team of tech enthusiasts and deal hunters work tirelessly to scour the internet for the most valuable discounts and promotions.</p>
-<p>What started as a small project has quickly grown into a trusted platform used by thousands of shoppers every day. We believe that everyone deserves access to great products at fair prices, and our AI-powered technology makes it easier than ever to save money without sacrificing quality.</p>
-
-<h3>Our Mission</h3>
-<p>Our mission is to make smart shopping accessible to everyone. We use advanced algorithms to analyze thousands of products and deals, ensuring that our users always get the best value for their money.</p>
-
-<h3>How It Works</h3>
-<p>Our platform uses cutting-edge technology to monitor prices across multiple retailers. When we find a great deal, we verify its authenticity and add it to our database. Our users can then browse these deals, filter by category, and save money on products they were already planning to buy.</p>
-
-<h3>Why Choose NexusDeal</h3>
-<ul>
-<li><strong>Verified Deals:</strong> All deals on our platform are verified by our team to ensure they're genuine and valuable.</li>
-<li><strong>Real-Time Updates:</strong> Our system updates deals in real-time, so you never miss out on a limited-time offer.</li>
-<li><strong>User-Friendly Interface:</strong> Our platform is designed to be intuitive and easy to use, even for those who aren't tech-savvy.</li>
-<li><strong>Personalized Experience:</strong> We use AI to recommend deals based on your browsing history and preferences.</li>
-</ul>
-
-<h3>Our Team</h3>
-<div class="team-grid">
-<div class="team-member">
-<img src="https://z-cdn-media.chatglm.cn/files/d820f0e2-965d-4a98-b22d-75df1f57be13_Gemini_Generated_Image_ofhkx1ofhkx1ofhk.png?auth_key=1790713874-a28a8ddafbf94ae095d61cabd0f6547b-0-59fc3e6872accd03b7aa2889efcbb98b" alt="Team Member">
-<h4>Aakif</h4>
-<p>CEO & Founder</p>
-</div>
+<h3>Community</h3>
+<p>Join our community to connect with other users:</p>
+<p><strong>community.financify.com</strong></p>
 </div>
 </div>
 </div>
@@ -3082,7 +2665,7 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <h3>Information We Collect</h3>
 <p>We collect several types of information from and about users of our website, including:</p>
 <ul>
-<li><strong>Personal Identifiable Information (PII):</strong> Name, email address, and other contact information you provide when registering for an account or subscribing to our newsletter.</li>
+<li><strong>Personal Identifiable Information (PII):</strong> Name, email address, and other contact information you provide when registering for an account or contacting us.</li>
 <li><strong>Usage Data:</strong> Information about how you interact with our website, including pages visited, time spent on pages, and other usage metrics.</li>
 <li><strong>Cookies and Tracking Technologies:</strong> We use cookies and similar tracking technologies to track activity on our website and hold certain information.</li>
 <li><strong>Device Information:</strong> Information about the device you use to access our website, including IP address, browser type, and operating system.</li>
@@ -3097,14 +2680,6 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <li>To gather analysis or valuable information so that we can improve our website</li>
 <li>To monitor the usage of our website</li>
 <li>To detect, prevent and address technical issues</li>
-</ul>
-
-<h3>Information Sharing</h3>
-<p>We may share your information with third-party service providers in the following circumstances:</p>
-<ul>
-<li><strong>With Service Providers:</strong> We may share your information with third-party companies that perform services on our behalf, such as payment processing, data analysis, email delivery, hosting services, and customer service.</li>
-<li><strong>For Business Transfers:</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
-<li><strong>With Affiliates:</strong> We may share your information with our affiliates, in which case we will require those affiliates to honor this privacy policy.</li>
 </ul>
 
 <h3>Data Security</h3>
@@ -3139,32 +2714,32 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 <p>Last updated: January 1, 2023</p>
 
 <h3>Acceptance of Terms</h3>
-<p>Welcome to NexusDeal. These Terms of Service govern your use of our website and services. By accessing or using our website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our website.</p>
+<p>Welcome to Financify. These Terms of Service govern your use of our website and services. By accessing or using our website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our website.</p>
 
 <h3>Use License</h3>
-<p>Permission is granted to temporarily download one copy of the materials on NexusDeal's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+<p>Permission is granted to temporarily download one copy of the materials on Financify's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
 <ul>
 <li>Modify or copy the materials</li>
 <li>Use the materials for any commercial purpose or for any public display</li>
-<li>Attempt to decompile or reverse engineer any software contained on NexusDeal's website</li>
+<li>Attempt to decompile or reverse engineer any software contained on Financify's website</li>
 <li>Remove any copyright or other proprietary notations from the materials</li>
 <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
 </ul>
 
 <h3>Disclaimer</h3>
-<p>The materials on NexusDeal's website are provided on an 'as is' basis. NexusDeal makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+<p>The materials on Financify's website are provided on an 'as is' basis. Financify makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
 
 <h3>Limitations</h3>
-<p>In no event shall NexusDeal or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on NexusDeal's website, even if NexusDeal or a NexusDeal authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+<p>In no event shall Financify or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Financify's website, even if Financify or a Financify authorized representative has been notified orally or in writing of the possibility of such damage.</p>
 
 <h3>Accuracy of Materials</h3>
-<p>The materials appearing on NexusDeal's website could include technical, typographical, or photographic errors. NexusDeal does not warrant that any of the materials on its website are accurate, complete, or current. NexusDeal may make changes to the materials contained on its website at any time without notice. However, NexusDeal does not make any commitment to update the materials.</p>
+<p>The materials appearing on Financify's website could include technical, typographical, or photographic errors. Financify does not warrant that any of the materials on its website are accurate, complete, or current. Financify may make changes to the materials contained on its website at any time without notice. However, Financify does not make any commitment to update the materials.</p>
 
 <h3>Links</h3>
-<p>NexusDeal has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by NexusDeal of the site. Use of any such linked website is at the user's own risk.</p>
+<p>Financify has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Financify of the site. Use of any such linked website is at the user's own risk.</p>
 
 <h3>Termination</h3>
-<p>NexusDeal may terminate your access to its website, without cause, at any time and without notice. Upon termination, your viewing right to the materials on this website will also terminate.</p>
+<p>Financify may terminate your access to its website, without cause, at any time and without notice. Upon termination, your viewing right to the materials on this website will also terminate.</p>
 
 <h3>Governing Law</h3>
 <p>These Terms of Service and any separate agreements whereby we provide you services shall be governed by and construed in accordance with the laws of the State of New York, United States.</p>
@@ -3174,177 +2749,144 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 </section>
 </div>
 
-<!-- Affiliate Disclosure Page -->
-<div class="page" id="disclosure">
+<!-- About Page -->
+<div class="page" id="about">
 <section class="section">
 <div class="container">
 <div class="section-title">
-<h2>Affiliate Disclosure</h2>
-<p>How we make money</p>
+<h2>About Financify</h2>
+<p>Learn more about our mission and team</p>
 </div>
 
-<div class="legal-container">
-<div class="legal-content">
-<h2>Affiliate Disclosure</h2>
-<p>Last updated: January 1, 2023</p>
+<div class="about-content">
+<h2>Our Mission</h2>
+<p>Financify was founded with a simple mission: to provide everyone with free, easy-to-use tools for managing their finances and improving their productivity. We believe that financial stability and personal productivity should be accessible to everyone, regardless of their income or background.</p>
+<p>Our platform is designed to be intuitive and user-friendly, with no hidden fees or premium paywalls for essential features. We're committed to helping you take control of your money and time so you can focus on what matters most in your life.</p>
 
-<h3>What Are Affiliate Links?</h3>
-<p>NexusDeal participates in various affiliate marketing programs, which means we may earn a commission when you click on certain links on our website and make a purchase from the retailer. These affiliate links allow us to earn a small percentage of the sale at no additional cost to you.</p>
+<h3>How It Works</h3>
+<p>Financify offers a suite of free tools that you can access directly from your browser. There's no need to download anything or create an account (though creating an account allows you to save your preferences and data). Our tools work on any device with an internet connection, making it easy to manage your finances and productivity wherever you are.</p>
+<p>We generate revenue through advertisements and optional premium features, which allows us to keep our core tools completely free for everyone. Premium features include advanced analytics, personalized recommendations, and an ad-free experience.</p>
 
-<h3>How We Use Affiliate Links</h3>
-<p>We use affiliate links to help support the operation of our website and continue providing valuable content to our users. When you click on an affiliate link and make a purchase, we may receive a commission from the retailer. This commission helps us cover the costs of running our website, including hosting, content creation, and maintenance.</p>
-
-<h3>Our Affiliate Partners</h3>
-<p>We work with a variety of reputable retailers and affiliate networks, including but not limited to:</p>
+<h3>Why Choose Financify</h3>
 <ul>
-<li>Amazon Associates Program</li>
-<li>eBay Partner Network</li>
-<li>ShareASale</li>
-<li>Commission Junction (CJ)</li>
-<li>Impact</li>
-<li>Rakuten Advertising</li>
+<li><strong>Completely Free:</strong> All our core tools are free to use with no hidden fees.</li>
+<li><strong>No Registration Required:</strong> Use our tools instantly without creating an account.</li>
+<li><strong>Secure & Private:</strong> Your data is stored locally in your browser. We don't collect or share your personal information.</li>
+<li><strong>Works Everywhere:</strong> Access our tools from any device with an internet connection.</li>
+<li><strong>Regular Updates:</strong> We're constantly improving our tools and adding new features based on user feedback.</li>
 </ul>
 
-<h3>Impact on Pricing</h3>
-<p>The use of affiliate links does not affect the price you pay for products or services. In fact, in some cases, we may be able to negotiate special discounts for our users that are not available elsewhere. Our primary goal is to provide you with the best deals and value, regardless of whether we earn a commission.</p>
-
-<h3>Editorial Integrity</h3>
-<p>Our editorial content is independent and not influenced by our affiliate relationships. We only promote products and services that we believe will provide value to our users. Our reviews and recommendations are based on our honest opinions and experiences, and we strive to provide accurate and helpful information to assist you in making informed purchasing decisions.</p>
-
-<h3>Transparency</h3>
-<p>We are committed to transparency in our business practices. All affiliate links on our website are clearly disclosed in accordance with the Federal Trade Commission (FTC) guidelines. We believe that being upfront about how we make money helps build trust with our users and ensures that you can make informed decisions when using our website.</p>
-
-<h3>Your Support</h3>
-<p>By using our affiliate links when making purchases, you are supporting our website and helping us continue to provide valuable content and deals to our users. We appreciate your support and are committed to providing you with the best possible experience on our website.</p>
+<h3>Our Team</h3>
+<div class="team-grid">
+<div class="team-member">
+<img src="https://z-cdn-media.chatglm.cn/files/d820f0e2-965d-4a98-b22d-75df1f57be13_Gemini_Generated_Image_ofhkx1ofhkx1ofhk.png?auth_key=1790713874-a28a8ddafbf94ae095d61cabd0f6547b-0-59fc3e6872accd03b7aa2889efcbb98b" alt="Team Member">
+<h4>Aakif</h4>
+<p>Founder & Developer</p>
+</div>
 </div>
 </div>
 </div>
 </section>
 </div>
 
-<!-- Enhanced Auth Modal with Advanced 3D Animation -->
-<div class="auth-modal" id="authModal">
-<div class="auth-container" id="authContainer">
-<!-- Sign In Card -->
-<div class="auth-card front">
-<div class="auth-particles" id="signinParticles"></div>
-
-<!-- 3D Geometric Shapes -->
-<div class="auth-shape cube"></div>
-<div class="auth-shape pyramid"></div>
-<div class="auth-shape sphere"></div>
-
-<button class="auth-close" id="authClose">
+<!-- Premium Modal -->
+<div class="premium-modal" id="premiumModal">
+<div class="premium-content">
+<button class="premium-close" id="premiumClose">
 <i class="fas fa-times"></i>
 </button>
-<div class="auth-header">
-<h2>Welcome Back</h2>
-<p>Sign in to your account</p>
+<div class="premium-header">
+<h2>Unlock Premium Features</h2>
+<p>Get the most out of Financify with our premium subscription</p>
 </div>
-<form class="auth-form" id="signinForm">
-<div class="form-group input-3d">
-<label for="signinEmail">Email</label>
-<input type="email" id="signinEmail" required>
-<div class="input-icon">
-<i class="fas fa-envelope"></i>
+<div class="premium-plans">
+<div class="plan">
+<h3>Basic</h3>
+<div class="price">$4.99<span>/month</span></div>
+<ul>
+<li>Ad-free experience</li>
+<li>Advanced analytics</li>
+<li>Data backup & sync</li>
+<li>Customizable themes</li>
+<li>Investment Calculator</li>
+<li>Net Worth Calculator</li>
+</ul>
+<button class="btn btn-primary" onclick="selectPlan('basic')">Select Basic</button>
 </div>
-</div>
-<div class="form-group input-3d">
-<label for="signinPassword">Password</label>
-<input type="password" id="signinPassword" required>
-<div class="input-icon">
-<i class="fas fa-lock"></i>
-</div>
-</div>
-<div class="form-options">
-<div class="remember-me">
-<input type="checkbox" id="rememberMe">
-<label for="rememberMe">Remember me</label>
-</div>
-<a href="#" class="forgot-password">Forgot password?</a>
-</div>
-<button type="submit" class="auth-submit">Sign In</button>
-</form>
-<div class="auth-divider">
-<span>or continue with</span>
-</div>
-<div class="social-login">
-<button class="social-btn">
-<i class="fab fa-facebook-f"></i>
-Facebook
-</button>
-<button class="social-btn">
-<i class="fab fa-google"></i>
-Google
-</button>
-</div>
-<div class="auth-switch">
-<p>Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+<div class="plan featured">
+<div class="plan-badge">MOST POPULAR</div>
+<h3>Pro</h3>
+<div class="price">$9.99<span>/month</span></div>
+<ul>
+<li>Everything in Basic</li>
+<li>Habit Tracker</h3>
+<li>Personalized insights</li>
+<li>Goal tracking</li>
+<li>Priority support</li>
+<li>Early access to new features</li>
+</ul>
+<button class="btn btn-primary" onclick="selectPlan('pro')">Select Pro</button>
 </div>
 </div>
-
-<!-- Sign Up Card -->
-<div class="auth-card back">
-<div class="auth-particles" id="signupParticles"></div>
-
-<!-- 3D Geometric Shapes -->
-<div class="auth-shape cube"></div>
-<div class="auth-shape pyramid"></div>
-<div class="auth-shape sphere"></div>
-
-<button class="auth-close" id="authCloseBack">
-<i class="fas fa-times"></i>
-</button>
-<div class="auth-header">
-<h2>Create Account</h2>
-<p>Join NexusDeal today</p>
+<div class="premium-features">
+<h3>All Premium Features</h3>
+<div class="premium-features-grid">
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-ad"></i>
 </div>
-<form class="auth-form" id="signupForm">
-<div class="form-group input-3d">
-<label for="signupName">Full Name</label>
-<input type="text" id="signupName" required>
-<div class="input-icon">
-<i class="fas fa-user"></i>
+<h4>Ad-Free Experience</h4>
+<p>Enjoy all our tools without any advertisements</p>
 </div>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-chart-line"></i>
 </div>
-<div class="form-group input-3d">
-<label for="signupEmail">Email</label>
-<input type="email" id="signupEmail" required>
-<div class="input-icon">
-<i class="fas fa-envelope"></i>
+<h4>Advanced Analytics</h4>
+<p>Get detailed insights into your finances and productivity</p>
 </div>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-cloud"></i>
 </div>
-<div class="form-group input-3d">
-<label for="signupPassword">Password</label>
-<input type="password" id="signupPassword" required>
-<div class="input-icon">
-<i class="fas fa-lock"></i>
+<h4>Data Backup & Sync</h4>
+<p>Access your data from any device with cloud sync</p>
 </div>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-lightbulb"></i>
 </div>
-<div class="form-group input-3d">
-<label for="confirmPassword">Confirm Password</label>
-<input type="password" id="confirmPassword" required>
-<div class="input-icon">
-<i class="fas fa-lock"></i>
+<h4>Personalized Insights</h4>
+<p>Get customized recommendations based on your data</p>
 </div>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-calculator"></i>
 </div>
-<button type="submit" class="auth-submit">Sign Up</button>
-</form>
-<div class="auth-divider">
-<span>or continue with</span>
+<h4>Investment Calculator</h4>
+<p>Plan your investment growth with compound interest</p>
 </div>
-<div class="social-login">
-<button class="social-btn">
-<i class="fab fa-facebook-f"></i>
-Facebook
-</button>
-<button class="social-btn">
-<i class="fab fa-google"></i>
-Google
-</button>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-wallet"></i>
 </div>
-<div class="auth-switch">
-<p>Already have an account? <a href="#" id="switchToSignin">Sign In</a></p>
+<h4>Net Worth Calculator</h4>
+<p>Track your net worth over time</p>
+</div>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-tasks"></i>
+</div>
+<h4>Habit Tracker</h4>
+<p>Build and track your daily habits</p>
+</div>
+<div class="premium-feature">
+<div class="premium-feature-icon">
+<i class="fas fa-bullseye"></i>
+</div>
+<h4>Goal Tracking</h4>
+<p>Set and track your financial and productivity goals</p>
+</div>
 </div>
 </div>
 </div>
@@ -3369,16 +2911,26 @@ Google
 <div class="container">
 <div class="footer-content">
 <div class="footer-column">
-<h3>NexusDeal</h3>
-<p>Your trusted source for the best deals online. We help you save money on products you love.</p>
+<h3>Financify</h3>
+<p>Free tools for personal finance and productivity. Take control of your money and time.</p>
 </div>
 <div class="footer-column">
-<h3>Quick Links</h3>
+<h3>Tools</h3>
 <ul>
-<li><a href="#" class="nav-link" data-page="home">Home</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Budget Calculator</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Expense Tracker</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Savings Tracker</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Pomodoro Timer</a></li>
+<li><a href="#" class="nav-link" data-page="tools">To-Do List</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Premium Tools</h3>
+<ul>
+<li><a href="#" class="nav-link" data-page="tools">Investment Calculator</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Net Worth Calculator</a></li>
+<li><a href="#" class="nav-link" data-page="tools">Habit Tracker</a></li>
 <li><a href="#" class="nav-link" data-page="dashboard">Dashboard</a></li>
-<li><a href="#" class="nav-link" data-page="deals">Deals</a></li>
-<li><a href="#" class="nav-link" data-page="categories">Categories</a></li>
 </ul>
 </div>
 <div class="footer-column">
@@ -3386,283 +2938,24 @@ Google
 <ul>
 <li><a href="#" class="nav-link" data-page="privacy">Privacy Policy</a></li>
 <li><a href="#" class="nav-link" data-page="terms">Terms of Service</a></li>
-<li><a href="#" class="nav-link" data-page="disclosure">Affiliate Disclosure</a></li>
 <li><a href="#" class="nav-link" data-page="contact">Contact Us</a></li>
+<li><a href="#" class="nav-link" data-page="about">About Us</a></li>
 </ul>
-</div>
-<div class="footer-column">
-<h3>Contact Us</h3>
-<p>Phone: +923329938777</p>
-<p>Email: nexusdeals235@gmail.com</p>
-<div class="social-links">
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-linkedin-in"></i></a>
-</div>
 </div>
 </div>
 <div class="footer-bottom">
-<p>&copy; 2023 NexusDeal. All rights reserved.</p>
+<p>&copy; 2023 Financify. All rights reserved.</p>
 </div>
 </div>
 </footer>
 
 <script>
-// Product data
-const products = {
-    1: {
-        title: "Premium Wireless Noise-Canceling Headphones",
-        category: "Electronics",
-        description: "Premium sound quality with active noise cancellation. 30-hour battery life and comfortable fit.",
-        fullDescription: "Experience premium sound quality with these wireless noise-canceling headphones. Featuring advanced active noise cancellation technology, these headphones deliver crystal-clear audio with deep bass and crisp highs. The 30-hour battery life ensures you can enjoy uninterrupted music throughout the day. The comfortable over-ear design with soft ear cushions and adjustable headband makes them perfect for long listening sessions. With Bluetooth 5.0 connectivity, you can easily connect to your devices and enjoy wireless freedom. The quick charge feature gives you hours of playback with just a few minutes of charging.",
-        currentPrice: "$59.99",
-        originalPrice: "$99.99",
-        discount: "-40%",
-        image: "https://picsum.photos/seed/headphones/600/600.jpg",
-        affiliateLink: "https://rzekl.com/g/1e8d114494f75ecbf02216525dc3e8d765d55965/",
-        features: [
-            "Active noise cancellation technology",
-            "30-hour battery life with quick charge",
-            "Comfortable over-ear design",
-            "Bluetooth 5.0 connectivity",
-            "High-resolution audio quality"
-        ],
-        specifications: [
-            "Driver Size: 40mm",
-            "Frequency Response: 20Hz - 20kHz",
-            "Impedance: 32 Ohms",
-            "Battery Life: 30 hours (ANC off), 25 hours (ANC on)",
-            "Charging Time: 2 hours (full), 15 minutes (3 hours playback)",
-            "Bluetooth Version: 5.0",
-            "Weight: 250g",
-            "Included: Headphones, carrying case, audio cable, USB charging cable"
-        ]
-    },
-    2: {
-        title: "Smart Fitness Watch",
-        category: "Electronics",
-        description: "Track your health and fitness with this advanced smartwatch. Heart rate monitor, GPS, and 7-day battery life.",
-        fullDescription: "Track your health and fitness with this advanced smartwatch. Heart rate monitor, GPS, and 7-day battery life. This smartwatch is designed to be your perfect fitness companion, tracking your steps, distance, calories burned, and sleep quality. The built-in GPS allows you to accurately track your outdoor activities without needing your phone. With a heart rate monitor and multiple workout modes, you can get real-time data about your performance. The 7-day battery life ensures you can wear it all week without needing to charge it.",
-        currentPrice: "$129.99",
-        originalPrice: "$199.99",
-        discount: "-35%",
-        image: "https://picsum.photos/seed/deal2/600/600.jpg",
-        affiliateLink: "https://example.com/product2",
-        features: [
-            "Heart rate monitoring",
-            "Built-in GPS",
-            "7-day battery life",
-            "Water resistant up to 50m",
-            "Multiple workout modes"
-        ],
-        specifications: [
-            "Display: 1.3-inch AMOLED",
-            "Battery: 410mAh",
-            "Compatibility: Android 6.0+, iOS 10.0+",
-            "Sensors: Accelerometer, Gyroscope, Heart rate, GPS",
-            "Water Resistance: 5ATM (50 meters)",
-            "Battery Life: Up to 7 days",
-            "Charging Time: 2 hours",
-            "Included: Watch, magnetic charging cable, quick start guide"
-        ]
-    },
-    3: {
-        title: "Adjustable Laptop Stand",
-        category: "Accessories",
-        description: "Ergonomic aluminum laptop stand with adjustable height and angle. Compatible with all laptop sizes.",
-        fullDescription: "Ergonomic aluminum laptop stand with adjustable height and angle. Compatible with all laptop sizes. This laptop stand is designed to improve your posture and reduce neck and back strain while working. The adjustable height and angle allow you to customize your viewing position for maximum comfort. Made from high-quality aluminum, it's both lightweight and durable, providing excellent stability for your laptop. The open design improves airflow to keep your laptop cool during extended use.",
-        currentPrice: "$24.99",
-        originalPrice: "$49.99",
-        discount: "-50%",
-        image: "https://picsum.photos/seed/deal3/600/600.jpg",
-        affiliateLink: "https://example.com/product3",
-        features: [
-            "Adjustable height and angle",
-            "Ergonomic design",
-            "Aluminum construction",
-            "Improves airflow",
-            "Compatible with all laptop sizes"
-        ],
-        specifications: [
-            "Material: Aluminum alloy",
-            "Weight: 1.2kg",
-            "Adjustable Height: 15-45cm",
-            "Adjustable Angle: 0-45 degrees",
-            "Max Load: 10kg",
-            "Compatible: All laptops from 10 to 17 inches",
-            "Non-slip silicone pads",
-            "Foldable for easy storage"
-        ]
-    },
-    4: {
-        title: "Premium Wireless Earbuds with Noise Cancellation",
-        category: "Electronics",
-        description: "High-quality sound with active noise cancellation. 24-hour battery life and IPX7 water resistance. Perfect for workouts and daily use.",
-        fullDescription: "Experience exceptional audio quality with these premium wireless earbuds featuring advanced active noise cancellation technology. These earbuds deliver crystal-clear sound with deep bass and crisp highs, allowing you to immerse yourself in your music without distractions. With an impressive 24-hour battery life (including the charging case), you can enjoy uninterrupted listening throughout your day. The IPX7 water resistance makes them perfect for workouts, running in the rain, or any active lifestyle. The ergonomic design ensures a comfortable and secure fit, while the intuitive touch controls make it easy to manage your music and calls.",
-        currentPrice: "$79.99",
-        originalPrice: "$129.99",
-        discount: "-38%",
-        image: "https://picsum.photos/seed/deal4/600/600.jpg",
-        affiliateLink: "https://rzekl.com/g/1e8d114494f75ecbf02216525dc3e8d765d55965/",
-        features: [
-            "Active noise cancellation",
-            "24-hour battery life",
-            "IPX7 water resistance",
-            "Touch controls",
-            "Wireless charging case"
-        ],
-        specifications: [
-            "Driver: 11mm dynamic",
-            "Frequency Response: 20Hz - 20kHz",
-            "Battery Life: 6 hours (earbuds) + 18 hours (case)",
-            "Charging Time: 1.5 hours (case), 1 hour (earbuds)",
-            "Connectivity: Bluetooth 5.2",
-            "Water Resistance: IPX7",
-            "Weight: 5g per earbud",
-            "Included: Earbuds, charging case, ear tips, USB-C cable"
-        ]
-    },
-    5: {
-        title: "Men's Running Shoes",
-        category: "Fashion",
-        description: "Lightweight and breathable running shoes with advanced cushioning technology for maximum comfort.",
-        fullDescription: "Lightweight and breathable running shoes with advanced cushioning technology for maximum comfort. These running shoes are designed to provide the perfect balance of comfort and performance. The lightweight construction reduces fatigue during long runs, while the breathable upper keeps your feet cool and dry. The advanced cushioning technology absorbs impact and provides excellent energy return, helping you run faster and longer.",
-        currentPrice: "$49.99",
-        originalPrice: "$89.99",
-        discount: "-44%",
-        image: "https://picsum.photos/seed/deal5/600/600.jpg",
-        affiliateLink: "https://example.com/product5",
-        features: [
-            "Lightweight construction",
-            "Breathable upper",
-            "Advanced cushioning",
-            "Durable outsole",
-            "Secure fit"
-        ],
-        specifications: [
-            "Upper: Mesh and synthetic materials",
-            "Midsole: Advanced cushioning foam",
-            "Outsole: Durable rubber with flex grooves",
-            "Weight: 280g (size 9)",
-            "Drop: 8mm",
-            "Available in multiple colors",
-            "Sizes: 7-13 (US)",
-            "Included: Shoes, extra laces"
-        ]
-    },
-    6: {
-        title: "Smart Home Thermostat",
-        category: "Home & Garden",
-        description: "Control your home temperature from anywhere. Save energy with smart scheduling and geofencing.",
-        fullDescription: "Control your home temperature from anywhere. Save energy with smart scheduling and geofencing. This smart thermostat makes it easy to control your home's heating and cooling from your smartphone or tablet. The smart scheduling feature learns your preferences and automatically adjusts the temperature for maximum comfort and energy savings. With geofencing, the thermostat can detect when you're away and adjust the temperature to save energy, then restore your preferred settings when you return.",
-        currentPrice: "$89.99",
-        originalPrice: "$149.99",
-        discount: "-40%",
-        image: "https://picsum.photos/seed/deal6/600/600.jpg",
-        affiliateLink: "https://example.com/product6",
-        features: [
-            "Remote control via app",
-            "Smart scheduling",
-            "Geofencing",
-            "Energy saving",
-            "Easy installation"
-        ],
-        specifications: [
-            "Compatibility: Most HVAC systems",
-            "Power: 24V AC, C-wire required",
-            "Display: Full-color touchscreen",
-            "Connectivity: Wi-Fi",
-            "App Support: iOS and Android",
-            "Dimensions: 3.3\" x 3.3\" x 1.1\"",
-            "Weight: 6.7 oz",
-            "Included: Thermostat, mounting hardware, quick start guide"
-        ]
-    },
-    7: {
-        title: "Premium Yoga Mat",
-        category: "Fitness",
-        description: "Extra thick, non-slip yoga mat with alignment lines. Includes carrying strap and cleaning spray.",
-        fullDescription: "Extra thick, non-slip yoga mat with alignment lines. Includes carrying strap and cleaning spray. This premium yoga mat provides excellent cushioning and support for all types of yoga and exercise. The extra-thick design protects your joints during floor exercises, while the non-slip surface ensures stability even during the most challenging poses. The alignment lines help you maintain proper form and positioning. The included carrying strap makes it easy to transport your mat to and from class, and the cleaning spray keeps it fresh and hygienic.",
-        currentPrice: "$29.99",
-        originalPrice: "$49.99",
-        discount: "-40%",
-        image: "https://picsum.photos/seed/deal7/600/600.jpg",
-        affiliateLink: "https://example.com/product7",
-        features: [
-            "Extra thick for joint protection",
-            "Non-slip surface",
-            "Alignment lines for proper form",
-            "Includes carrying strap",
-            "Comes with cleaning spray"
-        ],
-        specifications: [
-            "Material: High-density TPE",
-            "Thickness: 6mm",
-            "Size: 72\" x 24\"",
-            "Weight: 2.5 lbs",
-            "Alignment Lines: Center and 45-degree lines",
-            "Carrying Strap: Adjustable shoulder strap",
-            "Cleaning Spray: Natural, eco-friendly formula",
-            "Care: Wipe clean with damp cloth"
-        ]
-    },
-    8: {
-        title: "Healthy Cooking Cookbook",
-        category: "Books",
-        description: "200+ delicious and healthy recipes with step-by-step instructions and nutritional information.",
-        fullDescription: "200+ delicious and healthy recipes with step-by-step instructions and nutritional information. This comprehensive cookbook is packed with nutritious and delicious recipes that make healthy eating easy and enjoyable. Each recipe includes detailed step-by-step instructions, full-color photos, and complete nutritional information to help you make informed choices about what you eat. From quick weeknight dinners to impressive weekend meals, this cookbook has something for everyone.",
-        currentPrice: "$19.99",
-        originalPrice: "$34.99",
-        discount: "-43%",
-        image: "https://picsum.photos/seed/deal8/600/600.jpg",
-        affiliateLink: "https://example.com/product8",
-        features: [
-            "200+ healthy recipes",
-            "Step-by-step instructions",
-            "Nutritional information",
-            "Full-color photos",
-            "Variety of dietary options"
-        ],
-        specifications: [
-            "Pages: 320",
-            "Format: Paperback",
-            "Dimensions: 8.5\" x 1\" x 10\"",
-            "Weight: 2.2 lbs",
-            "Publisher: Healthy Living Press",
-            "Language: English",
-            "ISBN-10: 1234567890",
-            "ISBN-13: 978-1234567890"
-        ]
-    },
-    9: {
-        title: "Gaming Mouse with RGB",
-        category: "Gaming",
-        description: "High-precision gaming mouse with customizable RGB lighting and programmable buttons.",
-        fullDescription: "High-precision gaming mouse with customizable RGB lighting and programmable buttons. This gaming mouse is designed for precision and performance, with a high-precision sensor that tracks movement accurately even at high speeds. The customizable RGB lighting allows you to personalize your setup with millions of color options and effects. With programmable buttons, you can customize the mouse to suit your gaming style and preferences, giving you a competitive edge in your favorite games.",
-        currentPrice: "$39.99",
-        originalPrice: "$69.99",
-        discount: "-43%",
-        image: "https://picsum.photos/seed/deal9/600/600.jpg",
-        affiliateLink: "https://example.com/product9",
-        features: [
-            "High-precision sensor",
-            "Customizable RGB lighting",
-            "Programmable buttons",
-            "Ergonomic design",
-            "On-the-fly DPI adjustment"
-        ],
-        specifications: [
-            "Sensor: High-precision optical sensor",
-            "DPI: 16000 adjustable",
-            "Buttons: 8 programmable buttons",
-            "Lighting: RGB with 16.8 million colors",
-            "Connection: Wired USB",
-            "Polling Rate: 1000Hz",
-            "Weight: 105g",
-            "Included: Mouse, user manual"
-        ]
-    }
+// User state
+let userState = {
+isLoggedIn: false,
+isPremium: false,
+username: "",
+email: ""
 };
 
 // Custom Cursor
@@ -3688,15 +2981,13 @@ class Router {
 constructor() {
 this.routes = {
 'home': 'home',
+'tools': 'tools',
+'articles': 'articles',
 'dashboard': 'dashboard',
-'deals': 'deals',
-'categories': 'categories',
 'contact': 'contact',
-'about': 'about',
 'privacy': 'privacy',
 'terms': 'terms',
-'disclosure': 'disclosure',
-'product': 'product'
+'about': 'about'
 };
 this.init();
 }
@@ -3714,13 +3005,6 @@ handleInitialLoad() {
 const path = window.location.pathname;
 if (path === '/' || path === '/index.html') {
 this.navigateTo('home', false);
-} else if (path.startsWith('/product/')) {
-const productId = path.split('/')[2];
-if (productId && products[productId]) {
-this.showProductDetail(productId, false);
-} else {
-this.navigateTo('home', false);
-}
 } else {
 const page = path.replace('/', '');
 if (this.routes[page]) {
@@ -3764,110 +3048,10 @@ history.pushState({ pageId }, '', url);
 window.scrollTo(0, 0);
 }
 
-showProductDetail(productId, updateHistory = true) {
-// Hide all pages
-pages.forEach(page => {
-page.classList.remove('active');
-});
-
-// Show product page
-const productPage = document.getElementById('product');
-if (productPage) {
-productPage.classList.add('active');
-this.populateProductDetails(productId);
-}
-
-// Update browser history
-if (updateHistory) {
-const url = `/product/${productId}`;
-history.pushState({ productId }, '', url);
-}
-
-// Scroll to top
-window.scrollTo(0, 0);
-}
-
-populateProductDetails(productId) {
-const product = products[productId];
-if (!product) return;
-
-// Update product details
-document.getElementById('productImage').src = product.image;
-document.getElementById('productImage').alt = product.title;
-document.getElementById('productBadge').textContent = product.discount;
-document.getElementById('productCategory').textContent = product.category;
-document.getElementById('productTitle').textContent = product.title;
-document.getElementById('productDescription').textContent = product.description;
-document.getElementById('fullProductDescription').textContent = product.fullDescription;
-document.getElementById('productCurrentPrice').textContent = product.currentPrice;
-document.getElementById('productOriginalPrice').textContent = product.originalPrice;
-document.getElementById('productDiscount').textContent = product.discount;
-document.getElementById('productBuyLink').href = product.affiliateLink;
-
-// Update features
-const featuresList = document.getElementById('productFeatures');
-featuresList.innerHTML = '';
-product.features.forEach(feature => {
-const li = document.createElement('li');
-li.textContent = feature;
-featuresList.appendChild(li);
-});
-
-// Update specifications
-const specsList = document.getElementById('productSpecifications');
-specsList.innerHTML = '';
-product.specifications.forEach(spec => {
-const li = document.createElement('li');
-li.innerHTML = `<strong>${spec.split(':')[0]}:</strong> ${spec.split(':').slice(1).join(':')}`;
-specsList.appendChild(li);
-});
-
-// Update related products
-this.updateRelatedProducts(productId);
-}
-
-updateRelatedProducts(currentProductId) {
-const relatedGrid = document.getElementById('relatedProductsGrid');
-relatedGrid.innerHTML = '';
-
-// Get related products (exclude current product)
-const relatedProducts = Object.keys(products)
-.filter(id => id !== currentProductId)
-.slice(0, 4);
-
-relatedProducts.forEach(productId => {
-const product = products[productId];
-const productCard = document.createElement('div');
-productCard.className = 'related-product-card';
-productCard.innerHTML = `
-<img src="${product.image}" alt="${product.title}" class="related-product-image">
-<div class="related-product-content">
-<div class="related-product-category">${product.category}</div>
-<h3 class="related-product-title">${product.title}</h3>
-<div class="related-product-price">
-<span class="related-product-current-price">${product.currentPrice}</span>
-<span class="related-product-original-price">${product.originalPrice}</span>
-</div>
-</div>
-`;
-productCard.addEventListener('click', () => {
-this.showProductDetail(productId);
-});
-relatedGrid.appendChild(productCard);
-});
-}
-
 handleRouteChange() {
 const path = window.location.pathname;
 if (path === '/' || path === '/index.html') {
 this.navigateTo('home', false);
-} else if (path.startsWith('/product/')) {
-const productId = path.split('/')[2];
-if (productId && products[productId]) {
-this.showProductDetail(productId, false);
-} else {
-this.navigateTo('home', false);
-}
 } else {
 let pageId = 'home';
 if (path !== '/') {
@@ -3884,153 +3068,36 @@ this.navigateTo(pageId, false);
 // Initialize router
 const router = new Router();
 
-// Enhanced Auth Modal with Advanced 3D Animation
-const authModal = document.getElementById('authModal');
-const authContainer = document.getElementById('authContainer');
-const signInBtn = document.getElementById('signInBtn');
-const signUpBtn = document.getElementById('signUpBtn');
-const authClose = document.getElementById('authClose');
-const authCloseBack = document.getElementById('authCloseBack');
-const switchToSignup = document.getElementById('switchToSignup');
-const switchToSignin = document.getElementById('switchToSignin');
-const signinParticles = document.getElementById('signinParticles');
-const signupParticles = document.getElementById('signupParticles');
+// Premium Modal
+const premiumModal = document.getElementById('premiumModal');
+const premiumClose = document.getElementById('premiumClose');
+const upgradeBtn = document.getElementById('upgradeBtn');
 
-// Create advanced 3D particles for auth modal
-function createAdvancedParticles(container, count) {
-for (let i = 0; i < count; i++) {
-const particle = document.createElement('div');
-
-// Random particle type
-const types = ['type-1', 'type-2', 'type-3', 'type-4'];
-const randomType = types[Math.floor(Math.random() * types.length)];
-particle.className = `auth-particle ${randomType}`;
-
-// Random size based on type
-let size;
-switch(randomType) {
-case 'type-1':
-size = Math.random() * 10 + 5;
-break;
-case 'type-2':
-size = Math.random() * 15 + 10;
-break;
-case 'type-3':
-size = Math.random() * 20 + 15;
-break;
-case 'type-4':
-size = Math.random() * 5 + 3;
-break;
-}
-
-particle.style.width = `${size}px`;
-particle.style.height = `${size}px`;
-
-// Random position
-particle.style.left = `${Math.random() * 100}%`;
-particle.style.top = `${Math.random() * 100}%`;
-
-// Random animation delay
-particle.style.animationDelay = `${Math.random() * 15}s`;
-
-// Random animation duration
-const duration = Math.random() * 10 + 15;
-particle.style.animationDuration = `${duration}s`;
-
-container.appendChild(particle);
-}
-}
-
-// Initialize particles when modal is opened
-function initAdvancedParticles() {
-// Clear existing particles
-signinParticles.innerHTML = '';
-signupParticles.innerHTML = '';
-
-// Create new particles
-createAdvancedParticles(signinParticles, 30);
-createAdvancedParticles(signupParticles, 30);
-}
-
-// Add 3D geometric shapes
-function create3DShapes() {
-const shapes = document.querySelectorAll('.auth-shape');
-
-shapes.forEach(shape => {
-// Random rotation speed
-const speed = Math.random() * 20 + 10;
-shape.style.animationDuration = `${speed}s`;
-
-// Random position adjustments
-if (shape.classList.contains('cube')) {
-const randomX = Math.random() * 20;
-const randomY = Math.random() * 20;
-shape.style.transform = `translate(${randomX}px, ${randomY}px)`;
-} else if (shape.classList.contains('pyramid')) {
-const randomX = Math.random() * 30 - 15;
-const randomY = Math.random() * 30 - 15;
-shape.style.transform = `translate(${randomX}px, ${randomY}px)`;
-} else if (shape.classList.contains('sphere')) {
-const randomX = Math.random() * 25 - 12.5;
-const randomY = Math.random() * 25 - 12.5;
-shape.style.transform = `translate(${randomX}px, ${randomY}px)`;
-}
-});
-}
-
-signInBtn.addEventListener('click', () => {
-authModal.classList.add('active');
-authContainer.classList.remove('flipped');
-initAdvancedParticles();
-create3DShapes();
+upgradeBtn.addEventListener('click', () => {
+premiumModal.classList.add('active');
 });
 
-signUpBtn.addEventListener('click', () => {
-authModal.classList.add('active');
-authContainer.classList.add('flipped');
-initAdvancedParticles();
-create3DShapes();
-});
-
-authClose.addEventListener('click', () => {
-authModal.classList.remove('active');
-});
-
-authCloseBack.addEventListener('click', () => {
-authModal.classList.remove('active');
-});
-
-switchToSignup.addEventListener('click', (e) => {
-e.preventDefault();
-authContainer.classList.add('flipped');
-});
-
-switchToSignin.addEventListener('click', (e) => {
-e.preventDefault();
-authContainer.classList.remove('flipped');
+premiumClose.addEventListener('click', () => {
+premiumModal.classList.remove('active');
 });
 
 // Close modal when clicking outside
-authModal.addEventListener('click', (e) => {
-if (e.target === authModal) {
-authModal.classList.remove('active');
+premiumModal.addEventListener('click', (e) => {
+if (e.target === premiumModal) {
+premiumModal.classList.remove('active');
 }
 });
 
-// Enhanced input field animations
-const inputFields = document.querySelectorAll('.input-3d input');
+// Show premium modal function
+function showPremiumModal() {
+premiumModal.classList.add('active');
+}
 
-inputFields.forEach(input => {
-input.addEventListener('focus', () => {
-// Add a subtle glow effect to the parent
-input.parentElement.style.boxShadow = '0 0 20px rgba(99, 102, 241, 0.3)';
-});
-
-input.addEventListener('blur', () => {
-// Remove the glow effect
-input.parentElement.style.boxShadow = '';
-});
-});
+// Select plan function
+function selectPlan(plan) {
+premiumModal.classList.remove('active');
+showNotification('Plan Selected', `You selected the ${plan} plan. Redirecting to payment...`);
+}
 
 // Notification
 const notification = document.getElementById('notification');
@@ -4063,18 +3130,479 @@ notificationClose.addEventListener('click', () => {
 notification.classList.remove('show');
 });
 
-// Form Submissions
-document.getElementById('signinForm').addEventListener('submit', (e) => {
-e.preventDefault();
-authModal.classList.remove('active');
-showNotification('Welcome Back!', 'You have successfully signed in.');
+// Auth buttons
+document.getElementById('signInBtn').addEventListener('click', () => {
+showNotification('Sign In', 'Sign in functionality would be implemented here', 'info');
 });
 
-document.getElementById('signupForm').addEventListener('submit', (e) => {
-e.preventDefault();
-authModal.classList.remove('active');
-showNotification('Account Created!', 'Your account has been successfully created.');
+document.getElementById('signUpBtn').addEventListener('click', () => {
+showNotification('Sign Up', 'Sign up functionality would be implemented here', 'info');
 });
+
+// Hero Buttons
+document.getElementById('exploreToolsBtn').addEventListener('click', () => {
+router.navigateTo('tools');
+});
+
+document.getElementById('viewDashboardBtn').addEventListener('click', () => {
+router.navigateTo('dashboard');
+});
+
+// Logo Click
+document.querySelector('.logo').addEventListener('click', () => {
+router.navigateTo('home');
+});
+
+// Tool Cards
+document.querySelectorAll('.tool-card').forEach(card => {
+card.addEventListener('click', () => {
+const tool = card.getAttribute('data-tool');
+if (tool === 'budget' || tool === 'savings' || tool === 'debt' || tool === 'expense') {
+router.navigateTo('tools');
+showNotification('Tool Selected', `Opening the ${tool} calculator`);
+setTimeout(() => {
+const element = document.querySelector(`#${tool === 'expense' ? 'expense-tracker' : tool}-calculator`);
+if (element) {
+element.scrollIntoView({ behavior: 'smooth' });
+}
+}, 500);
+} else if (tool === 'pomodoro') {
+router.navigateTo('tools');
+showNotification('Tool Selected', 'Opening the Pomodoro Timer');
+setTimeout(() => {
+document.getElementById('timer-display').scrollIntoView({ behavior: 'smooth' });
+}, 500);
+} else if (tool === 'todo') {
+router.navigateTo('tools');
+showNotification('Tool Selected', 'Opening the To-Do List');
+setTimeout(() => {
+document.querySelector('.todo-container').scrollIntoView({ behavior: 'smooth' });
+}, 500);
+} else if (tool === 'habit' || tool === 'investment' || tool === 'networth') {
+if (userState.isPremium) {
+router.navigateTo('tools');
+showNotification('Tool Selected', `Opening the ${tool} calculator`);
+setTimeout(() => {
+const element = document.querySelector(`#${tool}-calculator`);
+if (element) {
+element.scrollIntoView({ behavior: 'smooth' });
+}
+}, 500);
+} else {
+showNotification('Premium Feature', `${tool === 'habit' ? 'Habit Tracker' : tool === 'investment' ? 'Investment Calculator' : 'Net Worth Calculator'} is available for premium users only`, 'info');
+showPremiumModal();
+}
+}
+});
+});
+
+// Article Cards
+document.querySelectorAll('.article-card').forEach(card => {
+card.addEventListener('click', () => {
+const articleId = card.getAttribute('data-article');
+showNotification('Article Selected', `Opening article ${articleId}`);
+});
+});
+
+// Budget Calculator
+document.getElementById('calculate-budget').addEventListener('click', () => {
+const income = parseFloat(document.getElementById('monthly-income').value) || 0;
+const housing = parseFloat(document.getElementById('housing').value) || 0;
+const transportation = parseFloat(document.getElementById('transportation').value) || 0;
+const food = parseFloat(document.getElementById('food').value) || 0;
+const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+const entertainment = parseFloat(document.getElementById('entertainment').value) || 0;
+const totalExpenses = housing + transportation + food + utilities + entertainment;
+const remaining = income - totalExpenses;
+const resultElement = document.getElementById('budget-result');
+const remainingElement = document.getElementById('budget-remaining');
+if (income > 0) {
+resultElement.style.display = 'block';
+remainingElement.textContent = `$${remaining.toFixed(2)}`;
+if (remaining < 0) {
+remainingElement.style.color = '#ef4444';
+showNotification('Budget Deficit', 'Your expenses exceed your income. Consider reducing expenses.');
+} else {
+remainingElement.style.color = '#10b981';
+showNotification('Budget Calculated', `You have $${remaining.toFixed(2)} remaining after expenses.`);
+}
+} else {
+showNotification('Invalid Input', 'Please enter a valid monthly income.', 'error');
+}
+});
+
+// Savings Calculator
+document.getElementById('calculate-savings').addEventListener('click', () => {
+const goal = parseFloat(document.getElementById('savings-goal').value) || 0;
+const current = parseFloat(document.getElementById('current-savings').value) || 0;
+const monthly = parseFloat(document.getElementById('monthly-contribution').value) || 0;
+const rate = parseFloat(document.getElementById('interest-rate').value) || 0;
+const resultElement = document.getElementById('savings-result');
+const timeElement = document.getElementById('savings-time');
+if (goal > 0 && monthly > 0) {
+const remaining = goal - current;
+if (remaining <= 0) {
+resultElement.style.display = 'block';
+timeElement.textContent = '0 months';
+showNotification('Goal Reached', 'Congratulations! You have already reached your savings goal.');
+} else {
+const monthlyRate = rate / 100 / 12;
+if (monthlyRate > 0) {
+// Using the future value of annuity formula
+const months = Math.log(1 + (remaining * monthlyRate) / monthly) / Math.log(1 + monthlyRate);
+timeElement.textContent = `${Math.ceil(months)} months`;
+} else {
+// Simple division if no interest
+const months = Math.ceil(remaining / monthly);
+timeElement.textContent = `${months} months`;
+}
+resultElement.style.display = 'block';
+showNotification('Savings Calculated', `It will take ${timeElement.textContent} to reach your goal.`);
+}
+} else {
+showNotification('Invalid Input', 'Please enter valid values for savings goal and monthly contribution.', 'error');
+}
+});
+
+// Debt Calculator
+document.getElementById('calculate-debt').addEventListener('click', () => {
+const debt = parseFloat(document.getElementById('debt-amount').value) || 0;
+const rate = parseFloat(document.getElementById('interest-rate-debt').value) || 0;
+const payment = parseFloat(document.getElementById('monthly-payment').value) || 0;
+const resultElement = document.getElementById('debt-result');
+const timeElement = document.getElementById('debt-time');
+if (debt > 0 && payment > 0) {
+const monthlyRate = rate / 100 / 12;
+if (monthlyRate > 0) {
+// Using the loan payment formula
+const months = -Math.log(1 - (debt * monthlyRate) / payment) / Math.log(1 + monthlyRate);
+if (isFinite(months) && months > 0) {
+timeElement.textContent = `${Math.ceil(months)} months`;
+} else {
+timeElement.textContent = 'Never';
+showNotification('Debt Analysis', 'With your current payment, you will never pay off this debt. Consider increasing your monthly payment.');
+}
+} else {
+// Simple division if no interest
+const months = Math.ceil(debt / payment);
+timeElement.textContent = `${months} months`;
+}
+resultElement.style.display = 'block';
+if (timeElement.textContent !== 'Never') {
+showNotification('Debt Calculated', `It will take ${timeElement.textContent} to become debt-free.`);
+}
+} else {
+showNotification('Invalid Input', 'Please enter valid values for debt amount and monthly payment.', 'error');
+}
+});
+
+// Expense Tracker
+let expenses = [];
+let totalIncome = 0;
+let totalExpensesAmount = 0;
+
+document.getElementById('add-expense').addEventListener('click', () => {
+const name = document.getElementById('expense-name').value.trim();
+const amount = parseFloat(document.getElementById('expense-amount').value) || 0;
+const type = document.getElementById('expense-type').value;
+if (name && amount > 0) {
+addExpense(name, amount, type);
+document.getElementById('expense-name').value = '';
+document.getElementById('expense-amount').value = '';
+showNotification('Transaction Added', `${type === 'income' ? 'Income' : 'Expense'} of $${amount.toFixed(2)} has been added.`);
+}
+});
+
+function addExpense(name, amount, type) {
+const expense = {
+id: Date.now(),
+name,
+amount,
+type,
+date: new Date().toLocaleDateString()
+};
+expenses.unshift(expense);
+updateExpenseList();
+updateExpenseSummary();
+}
+
+function updateExpenseList() {
+const expenseList = document.getElementById('expense-list');
+expenseList.innerHTML = '';
+expenses.forEach(expense => {
+const expenseItem = document.createElement('div');
+expenseItem.className = 'expense-item';
+expenseItem.innerHTML = `
+<div class="expense-item-info">
+<div class="expense-item-name">${expense.name}</div>
+<div class="expense-item-date">${expense.date}</div>
+</div>
+<div class="expense-item-amount ${expense.type}">${expense.type === 'income' ? '+' : '-'}$${expense.amount.toFixed(2)}</div>
+<i class="fas fa-trash expense-item-delete"></i>
+`;
+expenseList.appendChild(expenseItem);
+// Add event listener to delete button
+expenseItem.querySelector('.expense-item-delete').addEventListener('click', () => {
+deleteExpense(expense.id);
+});
+});
+}
+
+function updateExpenseSummary() {
+totalIncome = expenses
+.filter(expense => expense.type === 'income')
+.reduce((sum, expense) => sum + expense.amount, 0);
+totalExpensesAmount = expenses
+.filter(expense => expense.type === 'expense')
+.reduce((sum, expense) => sum + expense.amount, 0);
+const balance = totalIncome - totalExpensesAmount;
+document.getElementById('total-income').textContent = `$${totalIncome.toFixed(2)}`;
+document.getElementById('total-expenses').textContent = `$${totalExpensesAmount.toFixed(2)}`;
+document.getElementById('balance').textContent = `$${balance.toFixed(2)}`;
+document.getElementById('balance').className = `value ${balance >= 0 ? 'income' : 'expense'}`;
+}
+
+function deleteExpense(id) {
+expenses = expenses.filter(expense => expense.id !== id);
+updateExpenseList();
+updateExpenseSummary();
+showNotification('Transaction Deleted', 'The transaction has been removed.');
+}
+
+// Investment Calculator (Premium)
+document.getElementById('calculate-investment').addEventListener('click', () => {
+if (userState.isPremium) {
+const initial = parseFloat(document.getElementById('initial-investment').value) || 0;
+const monthly = parseFloat(document.getElementById('monthly-contribution-inv').value) || 0;
+const rate = parseFloat(document.getElementById('annual-return').value) || 0;
+const years = parseFloat(document.getElementById('investment-years').value) || 0;
+const resultElement = document.getElementById('investment-result');
+const valueElement = document.getElementById('investment-value');
+if (initial > 0 && years > 0) {
+const monthlyRate = rate / 100 / 12;
+const months = years * 12;
+// Future value of a series formula
+const futureValue = initial * Math.pow(1 + monthlyRate, months) + 
+monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+resultElement.style.display = 'block';
+valueElement.textContent = `$${futureValue.toFixed(2)}`;
+showNotification('Investment Calculated', `Your investment will be worth $${futureValue.toFixed(2)} after ${years} years.`);
+} else {
+showNotification('Invalid Input', 'Please enter valid values for all fields.', 'error');
+}
+} else {
+showNotification('Premium Feature', 'Investment Calculator is available for premium users only', 'info');
+showPremiumModal();
+}
+});
+
+// Net Worth Calculator (Premium)
+document.getElementById('calculate-networth').addEventListener('click', () => {
+if (userState.isPremium) {
+const assets = parseFloat(document.getElementById('assets').value) || 0;
+const liabilities = parseFloat(document.getElementById('liabilities').value) || 0;
+const netWorth = assets - liabilities;
+const resultElement = document.getElementById('networth-result');
+const valueElement = document.getElementById('networth-value');
+resultElement.style.display = 'block';
+valueElement.textContent = `$${netWorth.toFixed(2)}`;
+valueElement.style.color = netWorth >= 0 ? '#10b981' : '#ef4444';
+showNotification('Net Worth Calculated', `Your net worth is $${netWorth.toFixed(2)}.`);
+} else {
+showNotification('Premium Feature', 'Net Worth Calculator is available for premium users only', 'info');
+showPremiumModal();
+}
+});
+
+// Pomodoro Timer
+let timerInterval;
+let timerSeconds = 25 * 60; // 25 minutes in seconds
+let isTimerRunning = false;
+
+const timerDisplay = document.getElementById('timer-display');
+const startBtn = document.getElementById('start-timer');
+const pauseBtn = document.getElementById('pause-timer');
+const resetBtn = document.getElementById('reset-timer');
+
+function updateTimerDisplay() {
+const minutes = Math.floor(timerSeconds / 60);
+const seconds = timerSeconds % 60;
+timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+startBtn.addEventListener('click', () => {
+if (!isTimerRunning) {
+isTimerRunning = true;
+timerInterval = setInterval(() => {
+timerSeconds--;
+updateTimerDisplay();
+if (timerSeconds <= 0) {
+clearInterval(timerInterval);
+isTimerRunning = false;
+showNotification('Timer Completed', 'Time for a break!');
+timerSeconds = 5 * 60; // 5 minutes break
+updateTimerDisplay();
+}
+}, 1000);
+showNotification('Timer Started', 'Focus on your work!');
+}
+});
+
+pauseBtn.addEventListener('click', () => {
+if (isTimerRunning) {
+clearInterval(timerInterval);
+isTimerRunning = false;
+showNotification('Timer Paused', 'Take a short break if needed.');
+}
+});
+
+resetBtn.addEventListener('click', () => {
+clearInterval(timerInterval);
+isTimerRunning = false;
+timerSeconds = 25 * 60; // Reset to 25 minutes
+updateTimerDisplay();
+showNotification('Timer Reset', 'Timer has been reset to 25 minutes.');
+});
+
+// To-Do List
+const todoInput = document.getElementById('todo-input');
+const addTodoBtn = document.getElementById('add-todo');
+const todoList = document.getElementById('todo-list');
+
+addTodoBtn.addEventListener('click', () => {
+const todoText = todoInput.value.trim();
+if (todoText) {
+addTodoItem(todoText);
+todoInput.value = '';
+showNotification('Task Added', `"${todoText}" has been added to your to-do list.`);
+}
+});
+
+todoInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') {
+const todoText = todoInput.value.trim();
+if (todoText) {
+addTodoItem(todoText);
+todoInput.value = '';
+showNotification('Task Added', `"${todoText}" has been added to your to-do list.`);
+}
+}
+});
+
+function addTodoItem(text) {
+const todoItem = document.createElement('li');
+todoItem.className = 'todo-item';
+todoItem.innerHTML = `
+<input type="checkbox" class="todo-checkbox">
+<span class="todo-text">${text}</span>
+<i class="fas fa-trash todo-delete"></i>
+`;
+todoList.appendChild(todoItem);
+
+// Add event listeners
+const checkbox = todoItem.querySelector('.todo-checkbox');
+const todoTextSpan = todoItem.querySelector('.todo-text');
+const deleteBtn = todoItem.querySelector('.todo-delete');
+
+checkbox.addEventListener('change', () => {
+if (checkbox.checked) {
+todoTextSpan.classList.add('completed');
+showNotification('Task Completed', 'Great job! Keep up the good work.');
+} else {
+todoTextSpan.classList.remove('completed');
+}
+});
+
+deleteBtn.addEventListener('click', () => {
+todoItem.remove();
+showNotification('Task Deleted', 'The task has been removed from your to-do list.');
+});
+}
+
+// Habit Tracker (Premium)
+const habitInput = document.getElementById('habit-input');
+const addHabitBtn = document.getElementById('add-habit');
+const habitList = document.getElementById('habit-list');
+
+addHabitBtn.addEventListener('click', () => {
+if (userState.isPremium) {
+const habitText = habitInput.value.trim();
+if (habitText) {
+addHabitItem(habitText);
+habitInput.value = '';
+showNotification('Habit Added', `"${habitText}" has been added to your habit tracker.`);
+}
+} else {
+showNotification('Premium Feature', 'Habit Tracker is available for premium users only', 'info');
+showPremiumModal();
+}
+});
+
+habitInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') {
+if (userState.isPremium) {
+const habitText = habitInput.value.trim();
+if (habitText) {
+addHabitItem(habitText);
+habitInput.value = '';
+showNotification('Habit Added', `"${habitText}" has been added to your habit tracker.`);
+}
+} else {
+showNotification('Premium Feature', 'Habit Tracker is available for premium users only', 'info');
+showPremiumModal();
+}
+}
+});
+
+function addHabitItem(text) {
+const habitItem = document.createElement('div');
+habitItem.className = 'habit-item';
+habitItem.innerHTML = `
+<div class="habit-item-header">
+<div class="habit-item-name">${text}</div>
+<i class="fas fa-trash habit-item-delete"></i>
+</div>
+<div class="habit-streak">
+<i class="fas fa-fire"></i>
+<span>0 day streak</span>
+</div>
+<div class="habit-days">
+<!-- Generate last 7 days -->
+ ${Array.from({ length: 7 }, (_, i) => {
+const date = new Date();
+date.setDate(date.getDate() - (6 - i));
+const isToday = i === 6;
+return `<div class="habit-day ${isToday ? 'today' : ''}" data-date="${date.toISOString().split('T')[0]}">${date.getDate()}</div>`;
+}).join('')}
+</div>
+`;
+habitList.appendChild(habitItem);
+
+// Add event listener to delete button
+habitItem.querySelector('.habit-item-delete').addEventListener('click', () => {
+habitItem.remove();
+showNotification('Habit Deleted', 'The habit has been removed from your tracker.');
+});
+
+// Add event listeners to habit days
+const habitDays = habitItem.querySelectorAll('.habit-day');
+habitDays.forEach(day => {
+day.addEventListener('click', () => {
+if (!day.classList.contains('completed')) {
+day.classList.add('completed');
+updateHabitStreak(habitItem);
+showNotification('Habit Tracked', 'Great job! Keep building your streak.');
+}
+});
+});
+}
+
+function updateHabitStreak(habitItem) {
+const habitDays = habitItem.querySelectorAll('.habit-day');
+const completedDays = habitItem.querySelectorAll('.habit-day.completed');
+const streakElement = habitItem.querySelector('.habit-streak span');
+streakElement.textContent = `${completedDays.length} day streak`;
+}
 
 // Contact form with Formspree
 document.getElementById('contactForm').addEventListener('submit', (e) => {
@@ -4101,95 +3629,10 @@ console.error('Error:', error);
 });
 });
 
-document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
-e.preventDefault();
-e.target.reset();
-showNotification('Subscribed!', 'You have successfully subscribed to our newsletter.');
-});
-
-// Hero Buttons
-document.getElementById('exploreDealsBtn').addEventListener('click', () => {
-router.navigateTo('deals');
-});
-
-document.getElementById('viewDashboardBtn').addEventListener('click', () => {
-router.navigateTo('dashboard');
-});
-
-// Logo Click
-document.querySelector('.logo').addEventListener('click', () => {
-router.navigateTo('home');
-});
-
-// Deal Buttons
-document.querySelectorAll('.view-deal-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-const productId = btn.getAttribute('data-product-id');
-if (productId && products[productId]) {
-router.showProductDetail(productId);
-}
-});
-});
-
-// Category Cards
-document.querySelectorAll('.category-card').forEach(card => {
-card.addEventListener('click', () => {
-const categoryName = card.querySelector('.category-name').textContent;
-showNotification('Category Selected', `You selected the ${categoryName} category.`);
-});
-});
-
-// Dashboard Period Buttons
-document.querySelectorAll('.period-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-
-const period = btn.textContent;
-showNotification('Period Updated', `Dashboard updated to show ${period.toLowerCase()} data.`);
-});
-});
-
-// Pagination
-document.querySelectorAll('.page-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-if (!btn.classList.contains('active') && !btn.querySelector('i')) {
-document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-
-const page = btn.textContent;
-showNotification('Page Changed', `You are now viewing page ${page} of deals.`);
-}
-});
-});
-
-// Social Login Buttons
-document.querySelectorAll('.social-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-const platform = btn.textContent.trim();
-showNotification('Redirecting...', `You are being redirected to ${platform} for authentication.`);
-});
-});
-
-// Product Page Tabs
-document.querySelectorAll('.tab').forEach(tab => {
-tab.addEventListener('click', () => {
-// Remove active class from all tabs and tab contents
-document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    
-// Add active class to clicked tab
-tab.classList.add('active');
-    
-// Show corresponding tab content
-const tabId = tab.getAttribute('data-tab');
-document.getElementById(`${tabId}-tab`).classList.add('active');
-});
-});
-
-// Product Save Button
-document.getElementById('productSaveBtn').addEventListener('click', () => {
-showNotification('Saved!', 'This product has been saved to your favorites.');
+// Initialize the app
+document.addEventListener('DOMContentLoaded', () => {
+// Initialize timer display
+updateTimerDisplay();
 });
 </script>
 </body>
