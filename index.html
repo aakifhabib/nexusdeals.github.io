@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financify - Personal Finance & Productivity Hub</title>
+    <title>WealthWise - Personal Finance Management</title>
+    <meta name="description" content="Take control of your finances with WealthWise - the ultimate personal finance management platform with tools for budgeting, savings tracking, and financial planning.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -26,19 +27,37 @@
             --gradient-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
         }
 
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             background-color: var(--darker);
             color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
         }
 
         /* Background Animation */
@@ -205,8 +224,10 @@
             position: relative;
         }
 
-        nav ul li a:hover {
+        nav ul li a:hover,
+        nav ul li a:focus {
             color: var(--primary);
+            outline: none;
         }
 
         nav ul li a::after {
@@ -220,7 +241,8 @@
             transition: width 0.3s;
         }
 
-        nav ul li a:hover::after {
+        nav ul li a:hover::after,
+        nav ul li a:focus::after {
             width: 100%;
         }
 
@@ -246,9 +268,11 @@
             color: white;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover,
+        .btn-primary:focus {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            outline: none;
         }
 
         .btn-outline {
@@ -257,9 +281,11 @@
             border: 1px solid var(--text-dim);
         }
 
-        .btn-outline:hover {
+        .btn-outline:hover,
+        .btn-outline:focus {
             background: var(--text-dim);
             color: var(--darker);
+            outline: none;
         }
 
         .btn-premium {
@@ -268,9 +294,11 @@
             margin-left: 10px;
         }
 
-        .btn-premium:hover {
+        .btn-premium:hover,
+        .btn-premium:focus {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(250, 112, 154, 0.3);
+            outline: none;
         }
 
         /* Mobile Menu */
@@ -278,6 +306,12 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        .mobile-menu:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
         /* Main Content */
@@ -387,9 +421,11 @@
             perspective: 1000px;
         }
 
-        .feature-card:hover {
+        .feature-card:hover,
+        .feature-card:focus-within {
             transform: translateY(-5px) rotateX(5deg);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            outline: none;
         }
 
         .feature-icon {
@@ -446,9 +482,11 @@
             transform-style: preserve-3d;
         }
 
-        .tool-card:hover {
+        .tool-card:hover,
+        .tool-card:focus-within {
             transform: translateY(-5px) rotateX(5deg);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            outline: none;
         }
 
         .tool-header {
@@ -519,9 +557,11 @@
             transform-style: preserve-3d;
         }
 
-        .article-card:hover {
+        .article-card:hover,
+        .article-card:focus-within {
             transform: translateY(-5px) rotateX(5deg);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            outline: none;
         }
 
         .article-image {
@@ -592,8 +632,10 @@
             transition: transform 0.3s;
         }
 
-        .stat-card:hover {
+        .stat-card:hover,
+        .stat-card:focus-within {
             transform: translateY(-5px) rotateX(5deg);
+            outline: none;
         }
 
         .stat-card h3 {
@@ -629,8 +671,10 @@
             transform-style: preserve-3d;
         }
 
-        .dashboard-activity:hover {
+        .dashboard-activity:hover,
+        .dashboard-activity:focus-within {
             transform: rotateX(2deg);
+            outline: none;
         }
 
         .dashboard-activity h3 {
@@ -653,8 +697,10 @@
             transition: transform 0.3s;
         }
 
-        .activity-item:hover {
+        .activity-item:hover,
+        .activity-item:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .activity-item:last-child {
@@ -718,8 +764,10 @@
             transform-style: preserve-3d;
         }
 
-        .dashboard-tools:hover {
+        .dashboard-tools:hover,
+        .dashboard-tools:focus-within {
             transform: rotateX(2deg);
+            outline: none;
         }
 
         .dashboard-tools h3 {
@@ -742,8 +790,10 @@
             transition: transform 0.3s;
         }
 
-        .tool-item:hover {
+        .tool-item:hover,
+        .tool-item:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .tool-item:last-child {
@@ -763,8 +813,10 @@
             transform: translateZ(3px);
         }
 
-        .tool-item a:hover {
+        .tool-item a:hover,
+        .tool-item a:focus {
             color: var(--primary);
+            outline: none;
         }
 
         /* Tool Pages */
@@ -804,8 +856,10 @@
             transform-style: preserve-3d;
         }
 
-        .tool-container:hover {
+        .tool-container:hover,
+        .tool-container:focus-within {
             transform: rotateX(2deg);
+            outline: none;
         }
 
         .form-group {
@@ -856,9 +910,11 @@
             transform: translateZ(5px);
         }
 
-        .btn-tool:hover {
+        .btn-tool:hover,
+        .btn-tool:focus {
             transform: translateZ(10px) translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            outline: none;
         }
 
         .result-container {
@@ -920,9 +976,11 @@
             transition: all 0.3s;
         }
 
-        .expense-tab.active {
+        .expense-tab.active,
+        .expense-tab:focus {
             color: var(--primary);
             border-bottom-color: var(--primary);
+            outline: none;
         }
 
         .expense-content {
@@ -950,8 +1008,10 @@
             transition: transform 0.3s;
         }
 
-        .expense-item:hover {
+        .expense-item:hover,
+        .expense-item:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .expense-item .details {
@@ -998,8 +1058,10 @@
             transition: transform 0.3s;
         }
 
-        .summary-card:hover {
+        .summary-card:hover,
+        .summary-card:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .summary-card h4 {
@@ -1046,8 +1108,10 @@
             transition: transform 0.3s;
         }
 
-        .timer-display:hover {
+        .timer-display:hover,
+        .timer-display:focus-within {
             transform: translateZ(20px) rotateX(5deg);
+            outline: none;
         }
 
         .timer-controls {
@@ -1070,8 +1134,10 @@
             transition: transform 0.3s;
         }
 
-        .timer-setting:hover {
+        .timer-setting:hover,
+        .timer-setting:focus-within {
             transform: translateZ(10px) rotateX(5deg);
+            outline: none;
         }
 
         .timer-setting label {
@@ -1090,6 +1156,12 @@
             text-align: center;
         }
 
+        .timer-setting input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
         /* To-Do List */
         .todo-container {
             max-width: 600px;
@@ -1103,8 +1175,10 @@
             transition: transform 0.3s;
         }
 
-        .todo-input-container:hover {
+        .todo-input-container:hover,
+        .todo-input-container:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .todo-input {
@@ -1134,9 +1208,11 @@
             transform: translateZ(5px);
         }
 
-        .todo-add-btn:hover {
+        .todo-add-btn:hover,
+        .todo-add-btn:focus {
             background: var(--primary-dark);
             transform: translateZ(10px);
+            outline: none;
         }
 
         .todo-list {
@@ -1154,8 +1230,10 @@
             transition: transform 0.3s;
         }
 
-        .todo-item:hover {
+        .todo-item:hover,
+        .todo-item:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .todo-checkbox {
@@ -1164,6 +1242,11 @@
             margin-right: 1rem;
             cursor: pointer;
             transform: translateZ(5px);
+        }
+
+        .todo-checkbox:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .todo-text {
@@ -1187,9 +1270,11 @@
             transform: translateZ(5px);
         }
 
-        .todo-delete:hover {
+        .todo-delete:hover,
+        .todo-delete:focus {
             background: rgba(239, 68, 68, 0.2);
             transform: translateZ(10px);
+            outline: none;
         }
 
         /* Article Detail */
@@ -1228,8 +1313,10 @@
             transition: transform 0.3s;
         }
 
-        .article-image-container:hover {
+        .article-image-container:hover,
+        .article-image-container:focus-within {
             transform: translateZ(20px) rotateX(5deg);
+            outline: none;
         }
 
         .article-image-container img {
@@ -1305,8 +1392,10 @@
             transition: transform 0.3s;
         }
 
-        .contact-card:hover {
+        .contact-card:hover,
+        .contact-card:focus-within {
             transform: translateY(-5px) rotateX(5deg);
+            outline: none;
         }
 
         .contact-card i {
@@ -1338,8 +1427,10 @@
             transition: transform 0.3s;
         }
 
-        .contact-form:hover {
+        .contact-form:hover,
+        .contact-form:focus-within {
             transform: rotateX(2deg);
+            outline: none;
         }
 
         .contact-form h3 {
@@ -1366,8 +1457,10 @@
             transition: transform 0.3s;
         }
 
-        .policy-content:hover {
+        .policy-content:hover,
+        .policy-content:focus-within {
             transform: rotateX(2deg);
+            outline: none;
         }
 
         .policy-content h1 {
@@ -1447,8 +1540,10 @@
             transition: color 0.3s;
         }
 
-        .footer-column ul li a:hover {
+        .footer-column ul li a:hover,
+        .footer-column ul li a:focus {
             color: var(--primary);
+            outline: none;
         }
 
         .social-links {
@@ -1470,9 +1565,11 @@
             transform-style: preserve-3d;
         }
 
-        .social-links a:hover {
+        .social-links a:hover,
+        .social-links a:focus {
             background: var(--primary);
             transform: translateZ(10px) translateY(-3px);
+            outline: none;
         }
 
         .footer-bottom {
@@ -1503,7 +1600,7 @@
             backdrop-filter: blur(10px);
             border-radius: 1rem;
             padding: 2rem;
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             position: relative;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
@@ -1514,8 +1611,10 @@
             transition: transform 0.3s;
         }
 
-        .premium-content:hover {
+        .premium-content:hover,
+        .premium-content:focus-within {
             transform: rotateX(2deg);
+            outline: none;
         }
 
         .premium-header {
@@ -1558,9 +1657,11 @@
             transform: translateZ(20px);
         }
 
-        .premium-close:hover {
+        .premium-close:hover,
+        .premium-close:focus {
             background: rgba(255, 255, 255, 0.1);
             transform: translateZ(30px) rotateZ(90deg);
+            outline: none;
         }
 
         .premium-plans {
@@ -1580,9 +1681,11 @@
             transform-style: preserve-3d;
         }
 
-        .plan:hover {
+        .plan:hover,
+        .plan:focus-within {
             transform: translateY(-5px) rotateX(5deg);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            outline: none;
         }
 
         .plan.featured {
@@ -1668,9 +1771,11 @@
             color: white;
         }
 
-        .plan-button.primary:hover {
+        .plan-button.primary:hover,
+        .plan-button.primary:focus {
             transform: translateZ(10px) translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            outline: none;
         }
 
         .plan-button.outline {
@@ -1679,10 +1784,64 @@
             border: 1px solid var(--text-dim);
         }
 
-        .plan-button.outline:hover {
+        .plan-button.outline:hover,
+        .plan-button.outline:focus {
             background: var(--text-dim);
             color: var(--darker);
             transform: translateZ(10px);
+            outline: none;
+        }
+
+        /* Feature Comparison Table */
+        .feature-comparison {
+            margin-top: 3rem;
+            overflow-x: auto;
+            transform: translateZ(10px);
+        }
+
+        .feature-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .feature-table th,
+        .feature-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-table th {
+            background: rgba(79, 70, 229, 0.2);
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .feature-table th:first-child {
+            text-align: left;
+            background: transparent;
+        }
+
+        .feature-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .feature-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-table .check {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .feature-table .times {
+            color: var(--danger);
+            font-size: 1.2rem;
         }
 
         /* Sign In/Up Modal with 3D Animation */
@@ -1773,9 +1932,11 @@
             transition: all 0.3s;
         }
 
-        .auth-close:hover {
+        .auth-close:hover,
+        .auth-close:focus {
             background: rgba(255, 255, 255, 0.1);
             transform: rotateZ(90deg);
+            outline: none;
         }
 
         .auth-form {
@@ -1830,8 +1991,10 @@
             transition: color 0.3s;
         }
 
-        .auth-switch a:hover {
+        .auth-switch a:hover,
+        .auth-switch a:focus {
             color: var(--primary-dark);
+            outline: none;
         }
 
         /* Notification */
@@ -1910,34 +2073,11 @@
             transform: translateZ(5px);
         }
 
-        .notification-close:hover {
+        .notification-close:hover,
+        .notification-close:focus {
             color: var(--text);
             transform: translateZ(10px) rotateZ(90deg);
-        }
-
-        /* Premium Only Content */
-        .premium-only {
-            position: relative;
-        }
-
-        .premium-only::after {
-            content: "PREMIUM";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 10;
-        }
-
-        .premium-only .content {
-            filter: blur(4px);
-            pointer-events: none;
+            outline: none;
         }
 
         /* Ad Containers */
@@ -1954,8 +2094,10 @@
             transition: transform 0.3s;
         }
 
-        .ad-container:hover {
+        .ad-container:hover,
+        .ad-container:focus-within {
             transform: translateZ(10px) rotateX(2deg);
+            outline: none;
         }
 
         .ad-container.leaderboard {
@@ -1979,6 +2121,335 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto;
+        }
+
+        /* Currency Converter Tool */
+        .currency-converter {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .currency-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .currency-input {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.375rem;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .currency-select {
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.375rem;
+            color: var(--text);
+            font-size: 1rem;
+            min-width: 100px;
+        }
+        
+        .swap-currencies {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .swap-currencies:hover {
+            transform: rotate(180deg);
+        }
+        
+        .conversion-result {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        /* Loan Calculator Tool */
+        .loan-result-container {
+            margin-top: 2rem;
+        }
+        
+        .loan-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .loan-summary-card {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .loan-summary-card h4 {
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+        
+        .loan-summary-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .amortization-table {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        
+        .amortization-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .amortization-table th, .amortization-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .amortization-table th {
+            background: rgba(79, 70, 229, 0.2);
+            color: var(--text);
+        }
+        
+        /* Financial Health Score */
+        .health-score-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .health-score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            position: relative;
+            background: conic-gradient(
+                var(--danger) 0%,
+                var(--accent) 30%,
+                var(--secondary) 60%,
+                var(--primary) 100%
+            );
+        }
+        
+        .health-score-inner {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .health-score-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+        
+        .health-score-recommendations {
+            margin-top: 2rem;
+        }
+        
+        .health-score-recommendations h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .health-score-recommendations ul {
+            list-style-type: none;
+        }
+        
+        .health-score-recommendations li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .health-score-recommendations li:last-child {
+            border-bottom: none;
+        }
+        
+        .health-score-recommendations li i {
+            color: var(--secondary);
+            margin-right: 0.75rem;
+        }
+        
+        /* Notification Settings */
+        .notification-settings {
+            margin-top: 2rem;
+        }
+        
+        .notification-setting {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .notification-setting:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-setting h4 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .notification-setting p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Financial Goals Tracker */
+        .goals-container {
+            margin-top: 2rem;
+        }
+        
+        .goal-card {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+        
+        .goal-card:hover, .goal-card:focus-within {
+            transform: translateZ(10px) rotateX(2deg);
+            outline: none;
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .goal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .goal-amount {
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+        
+        .goal-progress {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .goal-progress-bar {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .goal-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        
+        .add-goal-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-goal-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
         }
 
         /* Responsive Design */
@@ -2068,6 +2539,41 @@
             .auth-content {
                 padding: 1.5rem;
             }
+
+            .feature-table {
+                font-size: 0.8rem;
+            }
+
+            .feature-table th,
+            .feature-table td {
+                padding: 0.5rem;
+            }
+            
+            .currency-row {
+                flex-direction: column;
+            }
+            
+            .swap-currencies {
+                transform: rotate(90deg);
+            }
+            
+            .swap-currencies:hover {
+                transform: rotate(270deg);
+            }
+            
+            .loan-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .health-score-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .health-score-inner {
+                width: 130px;
+                height: 130px;
+            }
         }
 
         @media (min-width: 769px) {
@@ -2082,6 +2588,9 @@
     </style>
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Background Animation -->
     <div class="bg-animation">
         <span></span>
@@ -2101,7 +2610,7 @@
         <div class="header-container">
             <div class="logo">
                 <i class="fas fa-chart-line"></i>
-                <span>Financify</span>
+                <span>WealthWise</span>
             </div>
             <nav id="mainNav">
                 <ul>
@@ -2115,15 +2624,15 @@
             <div class="header-actions">
                 <button class="btn btn-outline" id="signInBtn">Sign In</button>
                 <button class="btn btn-premium" id="upgradeBtn">Upgrade</button>
-                <div class="mobile-menu" id="mobileMenuBtn">
+                <button class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle mobile menu">
                     <i class="fas fa-bars"></i>
-                </div>
+                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
         <!-- Home Page -->
         <section id="home" class="page">
             <div class="container">
@@ -2131,8 +2640,8 @@
                 <div class="hero">
                     <div class="hero-image"></div>
                     <div class="hero-content">
-                        <h1>Master Your Finances & Boost Productivity</h1>
-                        <p>All-in-one platform for personal finance management and productivity tools to help you achieve your goals.</p>
+                        <h1>Master Your Finances with WealthWise</h1>
+                        <p>Your all-in-one platform for personal finance management, budgeting, and achieving your financial goals.</p>
                         <div class="hero-buttons">
                             <button class="btn btn-primary" id="getStartedBtn">Get Started</button>
                             <button class="btn btn-outline" id="learnMoreBtn">Learn More</button>
@@ -2141,15 +2650,15 @@
                 </div>
 
                 <!-- Ad Container -->
-                <div class="ad-container leaderboard">
+                <div class="ad-container leaderboard" aria-label="Advertisement">
                     Advertisement (Leaderboard)
                 </div>
 
                 <!-- Features Section -->
                 <div class="features">
                     <div class="section-title">
-                        <h2>Why Choose Financify?</h2>
-                        <p>Our platform offers everything you need to take control of your finances and boost your productivity.</p>
+                        <h2>Why Choose WealthWise?</h2>
+                        <p>Our platform offers everything you need to take control of your finances and build wealth.</p>
                     </div>
                     <div class="features-grid">
                         <div class="feature-card">
@@ -2223,47 +2732,15 @@
                 <div class="articles">
                     <div class="section-title">
                         <h2>Latest Articles</h2>
-                        <p>Stay informed with our latest articles on personal finance and productivity.</p>
+                        <p>Stay informed with our latest articles on personal finance and wealth building.</p>
                     </div>
-                    <div class="articles-grid">
-                        <div class="article-card" onclick="navigateToPage('article', {id: 1})">
-                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Budgeting Tips" class="article-image">
-                            <div class="article-content">
-                                <h3>10 Budgeting Tips for Financial Success</h3>
-                                <p>Learn how to create and stick to a budget with these practical tips.</p>
-                                <div class="article-meta">
-                                    <span>May 15, 2023</span>
-                                    <span>5 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 2})">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Investment Strategies" class="article-image">
-                            <div class="article-content">
-                                <h3>Investment Strategies for Beginners</h3>
-                                <p>Start your investment journey with these beginner-friendly strategies.</p>
-                                <div class="article-meta">
-                                    <span>May 10, 2023</span>
-                                    <span>8 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 3})">
-                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Productivity Hacks" class="article-image">
-                            <div class="article-content">
-                                <h3>Productivity Hacks for Busy Professionals</h3>
-                                <p>Boost your productivity with these simple yet effective hacks.</p>
-                                <div class="article-meta">
-                                    <span>May 5, 2023</span>
-                                    <span>6 min read</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="articles-grid" id="articlesGrid">
+                        <!-- Articles will be dynamically loaded here -->
                     </div>
                 </div>
 
                 <!-- Ad Container -->
-                <div class="ad-container rectangle">
+                <div class="ad-container rectangle" aria-label="Advertisement">
                     Advertisement (Rectangle)
                 </div>
             </div>
@@ -2365,6 +2842,18 @@
                                 <li class="tool-item">
                                     <i class="fas fa-tasks"></i>
                                     <a href="#" onclick="navigateToPage('todo-list')">To-Do List</a>
+                                </li>
+                                <li class="tool-item">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <a href="#" onclick="navigateToPage('currency-converter')">Currency Converter</a>
+                                </li>
+                                <li class="tool-item">
+                                    <i class="fas fa-calculator"></i>
+                                    <a href="#" onclick="navigateToPage('loan-calculator')">Loan Calculator</a>
+                                </li>
+                                <li class="tool-item">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <a href="#" onclick="navigateToPage('financial-health')">Financial Health</a>
                                 </li>
                             </ul>
                         </div>
@@ -2472,6 +2961,46 @@
                                 <button class="btn btn-primary" onclick="showPremiumModal()">Upgrade to Access</button>
                             </div>
                         </div>
+                        <div class="tool-card">
+                            <div class="tool-header">
+                                <h3><i class="fas fa-exchange-alt"></i> Currency Converter</h3>
+                                <p>Convert between different currencies</p>
+                            </div>
+                            <div class="tool-body">
+                                <p>Convert amounts between different currencies with real-time exchange rates.</p>
+                                <button class="btn btn-primary" onclick="navigateToPage('currency-converter')">Convert Currency</button>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-header">
+                                <h3><i class="fas fa-calculator"></i> Loan Calculator</h3>
+                                <p>Calculate loan payments and interest</p>
+                            </div>
+                            <div class="tool-body">
+                                <p>Calculate your monthly payments and total interest for any loan.</p>
+                                <button class="btn btn-primary" onclick="navigateToPage('loan-calculator')">Calculate Loan</button>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-header">
+                                <h3><i class="fas fa-heartbeat"></i> Financial Health Score</h3>
+                                <p>Assess your financial health</p>
+                            </div>
+                            <div class="tool-body">
+                                <p>Get a comprehensive assessment of your financial health and personalized recommendations.</p>
+                                <button class="btn btn-primary" onclick="navigateToPage('financial-health')">Check Health</button>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-header">
+                                <h3><i class="fas fa-bullseye"></i> Financial Goals</h3>
+                                <p>Track your financial goals</p>
+                            </div>
+                            <div class="tool-body">
+                                <p>Set and track your financial goals to stay motivated and achieve your dreams.</p>
+                                <button class="btn btn-primary" onclick="navigateToPage('financial-goals')">Track Goals</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2482,76 +3011,11 @@
             <div class="container">
                 <div class="articles">
                     <div class="section-title">
-                        <h2>Finance & Productivity Articles</h2>
-                        <p>Stay informed with our latest articles on personal finance and productivity.</p>
+                        <h2>Latest Articles</h2>
+                        <p>Stay informed with our latest articles on personal finance and wealth building.</p>
                     </div>
-                    <div class="articles-grid">
-                        <div class="article-card" onclick="navigateToPage('article', {id: 1})">
-                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Budgeting Tips" class="article-image">
-                            <div class="article-content">
-                                <h3>10 Budgeting Tips for Financial Success</h3>
-                                <p>Learn how to create and stick to a budget with these practical tips.</p>
-                                <div class="article-meta">
-                                    <span>May 15, 2023</span>
-                                    <span>5 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 2})">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Investment Strategies" class="article-image">
-                            <div class="article-content">
-                                <h3>Investment Strategies for Beginners</h3>
-                                <p>Start your investment journey with these beginner-friendly strategies.</p>
-                                <div class="article-meta">
-                                    <span>May 10, 2023</span>
-                                    <span>8 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 3})">
-                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Productivity Hacks" class="article-image">
-                            <div class="article-content">
-                                <h3>Productivity Hacks for Busy Professionals</h3>
-                                <p>Boost your productivity with these simple yet effective hacks.</p>
-                                <div class="article-meta">
-                                    <span>May 5, 2023</span>
-                                    <span>6 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 4})">
-                            <img src="https://images.unsplash.com/photo-1579621970561-508648449815?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Emergency Fund" class="article-image">
-                            <div class="article-content">
-                                <h3>How to Build an Emergency Fund</h3>
-                                <p>Learn why you need an emergency fund and how to build one.</p>
-                                <div class="article-meta">
-                                    <span>April 28, 2023</span>
-                                    <span>7 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 5})">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Credit Score" class="article-image">
-                            <div class="article-content">
-                                <h3>Understanding Your Credit Score</h3>
-                                <p>Learn how credit scores work and how to improve yours.</p>
-                                <div class="article-meta">
-                                    <span>April 22, 2023</span>
-                                    <span>9 min read</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article-card" onclick="navigateToPage('article', {id: 6})">
-                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Time Management" class="article-image">
-                            <div class="article-content">
-                                <h3>Time Management Techniques for Better Productivity</h3>
-                                <p>Master your time with these proven time management techniques.</p>
-                                <div class="article-meta">
-                                    <span>April 15, 2023</span>
-                                    <span>8 min read</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="articles-grid" id="articlesGridPage">
+                        <!-- Articles will be dynamically loaded here -->
                     </div>
                 </div>
             </div>
@@ -2782,7 +3246,7 @@
                         <p>Boost your productivity with the Pomodoro technique.</p>
                     </div>
                     <div class="pomodoro-container">
-                        <div class="timer-display" id="timerDisplay">25:00</div>
+                        <div class="timer-display" id="timerDisplay" tabindex="0" role="timer" aria-live="polite">25:00</div>
                         <div class="timer-controls">
                             <button class="btn btn-primary" id="startTimer">Start</button>
                             <button class="btn btn-outline" id="pauseTimer">Pause</button>
@@ -2791,11 +3255,13 @@
                         <div class="timer-settings">
                             <div class="timer-setting">
                                 <label for="workTime">Work Time (min)</label>
-                                <input type="number" id="workTime" value="25" min="1" max="60">
+                                <input type="number" id="workTime" value="25" min="1" max="60" aria-describedby="workTimeHelp">
+                                <small id="workTimeHelp">Set the duration of work intervals</small>
                             </div>
                             <div class="timer-setting">
                                 <label for="breakTime">Break Time (min)</label>
-                                <input type="number" id="breakTime" value="5" min="1" max="30">
+                                <input type="number" id="breakTime" value="5" min="1" max="30" aria-describedby="breakTimeHelp">
+                                <small id="breakTimeHelp">Set the duration of break intervals</small>
                             </div>
                         </div>
                     </div>
@@ -2813,12 +3279,296 @@
                     </div>
                     <div class="todo-container">
                         <div class="todo-input-container">
-                            <input type="text" id="todoInput" class="todo-input" placeholder="Add a new task...">
-                            <button id="addTodoBtn" class="todo-add-btn">Add</button>
+                            <input type="text" id="todoInput" class="todo-input" placeholder="Add a new task..." aria-label="Add a new task">
+                            <button id="addTodoBtn" class="todo-add-btn" aria-label="Add task">Add</button>
                         </div>
-                        <ul id="todoList" class="todo-list">
+                        <ul id="todoList" class="todo-list" role="list" aria-label="Task list">
                             <!-- To-do items will be added here dynamically -->
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Currency Converter Page -->
+        <section id="currency-converter" class="page" style="display: none;">
+            <div class="container">
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <h2>Currency Converter</h2>
+                        <p>Convert between different currencies with real-time exchange rates.</p>
+                    </div>
+                    <div class="tool-container">
+                        <div class="currency-converter">
+                            <div class="currency-row">
+                                <input type="number" id="fromAmount" class="currency-input" placeholder="0.00" value="1">
+                                <select id="fromCurrency" class="currency-select">
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="CHF">CHF - Swiss Franc</option>
+                                    <option value="CNY">CNY - Chinese Yuan</option>
+                                    <option value="PKR">PKR - Pakistani Rupee</option>
+                                    <option value="INR">INR - Indian Rupee</option>
+                                </select>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <button class="swap-currencies" id="swapCurrencies">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="currency-row">
+                                <input type="number" id="toAmount" class="currency-input" placeholder="0.00" readonly>
+                                <select id="toCurrency" class="currency-select">
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="CHF">CHF - Swiss Franc</option>
+                                    <option value="CNY">CNY - Chinese Yuan</option>
+                                    <option value="PKR">PKR - Pakistani Rupee</option>
+                                    <option value="INR">INR - Indian Rupee</option>
+                                </select>
+                            </div>
+                            
+                            <div class="conversion-result" id="conversionResult">
+                                <p>1 USD = 0.93 EUR</p>
+                                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem;">Exchange rates updated: Today, 10:30 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loan Calculator Page -->
+        <section id="loan-calculator" class="page" style="display: none;">
+            <div class="container">
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <h2>Loan Calculator</h2>
+                        <p>Calculate your monthly payments and total interest for any loan.</p>
+                    </div>
+                    <div class="tool-container">
+                        <form id="loanForm">
+                            <div class="form-group">
+                                <label for="loanAmount">Loan Amount ($)</label>
+                                <input type="number" id="loanAmount" placeholder="Enter loan amount" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loanTerm">Loan Term (years)</label>
+                                    <input type="number" id="loanTerm" placeholder="Enter loan term" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="interestRate">Interest Rate (%)</label>
+                                    <input type="number" id="loanInterestRate" placeholder="Enter interest rate" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-tool">Calculate Loan</button>
+                        </form>
+                        <div id="loanResult" class="loan-result-container" style="display: none;">
+                            <h3>Loan Summary</h3>
+                            <div class="loan-summary">
+                                <div class="loan-summary-card">
+                                    <h4>Monthly Payment</h4>
+                                    <div class="value" id="monthlyPayment">$0</div>
+                                </div>
+                                <div class="loan-summary-card">
+                                    <h4>Total Interest</h4>
+                                    <div class="value" id="totalInterest">$0</div>
+                                </div>
+                                <div class="loan-summary-card">
+                                    <h4>Total Payment</h4>
+                                    <div class="value" id="totalPayment">$0</div>
+                                </div>
+                            </div>
+                            <h3>Amortization Schedule</h3>
+                            <div class="amortization-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Principal Paid</th>
+                                            <th>Interest Paid</th>
+                                            <th>Remaining Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="amortizationBody">
+                                        <!-- Amortization schedule will be added here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Health Score Page -->
+        <section id="financial-health" class="page" style="display: none;">
+            <div class="container">
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <h2>Financial Health Score</h2>
+                        <p>Assess your financial health and get personalized recommendations.</p>
+                    </div>
+                    <div class="tool-container">
+                        <form id="healthForm">
+                            <div class="form-group">
+                                <label for="monthlyIncome">Monthly Income ($)</label>
+                                <input type="number" id="healthMonthlyIncome" placeholder="Enter your monthly income" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlyExpenses">Monthly Expenses ($)</label>
+                                <input type="number" id="healthMonthlyExpenses" placeholder="Enter your monthly expenses" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="totalDebt">Total Debt ($)</label>
+                                <input type="number" id="healthTotalDebt" placeholder="Enter your total debt" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="totalSavings">Total Savings ($)</label>
+                                <input type="number" id="healthTotalSavings" placeholder="Enter your total savings" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="creditScore">Credit Score</label>
+                                <input type="number" id="healthCreditScore" placeholder="Enter your credit score" min="300" max="850" required>
+                            </div>
+                            <button type="submit" class="btn btn-tool">Calculate Health Score</button>
+                        </form>
+                        <div id="healthResult" style="display: none;">
+                            <div class="health-score-container">
+                                <div class="health-score-circle">
+                                    <div class="health-score-inner">
+                                        <span id="healthScoreValue">0</span>
+                                    </div>
+                                </div>
+                                <div class="health-score-label" id="healthScoreLabel">Poor</div>
+                            </div>
+                            <div class="health-score-recommendations">
+                                <h3>Recommendations</h3>
+                                <ul id="healthRecommendations">
+                                    <!-- Recommendations will be added here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Goals Page -->
+        <section id="financial-goals" class="page" style="display: none;">
+            <div class="container">
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <h2>Financial Goals Tracker</h2>
+                        <p>Set and track your financial goals to stay motivated.</p>
+                    </div>
+                    <div class="tool-container">
+                        <div class="goals-container" id="goalsContainer">
+                            <!-- Goals will be loaded here -->
+                        </div>
+                        <button class="add-goal-btn" id="addGoalBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New Goal</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Page -->
+        <section id="settings" class="page" style="display: none;">
+            <div class="container">
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <h2>Settings</h2>
+                        <p>Customize your WealthWise experience.</p>
+                    </div>
+                    <div class="tool-container">
+                        <h3>Account Settings</h3>
+                        <div class="form-group">
+                            <label for="userName">Name</label>
+                            <input type="text" id="userName" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail">Email</label>
+                            <input type="email" id="userEmail" placeholder="Enter your email">
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Preferences</h3>
+                        <div class="form-group">
+                            <label for="currency">Default Currency</label>
+                            <select id="currency" class="currency-select">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CHF">CHF - Swiss Franc</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                                <option value="PKR">PKR - Pakistani Rupee</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                            </select>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Notifications</h3>
+                        <div class="notification-settings">
+                            <div class="notification-setting">
+                                <div>
+                                    <h4>Budget Alerts</h4>
+                                    <p>Notify me when I'm approaching my budget limit</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="budgetAlerts" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-setting">
+                                <div>
+                                    <h4>Bill Reminders</h4>
+                                    <p>Remind me about upcoming bill payments</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="billReminders" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-setting">
+                                <div>
+                                    <h4>Savings Milestones</h4>
+                                    <p>Celebrate when I reach savings goals</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="savingsMilestones" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-setting">
+                                <div>
+                                    <h4>Weekly Reports</h4>
+                                    <p>Send me a weekly financial summary</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="weeklyReports">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; text-align: center;">
+                            <button class="btn btn-tool" style="width: auto; padding: 0.75rem 2rem;">Save Settings</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2857,12 +3607,12 @@
                         <div class="contact-card">
                             <i class="fas fa-envelope"></i>
                             <h3>Email</h3>
-                            <p>support@financify.com</p>
+                            <p>nexusdeals235@gmail.com</p>
                         </div>
                         <div class="contact-card">
                             <i class="fas fa-phone"></i>
                             <h3>Phone</h3>
-                            <p>+1 (555) 123-4567</p>
+                            <p>+92 332 9938777</p>
                         </div>
                         <div class="contact-card">
                             <i class="fas fa-map-marker-alt"></i>
@@ -2872,7 +3622,7 @@
                     </div>
                     <div class="contact-form">
                         <h3>Send us a message</h3>
-                        <form action="https://formspree.io/f/your-form-id" method="POST">
+                        <form action="https://formspree.io/f/mblzyver" method="POST">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -2930,7 +3680,7 @@
                         <ul>
                             <li>With your consent</li>
                             <li>For legal reasons, such as complying with legal obligations</li>
-                            <li>To protect and defend the rights and property of Financify</li>
+                            <li>To protect and defend the rights and property of WealthWise</li>
                         </ul>
                         
                         <h2>4. Data Security</h2>
@@ -2952,7 +3702,7 @@
                         <p>We may update this privacy policy from time to time. The updated version will be indicated by a revised "Last updated" date and the updated version will be effective as soon as it is accessible.</p>
                         
                         <h2>8. Contact Us</h2>
-                        <p>If you have any questions about this privacy policy, please contact us at privacy@financify.com.</p>
+                        <p>If you have any questions about this privacy policy, please contact us at privacy@wealthwise.com.</p>
                     </div>
                 </div>
             </div>
@@ -2970,32 +3720,32 @@
                         <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. In addition, when using this website's particular services, you shall be subject to any posted guidelines or rules applicable to such services.</p>
                         
                         <h2>2. Use License</h2>
-                        <p>Permission is granted to temporarily download one copy of the materials on Financify's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                        <p>Permission is granted to temporarily download one copy of the materials on WealthWise's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
                         <ul>
                             <li>Modify or copy the materials</li>
                             <li>Use the materials for any commercial purpose</li>
-                            <li>Attempt to decompile or reverse engineer any software contained on Financify's website</li>
+                            <li>Attempt to decompile or reverse engineer any software contained on WealthWise's website</li>
                             <li>Remove any copyright or other proprietary notations from the materials</li>
                             <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
                         </ul>
                         
                         <h2>3. Disclaimer</h2>
-                        <p>The materials on Financify's website are provided on an 'as is' basis. Financify makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                        <p>The materials on WealthWise's website are provided on an 'as is' basis. WealthWise makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
                         
                         <h2>4. Limitations</h2>
-                        <p>In no event shall Financify or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Financify's website, even if Financify or a Financify authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+                        <p>In no event shall WealthWise or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on WealthWise's website, even if WealthWise or a WealthWise authorized representative has been notified orally or in writing of the possibility of such damage.</p>
                         
                         <h2>5. Accuracy of Materials</h2>
-                        <p>The materials appearing on Financify's website could include technical, typographical, or photographic errors. Financify does not warrant that any of the materials on its website are accurate, complete, or current. Financify may make changes to the materials contained on its website at any time without notice. However, Financify does not make any commitment to update the materials.</p>
+                        <p>The materials appearing on WealthWise's website could include technical, typographical, or photographic errors. WealthWise does not warrant that any of the materials on its website are accurate, complete, or current. WealthWise may make changes to the materials contained on its website at any time without notice. However, WealthWise does not make any commitment to update the materials.</p>
                         
                         <h2>6. Links</h2>
-                        <p>Financify has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Financify of the site. Use of any such linked website is at the user's own risk.</p>
+                        <p>WealthWise has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by WealthWise of the site. Use of any such linked website is at the user's own risk.</p>
                         
                         <h2>7. Modifications</h2>
-                        <p>Financify may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
+                        <p>WealthWise may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
                         
                         <h2>8. Governing Law</h2>
-                        <p>These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which Financify operates, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+                        <p>These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which WealthWise operates, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
                     </div>
                 </div>
             </div>
@@ -3006,13 +3756,13 @@
     <footer>
         <div class="footer-container">
             <div class="footer-column">
-                <h3>Financify</h3>
-                <p>Your all-in-one platform for personal finance management and productivity tools.</p>
+                <h3>WealthWise</h3>
+                <p>Your all-in-one platform for personal finance management and building wealth.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="footer-column">
@@ -3023,6 +3773,10 @@
                     <li><a href="#" onclick="navigateToPage('expense-tracker')">Expense Tracker</a></li>
                     <li><a href="#" onclick="navigateToPage('pomodoro-timer')">Pomodoro Timer</a></li>
                     <li><a href="#" onclick="navigateToPage('todo-list')">To-Do List</a></li>
+                    <li><a href="#" onclick="navigateToPage('currency-converter')">Currency Converter</a></li>
+                    <li><a href="#" onclick="navigateToPage('loan-calculator')">Loan Calculator</a></li>
+                    <li><a href="#" onclick="navigateToPage('financial-health')">Financial Health</a></li>
+                    <li><a href="#" onclick="navigateToPage('financial-goals')">Financial Goals</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -3031,7 +3785,6 @@
                     <li><a href="#" onclick="navigateToPage('articles')">Articles</a></li>
                     <li><a href="#" onclick="navigateToPage('dashboard')">Dashboard</a></li>
                     <li><a href="#" onclick="showPremiumModal()">Premium Features</a></li>
-                    <li><a href="#" onclick="navigateToPage('contact')">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -3041,22 +3794,23 @@
                     <li><a href="#" onclick="navigateToPage('terms-of-service')">Terms of Service</a></li>
                     <li><a href="#">Cookie Policy</a></li>
                     <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#" onclick="navigateToPage('settings')">Settings</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 Financify. All rights reserved.</p>
+            <p>&copy; 2023 WealthWise. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Premium Modal -->
-    <div class="premium-modal" id="premiumModal">
+    <div class="premium-modal" id="premiumModal" role="dialog" aria-modal="true" aria-labelledby="premiumModalTitle">
         <div class="premium-content">
-            <button class="premium-close" id="closePremiumModal">
+            <button class="premium-close" id="closePremiumModal" aria-label="Close premium modal">
                 <i class="fas fa-times"></i>
             </button>
             <div class="premium-header">
-                <h2>Upgrade to Premium</h2>
+                <h2 id="premiumModalTitle">Upgrade to Premium</h2>
                 <p>Unlock all features and take your financial management to the next level.</p>
             </div>
             <div class="premium-plans">
@@ -3067,11 +3821,15 @@
                     </div>
                     <ul class="plan-features">
                         <li><i class="fas fa-check"></i> Ad-free experience</li>
-                        <li><i class="fas fa-check"></i> Expense Tracker</li>
-                        <li><i class="fas fa-check"></i> Budget Calculator</li>
-                        <li><i class="fas fa-check"></i> Savings Calculator</li>
-                        <li><i class="fas fa-check"></i> Pomodoro Timer</li>
-                        <li><i class="fas fa-check"></i> To-Do List</li>
+                        <li><i class="fas fa-check"></i> Expense Tracker with advanced categorization</li>
+                        <li><i class="fas fa-check"></i> Budget Calculator with goal tracking</li>
+                        <li><i class="fas fa-check"></i> Savings Calculator with compound interest</li>
+                        <li><i class="fas fa-check"></i> Pomodoro Timer with custom intervals</li>
+                        <li><i class="fas fa-check"></i> To-Do List with priority levels</li>
+                        <li><i class="fas fa-check"></i> Monthly financial reports</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                        <li><i class="fas fa-check"></i> Mobile app access</li>
+                        <li><i class="fas fa-check"></i> Basic financial insights</li>
                     </ul>
                     <button class="plan-button outline">Current Plan</button>
                 </div>
@@ -3083,29 +3841,186 @@
                     </div>
                     <ul class="plan-features">
                         <li><i class="fas fa-check"></i> Everything in Basic</li>
-                        <li><i class="fas fa-check"></i> Debt Payoff Calculator</li>
-                        <li><i class="fas fa-check"></i> Investment Calculator</li>
-                        <li><i class="fas fa-check"></i> Net Worth Calculator</li>
-                        <li><i class="fas fa-check"></i> Habit Tracker</li>
-                        <li><i class="fas fa-check"></i> Advanced Analytics</li>
-                        <li><i class="fas fa-check"></i> Data Export</li>
+                        <li><i class="fas fa-check"></i> Debt Payoff Calculator with multiple strategies</li>
+                        <li><i class="fas fa-check"></i> Investment Calculator with portfolio projections</li>
+                        <li><i class="fas fa-check"></i> Net Worth Calculator with asset allocation</li>
+                        <li><i class="fas fa-check"></i> Habit Tracker with streaks and rewards</li>
+                        <li><i class="fas fa-check"></i> Advanced Analytics with custom reports</li>
+                        <li><i class="fas fa-check"></i> Data Export in multiple formats</li>
+                        <li><i class="fas fa-check"></i> Tax optimization tools</li>
+                        <li><i class="fas fa-check"></i> Retirement planning calculator</li>
+                        <li><i class="fas fa-check"></i> College savings planner</li>
+                        <li><i class="fas fa-check"></i> Real-time market data integration</li>
+                        <li><i class="fas fa-check"></i> Priority customer support</li>
+                        <li><i class="fas fa-check"></i> Customizable dashboard</li>
+                        <li><i class="fas fa-check"></i> Goal tracking with milestones</li>
+                        <li><i class="fas fa-check"></i> Bill payment reminders</li>
+                        <li><i class="fas fa-check"></i> Credit score monitoring</li>
+                        <li><i class="fas fa-check"></i> Insurance needs analysis</li>
+                        <li><i class="fas fa-check"></i> Estate planning tools</li>
+                        <li><i class="fas fa-check"></i> Family budget management</li>
+                        <li><i class="fas fa-check"></i> Travel budget planner</li>
+                        <li><i class="fas fa-check"></i> Home affordability calculator</li>
+                        <li><i class="fas fa-check"></i> Loan comparison tools</li>
+                        <li><i class="fas fa-check"></i> Refinancing calculator</li>
+                        <li><i class="fas fa-check"></i> Early mortgage payoff calculator</li>
+                        <li><i class="fas fa-check"></i> Currency converter</li>
+                        <li><i class="fas fa-check"></i> Inflation calculator</li>
+                        <li><i class="fas fa-check"></i> Net worth projection over time</li>
+                        <li><i class="fas fa-check"></i> Financial health score</li>
+                        <li><i class="fas fa-check"></i> Custom financial advice based on AI</li>
+                        <li><i class="fas fa-check"></i> Integration with bank accounts (read-only)</li>
+                        <li><i class="fas fa-check"></i> Automatic transaction categorization</li>
+                        <li><i class="fas fa-check"></i> Investment portfolio analysis</li>
+                        <li><i class="fas fa-check"></i> Risk tolerance assessment</li>
+                        <li><i class="fas fa-check"></i> Financial goal setting with timelines</li>
+                        <li><i class="fas fa-check"></i> Spending insights and trends</li>
+                        <li><i class="fas fa-check"></i> Subscription tracking</li>
+                        <li><i class="fas fa-check"></i> Bill negotiation service</li>
+                        <li><i class="fas fa-check"></i> Financial coaching sessions (monthly)</li>
+                        <li><i class="fas fa-check"></i> Exclusive webinars and courses</li>
+                        <li><i class="fas fa-check"></i> Community access</li>
+                        <li><i class="fas fa-check"></i> Early access to new features</li>
                     </ul>
                     <button class="plan-button primary">Upgrade to Pro</button>
                 </div>
             </div>
+            
+            <!-- Feature Comparison Table -->
+            <div class="feature-comparison">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">Feature Comparison</h3>
+                <table class="feature-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free</th>
+                            <th>Basic</th>
+                            <th>Pro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ad-free experience</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Basic financial tools</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Advanced calculators</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Financial reports</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Customer support</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>Email</td>
+                            <td>Priority</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile app access</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Investment tools</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Bank integration</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>AI financial advice</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Financial coaching</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Goal Modal -->
+    <div class="premium-modal" id="goalModal" role="dialog" aria-modal="true" aria-labelledby="goalModalTitle">
+        <div class="premium-content">
+            <button class="premium-close" id="closeGoalModal" aria-label="Close goal modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="premium-header">
+                <h2 id="goalModalTitle">Add Financial Goal</h2>
+                <p>Set a new financial goal to track your progress.</p>
+            </div>
+            <form id="goalForm">
+                <div class="form-group">
+                    <label for="goalName">Goal Name</label>
+                    <input type="text" id="goalName" placeholder="e.g., Emergency Fund, Vacation, New Car" required>
+                </div>
+                <div class="form-group">
+                    <label for="goalTargetAmount">Target Amount ($)</label>
+                    <input type="number" id="goalTargetAmount" placeholder="Enter target amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="goalCurrentAmount">Current Amount ($)</label>
+                    <input type="number" id="goalCurrentAmount" placeholder="Enter current amount" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="goalTargetDate">Target Date</label>
+                    <input type="date" id="goalTargetDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="goalCategory">Category</label>
+                    <select id="goalCategory" required>
+                        <option value="">Select category</option>
+                        <option value="emergency">Emergency Fund</option>
+                        <option value="vacation">Vacation</option>
+                        <option value="car">New Car</option>
+                        <option value="home">Home Down Payment</option>
+                        <option value="education">Education</option>
+                        <option value="retirement">Retirement</option>
+                        <option value="debt">Debt Payoff</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-tool">Add Goal</button>
+            </form>
         </div>
     </div>
 
     <!-- Sign In/Up Modal with 3D Animation -->
-    <div class="auth-modal" id="authModal">
+    <div class="auth-modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
         <div class="auth-container" id="authContainer">
             <!-- Sign In Form -->
             <div class="auth-content front">
-                <button class="auth-close" id="closeAuthModal">
+                <button class="auth-close" id="closeAuthModal" aria-label="Close authentication modal">
                     <i class="fas fa-times"></i>
                 </button>
                 <div class="auth-header">
-                    <h2>Sign In to Financify</h2>
+                    <h2 id="authModalTitle">Sign In to WealthWise</h2>
                     <p>Access your dashboard and save your progress.</p>
                 </div>
                 <form id="signInForm" class="auth-form">
@@ -3126,12 +4041,12 @@
             
             <!-- Sign Up Form -->
             <div class="auth-content back">
-                <button class="auth-close" id="closeAuthModalBack">
+                <button class="auth-close" id="closeAuthModalBack" aria-label="Close authentication modal">
                     <i class="fas fa-times"></i>
                 </button>
                 <div class="auth-header">
-                    <h2>Create Your Financify Account</h2>
-                    <p>Join thousands of users managing their finances with Financify.</p>
+                    <h2>Create Your WealthWise Account</h2>
+                    <p>Join thousands of users managing their finances with WealthWise.</p>
                 </div>
                 <form id="signUpForm" class="auth-form">
                     <div class="form-group">
@@ -3160,7 +4075,7 @@
     </div>
 
     <!-- Notification -->
-    <div class="notification" id="notification">
+    <div class="notification" id="notification" role="alert" aria-live="polite">
         <div class="notification-icon">
             <i class="fas fa-check"></i>
         </div>
@@ -3168,7 +4083,7 @@
             <h4>Success</h4>
             <p>Your action was completed successfully.</p>
         </div>
-        <button class="notification-close" id="closeNotification">
+        <button class="notification-close" id="closeNotification" aria-label="Close notification">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -3186,6 +4101,73 @@
         let pomodoroIsBreak = false;
         let expenses = [];
         let todos = [];
+        let goals = [];
+        
+        // Article data
+        const articles = [
+            {
+                id: 1,
+                title: "10 Budgeting Tips for Financial Success",
+                date: "May 15, 2023",
+                readTime: "5 min read",
+                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                excerpt: "Learn how to create and stick to a budget with these practical tips."
+            },
+            {
+                id: 2,
+                title: "Investment Strategies for Beginners",
+                date: "May 10, 2023",
+                readTime: "8 min read",
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                excerpt: "Start your investment journey with these beginner-friendly strategies."
+            },
+            {
+                id: 3,
+                title: "Productivity Hacks for Busy Professionals",
+                date: "May 5, 2023",
+                readTime: "6 min read",
+                image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                excerpt: "Boost your productivity with these simple yet effective hacks."
+            },
+            {
+                id: 4,
+                title: "How to Build an Emergency Fund",
+                date: "April 28, 2023",
+                readTime: "7 min read",
+                image: "https://images.unsplash.com/photo-1579621970561-508648449815?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                excerpt: "Learn the importance of having an emergency fund and how to build one."
+            },
+            {
+                id: 5,
+                title: "Understanding Your Credit Score",
+                date: "April 22, 2023",
+                readTime: "9 min read",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                excerpt: "Everything you need to know about credit scores and how to improve yours."
+            },
+            {
+                id: 6,
+                title: "Time Management Techniques for Better Productivity",
+                date: "April 15, 2023",
+                readTime: "8 min read",
+                image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                excerpt: "Master your time with these proven time management techniques."
+            }
+        ];
+        
+        // Sample exchange rates (in a real app, you would fetch these from an API)
+        const exchangeRates = {
+            USD: { EUR: 0.93, GBP: 0.80, JPY: 151.61, CAD: 1.36, AUD: 1.52, CHF: 0.90, CNY: 7.24, PKR: 278.50, INR: 83.12 },
+            EUR: { USD: 1.07, GBP: 0.86, JPY: 162.84, CAD: 1.46, AUD: 1.63, CHF: 0.97, CNY: 7.77, PKR: 298.92, INR: 89.24 },
+            GBP: { USD: 1.25, EUR: 1.16, JPY: 189.28, CAD: 1.70, AUD: 1.90, CHF: 1.13, CNY: 9.04, PKR: 347.81, INR: 103.85 },
+            JPY: { USD: 0.0066, EUR: 0.0061, GBP: 0.0053, CAD: 0.0090, AUD: 0.0100, CHF: 0.0060, CNY: 0.048, PKR: 1.84, INR: 0.55 },
+            CAD: { USD: 0.74, EUR: 0.68, GBP: 0.59, JPY: 111.48, AUD: 1.12, CHF: 0.66, CNY: 5.33, PKR: 204.78, INR: 61.16 },
+            AUD: { USD: 0.66, EUR: 0.61, GBP: 0.53, JPY: 99.74, CAD: 0.89, CHF: 0.59, CNY: 4.76, PKR: 182.83, INR: 54.71 },
+            CHF: { USD: 1.11, EUR: 1.03, GBP: 0.89, JPY: 168.49, CAD: 1.51, AUD: 1.69, CNY: 8.04, PKR: 309.11, INR: 92.44 },
+            CNY: { USD: 0.14, EUR: 0.13, GBP: 0.11, JPY: 20.94, CAD: 0.19, AUD: 0.21, CHF: 0.12, PKR: 38.44, INR: 11.49 },
+            PKR: { USD: 0.0036, EUR: 0.0033, GBP: 0.0029, JPY: 0.54, CAD: 0.0049, AUD: 0.0055, CHF: 0.0032, CNY: 0.026, INR: 0.30 },
+            INR: { USD: 0.012, EUR: 0.011, GBP: 0.0096, JPY: 1.82, CAD: 1.63, AUD: 1.83, CHF: 1.08, CNY: 0.087, PKR: 3.35 }
+        };
         
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
@@ -3197,6 +4179,12 @@
             
             // Load todos from localStorage
             loadTodos();
+            
+            // Load goals from localStorage
+            loadGoals();
+            
+            // Load articles on home page
+            loadArticles();
             
             // Set up event listeners
             setupEventListeners();
@@ -3251,6 +4239,15 @@
                 document.getElementById('premiumModal').style.display = 'none';
             });
             
+            // Goal modal
+            document.getElementById('addGoalBtn').addEventListener('click', function() {
+                document.getElementById('goalModal').style.display = 'flex';
+            });
+            
+            document.getElementById('closeGoalModal').addEventListener('click', function() {
+                document.getElementById('goalModal').style.display = 'none';
+            });
+            
             // Auth modal
             document.getElementById('closeAuthModal').addEventListener('click', function() {
                 document.getElementById('authModal').classList.remove('active');
@@ -3298,7 +4295,7 @@
                 }
                 
                 // Simulate sign up
-                showNotification('Account Created', `Welcome to Financify, ${name}!`, 'success');
+                showNotification('Account Created', `Welcome to WealthWise, ${name}!`, 'success');
                 document.getElementById('authModal').classList.remove('active');
                 document.getElementById('signInBtn').textContent = 'Account';
             });
@@ -3360,6 +4357,30 @@
                 }
             });
             
+            // Currency converter
+            document.getElementById('fromAmount').addEventListener('input', convertCurrency);
+            document.getElementById('fromCurrency').addEventListener('change', convertCurrency);
+            document.getElementById('toCurrency').addEventListener('change', convertCurrency);
+            document.getElementById('swapCurrencies').addEventListener('click', swapCurrencies);
+            
+            // Loan calculator
+            document.getElementById('loanForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                calculateLoan();
+            });
+            
+            // Financial health
+            document.getElementById('healthForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                calculateHealthScore();
+            });
+            
+            // Goal form
+            document.getElementById('goalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addGoal();
+            });
+            
             // Notification close button
             document.getElementById('closeNotification').addEventListener('click', function() {
                 document.getElementById('notification').classList.remove('show');
@@ -3398,9 +4419,19 @@
                 // Close mobile menu if open
                 document.getElementById('mainNav').classList.remove('active');
                 
+                // Load articles if on articles page
+                if (pageId === 'articles') {
+                    loadArticlesPage();
+                }
+                
                 // Load article if on article page
                 if (pageId === 'article') {
                     loadArticle();
+                }
+                
+                // Load goals if on goals page
+                if (pageId === 'financial-goals') {
+                    updateGoalsDisplay();
                 }
             }
         }
@@ -3472,6 +4503,69 @@
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 5000);
+        }
+        
+        // Load articles on home page
+        function loadArticles() {
+            const articlesGrid = document.getElementById('articlesGrid');
+            if (articlesGrid) {
+                articlesGrid.innerHTML = '';
+                
+                // Show first 3 articles on home page
+                const homeArticles = articles.slice(0, 3);
+                
+                homeArticles.forEach(article => {
+                    const articleCard = document.createElement('div');
+                    articleCard.className = 'article-card';
+                    articleCard.onclick = function() {
+                        navigateToPage('article', {id: article.id});
+                    };
+                    
+                    articleCard.innerHTML = `
+                        <img src="${article.image}" alt="${article.title}" class="article-image">
+                        <div class="article-content">
+                            <h3>${article.title}</h3>
+                            <p>${article.excerpt}</p>
+                            <div class="article-meta">
+                                <span>${article.date}</span>
+                                <span>${article.readTime}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    articlesGrid.appendChild(articleCard);
+                });
+            }
+        }
+        
+        // Load articles on articles page
+        function loadArticlesPage() {
+            const articlesGrid = document.getElementById('articlesGridPage');
+            if (articlesGrid) {
+                articlesGrid.innerHTML = '';
+                
+                articles.forEach(article => {
+                    const articleCard = document.createElement('div');
+                    articleCard.className = 'article-card';
+                    articleCard.onclick = function() {
+                        navigateToPage('article', {id: article.id});
+                    };
+                    
+                    articleCard.innerHTML = `
+                        <img src="${article.image}" alt="${article.title}" class="article-image">
+                        <div class="article-content">
+                            <h3>${article.title}</h3>
+                            <p>${article.excerpt}</p>
+                            <div class="article-meta">
+                                <span>${article.date}</span>
+                                <span>${article.readTime}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    articlesGrid.appendChild(articleCard);
+                });
+            }
         }
         
         // Calculate budget
@@ -3846,6 +4940,9 @@
             const minutes = Math.floor(pomodoroTimeLeft / 60);
             const seconds = pomodoroTimeLeft % 60;
             document.getElementById('timerDisplay').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update ARIA live region for screen readers
+            document.getElementById('timerDisplay').setAttribute('aria-label', `Timer: ${minutes} minutes and ${seconds} seconds`);
         }
         
         // To-Do List Functions
@@ -3944,6 +5041,277 @@
             showNotification('Task Deleted', 'Your task has been deleted.', 'success');
         }
         
+        // Currency Converter Functions
+        function convertCurrency() {
+            const fromAmount = parseFloat(document.getElementById('fromAmount').value) || 0;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            
+            let toAmount;
+            
+            if (fromCurrency === toCurrency) {
+                toAmount = fromAmount;
+            } else {
+                toAmount = fromAmount * exchangeRates[fromCurrency][toCurrency];
+            }
+            
+            document.getElementById('toAmount').value = toAmount.toFixed(2);
+            
+            // Update conversion result
+            const rate = exchangeRates[fromCurrency][toCurrency];
+            document.getElementById('conversionResult').innerHTML = `
+                <p>1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}</p>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem;">Exchange rates updated: Today, 10:30 AM</p>
+            `;
+        }
+        
+        function swapCurrencies() {
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            
+            document.getElementById('fromCurrency').value = toCurrency;
+            document.getElementById('toCurrency').value = fromCurrency;
+            
+            convertCurrency();
+        }
+        
+        // Loan Calculator Functions
+        function calculateLoan() {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const loanTerm = parseFloat(document.getElementById('loanTerm').value);
+            const interestRate = parseFloat(document.getElementById('loanInterestRate').value) / 100 / 12;
+            
+            const numberOfPayments = loanTerm * 12;
+            
+            // Calculate monthly payment
+            const monthlyPayment = loanAmount * (interestRate * Math.pow(1 + interestRate, numberOfPayments)) / (Math.pow(1 + interestRate, numberOfPayments) - 1);
+            
+            // Calculate totals
+            const totalPayment = monthlyPayment * numberOfPayments;
+            const totalInterest = totalPayment - loanAmount;
+            
+            // Update result display
+            document.getElementById('monthlyPayment').textContent = `$${monthlyPayment.toFixed(2)}`;
+            document.getElementById('totalInterest').textContent = `$${totalInterest.toFixed(2)}`;
+            document.getElementById('totalPayment').textContent = `$${totalPayment.toFixed(2)}`;
+            
+            // Generate amortization schedule
+            const amortizationBody = document.getElementById('amortizationBody');
+            amortizationBody.innerHTML = '';
+            
+            let remainingBalance = loanAmount;
+            
+            for (let year = 1; year <= loanTerm; year++) {
+                let yearlyPrincipal = 0;
+                let yearlyInterest = 0;
+                
+                for (let month = 1; month <= 12; month++) {
+                    const interestPayment = remainingBalance * interestRate;
+                    const principalPayment = monthlyPayment - interestPayment;
+                    
+                    yearlyPrincipal += principalPayment;
+                    yearlyInterest += interestPayment;
+                    
+                    remainingBalance -= principalPayment;
+                    
+                    if (remainingBalance < 0) remainingBalance = 0;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${year}</td>
+                    <td>$${yearlyPrincipal.toFixed(2)}</td>
+                    <td>$${yearlyInterest.toFixed(2)}</td>
+                    <td>$${remainingBalance.toFixed(2)}</td>
+                `;
+                amortizationBody.appendChild(row);
+            }
+            
+            // Show result container
+            document.getElementById('loanResult').style.display = 'block';
+            
+            // Show notification
+            showNotification('Loan Calculated', 'Your loan details have been calculated successfully.', 'success');
+        }
+        
+        // Financial Health Score Functions
+        function calculateHealthScore() {
+            const monthlyIncome = parseFloat(document.getElementById('healthMonthlyIncome').value);
+            const monthlyExpenses = parseFloat(document.getElementById('healthMonthlyExpenses').value);
+            const totalDebt = parseFloat(document.getElementById('healthTotalDebt').value);
+            const totalSavings = parseFloat(document.getElementById('healthTotalSavings').value);
+            const creditScore = parseFloat(document.getElementById('healthCreditScore').value);
+            
+            // Calculate score components
+            const savingsRate = (monthlyIncome - monthlyExpenses) / monthlyIncome;
+            const debtToIncomeRatio = totalDebt / (monthlyIncome * 12);
+            const emergencyFundRatio = totalSavings / monthlyExpenses;
+            
+            // Calculate overall score (0-100)
+            let score = 0;
+            
+            // Savings rate (30 points)
+            if (savingsRate >= 0.2) score += 30;
+            else if (savingsRate >= 0.15) score += 25;
+            else if (savingsRate >= 0.1) score += 20;
+            else if (savingsRate >= 0.05) score += 15;
+            else if (savingsRate >= 0) score += 10;
+            
+            // Debt-to-income ratio (30 points)
+            if (debtToIncomeRatio < 0.2) score += 30;
+            else if (debtToIncomeRatio < 0.3) score += 25;
+            else if (debtToIncomeRatio < 0.4) score += 20;
+            else if (debtToIncomeRatio < 0.5) score += 15;
+            else score += 10;
+            
+            // Emergency fund (20 points)
+            if (emergencyFundRatio >= 6) score += 20;
+            else if (emergencyFundRatio >= 3) score += 15;
+            else if (emergencyFundRatio >= 1) score += 10;
+            else score += 5;
+            
+            // Credit score (20 points)
+            if (creditScore >= 800) score += 20;
+            else if (creditScore >= 740) score += 18;
+            else if (creditScore >= 670) score += 15;
+            else if (creditScore >= 580) score += 10;
+            else score += 5;
+            
+            // Update score display
+            document.getElementById('healthScoreValue').textContent = Math.round(score);
+            
+            // Update score label
+            let label = '';
+            if (score >= 80) label = 'Excellent';
+            else if (score >= 70) label = 'Good';
+            else if (score >= 60) label = 'Fair';
+            else if (score >= 50) label = 'Poor';
+            else label = 'Very Poor';
+            
+            document.getElementById('healthScoreLabel').textContent = label;
+            
+            // Generate recommendations
+            const recommendations = document.getElementById('healthRecommendations');
+            recommendations.innerHTML = '';
+            
+            if (savingsRate < 0.1) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-piggy-bank"></i> Try to save at least 10% of your income each month';
+                recommendations.appendChild(li);
+            }
+            
+            if (debtToIncomeRatio > 0.3) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-credit-card"></i> Focus on paying down high-interest debt';
+                recommendations.appendChild(li);
+            }
+            
+            if (emergencyFundRatio < 3) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-shield-alt"></i> Build an emergency fund with at least 3 months of expenses';
+                recommendations.appendChild(li);
+            }
+            
+            if (creditScore < 670) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-chart-line"></i> Work on improving your credit score';
+                recommendations.appendChild(li);
+            }
+            
+            if (score >= 70) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-thumbs-up"></i> Great job! Keep up the good financial habits';
+                recommendations.appendChild(li);
+            }
+            
+            // Show result container
+            document.getElementById('healthResult').style.display = 'block';
+            
+            // Show notification
+            showNotification('Health Score Calculated', `Your financial health score is ${Math.round(score)} (${label})`, 'success');
+        }
+        
+        // Financial Goals Functions
+        function addGoal() {
+            const goalName = document.getElementById('goalName').value;
+            const targetAmount = parseFloat(document.getElementById('goalTargetAmount').value);
+            const currentAmount = parseFloat(document.getElementById('goalCurrentAmount').value);
+            const targetDate = document.getElementById('goalTargetDate').value;
+            const category = document.getElementById('goalCategory').value;
+            
+            // Create goal object
+            const goal = {
+                id: Date.now(),
+                name: goalName,
+                targetAmount: targetAmount,
+                currentAmount: currentAmount,
+                targetDate: targetDate,
+                category: category
+            };
+            
+            // Add to goals array
+            goals.push(goal);
+            
+            // Save to localStorage
+            localStorage.setItem('goals', JSON.stringify(goals));
+            
+            // Reset form
+            document.getElementById('goalForm').reset();
+            
+            // Close modal
+            document.getElementById('goalModal').style.display = 'none';
+            
+            // Update goals display
+            updateGoalsDisplay();
+            
+            // Show notification
+            showNotification('Goal Added', 'Your financial goal has been added successfully.', 'success');
+        }
+        
+        // Load goals from localStorage
+        function loadGoals() {
+            const savedGoals = localStorage.getItem('goals');
+            if (savedGoals) {
+                goals = JSON.parse(savedGoals);
+            }
+        }
+        
+        // Update goals display
+        function updateGoalsDisplay() {
+            const goalsContainer = document.getElementById('goalsContainer');
+            goalsContainer.innerHTML = '';
+            
+            // Add goals to display
+            goals.forEach(goal => {
+                const progress = (goal.currentAmount / goal.targetAmount) * 100;
+                
+                const goalCard = document.createElement('div');
+                goalCard.className = 'goal-card';
+                
+                // Calculate days remaining
+                const targetDate = new Date(goal.targetDate);
+                const today = new Date();
+                const timeDiff = targetDate.getTime() - today.getTime();
+                const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                
+                goalCard.innerHTML = `
+                    <div class="goal-header">
+                        <div class="goal-title">${goal.name}</div>
+                        <div class="goal-amount">$${goal.currentAmount.toFixed(2)} / $${goal.targetAmount.toFixed(2)}</div>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-progress-bar" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="goal-stats">
+                        <span>${progress.toFixed(1)}% Complete</span>
+                        <span>${daysRemaining} days left</span>
+                    </div>
+                `;
+                
+                goalsContainer.appendChild(goalCard);
+            });
+        }
+        
         // Load article
         function loadArticle() {
             const articleId = sessionStorage.getItem('currentArticleId');
@@ -3953,364 +5321,8 @@
                 return;
             }
             
-            // Article data
-            const articles = {
-                1: {
-                    title: "10 Budgeting Tips for Financial Success",
-                    date: "May 15, 2023",
-                    readTime: "5 min read",
-                    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    content: `
-                        <p>Budgeting is the foundation of personal finance. It's the process of creating a plan to spend your money, and it's essential for achieving financial stability and success. Here are 10 budgeting tips to help you take control of your finances:</p>
-                        
-                        <h2>1. Track Your Spending</h2>
-                        <p>Before you can create a budget, you need to know where your money is going. Track all your expenses for at least a month, including small purchases like coffee or snacks. Use our expense tracker tool to make this process easier.</p>
-                        
-                        <h2>2. Categorize Your Expenses</h2>
-                        <p>Divide your expenses into categories such as housing, utilities, transportation, food, healthcare, entertainment, and savings. This will help you identify areas where you can cut back.</p>
-                        
-                        <h2>3. Set Financial Goals</h2>
-                        <p>Determine what you want to achieve financially, whether it's paying off debt, saving for a down payment, or building an emergency fund. Having clear goals will motivate you to stick to your budget.</p>
-                        
-                        <h2>4. Use the 50/30/20 Rule</h2>
-                        <p>A popular budgeting method is the 50/30/20 rule, which suggests allocating 50% of your income to needs, 30% to wants, and 20% to savings and debt repayment. Adjust these percentages based on your financial situation.</p>
-                        
-                        <h2>5. Plan for Irregular Expenses</h2>
-                        <p>Don't forget to budget for irregular expenses like car maintenance, medical bills, or holiday gifts. Set aside a small amount each month for these expenses to avoid financial stress when they arise.</p>
-                        
-                        <h2>6. Review and Adjust Regularly</h2>
-                        <p>Your budget should be a living document that changes as your financial situation changes. Review your budget monthly and make adjustments as needed.</p>
-                        
-                        <h2>7. Use Budgeting Tools</h2>
-                        <p>Take advantage of budgeting tools and apps to simplify the process. Our budget calculator can help you create a personalized budget based on your income and expenses.</p>
-                        
-                        <h2>8. Build an Emergency Fund</h2>
-                        <p>Make saving for emergencies a priority in your budget. Aim to save at least three to six months' worth of living expenses to protect yourself from unexpected financial setbacks.</p>
-                        
-                        <h2>9. Avoid Impulse Purchases</h2>
-                        <p>Impulse purchases can derail your budget. Implement a 24-hour rule for non-essential purchases: wait 24 hours before buying something to determine if it's a need or a want.</p>
-                        
-                        <h2>10. Celebrate Small Wins</h2>
-                        <p>Budgeting can be challenging, so celebrate your progress along the way. When you reach a financial milestone, reward yourself with a small, budget-friendly treat.</p>
-                        
-                        <p>By following these budgeting tips, you'll be on your way to financial success. Remember, budgeting is not about restricting yourself—it's about empowering yourself to make informed financial decisions and achieve your goals.</p>
-                    `
-                },
-                2: {
-                    title: "Investment Strategies for Beginners",
-                    date: "May 10, 2023",
-                    readTime: "8 min read",
-                    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    content: `
-                        <p>Investing is one of the most effective ways to build wealth over time. However, for beginners, the world of investing can seem complex and intimidating. This guide will walk you through some basic investment strategies to help you get started on your investment journey.</p>
-                        
-                        <h2>1. Start with the Basics</h2>
-                        <p>Before you start investing, make sure you have a solid financial foundation. This includes having an emergency fund, paying off high-interest debt, and understanding your risk tolerance. Investing should come after these basic financial needs are met.</p>
-                        
-                        <h2>2. Understand Your Risk Tolerance</h2>
-                        <p>Your risk tolerance is your ability to withstand market fluctuations without panicking. It's influenced by factors like your age, financial goals, and personality. Generally, younger investors can afford to take more risks because they have more time to recover from market downturns.</p>
-                        
-                        <h2>3. Diversify Your Portfolio</h2>
-                        <p>Diversification is one of the most important principles of investing. It means spreading your investments across different asset classes (stocks, bonds, real estate, etc.) and within those asset classes. This helps reduce risk because if one investment performs poorly, others may perform well.</p>
-                        
-                        <h2>4. Consider Index Funds and ETFs</h2>
-                        <p>For beginners, index funds and exchange-traded funds (ETFs) are excellent investment options. These funds track a market index, like the S&P 500, and offer instant diversification. They typically have lower fees than actively managed funds and have historically provided solid returns over the long term.</p>
-                        
-                        <h2>5. Invest Regularly with Dollar-Cost Averaging</h2>
-                        <p>Dollar-cost averaging is an investment strategy where you invest a fixed amount of money at regular intervals, regardless of market conditions. This approach reduces the impact of market volatility and helps you avoid the temptation to time the market, which is notoriously difficult even for professionals.</p>
-                        
-                        <h2>6. Reinvest Your Dividends</h2>
-                        <p>When your investments pay dividends, consider reinvesting them rather than taking them as cash. Reinvesting dividends allows you to buy more shares, which can significantly increase your returns over time through the power of compounding.</p>
-                        
-                        <h2>7. Keep a Long-Term Perspective</h2>
-                        <p>Investing is a long-term game. While it can be tempting to react to short-term market movements, successful investors focus on their long-term goals. History has shown that the stock market tends to increase in value over time, despite short-term fluctuations.</p>
-                        
-                        <h2>8. Avoid Emotional Investing</h2>
-                        <p>Emotional decisions often lead to poor investment outcomes. Fear and greed are the two emotions that most commonly drive investors to make mistakes. Having a clear investment plan and sticking to it can help you avoid making emotional decisions.</p>
-                        
-                        <h2>9. Keep Learning</h2>
-                        <p>The investment landscape is constantly changing, and successful investors are always learning. Read books, follow financial news, and consider taking courses to improve your investment knowledge. The more you learn, the better equipped you'll be to make informed investment decisions.</p>
-                        
-                        <h2>10. Consider Seeking Professional Advice</h2>
-                        <p>If you're unsure about investing or have a complex financial situation, consider working with a financial advisor. A good advisor can help you create a personalized investment plan based on your goals and risk tolerance.</p>
-                        
-                        <p>Remember, investing involves risk, including the potential loss of principal. It's important to do your own research and consider your financial situation before making any investment decisions. With time, patience, and a solid strategy, investing can be a powerful tool for building wealth and achieving your financial goals.</p>
-                    `
-                },
-                3: {
-                    title: "Productivity Hacks for Busy Professionals",
-                    date: "May 5, 2023",
-                    readTime: "6 min read",
-                    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    content: `
-                        <p>In today's fast-paced world, productivity is more important than ever. Busy professionals are constantly juggling multiple tasks and responsibilities, making it challenging to stay focused and get everything done. Fortunately, there are several productivity hacks that can help you work smarter, not harder.</p>
-                        
-                        <h2>1. Use the Pomodoro Technique</h2>
-                        <p>The Pomodoro Technique is a time management method that involves working in focused 25-minute intervals followed by 5-minute breaks. After four intervals, take a longer break of 15-30 minutes. This technique helps maintain focus and prevents burnout. Try our Pomodoro Timer tool to implement this technique.</p>
-                        
-                        <h2>2. Prioritize Your Tasks</h2>
-                        <p>Not all tasks are created equal. Use the Eisenhower Matrix to categorize tasks based on urgency and importance. Focus on tasks that are both urgent and important first, then schedule time for important but not urgent tasks. Delegate or eliminate tasks that are urgent but not important, and ignore tasks that are neither urgent nor important.</p>
-                        
-                        <h2>3. Minimize Distractions</h2>
-                        <p>Distractions are the enemy of productivity. Identify your biggest distractions—whether it's social media, email notifications, or office chatter—and take steps to minimize them. Turn off notifications, use website blockers if necessary, and create a dedicated workspace where you can focus.</p>
-                        
-                        <h2>4. Batch Similar Tasks</h2>
-                        <p>Task batching involves grouping similar tasks together and completing them in one session. For example, set aside specific times to check and respond to emails, make phone calls, or work on creative projects. This reduces the mental energy required to switch between different types of tasks.</p>
-                        
-                        <h2>5. Use a To-Do List</h2>
-                        <p>A to-do list is a simple but powerful productivity tool. It helps you keep track of tasks and ensures nothing falls through the cracks. Our To-Do List tool can help you manage your tasks efficiently. Remember to keep your list realistic and prioritize tasks based on importance.</p>
-                        
-                        <h2>6. Take Regular Breaks</h2>
-                        <p>Working non-stop may seem productive, but it often leads to burnout and decreased efficiency. Take short breaks throughout the day to rest and recharge. Even a 5-minute break to stretch, walk around, or meditate can boost your focus and productivity.</p>
-                        
-                        <h2>7. Set SMART Goals</h2>
-                        <p>SMART goals are Specific, Measurable, Achievable, Relevant, and Time-bound. Setting clear, well-defined goals helps you stay focused and motivated. Break larger goals into smaller, manageable tasks to avoid feeling overwhelmed.</p>
-                        
-                        <h2>8. Learn to Say No</h2>
-                        <p>Overcommitting is a common cause of stress and decreased productivity. Learn to say no to tasks and commitments that don't align with your priorities or goals. Be polite but firm, and offer alternatives if possible.</p>
-                        
-                        <h2>9. Optimize Your Workspace</h2>
-                        <p>Your environment has a significant impact on your productivity. Create a workspace that is comfortable, well-lit, and free from clutter. Personalize it with items that inspire you, but avoid excessive decorations that could be distracting.</p>
-                        
-                        <h2>10. Review and Reflect</h2>
-                        <p>At the end of each day or week, take time to review what you've accomplished and reflect on what worked well and what didn't. This reflection helps you identify areas for improvement and refine your productivity strategies over time.</p>
-                        
-                        <p>Productivity is not about doing more—it's about doing what matters most. By implementing these hacks, you can work more efficiently, reduce stress, and achieve better work-life balance. Experiment with different strategies to find what works best for you, and remember that productivity is a skill that improves with practice.</p>
-                    `
-                },
-                4: {
-                    title: "How to Build an Emergency Fund",
-                    date: "April 28, 2023",
-                    readTime: "7 min read",
-                    image: "https://images.unsplash.com/photo-1579621970561-508648449815?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    content: `
-                        <p>An emergency fund is a crucial component of financial stability. It's a savings account specifically set aside to cover unexpected expenses or income loss. Without an emergency fund, you may be forced to rely on high-interest credit cards or loans when faced with a financial crisis, which can lead to a cycle of debt.</p>
-                        
-                        <h2>Why You Need an Emergency Fund</h2>
-                        <p>Life is unpredictable. You might face a medical emergency, car repairs, job loss, or home maintenance issues. An emergency fund provides a financial safety net, allowing you to cover these expenses without derailing your financial goals or going into debt.</p>
-                        
-                        <h2>How Much to Save</h2>
-                        <p>Financial experts typically recommend saving three to six months' worth of living expenses in your emergency fund. However, the right amount for you depends on your personal circumstances:</p>
-                        <ul>
-                            <li>If you have a stable job and few financial obligations, three months might be sufficient.</li>
-                            <li>If you're self-employed, have variable income, or are the sole breadwinner in your family, aim for six months or more.</li>
-                            <li>If you have high medical expenses or dependents with special needs, you may need a larger emergency fund.</li>
-                        </ul>
-                        
-                        <h2>Where to Keep Your Emergency Fund</h2>
-                        <p>Your emergency fund should be easily accessible but separate from your regular checking account to avoid temptation. Consider these options:</p>
-                        <ul>
-                            <li><strong>High-Yield Savings Account:</strong> Offers higher interest rates than traditional savings accounts while keeping your money liquid and accessible.</li>
-                            <li><strong>Money Market Account:</strong> Combines features of checking and savings accounts, often with higher interest rates and check-writing privileges.</li>
-                            <li><strong>Short-Term CDs:</strong> Offer higher interest rates but have penalties for early withdrawal. Consider a CD ladder strategy to maintain some liquidity.</li>
-                        </ul>
-                        <p>Avoid investing your emergency fund in stocks or other volatile assets, as you may need to access the money quickly and can't afford to lose value.</p>
-                        
-                        <h2>How to Build Your Emergency Fund</h2>
-                        <p>Building an emergency fund takes time and discipline, but it's achievable with these strategies:</p>
-                        
-                        <h3>1. Start Small</h3>
-                        <p>If saving three to six months' expenses seems overwhelming, start with a smaller goal, like $500 or $1,000. Once you reach that goal, set a new, larger target.</p>
-                        
-                        <h3>2. Automate Your Savings</h3>
-                        <p>Set up automatic transfers from your checking account to your emergency fund. Treat your savings like a bill that must be paid each month. Even small, regular contributions can add up over time.</p>
-                        
-                        <h3>3. Reduce Expenses</h3>
-                        <p>Review your spending and identify areas where you can cut back. Redirect the money you save to your emergency fund. Use our expense tracker to help identify spending patterns.</p>
-                        
-                        <h3>4. Increase Your Income</h3>
-                        <p>Consider ways to boost your income, such as taking on a side gig, selling unused items, or asking for a raise. Allocate any extra income directly to your emergency fund.</p>
-                        
-                        <h3>5. Use Windfalls Wisely</h3>
-                        <p>When you receive unexpected money, such as a tax refund, bonus, or gift, consider putting at least a portion of it into your emergency fund.</p>
-                        
-                        <h3>6. Track Your Progress</h3>
-                        <p>Monitor your emergency fund growth and celebrate milestones along the way. Seeing your progress can motivate you to keep saving.</p>
-                        
-                        <h2>When to Use Your Emergency Fund</h2>
-                        <p>An emergency fund should be reserved for true emergencies, such as:</p>
-                        <ul>
-                            <li>Medical expenses not covered by insurance</li>
-                            <li>Essential car repairs</li>
-                            <li>Home repairs that can't be postponed</li>
-                            <li>Job loss or reduction in income</li>
-                            <li>Unplanned travel for family emergencies</li>
-                        </ul>
-                        <p>Avoid using your emergency fund for non-essential expenses like vacations, luxury purchases, or planned home upgrades. If you do use your emergency fund, make it a priority to replenish it as soon as possible.</p>
-                        
-                        <h2>Rebuilding After Using Your Emergency Fund</h2>
-                        <p>If you need to use your emergency fund, focus on rebuilding it as soon as your financial situation stabilizes. You may need to temporarily reduce other financial goals, like extra debt payments or retirement contributions, until your emergency fund is restored.</p>
-                        
-                        <p>An emergency fund is a cornerstone of financial security. It provides peace of mind and protects you from financial setbacks. By starting small, being consistent, and staying committed, you can build an emergency fund that will serve as a financial safety net for years to come.</p>
-                    `
-                },
-                5: {
-                    title: "Understanding Your Credit Score",
-                    date: "April 22, 2023",
-                    readTime: "9 min read",
-                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    content: `
-                        <p>Your credit score is a three-digit number that represents your creditworthiness. It's one of the most important factors lenders consider when deciding whether to approve you for loans, credit cards, or mortgages. Understanding how credit scores work and how to improve yours is essential for financial health.</p>
-                        
-                        <h2>What Is a Credit Score?</h2>
-                        <p>A credit score is a numerical representation of your credit history, ranging from 300 to 850. The higher your score, the more creditworthy you appear to lenders. Credit scores are calculated using information from your credit reports, which are maintained by the three major credit bureaus: Equifax, Experian, and TransUnion.</p>
-                        
-                        <h2>Credit Score Ranges</h2>
-                        <p>While different lenders may have different standards, credit scores generally fall into these categories:</p>
-                        <ul>
-                            <li><strong>Exceptional:</strong> 800-850</li>
-                            <li><strong>Very Good:</strong> 740-799</li>
-                            <li><strong>Good:</strong> 670-739</li>
-                            <li><strong>Fair:</strong> 580-669</li>
-                            <li><strong>Poor:</strong> 300-579</li>
-                        </ul>
-                        
-                        <h2>Factors That Affect Your Credit Score</h2>
-                        <p>Credit scores are calculated using several factors, each weighted differently:</p>
-                        
-                        <h3>1. Payment History (35%)</h3>
-                        <p>Your payment history is the most significant factor in your credit score. It shows whether you've paid your bills on time. Late payments, defaults, and accounts in collections can significantly lower your score.</p>
-                        
-                        <h3>2. Credit Utilization (30%)</h3>
-                        <p>Credit utilization is the ratio of your credit card balances to your credit limits. It's recommended to keep your utilization below 30%, and lower is better. High utilization suggests you may be overextended financially.</p>
-                        
-                        <h3>3. Length of Credit History (15%)</h3>
-                        <p>This factor considers the age of your oldest account, the age of your newest account, and the average age of all your accounts. A longer credit history generally indicates more stability.</p>
-                        
-                        <h3>4. Credit Mix (10%)</h3>
-                        <p>Credit mix refers to the types of credit accounts you have, such as credit cards, mortgages, auto loans, and student loans. Having a diverse mix of credit types can positively impact your score.</p>
-                        
-                        <h3>5. New Credit (10%)</h3>
-                        <p>This factor looks at how many new accounts you've opened recently and how many recent hard inquiries you have. Opening multiple accounts in a short period can indicate higher risk.</p>
-                        
-                        <h2>Why Your Credit Score Matters</h2>
-                        <p>A good credit score can save you money and open doors to financial opportunities:</p>
-                        <ul>
-                            <li><strong>Lower Interest Rates:</strong> Lenders offer better interest rates to borrowers with higher credit scores, which can save you thousands of dollars over the life of a loan.</li>
-                            <li><strong>Better Credit Card Offers:</strong> Credit card companies reserve their best offers—like low APRs, high rewards, and generous sign-up bonuses—for applicants with excellent credit.</li>
-                            <li><strong>Easier Loan Approval:</strong> A good credit score increases your chances of being approved for mortgages, auto loans, and personal loans.</li>
-                            <li><strong>Lower Insurance Premiums:</strong> Many insurance companies use credit-based insurance scores to set premiums for auto and homeowners insurance.</li>
-                            <li><strong>Rental Applications:</strong> Landlords often check credit scores when evaluating rental applications.</li>
-                            <li><strong>Employment Opportunities:</strong> Some employers check credit reports as part of the hiring process, especially for positions that involve financial responsibility.</li>
-                        </ul>
-                        
-                        <h2>How to Check Your Credit Score</h2>
-                        <p>You're entitled to a free copy of your credit report from each of the three major credit bureaus once a year through AnnualCreditReport.com. Many credit card companies and banks also provide free credit scores to their customers. Additionally, several websites offer free credit scores and credit monitoring services.</p>
-                        
-                        <p>When reviewing your credit report, check for errors that could be dragging down your score, such as accounts you don't recognize, incorrect payment statuses, or outdated negative information. If you find errors, dispute them with the credit bureaus.</p>
-                        
-                        <h2>How to Improve Your Credit Score</h2>
-                        <p>Improving your credit score takes time, but these strategies can help:</p>
-                        
-                        <h3>1. Pay Your Bills on Time</h3>
-                        <p>Set up automatic payments or calendar reminders to ensure you never miss a payment. Payment history is the most significant factor in your credit score, so consistent on-time payments can have a substantial positive impact.</p>
-                        
-                        <h3>2. Reduce Credit Card Balances</h3>
-                        <p>Pay down your credit card balances to lower your credit utilization ratio. If possible, pay your balances in full each month. If you can't, aim to keep your utilization below 30%.</p>
-                        
-                        <h3>3. Don't Close Old Credit Cards</h3>
-                        <p>Closing old credit accounts can shorten your credit history and increase your credit utilization ratio, both of which can lower your score. Instead, keep old accounts open and use them occasionally to keep them active.</p>
-                        
-                        <h3>4. Limit New Credit Applications</h3>
-                        <p>Each new credit application results in a hard inquiry, which can temporarily lower your score. Apply for new credit only when necessary.</p>
-                        
-                        <h3>5. Consider a Secured Credit Card</h3>
-                        <p>If you have poor credit or no credit history, a secured credit card can help you build credit. These cards require a cash deposit that serves as your credit limit.</p>
-                        
-                        <h3>6. Become an Authorized User</h3>
-                        <p>If you have a family member or friend with good credit, ask if you can become an authorized user on their credit card. Their positive payment history can help boost your score.</p>
-                        
-                        <h3>7. Negotiate with Creditors</h3>
-                        <p>If you have accounts in collections, contact the creditors to negotiate a payment plan or settlement. Some creditors may agree to remove negative information from your report after you pay the debt.</p>
-                        
-                        <h2>Maintaining a Good Credit Score</h2>
-                        <p>Once you've improved your credit score, it's important to maintain it:</p>
-                        <ul>
-                            <li>Continue paying all bills on time</li>
-                            <li>Keep credit card balances low</li>
-                            <li>Apply for new credit sparingly</li>
-                            <li>Monitor your credit reports regularly for errors</li>
-                            <li>Be cautious about closing old accounts</li>
-                        </ul>
-                        
-                        <p>Your credit score is a powerful financial tool that can save you money and provide access to better financial products. By understanding how credit scores work and taking steps to improve yours, you're investing in your financial future.</p>
-                    `
-                },
-                6: {
-                    title: "Time Management Techniques for Better Productivity",
-                    date: "April 15, 2023",
-                    readTime: "8 min read",
-                    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    content: `
-                        <p>Time is one of our most valuable resources, yet many of us struggle to manage it effectively. Poor time management can lead to stress, missed deadlines, and decreased productivity. Fortunately, there are several proven time management techniques that can help you make the most of your time and achieve your goals.</p>
-                        
-                        <h2>1. The Pomodoro Technique</h2>
-                        <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. It involves breaking your work into 25-minute focused intervals (called "Pomodoros") separated by short breaks. After four Pomodoros, you take a longer break of 15-30 minutes.</p>
-                        <p>This technique helps maintain focus and prevents burnout by encouraging regular breaks. It also makes large tasks seem more manageable by breaking them into smaller intervals. Try our Pomodoro Timer tool to implement this technique.</p>
-                        
-                        <h2>2. Time Blocking</h2>
-                        <p>Time blocking involves scheduling specific blocks of time for different activities throughout your day. Instead of working from a to-do list, you work from your calendar. Each block is dedicated to a specific task or group of tasks, and you focus only on those tasks during that time.</p>
-                        <p>Time blocking helps ensure that important tasks get the attention they deserve and reduces the tendency to multitask, which can decrease productivity. It also helps create a realistic picture of how much you can accomplish in a day.</p>
-                        
-                        <h2>3. The Eisenhower Matrix</h2>
-                        <p>The Eisenhower Matrix, also known as the Urgent-Important Matrix, is a tool for prioritizing tasks based on their urgency and importance. Tasks are divided into four quadrants:</p>
-                        <ul>
-                            <li><strong>Urgent and Important:</strong> Do these tasks immediately.</li>
-                            <li><strong>Important but Not Urgent:</strong> Schedule these tasks for later.</li>
-                            <li><strong>Urgent but Not Important:</strong> Delegate these tasks if possible.</li>
-                            <li><strong>Neither Urgent nor Important:</strong> Eliminate these tasks.</li>
-                        </ul>
-                        <p>This technique helps you focus on what truly matters and avoid spending time on tasks that don't contribute to your goals.</p>
-                        
-                        <h2>4. The Two-Minute Rule</h2>
-                        <p>Popularized by productivity consultant David Allen, the Two-Minute Rule states that if a task takes less than two minutes to complete, you should do it immediately rather than adding it to your to-do list. This technique helps prevent small tasks from piling up and becoming overwhelming.</p>
-                        
-                        <h2>5. The 80/20 Rule (Pareto Principle)</h2>
-                        <p>The Pareto Principle suggests that 80% of your results come from 20% of your efforts. By identifying and focusing on the tasks that yield the most significant results, you can maximize your productivity. This technique encourages you to work smarter, not harder.</p>
-                        
-                        <h2>6. Getting Things Done (GTD)</h2>
-                        <p>Developed by David Allen, Getting Things Done is a comprehensive time management system that involves capturing all your tasks and ideas in an external system, organizing them, and reviewing them regularly. The five steps of GTD are:</p>
-                        <ol>
-                            <li><strong>Capture:</strong> Write down everything that requires your attention.</li>
-                            <li><strong>Clarify:</strong> Determine what each item means and what action is required.</li>
-                            <li><strong>Organize:</strong> Place items in the appropriate categories (e.g., to-do lists, projects, waiting for).</li>
-                            <li><strong>Reflect:</strong> Review your lists regularly to keep them current and useful.</li>
-                            <li><strong>Engage:</strong> Take action on the items.</li>
-                        </ol>
-                        <p>GTD helps reduce mental clutter by getting tasks out of your head and into a trusted system.</p>
-                        
-                        <h2>7. The Ivy Lee Method</h2>
-                        <p>The Ivy Lee Method is a simple but effective time management technique developed over a century ago. At the end of each workday, write down the six most important tasks you need to accomplish tomorrow. Prioritize them in order of importance. The next day, work on the tasks in order, focusing on one task at a time until it's complete before moving to the next one. Any unfinished tasks move to the next day's list.</p>
-                        <p>This technique forces you to prioritize and focus on what's most important, preventing you from feeling overwhelmed by a long to-do list.</p>
-                        
-                        <h2>8. Timeboxing</h2>
-                        <p>Timeboxing is similar to time blocking but with a fixed duration for each task. You allocate a specific amount of time to a task and work on it only during that time. When the time is up, you stop, even if the task isn't complete. This technique helps prevent perfectionism and ensures that you don't spend too much time on any single task.</p>
-                        
-                        <h2>9. Eat the Frog</h2>
-                        <p>Coined by Brian Tracy, "Eat the Frog" means tackling your most challenging or important task first thing in the morning. By completing your most difficult task early in the day, you build momentum and ensure that it gets done, even if the rest of the day doesn't go as planned.</p>
-                        
-                        <h2>10. The Pomodoro Technique</h2>
-                        <p>The Pomodoro Technique is a time management method that involves working in focused 25-minute intervals followed by 5-minute breaks. After four intervals, take a longer break of 15-30 minutes. This technique helps maintain focus and prevents burnout. Try our Pomodoro Timer tool to implement this technique.</p>
-                        
-                        <h2>Choosing the Right Technique</h2>
-                        <p>No single time management technique works for everyone. The best approach is to experiment with different methods and adapt them to your needs and work style. You may even find that combining elements from different techniques works best for you.</p>
-                        
-                        <h2>Tips for Effective Time Management</h2>
-                        <p>Regardless of which techniques you use, these general tips can help improve your time management:</p>
-                        <ul>
-                            <li><strong>Set Clear Goals:</strong> Know what you want to achieve and why it's important.</li>
-                            <li><strong>Eliminate Distractions:</strong> Identify what distracts you and take steps to minimize those distractions.</li>
-                            <li><strong>Take Regular Breaks:</strong> Breaks help maintain focus and prevent burnout.</li>
-                            <li><strong>Learn to Say No:</strong> Don't overcommit to tasks that don't align with your priorities.</li>
-                            <li><strong>Review and Adjust:</strong> Regularly assess your time management strategies and make adjustments as needed.</li>
-                        </ul>
-                        
-                        <p>Effective time management is a skill that takes practice to develop. By implementing these techniques and tips, you can take control of your time, reduce stress, and increase your productivity. Remember, the goal is not to fill every minute of your day with work, but to use your time intentionally to achieve what matters most to you.</p>
-                    `
-                }
-            };
-            
-            const article = articles[articleId];
+            // Find article by ID
+            const article = articles.find(a => a.id == articleId);
             
             if (article) {
                 document.getElementById('articleTitle').textContent = article.title;
@@ -4318,7 +5330,26 @@
                 document.getElementById('articleReadTime').textContent = article.readTime;
                 document.getElementById('articleImage').src = article.image;
                 document.getElementById('articleImage').alt = article.title;
-                document.getElementById('articleContent').innerHTML = article.content;
+                
+                // Set placeholder content
+                document.getElementById('articleContent').innerHTML = `
+                    <p>${article.excerpt}</p>
+                    <p>This is a placeholder for the full article content. In a real implementation, this would contain the complete article text with proper formatting, images, and other media.</p>
+                    <h2>Section 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <h3>Subsection 1.1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <h2>Section 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <ul>
+                        <li>First point</li>
+                        <li>Second point</li>
+                        <li>Third point</li>
+                    </ul>
+                    <blockquote>
+                        <p>This is a blockquote to highlight an important point from the article.</p>
+                    </blockquote>
+                `;
             } else {
                 showPage('articles');
             }
