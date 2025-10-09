@@ -26,12 +26,6 @@
 --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
 --gradient-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-
-/* High contrast mode variables */
---high-contrast-bg: #000;
---high-contrast-text: #fff;
---high-contrast-border: #fff;
---high-contrast-primary: #0ff;
 }
 
 /* Reset and base styles */
@@ -48,54 +42,6 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 line-height: 1.6;
 overflow-x: hidden;
 position: relative;
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-:root {
---darker: var(--high-contrast-bg);
---text: var(--high-contrast-text);
---primary: var(--high-contrast-primary);
---card-bg: rgba(255, 255, 255, 0.05);
-}
-
-.btn, input, select, textarea {
-border: 2px solid var(--high-contrast-border);
-}
-
-.feature-card, .tool-card, .article-card {
-border: 2px solid var(--high-contrast-border);
-}
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-* {
-animation-duration: 0.01ms !important;
-animation-iteration-count: 1 !important;
-transition-duration: 0.01ms !important;
-}
-
-.bg-animation span {
-animation: none;
-}
-}
-
-/* Skip to content link for accessibility */
-.skip-link {
-position: absolute;
-top: -40px;
-left: 0;
-background: var(--primary);
-color: white;
-padding: 8px;
-text-decoration: none;
-border-radius: 0 0 4px 0;
-z-index: 100;
-}
-
-.skip-link:focus {
-top: 0;
 }
 
 /* Background Animation */
@@ -454,12 +400,11 @@ padding: 2rem;
 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 border: 1px solid rgba(255, 255, 255, 0.1);
 transition: transform 0.3s, box-shadow 0.3s;
-transform-style: preserve-3d;
 }
 
 .dashboard-card:hover,
 .dashboard-card:focus-within {
-transform: translateY(-5px) rotateX(5deg);
+transform: translateY(-5px);
 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
@@ -669,58 +614,6 @@ display: block;
 .quick-action span {
 font-size: 0.9rem;
 font-weight: 500;
-}
-
-/* Real-time notification styles */
-.real-time-notification {
-position: fixed;
-top: 100px;
-right: 20px;
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 0.5rem;
-padding: 1rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-max-width: 300px;
-animation: slideIn 0.5s ease-out;
-z-index: 1001;
-}
-
-@keyframes slideIn {
-from {
-transform: translateX(100%);
-opacity: 0;
-}
-to {
-transform: translateX(0);
-opacity: 1;
-}
-}
-
-.real-time-notification .notification-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 0.5rem;
-}
-
-.real-time-notification .notification-title {
-font-weight: 600;
-color: var(--primary);
-}
-
-.real-time-notification .notification-close {
-background: transparent;
-border: none;
-color: var(--text-dim);
-cursor: pointer;
-font-size: 1.2rem;
-}
-
-.real-time-notification .notification-content {
-font-size: 0.9rem;
-color: var(--text-dim);
 }
 
 /* Home Page */
@@ -938,13 +831,11 @@ padding: 2rem;
 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 transition: transform 0.3s, box-shadow 0.3s;
 border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-perspective: 1000px;
 }
 
 .feature-card:hover,
 .feature-card:focus-within {
-transform: translateY(-5px) rotateX(5deg);
+transform: translateY(-5px);
 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
@@ -959,24 +850,20 @@ justify-content: center;
 margin-bottom: 1.5rem;
 font-size: 1.5rem;
 color: white;
-transform: translateZ(20px);
 }
 
 .feature-card h3 {
 font-size: 1.5rem;
 margin-bottom: 1rem;
-transform: translateZ(15px);
 }
 
 .feature-card p {
 color: var(--text-dim);
 margin-bottom: 1.5rem;
-transform: translateZ(10px);
 }
 
 .feature-card .btn {
 width: 100%;
-transform: translateZ(5px);
 }
 
 /* Articles Page */
@@ -1046,12 +933,11 @@ box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 transition: transform 0.3s, box-shadow 0.3s;
 border: 1px solid rgba(255, 255, 255, 0.1);
 cursor: pointer;
-transform-style: preserve-3d;
 }
 
 .article-card:hover,
 .article-card:focus-within {
-transform: translateY(-5px) rotateX(5deg);
+transform: translateY(-5px);
 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 outline: none;
 }
@@ -1060,12 +946,10 @@ outline: none;
 width: 100%;
 height: 200px;
 object-fit: cover;
-transform: translateZ(10px);
 }
 
 .article-content {
 padding: 1.5rem;
-transform: translateZ(5px);
 }
 
 .article-category {
@@ -1113,888 +997,225 @@ border-radius: 50%;
 object-fit: cover;
 }
 
-/* Article Detail Page */
-.article-detail-section {
+/* Tools Page */
+.tools {
 padding: 4rem 0;
 }
 
-.article-detail {
-max-width: 800px;
-margin: 0 auto;
-}
-
-.article-header {
-margin-bottom: 2rem;
-}
-
-.article-header h1 {
-font-size: 2.5rem;
-margin-bottom: 1rem;
-background: var(--gradient-1);
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-}
-
-.article-meta-detail {
+.tools-search-container {
 display: flex;
 justify-content: space-between;
 align-items: center;
 margin-bottom: 2rem;
-color: var(--text-dim);
-}
-
-.article-author-detail {
-display: flex;
-align-items: center;
+flex-wrap: wrap;
 gap: 1rem;
 }
 
-.article-author-detail img {
-width: 48px;
-height: 48px;
-border-radius: 50%;
-object-fit: cover;
-}
-
-.article-author-info h4 {
-font-size: 1rem;
-margin-bottom: 0.25rem;
-color: var(--text);
-}
-
-.article-author-info p {
-font-size: 0.8rem;
-}
-
-.article-image-container {
+.tools-search {
+display: flex;
+align-items: center;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 2rem;
+padding: 0.5rem 1rem;
 width: 100%;
-height: 400px;
-overflow: hidden;
-border-radius: 1rem;
-margin-bottom: 2rem;
-transform-style: preserve-3d;
-transition: transform 0.3s;
+max-width: 400px;
 }
 
-.article-image-container:hover,
-.article-image-container:focus-within {
-transform: translateZ(20px) rotateX(5deg);
+.tools-search-input {
+background: transparent;
+border: none;
+color: var(--text);
+flex: 1;
+padding: 0.5rem;
+font-size: 1rem;
+}
+
+.tools-search-input::placeholder {
+color: var(--text-dim);
+}
+
+.tools-search-input:focus {
 outline: none;
 }
 
-.article-image-container img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-transform: translateZ(10px);
+.tools-search-btn {
+background: transparent;
+border: none;
+color: var(--text-dim);
+cursor: pointer;
+padding: 0.5rem;
 }
 
-.article-content-detail {
-line-height: 1.8;
-}
-
-.article-content-detail p {
-margin-bottom: 1.5rem;
-}
-
-.article-content-detail h2 {
-font-size: 1.75rem;
-margin: 2rem 0 1rem;
-background: var(--gradient-1);
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-}
-
-.article-content-detail h3 {
-font-size: 1.5rem;
-margin: 1.5rem 0 1rem;
+.tools-search-btn:hover {
 color: var(--primary);
 }
 
-.article-content-detail ul,
-.article-content-detail ol {
-margin-left: 2rem;
-margin-bottom: 1.5rem;
-}
-
-.article-content-detail li {
-margin-bottom: 0.5rem;
-}
-
-.article-content-detail blockquote {
-border-left: 4px solid var(--primary);
-padding-left: 1rem;
-margin: 1.5rem 0;
-font-style: italic;
-color: var(--text-dim);
-}
-
-.article-tags {
+.tools-filter {
 display: flex;
 gap: 0.5rem;
-margin: 2rem 0;
-flex-wrap: wrap;
 }
 
-.article-tag {
-background: rgba(255, 255, 255, 0.1);
-padding: 0.25rem 0.75rem;
-border-radius: 1rem;
-font-size: 0.8rem;
-color: var(--text-dim);
-}
-
-.article-share {
-display: flex;
-gap: 1rem;
-margin-top: 2rem;
-padding-top: 2rem;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.share-btn {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background: rgba(255, 255, 255, 0.1);
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--text);
-transition: all 0.3s;
-}
-
-.share-btn:hover,
-.share-btn:focus {
-background: var(--primary);
-transform: translateY(-3px);
-outline: none;
-}
-
-/* Pricing Page */
-.pricing {
-padding: 4rem 0;
-background: rgba(15, 23, 42, 0.5);
-}
-
-.pricing-plans {
-display: flex;
-flex-direction: column;
-gap: 2rem;
+.tools-categories {
 margin-top: 2rem;
 }
 
-.plan {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-position: relative;
-border: 1px solid rgba(255, 255, 255, 0.1);
-transition: transform 0.3s, box-shadow 0.3s;
-transform-style: preserve-3d;
-}
-
-.plan:hover,
-.plan:focus-within {
-transform: translateY(-5px) rotateX(5deg);
-box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-}
-
-.plan.featured {
-border-color: var(--accent);
-transform: scale(1.03);
-}
-
-.plan-badge {
-position: absolute;
-top: -12px;
-left: 50%;
-transform: translateX(-50%);
-background: var(--accent);
-color: white;
-padding: 0.25rem 1rem;
-border-radius: 2rem;
-font-size: 0.8rem;
-font-weight: 600;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-transform: translateZ(10px);
-}
-
-.plan-header {
-text-align: center;
-margin-bottom: 1.5rem;
-transform: translateZ(10px);
-}
-
-.plan-header h3 {
-font-size: 1.5rem;
-margin-bottom: 0.5rem;
-}
-
-.plan-header .price {
-font-size: 2.5rem;
-font-weight: 700;
-background: var(--gradient-1);
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-}
-
-.plan-header .price span {
-font-size: 1rem;
-color: var(--text-dim);
-}
-
-.plan-features {
-list-style: none;
-margin-bottom: 2rem;
-transform: translateZ(5px);
-}
-
-.plan-features li {
-padding: 0.75rem 0;
-border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-display: flex;
-align-items: center;
-}
-
-.plan-features li:last-child {
-border-bottom: none;
-}
-
-.plan-features li i {
-color: var(--secondary);
-margin-right: 0.75rem;
-}
-
-.plan-button {
-width: 100%;
-padding: 0.75rem;
-border-radius: 0.5rem;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.3s;
-border: none;
-transform: translateZ(5px);
-}
-
-.plan-button.primary {
-background: var(--gradient-1);
-color: white;
-}
-
-.plan-button.primary:hover,
-.plan-button.primary:focus {
-transform: translateZ(10px) translateY(-2px);
-box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
-}
-
-.plan-button.outline {
-background: transparent;
-color: var(--text);
-border: 1px solid var(--text-dim);
-}
-
-.plan-button.outline:hover,
-.plan-button.outline:focus {
-background: var(--text-dim);
-color: var(--darker);
-transform: translateZ(10px);
-}
-
-/* FAQ Page */
-.faq {
-padding: 4rem 0;
-}
-
-.faq-container {
-max-width: 800px;
-margin: 0 auto;
-}
-
-.faq-item {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-margin-bottom: 1rem;
-overflow: hidden;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.faq-question {
-padding: 1.5rem;
-cursor: pointer;
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-weight: 500;
-}
-
-.faq-question:hover,
-.faq-question:focus {
-background: rgba(255, 255, 255, 0.05);
-}
-
-.faq-question i {
-transition: transform 0.3s;
-}
-
-.faq-answer {
-padding: 0 1.5rem;
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.3s ease, padding 0.3s ease;
-color: var(--text-dim);
-}
-
-.faq-item.active .faq-answer {
-max-height: 500px;
-padding: 0 1.5rem 1.5rem;
-}
-
-.faq-item.active .faq-question i {
-transform: rotate(180deg);
-}
-
-/* Contact Page */
-.contact-section {
-padding: 4rem 0;
-background: rgba(15, 23, 42, 0.5);
-}
-
-.contact-container {
-max-width: 1200px;
-margin: 0 auto;
-padding: 0 5%;
-}
-
-.contact-header {
-text-align: center;
+.tools-category {
 margin-bottom: 3rem;
 }
 
-.contact-header h2 {
-font-size: 2.5rem;
-margin-bottom: 1rem;
-background: var(--gradient-1);
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-}
-
-.contact-header p {
-color: var(--text-dim);
-max-width: 700px;
-margin: 0 auto;
-}
-
-.contact-content {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 3rem;
-align-items: start;
-}
-
-.contact-info-grid {
-display: grid;
-gap: 1.5rem;
-}
-
-.contact-info-card {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-transition: transform 0.3s;
-}
-
-.contact-info-card:hover,
-.contact-info-card:focus-within {
-transform: translateY(-5px) rotateX(5deg);
-outline: none;
-}
-
-.contact-info-card h3 {
-font-size: 1.25rem;
-margin-bottom: 1rem;
+.tools-category h3 {
+font-size: 1.5rem;
+margin-bottom: 1.5rem;
 display: flex;
 align-items: center;
-gap: 0.75rem;
-}
-
-.contact-info-card h3 i {
+gap: 0.5rem;
 color: var(--primary);
-font-size: 1.5rem;
 }
 
-.contact-info-card p {
-color: var(--text-dim);
-margin-bottom: 0.5rem;
-}
-
-.contact-info-card a {
-color: var(--primary);
-text-decoration: none;
-transition: color 0.3s;
-}
-
-.contact-info-card a:hover,
-.contact-info-card a:focus {
-color: var(--primary-dark);
-text-decoration: underline;
-}
-
-.office-hours {
-margin-top: 1rem;
-padding-top: 1rem;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.office-hours h4 {
-font-size: 1rem;
-margin-bottom: 0.5rem;
-color: var(--text);
-}
-
-.office-hours p {
-font-size: 0.9rem;
-color: var(--text-dim);
-}
-
-.contact-form-container {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transform-style: preserve-3d;
-transition: transform 0.3s;
-}
-
-.contact-form-container:hover,
-.contact-form-container:focus-within {
-transform: rotateX(2deg);
-outline: none;
-}
-
-.contact-form-header {
-margin-bottom: 1.5rem;
-}
-
-.contact-form-header h3 {
-font-size: 1.5rem;
-margin-bottom: 0.5rem;
-background: var(--gradient-1);
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-}
-
-.contact-form-header p {
-color: var(--text-dim);
-}
-
-.form-row {
+.tools-grid {
 display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1rem;
-}
-
-.contact-form .form-group {
-margin-bottom: 1.5rem;
-}
-
-.contact-form .form-group label {
-display: block;
-margin-bottom: 0.5rem;
-font-weight: 500;
-}
-
-.contact-form .form-group input,
-.contact-form .form-group select,
-.contact-form .form-group textarea {
-width: 100%;
-padding: 0.75rem;
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 0.375rem;
-color: var(--text);
-font-size: 1rem;
-transition: all 0.3s;
-}
-
-.contact-form .form-group input:focus,
-.contact-form .form-group select:focus,
-.contact-form .form-group textarea:focus {
-outline: none;
-border-color: var(--primary);
-box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-}
-
-.contact-form .form-group textarea {
-resize: vertical;
-min-height: 120px;
-}
-
-.contact-form .btn {
-width: 100%;
-padding: 0.75rem;
-font-size: 1rem;
-font-weight: 600;
-}
-
-.map-container {
-margin-top: 3rem;
-border-radius: 1rem;
-overflow: hidden;
-height: 400px;
-background: rgba(255, 255, 255, 0.05);
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--text-dim);
-border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.map-placeholder {
-text-align: center;
-}
-
-.map-placeholder i {
-font-size: 3rem;
-margin-bottom: 1rem;
-color: var(--primary);
-}
-
-/* Footer */
-footer {
-background: rgba(15, 23, 42, 0.8);
-padding: 3rem 5%;
-margin-top: 4rem;
-}
-
-.footer-container {
-max-width: 1200px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 gap: 2rem;
+margin-top: 2rem;
 }
 
-.footer-column h3 {
-font-size: 1.25rem;
-margin-bottom: 1.5rem;
+.tool-card {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: all 0.3s;
+text-align: center;
 position: relative;
-padding-bottom: 0.75rem;
+overflow: hidden;
 }
 
-.footer-column h3::after {
+.tool-card::before {
 content: '';
 position: absolute;
-left: 0;
-bottom: 0;
-width: 50px;
-height: 2px;
-background: var(--primary);
-}
-
-.footer-column ul {
-list-style: none;
-}
-
-.footer-column ul li {
-margin-bottom: 0.75rem;
-}
-
-.footer-column ul li a {
-color: var(--text-dim);
-text-decoration: none;
-transition: color 0.3s;
-}
-
-.footer-column ul li a:hover,
-.footer-column ul li a:focus {
-color: var(--primary);
-}
-
-.social-links {
-display: flex;
-gap: 1rem;
-margin-top: 1.5rem;
-}
-
-.social-links a {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background: rgba(255, 255, 255, 0.1);
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--text);
-transition: all 0.3s;
-transform-style: preserve-3d;
-}
-
-.social-links a:hover,
-.social-links a:focus {
-background: var(--primary);
-transform: translateZ(10px) translateY(-3px);
-}
-
-.footer-bottom {
-text-align: center;
-margin-top: 2rem;
-padding-top: 2rem;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-color: var(--text-dim);
-}
-
-/* Sign In/Up Modal with 3D Animation */
-.auth-modal {
-display: none;
-position: fixed;
 top: 0;
 left: 0;
 width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.8);
-z-index: 10000;
-justify-content: center;
-align-items: center;
-padding: 20px;
-perspective: 1000px;
-}
-
-.auth-modal.active {
-display: flex;
-}
-
-.auth-container {
-position: relative;
-width: 500px;
-height: 500px;
-transform-style: preserve-3d;
-transition: transform 0.6s;
-}
-
-.auth-container.flipped {
-transform: rotateY(180deg);
-}
-
-.auth-content {
-position: absolute;
-width: 100%;
-height: 100%;
-backface-visibility: hidden;
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-border: 1px solid rgba(255, 255, 255, 0.1);
-overflow-y: auto;
-}
-
-.auth-content.back {
-transform: rotateY(180deg);
-}
-
-.auth-header {
-text-align: center;
-margin-bottom: 2rem;
-}
-
-.auth-header h2 {
-font-size: 2rem;
-margin-bottom: 1rem;
+height: 5px;
 background: var(--gradient-1);
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
+transform: scaleX(0);
+transform-origin: left;
+transition: transform 0.3s;
 }
 
-.auth-header p {
-color: var(--text-dim);
-max-width: 400px;
-margin: 0 auto;
+.tool-card:hover::before {
+transform: scaleX(1);
 }
 
-.auth-close {
-position: absolute;
-top: 1rem;
-right: 1rem;
-background: transparent;
-color: var(--text);
-border: none;
-font-size: 1.5rem;
-cursor: pointer;
-width: 40px;
-height: 40px;
+.tool-card:hover,
+.tool-card:focus-within {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.tool-icon {
+width: 80px;
+height: 80px;
+background: var(--gradient-1);
 border-radius: 50%;
 display: flex;
 align-items: center;
 justify-content: center;
-transition: all 0.3s;
+margin: 0 auto 1.5rem;
+font-size: 2rem;
+color: white;
+transition: transform 0.3s;
 }
 
-.auth-close:hover,
-.auth-close:focus {
-background: rgba(255, 255, 255, 0.1);
-transform: rotateZ(90deg);
-outline: none;
+.tool-card:hover .tool-icon {
+transform: scale(1.1);
 }
 
-.auth-form {
-margin-top: 1.5rem;
+.tool-card h3 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
 }
 
-.auth-form .form-group {
+.tool-card p {
+color: var(--text-dim);
 margin-bottom: 1.5rem;
 }
 
-.auth-form .form-group label {
-display: block;
-margin-bottom: 0.5rem;
-font-weight: 500;
+.tool-features {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 0.5rem;
+margin-bottom: 1.5rem;
 }
 
-.auth-form .form-group input {
-width: 100%;
-padding: 0.75rem;
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 0.375rem;
-color: var(--text);
-font-size: 1rem;
-}
-
-.auth-form .form-group input:focus {
-outline: none;
-border-color: var(--primary);
-box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-}
-
-.auth-form .btn {
-width: 100%;
-padding: 0.75rem;
-margin-top: 1rem;
-}
-
-.auth-switch {
-text-align: center;
-margin-top: 1.5rem;
-}
-
-.auth-switch p {
-color: var(--text-dim);
-}
-
-.auth-switch a {
+.tool-features span {
+background: rgba(79, 70, 229, 0.1);
 color: var(--primary);
-text-decoration: none;
-font-weight: 500;
-transition: color 0.3s;
-}
-
-.auth-switch a:hover,
-.auth-switch a:focus {
-color: var(--primary-dark);
-text-decoration: underline;
-}
-
-/* Notification */
-.notification {
-position: fixed;
-bottom: 20px;
-right: 20px;
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 0.5rem;
-padding: 1rem 1.5rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
+padding: 0.25rem 0.75rem;
+border-radius: 1rem;
+font-size: 0.8rem;
 display: flex;
 align-items: center;
-transform: translateY(100px);
-opacity: 0;
-transition: all 0.3s;
-z-index: 1000;
-max-width: 400px;
-transform-style: preserve-3d;
+gap: 0.25rem;
 }
 
-.notification.show {
-transform: translateY(0) translateZ(10px);
-opacity: 1;
-}
-
-.notification-icon {
-width: 40px;
-height: 40px;
-border-radius: 50%;
+.tool-rating {
 display: flex;
 align-items: center;
 justify-content: center;
-margin-right: 1rem;
-transform: translateZ(5px);
+margin: 1rem 0;
 }
 
-.notification-icon.success {
-background: rgba(16, 185, 129, 0.2);
-color: var(--secondary);
+.tool-rating .stars {
+display: flex;
+gap: 0.25rem;
+margin-right: 0.5rem;
 }
 
-.notification-icon.error {
-background: rgba(239, 68, 68, 0.2);
-color: var(--danger);
+.tool-rating .star {
+color: var(--text-dim);
+cursor: pointer;
+transition: color 0.3s;
 }
 
-.notification-icon.info {
-background: rgba(79, 70, 229, 0.2);
+.tool-rating .star.active,
+.tool-rating .star:hover {
+color: var(--accent);
+}
+
+.tool-rating .rating-value {
+color: var(--text-dim);
+font-size: 0.9rem;
+}
+
+.tool-stats {
+display: flex;
+justify-content: space-around;
+margin: 1rem 0;
+padding: 1rem 0;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tool-stat {
+text-align: center;
+}
+
+.tool-stat-value {
+font-size: 1.25rem;
+font-weight: 600;
 color: var(--primary);
 }
 
-.notification-content {
-flex: 1;
-transform: translateZ(3px);
-}
-
-.notification-content h4 {
-font-size: 1rem;
-margin-bottom: 0.25rem;
-}
-
-.notification-content p {
+.tool-stat-label {
 font-size: 0.8rem;
 color: var(--text-dim);
 }
 
-.notification-close {
-background: transparent;
-color: var(--text-dim);
-border: none;
-cursor: pointer;
-margin-left: 1rem;
-transform: translateZ(5px);
-}
-
-.notification-close:hover,
-.notification-close:focus {
-color: var(--text);
-transform: translateZ(10px) rotateZ(90deg);
-outline: none;
-}
-
-/* Modal for forms */
+/* Modal Styles */
 .modal {
 display: none;
 position: fixed;
@@ -2073,194 +1294,144 @@ justify-content: flex-end;
 gap: 1rem;
 }
 
-/* Calculator Styles */
-.calculator {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+.form-group {
+margin-bottom: 1.5rem;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+width: 100%;
+padding: 0.75rem;
+background: rgba(255, 255, 255, 0.05);
 border: 1px solid rgba(255, 255, 255, 0.1);
-max-width: 500px;
-margin: 0 auto;
-}
-
-.calculator-display {
-background: rgba(0, 0, 0, 0.3);
-border-radius: 0.5rem;
-padding: 1rem;
-margin-bottom: 1rem;
-text-align: right;
-font-size: 1.5rem;
-min-height: 60px;
-display: flex;
-align-items: center;
-justify-content: flex-end;
-}
-
-.calculator-buttons {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 0.5rem;
-}
-
-.calc-btn {
-background: rgba(255, 255, 255, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.2);
-border-radius: 0.5rem;
-padding: 1rem;
-font-size: 1.2rem;
+border-radius: 0.375rem;
 color: var(--text);
-cursor: pointer;
+font-size: 1rem;
 transition: all 0.3s;
 }
 
-.calc-btn:hover,
-.calc-btn:focus {
-background: var(--primary);
-transform: translateY(-2px);
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
 outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
-.calc-btn.operator {
-background: rgba(79, 70, 229, 0.3);
+.form-group textarea {
+resize: vertical;
+min-height: 120px;
 }
 
-.calc-btn.equals {
-background: var(--gradient-1);
-grid-column: span 2;
-}
-
-.calc-btn.clear {
-background: rgba(239, 68, 68, 0.3);
-}
-
-/* Budget Planner Styles */
-.budget-planner {
+/* Notification */
+.notification {
+position: fixed;
+bottom: 20px;
+right: 20px;
 background: var(--card-bg);
 backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.1);
-max-width: 800px;
-margin: 0 auto;
-}
-
-.budget-summary {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 1rem;
-margin-bottom: 2rem;
-}
-
-.budget-summary-item {
-background: rgba(255, 255, 255, 0.05);
 border-radius: 0.5rem;
-padding: 1rem;
-text-align: center;
-}
-
-.budget-summary-item h3 {
-font-size: 0.9rem;
-color: var(--text-dim);
-margin-bottom: 0.5rem;
-}
-
-.budget-summary-item p {
-font-size: 1.5rem;
-font-weight: 700;
-}
-
-.budget-categories {
-margin-bottom: 2rem;
-}
-
-.budget-category {
+padding: 1rem 1.5rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
 display: flex;
 align-items: center;
-margin-bottom: 1rem;
+transform: translateY(100px);
+opacity: 0;
+transition: all 0.3s;
+z-index: 1000;
+max-width: 400px;
 }
 
-.budget-category-name {
-flex: 1;
+.notification.show {
+transform: translateY(0);
+opacity: 1;
 }
 
-.budget-category-amount {
-width: 100px;
-margin: 0 1rem;
-}
-
-.budget-category-percentage {
-width: 50px;
-text-align: right;
-}
-
-.budget-category-bar {
-height: 8px;
-background: rgba(255, 255, 255, 0.1);
-border-radius: 4px;
-overflow: hidden;
-margin-top: 0.5rem;
-}
-
-.budget-category-progress {
-height: 100%;
-background: var(--gradient-1);
-border-radius: 4px;
-transition: width 0.5s ease;
-}
-
-/* Tools Page */
-.tools {
-padding: 4rem 0;
-}
-
-.tools-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 2rem;
-margin-top: 2rem;
-}
-
-.tool-card {
-background: var(--card-bg);
-backdrop-filter: blur(10px);
-border-radius: 1rem;
-padding: 2rem;
-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transition: transform 0.3s, box-shadow 0.3s;
-text-align: center;
-}
-
-.tool-card:hover,
-.tool-card:focus-within {
-transform: translateY(-5px);
-box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-}
-
-.tool-icon {
-width: 80px;
-height: 80px;
-background: var(--gradient-1);
+.notification-icon {
+width: 40px;
+height: 40px;
 border-radius: 50%;
 display: flex;
 align-items: center;
 justify-content: center;
-margin: 0 auto 1.5rem;
-font-size: 2rem;
-color: white;
+margin-right: 1rem;
 }
 
-.tool-card h3 {
-font-size: 1.5rem;
-margin-bottom: 1rem;
+.notification-icon.success {
+background: rgba(16, 185, 129, 0.2);
+color: var(--secondary);
 }
 
-.tool-card p {
+.notification-icon.error {
+background: rgba(239, 68, 68, 0.2);
+color: var(--danger);
+}
+
+.notification-icon.info {
+background: rgba(79, 70, 229, 0.2);
+color: var(--primary);
+}
+
+.notification-content {
+flex: 1;
+}
+
+.notification-content h4 {
+font-size: 1rem;
+margin-bottom: 0.25rem;
+}
+
+.notification-content p {
+font-size: 0.8rem;
 color: var(--text-dim);
-margin-bottom: 1.5rem;
+}
+
+.notification-close {
+background: transparent;
+color: var(--text-dim);
+border: none;
+cursor: pointer;
+margin-left: 1rem;
+}
+
+.notification-close:hover,
+.notification-close:focus {
+color: var(--text);
+}
+
+/* Dark/Light Mode Toggle */
+.theme-toggle {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background: var(--gradient-1);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+cursor: pointer;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+transition: all 0.3s;
+}
+
+.theme-toggle:hover {
+transform: scale(1.1);
+}
+
+.theme-toggle i {
+font-size: 1.5rem;
 }
 
 /* Responsive Design */
@@ -2321,43 +1492,6 @@ font-size: 1rem;
 flex-direction: column;
 }
 
-.pricing-plans {
-flex-direction: column;
-}
-
-.auth-container {
-width: 100%;
-max-width: 400px;
-height: auto;
-}
-
-.auth-content {
-padding: 1.5rem;
-}
-
-.articles-grid {
-grid-template-columns: 1fr;
-}
-
-.contact-content {
-grid-template-columns: 1fr;
-gap: 2rem;
-}
-
-.form-row {
-grid-template-columns: 1fr;
-}
-
-.article-header h1 {
-font-size: 2rem;
-}
-
-.article-meta-detail {
-flex-direction: column;
-align-items: flex-start;
-gap: 1rem;
-}
-
 .dashboard-header {
 flex-direction: column;
 align-items: flex-start;
@@ -2366,23 +1500,37 @@ align-items: flex-start;
 .dashboard-grid {
 grid-template-columns: 1fr;
 }
+
+.tools-search-container {
+flex-direction: column;
 }
 
-@media (min-width: 769px) {
-.pricing-plans {
-flex-direction: row;
+.tools-search {
+max-width: 100%;
 }
 
-.plan {
-flex: 1;
+.tools-filter {
+width: 100%;
+justify-content: center;
+}
+
+.tool-card {
+padding: 1.5rem;
+}
+
+.tool-icon {
+width: 60px;
+height: 60px;
+font-size: 1.5rem;
+}
+
+.modal-content {
+padding: 1.5rem;
 }
 }
 </style>
 </head>
 <body>
-<!-- Skip to content link for accessibility -->
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
 <!-- Background Animation -->
 <div class="bg-animation">
 <span></span>
@@ -2681,54 +1829,376 @@ flex: 1;
 <h2>Financial Tools & Calculators</h2>
 <p>Access powerful tools to help you make informed financial decisions.</p>
 </div>
+
+<!-- Tool Search and Filter -->
+<div class="tools-search-container">
+<div class="tools-search">
+<input type="text" id="toolsSearchInput" placeholder="Search for tools..." class="tools-search-input">
+<button class="tools-search-btn"><i class="fas fa-search"></i></button>
+</div>
+<div class="tools-filter">
+<button class="filter-btn active" data-filter="all">All Tools</button>
+<button class="filter-btn" data-filter="calculators">Calculators</button>
+<button class="filter-btn" data-filter="planners">Planners</button>
+<button class="filter-btn" data-filter="trackers">Trackers</button>
+</div>
+</div>
+
+<!-- Enhanced Tools Grid with Categories -->
+<div class="tools-categories">
+<div class="tools-category" data-category="calculators">
+<h3><i class="fas fa-calculator"></i> Financial Calculators</h3>
 <div class="tools-grid">
-<div class="tool-card">
+<div class="tool-card" data-tool="loan">
 <div class="tool-icon">
 <i class="fas fa-calculator"></i>
 </div>
 <h3>Loan Calculator</h3>
 <p>Calculate monthly payments, interest, and total cost for different loan options.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Monthly Payment</span>
+<span><i class="fas fa-check"></i> Total Interest</span>
+<span><i class="fas fa-check"></i> Amortization</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">15.2K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.8</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
 <button class="btn btn-primary" onclick="showModal('loanCalculatorModal')">Use Calculator</button>
 </div>
-<div class="tool-card">
+
+<div class="tool-card" data-tool="savings">
 <div class="tool-icon">
 <i class="fas fa-piggy-bank"></i>
 </div>
 <h3>Savings Calculator</h3>
 <p>Plan your savings goals and see how your money can grow over time.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Goal Tracking</span>
+<span><i class="fas fa-check"></i> Compound Interest</span>
+<span><i class="fas fa-check"></i> Timeline Projection</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">12.8K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.7</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
 <button class="btn btn-primary" onclick="showModal('savingsCalculatorModal')">Use Calculator</button>
 </div>
-<div class="tool-card">
+
+<div class="tool-card" data-tool="mortgage">
 <div class="tool-icon">
 <i class="fas fa-home"></i>
 </div>
 <h3>Mortgage Calculator</h3>
 <p>Estimate your monthly mortgage payments based on home price, down payment, and interest rate.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Monthly Payment</span>
+<span><i class="fas fa-check"></i> Affordability Check</span>
+<span><i class="fas fa-check"></i> Refinance Analysis</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">18.5K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.9</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
 <button class="btn btn-primary" onclick="showModal('mortgageCalculatorModal')">Use Calculator</button>
 </div>
-<div class="tool-card">
+
+<div class="tool-card" data-tool="investment">
 <div class="tool-icon">
 <i class="fas fa-chart-line"></i>
 </div>
 <h3>Investment Calculator</h3>
 <p>Calculate potential returns on your investments with compound interest.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> ROI Analysis</span>
+<span><i class="fas fa-check"></i> Risk Assessment</span>
+<span><i class="fas fa-check"></i> Portfolio Growth</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">10.3K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.6</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
 <button class="btn btn-primary" onclick="showModal('investmentCalculatorModal')">Use Calculator</button>
 </div>
-<div class="tool-card">
+
+<div class="tool-card" data-tool="debt">
 <div class="tool-icon">
 <i class="fas fa-credit-card"></i>
 </div>
 <h3>Debt Payoff Calculator</h3>
 <p>Create a plan to pay off your debts faster and save on interest.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Payoff Timeline</span>
+<span><i class="fas fa-check"></i> Interest Savings</span>
+<span><i class="fas fa-check"></i> Payment Strategies</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">8.7K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.5</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
 <button class="btn btn-primary" onclick="showModal('debtCalculatorModal')">Use Calculator</button>
 </div>
-<div class="tool-card">
+
+<div class="tool-card" data-tool="retirement">
 <div class="tool-icon">
 <i class="fas fa-retirement"></i>
 </div>
 <h3>Retirement Calculator</h3>
 <p>Plan for your retirement and see how much you need to save.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Retirement Goals</span>
+<span><i class="fas fa-check"></i> 401k Analysis</span>
+<span><i class="fas fa-check"></i> Income Projection</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">14.2K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.8</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
 <button class="btn btn-primary" onclick="showModal('retirementCalculatorModal')">Use Calculator</button>
+</div>
+</div>
+</div>
+
+<div class="tools-category" data-category="planners">
+<h3><i class="fas fa-clipboard-list"></i> Financial Planners</h3>
+<div class="tools-grid">
+<div class="tool-card" data-tool="budget">
+<div class="tool-icon">
+<i class="fas fa-wallet"></i>
+</div>
+<h3>Budget Planner</h3>
+<p>Create a comprehensive budget plan tailored to your income and expenses.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Expense Categorization</span>
+<span><i class="fas fa-check"></i> Savings Goals</span>
+<span><i class="fas fa-check"></i> Monthly Reports</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">22.5K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.9</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="showModal('budgetPlannerModal')">Create Budget</button>
+</div>
+
+<div class="tool-card" data-tool="retirement-planner">
+<div class="tool-icon">
+<i class="fas fa-umbrella-beach"></i>
+</div>
+<h3>Retirement Planner</h3>
+<p>Plan your retirement with comprehensive tools and strategies.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Retirement Timeline</span>
+<span><i class="fas fa-check"></i> Income Sources</span>
+<span><i class="fas fa-check"></i> Withdrawal Strategy</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">16.8K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.7</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="showModal('retirementPlannerModal')">Plan Retirement</button>
+</div>
+</div>
+</div>
+
+<div class="tools-category" data-category="trackers">
+<h3><i class="fas fa-chart-bar"></i> Financial Trackers</h3>
+<div class="tools-grid">
+<div class="tool-card" data-tool="expense">
+<div class="tool-icon">
+<i class="fas fa-receipt"></i>
+</div>
+<h3>Expense Tracker</h3>
+<p>Track and categorize your expenses to understand your spending habits.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Receipt Scanning</span>
+<span><i class="fas fa-check"></i> Spending Analysis</span>
+<span><i class="fas fa-check"></i> Budget Alerts</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">25.3K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.8</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="showModal('expenseTrackerModal')">Track Expenses</button>
+</div>
+
+<div class="tool-card" data-tool="investment-tracker">
+<div class="tool-icon">
+<i class="fas fa-chart-pie"></i>
+</div>
+<h3>Investment Tracker</h3>
+<p>Monitor your investment portfolio and track performance over time.</p>
+<div class="tool-features">
+<span><i class="fas fa-check"></i> Portfolio Dashboard</span>
+<span><i class="fas fa-check"></i> Performance Metrics</span>
+<span><i class="fas fa-check"></i> Asset Allocation</span>
+</div>
+<div class="tool-rating">
+<div class="stars">
+<i class="fas fa-star star" data-rating="1"></i>
+<i class="fas fa-star star" data-rating="2"></i>
+<i class="fas fa-star star" data-rating="3"></i>
+<i class="fas fa-star star" data-rating="4"></i>
+<i class="fas fa-star star" data-rating="5"></i>
+</div>
+<span class="rating-value">Rate this tool</span>
+</div>
+<div class="tool-stats">
+<div class="tool-stat">
+<div class="tool-stat-value">11.7K</div>
+<div class="tool-stat-label">Uses</div>
+</div>
+<div class="tool-stat">
+<div class="tool-stat-value">4.6</div>
+<div class="tool-stat-label">Rating</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="showModal('investmentTrackerModal')">Track Investments</button>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2754,61 +2224,6 @@ flex: 1;
 
 <div class="articles-grid" id="articlesGrid">
 <!-- Articles will be dynamically loaded here -->
-</div>
-</div>
-</section>
-</div>
-
-<!-- Article Detail Page -->
-<div id="article-detail-page" class="page">
-<section class="article-detail-section">
-<div class="container">
-<div class="article-detail">
-<button class="btn btn-outline" onclick="backToArticles()" style="margin-bottom: 2rem;">
-<i class="fas fa-arrow-left"></i> Back to Articles
-</button>
-
-<div class="article-header">
-<h1 id="articleTitle">Article Title</h1>
-<div class="article-meta-detail">
-<div class="article-author-detail">
-<img id="articleAuthorImage" src="" alt="Author">
-<div class="article-author-info">
-<h4 id="articleAuthor">Author Name</h4>
-<p id="articleDate">May 15, 2023</p>
-</div>
-</div>
-<div class="article-read-time" id="articleReadTime">5 min read</div>
-</div>
-</div>
-
-<div class="article-image-container">
-<img id="articleImage" src="" alt="Article Image">
-</div>
-
-<div class="article-content-detail" id="articleContent">
-<!-- Article content will be loaded here -->
-</div>
-
-<div class="article-tags" id="articleTags">
-<!-- Tags will be loaded here -->
-</div>
-
-<div class="article-share">
-<span style="margin-right: 1rem; color: var(--text-dim);">Share this article:</span>
-<button class="share-btn" aria-label="Share on Facebook" onclick="shareArticle('facebook')">
-<i class="fab fa-facebook-f"></i>
-</button>
-<button class="share-btn" aria-label="Share on Twitter" onclick="shareArticle('twitter')">
-<i class="fab fa-twitter"></i>
-</button>
-<button class="share-btn" aria-label="Share on LinkedIn" onclick="shareArticle('linkedin')">
-<i class="fab fa-linkedin-in"></i>
-</button>
-<button class="share-btn" aria-label="Copy link" onclick="shareArticle('copy')">
-<i class="fas fa-link"></i>
-</button>
-</div>
 </div>
 </div>
 </section>
@@ -2928,7 +2343,7 @@ Does WealthWise work on mobile devices?
 <!-- Contact Page -->
 <div id="contact-page" class="page">
 <section class="contact-section">
-<div class="contact-container">
+<div class="container">
 <div class="contact-header">
 <h2>Get in Touch</h2>
 <p>We're here to help you on your financial journey. Reach out to us with any questions or feedback.</p>
@@ -3101,216 +2516,7 @@ Subscribe to our newsletter for financial tips and updates
 </div>
 </footer>
 
-<!-- Sign In/Up Modal with 3D Animation -->
-<div class="auth-modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
-<div class="auth-container" id="authContainer">
-<!-- Sign In Form -->
-<div class="auth-content front">
-<button class="auth-close" id="closeAuthModal" aria-label="Close authentication modal">
-<i class="fas fa-times"></i>
-</button>
-<div class="auth-header">
-<h2 id="authModalTitle">Sign In to WealthWise</h2>
-<p>Access your dashboard and save your progress.</p>
-</div>
-<form id="signInForm" class="auth-form">
-<div class="form-group">
-<label for="signInEmail">Email</label>
-<input type="email" id="signInEmail" placeholder="Enter your email" required>
-</div>
-<div class="form-group">
-<label for="signInPassword">Password</label>
-<input type="password" id="signInPassword" placeholder="Enter your password" required>
-</div>
-<button type="submit" class="btn btn-primary">Sign In</button>
-</form>
-<div class="auth-switch">
-<p>Don't have an account? <a href="#" id="showSignUpLink">Sign Up</a></p>
-</div>
-</div>
-
-<!-- Sign Up Form -->
-<div class="auth-content back">
-<button class="auth-close" id="closeAuthModalBack" aria-label="Close authentication modal">
-<i class="fas fa-times"></i>
-</button>
-<div class="auth-header">
-<h2>Create Your WealthWise Account</h2>
-<p>Join thousands of users managing their finances with WealthWise.</p>
-</div>
-<form id="signUpFormModal" class="auth-form">
-<div class="form-group">
-<label for="signUpName">Full Name</label>
-<input type="text" id="signUpName" placeholder="Enter your full name" required>
-</div>
-<div class="form-group">
-<label for="signUpEmail">Email</label>
-<input type="email" id="signUpEmail" placeholder="Enter your email" required>
-</div>
-<div class="form-group">
-<label for="signUpPassword">Password</label>
-<input type="password" id="signUpPassword" placeholder="Create a password" required>
-</div>
-<div class="form-group">
-<label for="signUpConfirmPassword">Confirm Password</label>
-<input type="password" id="signUpConfirmPassword" placeholder="Confirm your password" required>
-</div>
-<button type="submit" class="btn btn-primary">Create Account</button>
-</form>
-<div class="auth-switch">
-<p>Already have an account? <a href="#" id="showSignInLinkModal">Sign In</a></p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Income Modal -->
-<div class="modal" id="incomeModal" role="dialog" aria-modal="true" aria-labelledby="incomeModalTitle">
-<div class="modal-content">
-<div class="modal-header">
-<h2 id="incomeModalTitle">Add Income</h2>
-<button class="modal-close" aria-label="Close income modal">
-<i class="fas fa-times"></i>
-</button>
-</div>
-<div class="modal-body">
-<form id="incomeForm">
-<div class="form-group">
-<label for="incomeSource">Income Source</label>
-<input type="text" id="incomeSource" placeholder="e.g., Salary, Freelance" required>
-</div>
-<div class="form-group">
-<label for="incomeAmount">Amount ($)</label>
-<input type="number" id="incomeAmount" placeholder="0.00" step="0.01" required>
-</div>
-<div class="form-group">
-<label for="incomeDate">Date</label>
-<input type="date" id="incomeDate" required>
-</div>
-<div class="form-group">
-<label for="incomeCategory">Category</label>
-<select id="incomeCategory" required>
-<option value="">Select category</option>
-<option value="salary">Salary</option>
-<option value="freelance">Freelance</option>
-<option value="investment">Investment</option>
-<option value="gift">Gift</option>
-<option value="other">Other</option>
-</select>
-</div>
-<div class="form-group">
-<label for="incomeNotes">Notes (Optional)</label>
-<textarea id="incomeNotes" rows="3" placeholder="Add any additional notes"></textarea>
-</div>
-</form>
-</div>
-<div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('incomeModal')">Cancel</button>
-<button class="btn btn-primary" onclick="saveIncome()">Save Income</button>
-</div>
-</div>
-</div>
-
-<!-- Expense Modal -->
-<div class="modal" id="expenseModal" role="dialog" aria-modal="true" aria-labelledby="expenseModalTitle">
-<div class="modal-content">
-<div class="modal-header">
-<h2 id="expenseModalTitle">Add Expense</h2>
-<button class="modal-close" aria-label="Close expense modal">
-<i class="fas fa-times"></i>
-</button>
-</div>
-<div class="modal-body">
-<form id="expenseForm">
-<div class="form-group">
-<label for="expenseDescription">Description</label>
-<input type="text" id="expenseDescription" placeholder="e.g., Grocery Shopping" required>
-</div>
-<div class="form-group">
-<label for="expenseAmount">Amount ($)</label>
-<input type="number" id="expenseAmount" placeholder="0.00" step="0.01" required>
-</div>
-<div class="form-group">
-<label for="expenseDate">Date</label>
-<input type="date" id="expenseDate" required>
-</div>
-<div class="form-group">
-<label for="expenseCategory">Category</label>
-<select id="expenseCategory" required>
-<option value="">Select category</option>
-<option value="food">Food & Dining</option>
-<option value="transportation">Transportation</option>
-<option value="shopping">Shopping</option>
-<option value="entertainment">Entertainment</option>
-<option value="bills">Bills & Utilities</option>
-<option value="healthcare">Healthcare</option>
-<option value="education">Education</option>
-<option value="other">Other</option>
-</select>
-</div>
-<div class="form-group">
-<label for="expenseNotes">Notes (Optional)</label>
-<textarea id="expenseNotes" rows="3" placeholder="Add any additional notes"></textarea>
-</div>
-</form>
-</div>
-<div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('expenseModal')">Cancel</button>
-<button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
-</div>
-</div>
-</div>
-
-<!-- Transfer Modal -->
-<div class="modal" id="transferModal" role="dialog" aria-modal="true" aria-labelledby="transferModalTitle">
-<div class="modal-content">
-<div class="modal-header">
-<h2 id="transferModalTitle">Transfer Money</h2>
-<button class="modal-close" aria-label="Close transfer modal">
-<i class="fas fa-times"></i>
-</button>
-</div>
-<div class="modal-body">
-<form id="transferForm">
-<div class="form-group">
-<label for="transferFrom">From Account</label>
-<select id="transferFrom" required>
-<option value="">Select account</option>
-<option value="checking">Checking Account</option>
-<option value="savings">Savings Account</option>
-<option value="credit">Credit Card</option>
-</select>
-</div>
-<div class="form-group">
-<label for="transferTo">To Account</label>
-<select id="transferTo" required>
-<option value="">Select account</option>
-<option value="checking">Checking Account</option>
-<option value="savings">Savings Account</option>
-<option value="credit">Credit Card</option>
-</select>
-</div>
-<div class="form-group">
-<label for="transferAmount">Amount ($)</label>
-<input type="number" id="transferAmount" placeholder="0.00" step="0.01" required>
-</div>
-<div class="form-group">
-<label for="transferDate">Date</label>
-<input type="date" id="transferDate" required>
-</div>
-<div class="form-group">
-<label for="transferNotes">Notes (Optional)</label>
-<textarea id="transferNotes" rows="3" placeholder="Add any additional notes"></textarea>
-</div>
-</form>
-</div>
-<div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('transferModal')">Cancel</button>
-<button class="btn btn-primary" onclick="saveTransfer()">Transfer Money</button>
-</div>
-</div>
-</div>
-
+<!-- Modals -->
 <!-- Loan Calculator Modal -->
 <div class="modal" id="loanCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="loanCalculatorTitle">
 <div class="modal-content">
@@ -3407,202 +2613,137 @@ Subscribe to our newsletter for financial tips and updates
 </div>
 </div>
 
-<!-- Mortgage Calculator Modal -->
-<div class="modal" id="mortgageCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="mortgageCalculatorTitle">
+<!-- Income Modal -->
+<div class="modal" id="incomeModal" role="dialog" aria-modal="true" aria-labelledby="incomeModalTitle">
 <div class="modal-content">
 <div class="modal-header">
-<h2 id="mortgageCalculatorTitle">Mortgage Calculator</h2>
-<button class="modal-close" aria-label="Close mortgage calculator modal">
+<h2 id="incomeModalTitle">Add Income</h2>
+<button class="modal-close" aria-label="Close income modal">
 <i class="fas fa-times"></i>
 </button>
 </div>
 <div class="modal-body">
-<form id="mortgageCalculatorForm">
+<form id="incomeForm">
 <div class="form-group">
-<label for="mortgageHomePrice">Home Price ($)</label>
-<input type="number" id="mortgageHomePrice" placeholder="300000" step="1000" required>
+<label for="incomeSource">Income Source</label>
+<input type="text" id="incomeSource" placeholder="e.g., Salary, Freelance" required>
 </div>
 <div class="form-group">
-<label for="mortgageDownPayment">Down Payment ($)</label>
-<input type="number" id="mortgageDownPayment" placeholder="60000" step="1000" required>
+<label for="incomeAmount">Amount ($)</label>
+<input type="number" id="incomeAmount" placeholder="0.00" step="0.01" required>
 </div>
 <div class="form-group">
-<label for="mortgageInterestRate">Interest Rate (%)</label>
-<input type="number" id="mortgageInterestRate" placeholder="4.5" step="0.1" required>
+<label for="incomeDate">Date</label>
+<input type="date" id="incomeDate" required>
 </div>
 <div class="form-group">
-<label for="mortgageTerm">Loan Term (years)</label>
-<input type="number" id="mortgageTerm" placeholder="30" step="1" required>
+<label for="incomeCategory">Category</label>
+<select id="incomeCategory" required>
+<option value="">Select category</option>
+<option value="salary">Salary</option>
+<option value="freelance">Freelance</option>
+<option value="investment">Investment</option>
+<option value="gift">Gift</option>
+<option value="other">Other</option>
+</select>
 </div>
 </form>
-<div class="calculator-results" id="mortgageCalculatorResults" style="margin-top: 1.5rem; display: none;">
-<div class="result-item">
-<h3>Monthly Payment</h3>
-<p class="result-value" id="mortgageMonthlyPayment">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Total Interest</h3>
-<p class="result-value" id="mortgageTotalInterest">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Total Payment</h3>
-<p class="result-value" id="mortgageTotalPayment">$0.00</p>
-</div>
-</div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('mortgageCalculatorModal')">Close</button>
-<button class="btn btn-primary" onclick="calculateMortgage()">Calculate</button>
+<button class="btn btn-outline" onclick="closeModal('incomeModal')">Cancel</button>
+<button class="btn btn-primary" onclick="saveIncome()">Save Income</button>
 </div>
 </div>
 </div>
 
-<!-- Investment Calculator Modal -->
-<div class="modal" id="investmentCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="investmentCalculatorTitle">
+<!-- Expense Modal -->
+<div class="modal" id="expenseModal" role="dialog" aria-modal="true" aria-labelledby="expenseModalTitle">
 <div class="modal-content">
 <div class="modal-header">
-<h2 id="investmentCalculatorTitle">Investment Calculator</h2>
-<button class="modal-close" aria-label="Close investment calculator modal">
+<h2 id="expenseModalTitle">Add Expense</h2>
+<button class="modal-close" aria-label="Close expense modal">
 <i class="fas fa-times"></i>
 </button>
 </div>
 <div class="modal-body">
-<form id="investmentCalculatorForm">
+<form id="expenseForm">
 <div class="form-group">
-<label for="investmentInitial">Initial Investment ($)</label>
-<input type="number" id="investmentInitial" placeholder="5000" step="100" required>
+<label for="expenseDescription">Description</label>
+<input type="text" id="expenseDescription" placeholder="e.g., Grocery Shopping" required>
 </div>
 <div class="form-group">
-<label for="investmentMonthly">Monthly Contribution ($)</label>
-<input type="number" id="investmentMonthly" placeholder="200" step="10" required>
+<label for="expenseAmount">Amount ($)</label>
+<input type="number" id="expenseAmount" placeholder="0.00" step="0.01" required>
 </div>
 <div class="form-group">
-<label for="investmentReturn">Expected Annual Return (%)</label>
-<input type="number" id="investmentReturn" placeholder="7" step="0.1" required>
+<label for="expenseDate">Date</label>
+<input type="date" id="expenseDate" required>
 </div>
 <div class="form-group">
-<label for="investmentPeriod">Investment Period (years)</label>
-<input type="number" id="investmentPeriod" placeholder="10" step="1" required>
+<label for="expenseCategory">Category</label>
+<select id="expenseCategory" required>
+<option value="">Select category</option>
+<option value="food">Food & Dining</option>
+<option value="transportation">Transportation</option>
+<option value="shopping">Shopping</option>
+<option value="entertainment">Entertainment</option>
+<option value="bills">Bills & Utilities</option>
+<option value="healthcare">Healthcare</option>
+<option value="education">Education</option>
+<option value="other">Other</option>
+</select>
 </div>
 </form>
-<div class="calculator-results" id="investmentCalculatorResults" style="margin-top: 1.5rem; display: none;">
-<div class="result-item">
-<h3>Final Value</h3>
-<p class="result-value" id="investmentFinalValue">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Total Contributions</h3>
-<p class="result-value" id="investmentTotalContributions">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Investment Returns</h3>
-<p class="result-value" id="investmentReturns">$0.00</p>
-</div>
-</div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('investmentCalculatorModal')">Close</button>
-<button class="btn btn-primary" onclick="calculateInvestment()">Calculate</button>
+<button class="btn btn-outline" onclick="closeModal('expenseModal')">Cancel</button>
+<button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
 </div>
 </div>
 </div>
 
-<!-- Debt Calculator Modal -->
-<div class="modal" id="debtCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="debtCalculatorTitle">
+<!-- Transfer Modal -->
+<div class="modal" id="transferModal" role="dialog" aria-modal="true" aria-labelledby="transferModalTitle">
 <div class="modal-content">
 <div class="modal-header">
-<h2 id="debtCalculatorTitle">Debt Payoff Calculator</h2>
-<button class="modal-close" aria-label="Close debt calculator modal">
+<h2 id="transferModalTitle">Transfer Money</h2>
+<button class="modal-close" aria-label="Close transfer modal">
 <i class="fas fa-times"></i>
 </button>
 </div>
 <div class="modal-body">
-<form id="debtCalculatorForm">
+<form id="transferForm">
 <div class="form-group">
-<label for="debtAmount">Total Debt ($)</label>
-<input type="number" id="debtAmount" placeholder="10000" step="100" required>
+<label for="transferFrom">From Account</label>
+<select id="transferFrom" required>
+<option value="">Select account</option>
+<option value="checking">Checking Account</option>
+<option value="savings">Savings Account</option>
+<option value="credit">Credit Card</option>
+</select>
 </div>
 <div class="form-group">
-<label for="debtInterestRate">Interest Rate (%)</label>
-<input type="number" id="debtInterestRate" placeholder="18.9" step="0.1" required>
+<label for="transferTo">To Account</label>
+<select id="transferTo" required>
+<option value="">Select account</option>
+<option value="checking">Checking Account</option>
+<option value="savings">Savings Account</option>
+<option value="credit">Credit Card</option>
+</select>
 </div>
 <div class="form-group">
-<label for="debtMonthlyPayment">Monthly Payment ($)</label>
-<input type="number" id="debtMonthlyPayment" placeholder="300" step="10" required>
+<label for="transferAmount">Amount ($)</label>
+<input type="number" id="transferAmount" placeholder="0.00" step="0.01" required>
+</div>
+<div class="form-group">
+<label for="transferDate">Date</label>
+<input type="date" id="transferDate" required>
 </div>
 </form>
-<div class="calculator-results" id="debtCalculatorResults" style="margin-top: 1.5rem; display: none;">
-<div class="result-item">
-<h3>Time to Pay Off</h3>
-<p class="result-value" id="debtPayoffTime">0 months</p>
-</div>
-<div class="result-item">
-<h3>Total Interest Paid</h3>
-<p class="result-value" id="debtTotalInterest">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Total Amount Paid</h3>
-<p class="result-value" id="debtTotalPaid">$0.00</p>
-</div>
-</div>
 </div>
 <div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('debtCalculatorModal')">Close</button>
-<button class="btn btn-primary" onclick="calculateDebt()">Calculate</button>
-</div>
-</div>
-</div>
-
-<!-- Retirement Calculator Modal -->
-<div class="modal" id="retirementCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="retirementCalculatorTitle">
-<div class="modal-content">
-<div class="modal-header">
-<h2 id="retirementCalculatorTitle">Retirement Calculator</h2>
-<button class="modal-close" aria-label="Close retirement calculator modal">
-<i class="fas fa-times"></i>
-</button>
-</div>
-<div class="modal-body">
-<form id="retirementCalculatorForm">
-<div class="form-group">
-<label for="retirementCurrentAge">Current Age</label>
-<input type="number" id="retirementCurrentAge" placeholder="30" step="1" required>
-</div>
-<div class="form-group">
-<label for="retirementAge">Retirement Age</label>
-<input type="number" id="retirementAge" placeholder="65" step="1" required>
-</div>
-<div class="form-group">
-<label for="retirementCurrentSavings">Current Savings ($)</label>
-<input type="number" id="retirementCurrentSavings" placeholder="50000" step="1000" required>
-</div>
-<div class="form-group">
-<label for="retirementMonthly">Monthly Contribution ($)</label>
-<input type="number" id="retirementMonthly" placeholder="500" step="10" required>
-</div>
-<div class="form-group">
-<label for="retirementReturn">Expected Annual Return (%)</label>
-<input type="number" id="retirementReturn" placeholder="7" step="0.1" required>
-</div>
-</form>
-<div class="calculator-results" id="retirementCalculatorResults" style="margin-top: 1.5rem; display: none;">
-<div class="result-item">
-<h3>Retirement Savings</h3>
-<p class="result-value" id="retirementSavings">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Total Contributions</h3>
-<p class="result-value" id="retirementTotalContributions">$0.00</p>
-</div>
-<div class="result-item">
-<h3>Investment Returns</h3>
-<p class="result-value" id="retirementReturns">$0.00</p>
-</div>
-</div>
-</div>
-<div class="modal-footer">
-<button class="btn btn-outline" onclick="closeModal('retirementCalculatorModal')">Close</button>
-<button class="btn btn-primary" onclick="calculateRetirement()">Calculate</button>
+<button class="btn btn-outline" onclick="closeModal('transferModal')">Cancel</button>
+<button class="btn btn-primary" onclick="saveTransfer()">Transfer Money</button>
 </div>
 </div>
 </div>
@@ -3621,6 +2762,11 @@ Subscribe to our newsletter for financial tips and updates
 </button>
 </div>
 
+<!-- Dark/Light Mode Toggle -->
+<div class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+<i class="fas fa-moon"></i>
+</div>
+
 <script>
 // Global Variables
 let isSignedIn = false;
@@ -3629,193 +2775,6 @@ let financialChart = null;
 let budgetChart = null;
 let portfolioChart = null;
 let realTimeInterval = null;
-
-// Article data
-const articlesData = [
-{
-id: 1,
-title: "10 Budgeting Tips for Financial Success",
-category: "budgeting",
-author: "Sarah Johnson",
-authorImage: "https://randomuser.me/api/portraits/women/44.jpg",
-date: "May 15, 2023",
-readTime: "5 min read",
-image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-excerpt: "Learn how to create and stick to a budget with these practical tips that will transform your financial life.",
-tags: ["budgeting", "personal finance", "money management"],
-content: `
-<p>Budgeting is the foundation of personal financial success. It's not just about restricting yourself; it's about understanding where your money goes and making intentional decisions about how to use it.</p>
-
-<h2>1. Track Your Expenses</h2>
-<p>The first step to effective budgeting is knowing where your money is going. Use a tracking app or spreadsheet to record every expense for at least a month. This will give you a clear picture of your spending habits.</p>
-
-<h2>2. Set Clear Financial Goals</h2>
-<p>Whether it's saving for a house, paying off debt, or building an emergency fund, having clear goals will motivate you to stick to your budget.</p>
-
-<h2>3. Use the 50/30/20 Rule</h2>
-<p>Allocate 50% of your income to needs, 30% to wants, and 20% to savings and debt repayment. This simple rule provides a balanced approach to budgeting.</p>
-
-<h2>4. Automate Your Savings</h2>
-<p>Set up automatic transfers to your savings account right after you get paid. This ensures you save before you have a chance to spend.</p>
-
-<h2>5. Review and Adjust Monthly</h2>
-<p>Your budget should be a living document. Review it monthly and adjust as needed based on changes in your income or expenses.</p>
-`
-},
-{
-id: 2,
-title: "Investment Strategies for Beginners",
-category: "investing",
-author: "Michael Chen",
-authorImage: "https://randomuser.me/api/portraits/men/32.jpg",
-date: "May 10, 2023",
-readTime: "8 min read",
-image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-excerpt: "Start your investment journey with these beginner-friendly strategies that will help you build wealth over time.",
-tags: ["investing", "wealth building", "beginners"],
-content: `
-<p>Investing can seem intimidating, but it's one of the most powerful ways to build wealth over time. Here are some strategies to help you get started on the right foot.</p>
-
-<h2>1. Start Early and Invest Regularly</h2>
-<p>Time is your greatest ally when it comes to investing. The earlier you start, the more time your money has to grow through compound interest.</p>
-
-<h2>2. Diversify Your Portfolio</h2>
-<p>Don't put all your eggs in one basket. Spread your investments across different asset classes to reduce risk.</p>
-
-<h2>3. Consider Index Funds</h2>
-<p>Index funds are a great choice for beginners because they offer diversification and low fees while tracking market performance.</p>
-
-<h2>4. Reinvest Dividends</h2>
-<p>When your investments pay dividends, reinvest them to take advantage of compound growth.</p>
-
-<h2>5. Stay the Course</h2>
-<p>Don't panic when the market dips. Stay invested for the long term and avoid making emotional decisions.</p>
-`
-},
-{
-id: 3,
-title: "Building an Emergency Fund: A Complete Guide",
-category: "savings",
-author: "Emily Rodriguez",
-authorImage: "https://randomuser.me/api/portraits/women/68.jpg",
-date: "May 5, 2023",
-readTime: "7 min read",
-image: "https://images.unsplash.com/photo-1579621970561-508648449815?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-excerpt: "Learn why an emergency fund is crucial and how to build one that will protect you from financial setbacks.",
-tags: ["emergency fund", "savings", "financial security"],
-content: `
-<p>An emergency fund is your financial safety net. It's the money you set aside to cover unexpected expenses or income loss. Here's how to build and maintain one.</p>
-
-<h2>Why You Need an Emergency Fund</h2>
-<p>Life is unpredictable. From medical emergencies to job loss, having an emergency fund can prevent you from going into debt when unexpected expenses arise.</p>
-
-<h2>How Much to Save</h2>
-<p>Most financial experts recommend saving 3-6 months' worth of living expenses. Start with a smaller goal, like $1,000, and work your way up.</p>
-
-<h2>Where to Keep Your Emergency Fund</h2>
-<p>Keep your emergency fund in a high-yield savings account where it's easily accessible but separate from your regular checking account.</p>
-
-<h2>Building Your Fund</h2>
-<p>Start small by automating regular transfers to your emergency fund. Even $25 per week adds up over time.</p>
-
-<h2>When to Use It</h2>
-<p>Reserve your emergency fund for true emergencies like job loss, medical emergencies, or essential home or car repairs.</p>
-`
-},
-{
-id: 4,
-title: "Productivity Hacks for Busy Professionals",
-category: "productivity",
-author: "David Wilson",
-authorImage: "https://randomuser.me/api/portraits/men/75.jpg",
-date: "April 28, 2023",
-readTime: "6 min read",
-image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-excerpt: "Boost your productivity with these simple yet effective hacks that will help you accomplish more in less time.",
-tags: ["productivity", "time management", "work-life balance"],
-content: `
-<p>Being productive isn't about working harder—it's about working smarter. These productivity hacks will help you make the most of your time.</p>
-
-<h2>1. Use the Pomodoro Technique</h2>
-<p>Work in focused 25-minute intervals followed by 5-minute breaks. This technique helps maintain concentration and prevents burnout.</p>
-
-<h2>2. Prioritize Your Tasks</h2>
-<p>Use the Eisenhower Matrix to categorize tasks by urgency and importance. Focus on what's important, not just what's urgent.</p>
-
-<h2>3. Minimize Distractions</h2>
-<p>Turn off notifications, close unnecessary tabs, and create a dedicated workspace. The fewer distractions, the more you'll accomplish.</p>
-
-<h2>4. Take Regular Breaks</h2>
-<p>Working non-stop leads to diminishing returns. Take short breaks to recharge and maintain peak performance throughout the day.</p>
-
-<h2>5. Review and Plan Daily</h2>
-<p>Start each day by reviewing your priorities and end it by planning for tomorrow. This simple habit can dramatically increase your productivity.</p>
-`
-},
-{
-id: 5,
-title: "Understanding Credit Scores and How to Improve Yours",
-category: "budgeting",
-author: "Lisa Thompson",
-authorImage: "https://randomuser.me/api/portraits/women/28.jpg",
-date: "April 22, 2023",
-readTime: "9 min read",
-image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-excerpt: "Everything you need to know about credit scores and practical steps to improve your creditworthiness.",
-tags: ["credit score", "personal finance", "credit improvement"],
-content: `
-<p>Your credit score is one of the most important numbers in your financial life. It affects your ability to get loans, credit cards, and even rent an apartment.</p>
-
-<h2>What is a Credit Score?</h2>
-<p>A credit score is a three-digit number that represents your creditworthiness. It ranges from 300 to 850, with higher scores indicating better credit.</p>
-
-<h2>Factors That Affect Your Score</h2>
-<ul>
-<li>Payment history (35%)</li>
-<li>Credit utilization (30%)</li>
-<li>Credit age (15%)</li>
-<li>Credit mix (10%)</li>
-<li>New credit inquiries (10%)</li>
-</ul>
-
-<h2>How to Improve Your Score</h2>
-<p>Pay all bills on time, keep credit card balances low, don't close old accounts, and limit new credit applications.</p>
-
-<h2>Monitoring Your Credit</h2>
-<p>Check your credit report regularly for errors and signs of identity theft. You're entitled to one free report from each bureau annually.</p>
-`
-},
-{
-id: 6,
-title: "The Power of Compound Interest: How to Make Your Money Work for You",
-category: "investing",
-author: "Robert Garcia",
-authorImage: "https://randomuser.me/api/portraits/men/67.jpg",
-date: "April 15, 2023",
-readTime: "8 min read",
-image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-excerpt: "Discover how compound interest can dramatically grow your wealth over time and strategies to maximize its benefits.",
-tags: ["compound interest", "investing", "wealth building"],
-content: `
-<p>Albert Einstein called compound interest the eighth wonder of the world. It's the most powerful force in finance, and understanding it is key to building wealth.</p>
-
-<h2>What is Compound Interest?</h2>
-<p>Compound interest is interest earned on both your initial investment and the interest that accumulates over time. It's interest on interest, creating a snowball effect.</p>
-
-<h2>The Time Factor</h2>
-<p>Time is the most important element in compound interest. The longer your money compounds, the more dramatic the growth. Starting early can make a huge difference.</p>
-
-<h2>Maximizing Compound Interest</h2>
-<p>To maximize compound interest, start investing early, reinvest dividends, and choose investments with higher returns. Even small increases in your return rate can significantly impact your final balance.</p>
-
-<h2>The Rule of 72</h2>
-<p>The Rule of 72 is a simple way to estimate how long it will take for your money to double. Divide 72 by your expected return rate to get the approximate number of years.</p>
-
-<h2>Real-World Examples</h2>
-<p>See how compound interest works in practice with examples showing the difference between starting to invest at 25 versus 35.</p>
-`
-}
-];
 
 // Sample data for dashboard
 const sampleTransactions = [
@@ -3833,6 +2792,46 @@ const sampleGoals = [
 { name: "Vacation Fund", target: 3000, current: 1200, progress: 40 }
 ];
 
+// Article data
+const articlesData = [
+{
+id: 1,
+title: "10 Budgeting Tips for Financial Success",
+category: "budgeting",
+author: "Sarah Johnson",
+authorImage: "https://randomuser.me/api/portraits/women/44.jpg",
+date: "May 15, 2023",
+readTime: "5 min read",
+image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+excerpt: "Learn how to create and stick to a budget with these practical tips that will transform your financial life.",
+tags: ["budgeting", "personal finance", "money management"]
+},
+{
+id: 2,
+title: "Investment Strategies for Beginners",
+category: "investing",
+author: "Michael Chen",
+authorImage: "https://randomuser.me/api/portraits/men/32.jpg",
+date: "May 10, 2023",
+readTime: "8 min read",
+image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+excerpt: "Start your investment journey with these beginner-friendly strategies that will help you build wealth over time.",
+tags: ["investing", "wealth building", "beginners"]
+},
+{
+id: 3,
+title: "Building an Emergency Fund: A Complete Guide",
+category: "savings",
+author: "Emily Rodriguez",
+authorImage: "https://randomuser.me/api/portraits/women/68.jpg",
+date: "May 5, 2023",
+readTime: "7 min read",
+image: "https://images.unsplash.com/photo-1579621970561-508648449815?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+excerpt: "Learn why an emergency fund is crucial and how to build one that will protect you from financial setbacks.",
+tags: ["emergency fund", "savings", "financial security"]
+}
+];
+
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
 // Set up event listeners
@@ -3843,6 +2842,12 @@ setupFAQ();
 
 // Setup article filter
 setupArticleFilter();
+
+// Setup tool search and filter
+setupToolSearchAndFilter();
+
+// Setup tool ratings
+setupToolRatings();
 
 // Load articles
 loadArticles();
@@ -3855,7 +2860,34 @@ const today = new Date().toISOString().split('T')[0];
 document.querySelectorAll('input[type="date"]').forEach(input => {
     input.value = today;
 });
+
+// Initialize theme toggle
+setupThemeToggle();
 });
+
+// Setup theme toggle
+function setupThemeToggle() {
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('wealthwise_theme');
+
+if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+
+themeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('light-mode');
+    const isLightMode = document.body.classList.contains('light-mode');
+    
+    if (isLightMode) {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('wealthwise_theme', 'light');
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('wealthwise_theme', 'dark');
+    }
+});
+}
 
 // Check authentication status
 function checkAuthStatus() {
@@ -3914,43 +2946,10 @@ document.getElementById('showSignInLink').addEventListener('click', function(e) 
     showAuthModal('signin');
 });
 
-// Auth modal
-document.getElementById('closeAuthModal').addEventListener('click', function() {
-    document.getElementById('authModal').classList.remove('active');
-});
-
-document.getElementById('closeAuthModalBack').addEventListener('click', function() {
-    document.getElementById('authModal').classList.remove('active');
-});
-
-// Show Sign Up link in modal
-document.getElementById('showSignUpLink').addEventListener('click', function(e) {
-    e.preventDefault();
-    flipAuthCard();
-});
-
-// Show Sign In link in modal
-document.getElementById('showSignInLinkModal').addEventListener('click', function(e) {
-    e.preventDefault();
-    flipAuthCard();
-});
-
 // Sign Up form on page
 document.getElementById('signupForm').addEventListener('submit', function(e) {
     e.preventDefault();
     handleSignup();
-});
-
-// Sign In form in modal
-document.getElementById('signInForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    handleSignIn();
-});
-
-// Sign Up form in modal
-document.getElementById('signUpFormModal').addEventListener('submit', function(e) {
-    e.preventDefault();
-    handleSignupModal();
 });
 
 // Contact form
@@ -4357,7 +3356,7 @@ faqQuestions.forEach(question => {
 
 // Setup article filter
 function setupArticleFilter() {
-const filterButtons = document.querySelectorAll('.filter-btn');
+const filterButtons = document.querySelectorAll('.articles-filter .filter-btn');
 
 filterButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -4468,73 +3467,125 @@ function showArticle(articleId) {
 const article = articlesData.find(a => a.id === articleId);
 if (!article) return;
 
-// Populate article details
-document.getElementById('articleTitle').textContent = article.title;
-document.getElementById('articleAuthor').textContent = article.author;
-document.getElementById('articleAuthorImage').src = article.authorImage;
-document.getElementById('articleAuthorImage').alt = article.author;
-document.getElementById('articleDate').textContent = article.date;
-document.getElementById('articleReadTime').textContent = article.readTime;
-document.getElementById('articleImage').src = article.image;
-document.getElementById('articleImage').alt = article.title;
-document.getElementById('articleContent').innerHTML = article.content;
+// For now, just show a notification
+showNotification('Article', `Opening article: ${article.title}`, 'info');
+}
 
-// Populate tags
-const tagsContainer = document.getElementById('articleTags');
-tagsContainer.innerHTML = '';
-article.tags.forEach(tag => {
-    const tagSpan = document.createElement('span');
-    tagSpan.className = 'article-tag';
-    tagSpan.textContent = tag;
-    tagsContainer.appendChild(tagSpan);
+// Setup tool search and filter
+function setupToolSearchAndFilter() {
+// Tool search
+const searchInput = document.getElementById('toolsSearchInput');
+if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const toolCards = document.querySelectorAll('.tool-card');
+
+        toolCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const description = card.querySelector('p').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
+
+// Tool filter
+const filterButtons = document.querySelectorAll('.tools-filter .filter-btn');
+filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.getAttribute('data-filter');
+        
+        // Show/hide tool categories
+        document.querySelectorAll('.tools-category').forEach(category => {
+            if (filter === 'all' || category.getAttribute('data-category') === filter) {
+                category.style.display = 'block';
+            } else {
+                category.style.display = 'none';
+            }
+        });
+    });
 });
-
-// Show article detail page
-showPage('article-detail-page');
 }
 
-// Back to articles
-function backToArticles() {
-showPage('articles-page');
-}
-
-// Start live chat
-function startLiveChat() {
-showNotification('Live Chat', 'Connecting you to our support team...', 'info');
-// In a real implementation, this would open a live chat widget
-}
-
-// Show auth modal with 3D animation
-function showAuthModal(type) {
-const authModal = document.getElementById('authModal');
-const authContainer = document.getElementById('authContainer');
-
-authModal.classList.add('active');
-
-// Reset to sign in form
-if (type === 'signin') {
-    authContainer.classList.remove('flipped');
-} else {
-    authContainer.classList.add('flipped');
-}
-
-// Focus management for accessibility
-setTimeout(() => {
-    if (type === 'signin') {
-        document.getElementById('signInEmail').focus();
+// Setup tool ratings
+function setupToolRatings() {
+document.querySelectorAll('.tool-card').forEach(card => {
+    const toolName = card.querySelector('h3').textContent;
+    
+    // Check if user has already rated this tool
+    const savedRating = localStorage.getItem(`tool_rating_${toolName}`);
+    
+    if (savedRating) {
+        displayRating(card, savedRating);
     } else {
-        document.getElementById('signUpName').focus();
+        // Add rating functionality
+        const ratingContainer = card.querySelector('.tool-rating');
+        if (ratingContainer) {
+            ratingContainer.querySelectorAll('.star').forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.getAttribute('data-rating');
+                    localStorage.setItem(`tool_rating_${toolName}`, rating);
+                    displayRating(card, rating);
+                    showNotification('Thank You!', `You rated ${toolName} ${rating} stars.`, 'success');
+                });
+                
+                star.addEventListener('mouseenter', function() {
+                    const rating = this.getAttribute('data-rating');
+                    highlightStars(ratingContainer, rating);
+                });
+            });
+            
+            ratingContainer.addEventListener('mouseleave', function() {
+                resetStars(ratingContainer);
+            });
+        }
     }
-}, 100);
+});
 }
 
-// Flip auth card for 3D animation
-function flipAuthCard() {
-const authContainer = document.getElementById('authContainer');
-authContainer.classList.toggle('flipped');
+function displayRating(card, rating) {
+const ratingContainer = card.querySelector('.tool-rating');
+if (ratingContainer) {
+    highlightStars(ratingContainer, rating);
+    ratingContainer.querySelector('.rating-value').textContent = `Your rating: ${rating}/5`;
+    
+    // Remove click events from stars
+    ratingContainer.querySelectorAll('.star').forEach(star => {
+        star.replaceWith(star.cloneNode(true));
+    });
+}
 }
 
-// Handle sign up on page
+function highlightStars(container, rating) {
+container.querySelectorAll('.star').forEach((star, index) => {
+    if (index < rating) {
+        star.classList.add('active');
+    } else {
+        star.classList.remove('active');
+    }
+});
+}
+
+function resetStars(container) {
+container.querySelectorAll('.star').forEach(star => {
+    star.classList.remove('active');
+});
+}
+
+// Show auth modal
+function showAuthModal(type) {
+showNotification('Authentication', `Please ${type} to continue`, 'info');
+}
+
+// Handle sign up
 function handleSignup() {
 const name = document.getElementById('signupName').value;
 const email = document.getElementById('signupEmail').value;
@@ -4573,93 +3624,6 @@ setTimeout(() => {
 }, 2000);
 }
 
-// Handle sign in
-function handleSignIn() {
-const email = document.getElementById('signInEmail').value;
-const password = document.getElementById('signInPassword').value;
-
-// In a real app, this would be validated against a backend
-// For demo purposes, we'll accept any non-empty credentials
-
-if (!email || !password) {
-    showNotification('Sign In Failed', 'Please enter your email and password.', 'error');
-    return;
-}
-
-// Create user object (in real app, this would come from backend)
-const user = {
-    name: email.split('@')[0],
-    email: email,
-    signupDate: new Date().toISOString()
-};
-
-// Save user to localStorage
-localStorage.setItem('wealthwise_user', JSON.stringify(user));
-currentUser = user;
-isSignedIn = true;
-
-// Update header
-updateHeaderForSignedInUser();
-
-// Simulate sign in
-showNotification('Sign In Successful', `Welcome back, ${user.name}!`, 'success');
-
-// Close modal
-document.getElementById('authModal').classList.remove('active');
-
-// Redirect to dashboard
-setTimeout(() => {
-    showPage('dashboard-page');
-}, 1000);
-}
-
-// Handle sign up in modal
-function handleSignupModal() {
-const name = document.getElementById('signUpName').value;
-const email = document.getElementById('signUpEmail').value;
-const password = document.getElementById('signUpPassword').value;
-const confirmPassword = document.getElementById('signUpConfirmPassword').value;
-
-if (password !== confirmPassword) {
-    showNotification('Password Mismatch', 'The passwords you entered do not match.', 'error');
-    return;
-}
-
-// Create user object
-const user = {
-    name: name,
-    email: email,
-    signupDate: new Date().toISOString()
-};
-
-// Save user to localStorage
-localStorage.setItem('wealthwise_user', JSON.stringify(user));
-currentUser = user;
-isSignedIn = true;
-
-// Update header
-updateHeaderForSignedInUser();
-
-// Simulate sign up
-showNotification('Account Created', `Welcome to WealthWise, ${name}! Please check your email to verify your account.`, 'success');
-
-// Reset form
-document.getElementById('signUpFormModal').reset();
-
-// Flip to sign in form
-flipAuthCard();
-
-// Pre-fill email
-setTimeout(() => {
-    document.getElementById('signInEmail').value = email;
-}, 600);
-
-// Redirect to dashboard
-setTimeout(() => {
-    showPage('dashboard-page');
-}, 2000);
-}
-
 // Handle contact form
 function handleContactForm() {
 const firstName = document.getElementById('contactName').value;
@@ -4676,7 +3640,7 @@ document.getElementById('contactForm').reset();
 }
 
 // Show notification
-function showNotification(title, message, type = 'success') {
+function showNotification(title, message, type = 'success', duration = 5000) {
 const notification = document.getElementById('notification');
 const icon = notification.querySelector('.notification-icon i');
 const titleElement = notification.querySelector('.notification-content h4');
@@ -4701,10 +3665,10 @@ if (type === 'success') {
     notification.querySelector('.notification-icon').className = 'notification-icon info';
 }
 
-// Auto-hide after 5 seconds
+// Auto-hide after duration
 setTimeout(() => {
     notification.classList.remove('show');
-}, 5000);
+}, duration);
 }
 
 // Refresh financial data
@@ -4742,34 +3706,32 @@ setTimeout(() => {
 // Social signup
 function socialSignup(provider) {
 showNotification('Social Sign Up', `Connecting with ${provider}...`, 'info');
-// In a real implementation, this would initiate OAuth flow
 }
 
 // Select plan
 function selectPlan(plan) {
 showNotification('Plan Selected', `You selected the ${plan} plan. Redirecting to checkout...`, 'info');
-// In a real implementation, this would redirect to checkout
 }
 
 // Share article
 function shareArticle(platform) {
 showNotification('Share Article', `Sharing article on ${platform}...`, 'info');
-// In a real implementation, this would open share dialog
 }
 
 // Open social link
 function openSocialLink(platform) {
 showNotification('Social Link', `Opening ${platform} page...`, 'info');
-// In a real implementation, this would open the social media page
 }
 
 // Modal functions
 function showModal(modalId) {
 document.getElementById(modalId).classList.add('active');
+document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
 }
 
 function closeModal(modalId) {
 document.getElementById(modalId).classList.remove('active');
+document.body.style.overflow = ''; // Restore scrolling
 }
 
 // Save income
@@ -4778,7 +3740,6 @@ const source = document.getElementById('incomeSource').value;
 const amount = document.getElementById('incomeAmount').value;
 const date = document.getElementById('incomeDate').value;
 const category = document.getElementById('incomeCategory').value;
-const notes = document.getElementById('incomeNotes').value;
 
 // Add to transactions
 const newTransaction = {
@@ -4812,7 +3773,6 @@ const description = document.getElementById('expenseDescription').value;
 const amount = document.getElementById('expenseAmount').value;
 const date = document.getElementById('expenseDate').value;
 const category = document.getElementById('expenseCategory').value;
-const notes = document.getElementById('expenseNotes').value;
 
 // Add to transactions
 const newTransaction = {
@@ -4846,7 +3806,6 @@ const from = document.getElementById('transferFrom').value;
 const to = document.getElementById('transferTo').value;
 const amount = document.getElementById('transferAmount').value;
 const date = document.getElementById('transferDate').value;
-const notes = document.getElementById('transferNotes').value;
 
 // Add to transactions
 const newTransaction = {
@@ -4927,114 +3886,394 @@ document.getElementById('interestEarned').textContent = `$${interestEarned.toFix
 document.getElementById('savingsCalculatorResults').style.display = 'block';
 }
 
-function calculateMortgage() {
-const homePrice = parseFloat(document.getElementById('mortgageHomePrice').value);
-const downPayment = parseFloat(document.getElementById('mortgageDownPayment').value);
-const annualRate = parseFloat(document.getElementById('mortgageInterestRate').value) / 100;
-const years = parseFloat(document.getElementById('mortgageTerm').value);
-
-const principal = homePrice - downPayment;
-const monthlyRate = annualRate / 12;
-const numPayments = years * 12;
-
-// Calculate monthly payment
-const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-const totalPayment = monthlyPayment * numPayments;
-const totalInterest = totalPayment - principal;
-
-// Display results
-document.getElementById('mortgageMonthlyPayment').textContent = `$${monthlyPayment.toFixed(2)}`;
-document.getElementById('mortgageTotalInterest').textContent = `$${totalInterest.toFixed(2)}`;
-document.getElementById('mortgageTotalPayment').textContent = `$${totalPayment.toFixed(2)}`;
-document.getElementById('mortgageCalculatorResults').style.display = 'block';
+// Start live chat
+function startLiveChat() {
+showNotification('Live Chat', 'Connecting you to our support team...', 'info');
 }
 
-function calculateInvestment() {
-const initial = parseFloat(document.getElementById('investmentInitial').value);
-const monthly = parseFloat(document.getElementById('investmentMonthly').value);
-const annualRate = parseFloat(document.getElementById('investmentReturn').value) / 100;
-const years = parseFloat(document.getElementById('investmentPeriod').value);
-
-const monthlyRate = annualRate / 12;
-const numMonths = years * 12;
-
-// Calculate final value
-let value = initial;
-for (let i = 0; i < numMonths; i++) {
-    value = value * (1 + monthlyRate) + monthly;
+// Add result-item styles dynamically
+const style = document.createElement('style');
+style.textContent = `
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-const totalContributions = initial + (monthly * numMonths);
-const returns = value - totalContributions;
-
-// Display results
-document.getElementById('investmentFinalValue').textContent = `$${value.toFixed(2)}`;
-document.getElementById('investmentTotalContributions').textContent = `$${totalContributions.toFixed(2)}`;
-document.getElementById('investmentReturns').textContent = `$${returns.toFixed(2)}`;
-document.getElementById('investmentCalculatorResults').style.display = 'block';
+.result-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
-function calculateDebt() {
-const principal = parseFloat(document.getElementById('debtAmount').value);
-const annualRate = parseFloat(document.getElementById('debtInterestRate').value) / 100;
-const monthlyPayment = parseFloat(document.getElementById('debtMonthlyPayment').value);
+.result-item h3 {
+    font-size: 1rem;
+    color: var(--text-dim);
+}
 
-const monthlyRate = annualRate / 12;
+.result-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+}
 
-// Calculate months to pay off
-let balance = principal;
-let months = 0;
-let totalInterest = 0;
+.calculator-results {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
 
-while (balance > 0 && months < 600) { // Cap at 50 years to prevent infinite loop
-    const interestPayment = balance * monthlyRate;
-    const principalPayment = monthlyPayment - interestPayment;
-    
-    if (principalPayment <= 0) {
-        showNotification('Calculation Error', 'Monthly payment is too low to cover interest. Please increase your payment.', 'error');
-        return;
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.pricing-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.plan {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.plan.featured {
+    border-color: var(--accent);
+    transform: scale(1.03);
+}
+
+.plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plan-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.plan-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.plan-header .price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.plan-header .price span {
+    font-size: 1rem;
+    color: var(--text-dim);
+}
+
+.plan-features {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.plan-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.plan-features li:last-child {
+    border-bottom: none;
+}
+
+.plan-features li i {
+    color: var(--secondary);
+    margin-right: 0.75rem;
+}
+
+.plan-button {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+}
+
+.plan-button.primary {
+    background: var(--gradient-1);
+    color: white;
+}
+
+.plan-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+}
+
+.plan-button.outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--text-dim);
+}
+
+.plan-button.outline:hover {
+    background: var(--text-dim);
+    color: var(--darker);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.contact-info-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.contact-info-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s;
+}
+
+.contact-info-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-info-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.contact-info-card h3 i {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.contact-info-card p {
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+}
+
+.contact-info-card a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-info-card a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.office-hours {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.office-hours h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.office-hours p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.contact-form-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-form-header {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.contact-form-header p {
+    color: var(--text-dim);
+}
+
+.map-container {
+    margin-top: 3rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-placeholder {
+    text-align: center;
+}
+
+.map-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-column h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--primary);
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-column ul li a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: var(--primary);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-dim);
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
     }
     
-    balance -= principalPayment;
-    totalInterest += interestPayment;
-    months++;
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pricing-plans {
+        flex-direction: column;
+    }
+    
+    .tools-search-container {
+        flex-direction: column;
+    }
+    
+    .tools-search {
+        max-width: 100%;
+    }
+    
+    .tools-filter {
+        width: 100%;
+        justify-content: center;
+    }
 }
-
-const totalPaid = principal + totalInterest;
-
-// Display results
-document.getElementById('debtPayoffTime').textContent = `${months} months (${Math.floor(months / 12)} years, ${months % 12} months)`;
-document.getElementById('debtTotalInterest').textContent = `$${totalInterest.toFixed(2)}`;
-document.getElementById('debtTotalPaid').textContent = `$${totalPaid.toFixed(2)}`;
-document.getElementById('debtCalculatorResults').style.display = 'block';
-}
-
-function calculateRetirement() {
-const currentAge = parseFloat(document.getElementById('retirementCurrentAge').value);
-const retirementAge = parseFloat(document.getElementById('retirementAge').value);
-const currentSavings = parseFloat(document.getElementById('retirementCurrentSavings').value);
-const monthly = parseFloat(document.getElementById('retirementMonthly').value);
-const annualRate = parseFloat(document.getElementById('retirementReturn').value) / 100;
-
-const years = retirementAge - currentAge;
-const monthlyRate = annualRate / 12;
-const numMonths = years * 12;
-
-// Calculate final value
-let value = currentSavings;
-for (let i = 0; i < numMonths; i++) {
-    value = value * (1 + monthlyRate) + monthly;
-}
-
-const totalContributions = currentSavings + (monthly * numMonths);
-const returns = value - totalContributions;
-
-// Display results
-document.getElementById('retirementSavings').textContent = `$${value.toFixed(2)}`;
-document.getElementById('retirementTotalContributions').textContent = `$${totalContributions.toFixed(2)}`;
-document.getElementById('retirementReturns').textContent = `$${returns.toFixed(2)}`;
-document.getElementById('retirementCalculatorResults').style.display = 'block';
-}
+`;
+document.head.appendChild(style);
 </script>
 </body>
 </html>
