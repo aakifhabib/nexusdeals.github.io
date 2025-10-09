@@ -6,6 +6,7 @@
     <title>WealthWise - Personal Finance Management</title>
     <meta name="description" content="Take control of your finances with WealthWise - the ultimate personal finance management platform with tools for budgeting, savings tracking, and financial planning.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary: #4f46e5;
@@ -374,6 +375,352 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dashboard-title h1 {
+            font-size: 2rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .user-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-details p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .dashboard-card:hover,
+        .dashboard-card:focus-within {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title i {
+            color: var(--primary);
+        }
+
+        .card-action {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .card-action:hover,
+        .card-action:focus {
+            color: var(--primary);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stat-change.positive {
+            color: var(--secondary);
+        }
+
+        .stat-change.negative {
+            color: var(--danger);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .transaction-icon.income {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+
+        .transaction-icon.expense {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .transaction-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .transaction-details p {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .transaction-amount {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .transaction-amount.income {
+            color: var(--secondary);
+        }
+
+        .transaction-amount.expense {
+            color: var(--danger);
+        }
+
+        .goal-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .goal-name {
+            font-weight: 600;
+        }
+
+        .goal-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .goal-progress-bar {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .goal-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-action {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quick-action:hover,
+        .quick-action:focus {
+            background: var(--gradient-1);
+            transform: translateY(-3px);
+            outline: none;
+        }
+
+        .quick-action i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .quick-action span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Real-time notification styles */
+        .real-time-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 300px;
+            animation: slideIn 0.5s ease-out;
+            z-index: 1001;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .real-time-notification .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .real-time-notification .notification-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .real-time-notification .notification-close {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .real-time-notification .notification-content {
+            font-size: 0.9rem;
+            color: var(--text-dim);
         }
 
         /* Home Page */
@@ -924,106 +1271,6 @@
             background: var(--primary);
             transform: translateY(-3px);
             outline: none;
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            padding: 4rem 0;
-            background: rgba(15, 23, 42, 0.5);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            color: var(--text-dim);
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 1rem;
-            object-fit: cover;
-        }
-
-        .testimonial-info h4 {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .testimonial-info p {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 4rem 0;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .stat-card {
-            text-align: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform-style: preserve-3d;
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover,
-        .stat-card:focus-within {
-            transform: translateY(-5px) rotateX(5deg);
-        }
-
-        .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            transform: translateZ(20px);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            transform: translateZ(15px);
-        }
-
-        .stat-label {
-            color: var(--text-dim);
-            transform: translateZ(10px);
         }
 
         /* Pricing Page */
@@ -1841,6 +2088,15 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (min-width: 769px) {
@@ -1959,6 +2215,150 @@
                         
                         <div class="signup-footer">
                             <p>Already have an account? <a href="#" id="showSignInLink">Sign In</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page">
+            <section class="dashboard">
+                <div class="container">
+                    <div class="dashboard-header">
+                        <div class="dashboard-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-avatar" id="userAvatar">JD</div>
+                            <div class="user-details">
+                                <h3 id="userName">John Doe</h3>
+                                <p id="userEmail">john@example.com</p>
+                            </div>
+                        </div>
+                        <div class="dashboard-actions">
+                            <button class="btn btn-outline" onclick="showNotification('Settings', 'Opening settings...', 'info')">
+                                <i class="fas fa-cog"></i> Settings
+                            </button>
+                            <button class="btn btn-primary" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- Financial Overview Card -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-wallet"></i> Financial Overview
+                                </h3>
+                                <button class="card-action" onclick="refreshFinancialData()">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                            <div class="stat-value" id="totalBalance">$12,450.00</div>
+                            <div class="stat-label">Total Balance</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>12.5% from last month</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="financialChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions Card -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-exchange-alt"></i> Recent Transactions
+                                </h3>
+                                <button class="card-action" onclick="showNotification('Transactions', 'Loading all transactions...', 'info')">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                            <div class="transaction-list" id="transactionList">
+                                <!-- Transactions will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Budget Tracking Card -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-chart-pie"></i> Budget Tracking
+                                </h3>
+                                <button class="card-action" onclick="showNotification('Budget', 'Opening budget planner...', 'info')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Goals Progress Card -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-bullseye"></i> Goals Progress
+                                </h3>
+                                <button class="card-action" onclick="showNotification('Goals', 'Opening goals manager...', 'info')">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div id="goalsList">
+                                <!-- Goals will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions Card -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-bolt"></i> Quick Actions
+                                </h3>
+                            </div>
+                            <div class="quick-actions">
+                                <div class="quick-action" onclick="showNotification('Add Income', 'Opening income form...', 'info')">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Add Income</span>
+                                </div>
+                                <div class="quick-action" onclick="showNotification('Add Expense', 'Opening expense form...', 'info')">
+                                    <i class="fas fa-minus-circle"></i>
+                                    <span>Add Expense</span>
+                                </div>
+                                <div class="quick-action" onclick="showNotification('Transfer', 'Opening transfer form...', 'info')">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>Transfer</span>
+                                </div>
+                                <div class="quick-action" onclick="showNotification('Reports', 'Generating reports...', 'info')">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Reports</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Investment Portfolio Card -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-chart-line"></i> Investment Portfolio
+                                </h3>
+                                <button class="card-action" onclick="showNotification('Portfolio', 'Opening portfolio details...', 'info')">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            </div>
+                            <div class="stat-value" id="portfolioValue">$8,750.00</div>
+                            <div class="stat-label">Portfolio Value</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>8.2% from last month</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="portfolioChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2449,6 +2849,11 @@
     <script>
         // Global Variables
         let isSignedIn = false;
+        let currentUser = null;
+        let financialChart = null;
+        let budgetChart = null;
+        let portfolioChart = null;
+        let realTimeInterval = null;
         
         // Article data
         const articlesData = [
@@ -2636,7 +3041,23 @@
                 `
             }
         ];
-        
+
+        // Sample data for dashboard
+        const sampleTransactions = [
+            { id: 1, description: "Salary Deposit", amount: 3500, type: "income", date: "2023-05-15", category: "Income" },
+            { id: 2, description: "Grocery Shopping", amount: -125.50, type: "expense", date: "2023-05-14", category: "Food" },
+            { id: 3, description: "Electric Bill", amount: -85.00, type: "expense", date: "2023-05-13", category: "Utilities" },
+            { id: 4, description: "Freelance Work", amount: 800, type: "income", date: "2023-05-12", category: "Income" },
+            { id: 5, description: "Gas Station", amount: -45.00, type: "expense", date: "2023-05-11", category: "Transportation" },
+            { id: 6, description: "Netflix Subscription", amount: -15.99, type: "expense", date: "2023-05-10", category: "Entertainment" }
+        ];
+
+        const sampleGoals = [
+            { name: "Emergency Fund", target: 5000, current: 3200, progress: 64 },
+            { name: "New Laptop", target: 1500, current: 750, progress: 50 },
+            { name: "Vacation Fund", target: 3000, current: 1200, progress: 40 }
+        ];
+
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             // Set up event listeners
@@ -2650,8 +3071,27 @@
             
             // Load articles
             loadArticles();
+            
+            // Check if user is already signed in
+            checkAuthStatus();
         });
-        
+
+        // Check authentication status
+        function checkAuthStatus() {
+            const savedUser = localStorage.getItem('wealthwise_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                isSignedIn = true;
+                updateHeaderForSignedInUser();
+            }
+        }
+
+        // Update header for signed in user
+        function updateHeaderForSignedInUser() {
+            document.getElementById('signInBtn').textContent = 'Dashboard';
+            document.getElementById('signUpBtn').textContent = 'Account';
+        }
+
         // Set up event listeners
         function setupEventListeners() {
             // Mobile menu
@@ -2671,12 +3111,20 @@
             
             // Sign In button
             document.getElementById('signInBtn').addEventListener('click', function() {
-                showAuthModal('signin');
+                if (isSignedIn) {
+                    showPage('dashboard-page');
+                } else {
+                    showAuthModal('signin');
+                }
             });
             
             // Sign Up button
             document.getElementById('signUpBtn').addEventListener('click', function() {
-                showAuthModal('signup');
+                if (isSignedIn) {
+                    showNotification('Account', 'Opening account settings...', 'info');
+                } else {
+                    showAuthModal('signup');
+                }
             });
             
             // Show Sign Up link
@@ -2750,7 +3198,7 @@
                 });
             });
         }
-        
+
         // Show page
         function showPage(pageId) {
             // Hide all pages
@@ -2766,8 +3214,319 @@
             
             // Close mobile menu if open
             document.getElementById('mainNav').classList.remove('active');
+            
+            // Initialize dashboard if showing dashboard page
+            if (pageId === 'dashboard-page') {
+                initializeDashboard();
+            }
         }
-        
+
+        // Initialize dashboard
+        function initializeDashboard() {
+            // Update user info
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = getInitials(currentUser.name);
+            }
+            
+            // Load transactions
+            loadTransactions();
+            
+            // Load goals
+            loadGoals();
+            
+            // Initialize charts
+            initializeCharts();
+            
+            // Start real-time updates
+            startRealTimeUpdates();
+        }
+
+        // Get user initials
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+
+        // Load transactions
+        function loadTransactions() {
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = '';
+            
+            sampleTransactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+                
+                const iconClass = transaction.type === 'income' ? 'fas fa-arrow-down' : 'fas fa-arrow-up';
+                const iconType = transaction.type === 'income' ? 'income' : 'expense';
+                const amountClass = transaction.type === 'income' ? 'income' : 'expense';
+                const amountPrefix = transaction.type === 'income' ? '+' : '';
+                
+                transactionItem.innerHTML = `
+                    <div class="transaction-info">
+                        <div class="transaction-icon ${iconType}">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>${transaction.description}</h4>
+                            <p>${transaction.category} • ${formatDate(transaction.date)}</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount ${amountClass}">
+                        ${amountPrefix}$${Math.abs(transaction.amount).toFixed(2)}
+                    </div>
+                `;
+                
+                transactionList.appendChild(transactionItem);
+            });
+        }
+
+        // Load goals
+        function loadGoals() {
+            const goalsList = document.getElementById('goalsList');
+            goalsList.innerHTML = '';
+            
+            sampleGoals.forEach(goal => {
+                const goalItem = document.createElement('div');
+                goalItem.className = 'goal-item';
+                
+                goalItem.innerHTML = `
+                    <div class="goal-header">
+                        <div class="goal-name">${goal.name}</div>
+                        <div class="goal-percentage">${goal.progress}%</div>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-progress-bar" style="width: ${goal.progress}%"></div>
+                    </div>
+                    <div class="goal-stats">
+                        <span>$${goal.current.toLocaleString()}</span>
+                        <span>$${goal.target.toLocaleString()}</span>
+                    </div>
+                `;
+                
+                goalsList.appendChild(goalItem);
+            });
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Financial Overview Chart
+            const financialCtx = document.getElementById('financialChart').getContext('2d');
+            if (financialChart) {
+                financialChart.destroy();
+            }
+            
+            financialChart = new Chart(financialCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Balance',
+                        data: [8500, 9200, 10100, 11800, 12450],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Budget Tracking Chart
+            const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+            if (budgetChart) {
+                budgetChart.destroy();
+            }
+            
+            budgetChart = new Chart(budgetCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Housing', 'Food', 'Transportation', 'Entertainment', 'Utilities', 'Other'],
+                    datasets: [{
+                        data: [1200, 400, 300, 200, 150, 250],
+                        backgroundColor: [
+                            '#4f46e5',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444',
+                            '#8b5cf6',
+                            '#ec4899'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#9ca3af',
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Portfolio Chart
+            const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+            if (portfolioChart) {
+                portfolioChart.destroy();
+            }
+            
+            portfolioChart = new Chart(portfolioCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Stocks', 'Bonds', 'Crypto', 'Real Estate'],
+                    datasets: [{
+                        label: 'Portfolio Value',
+                        data: [4500, 2000, 1500, 750],
+                        backgroundColor: '#4f46e5'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Start real-time updates
+        function startRealTimeUpdates() {
+            // Clear any existing interval
+            if (realTimeInterval) {
+                clearInterval(realTimeInterval);
+            }
+            
+            // Update financial data every 5 seconds
+            realTimeInterval = setInterval(() => {
+                updateFinancialData();
+                showRandomNotification();
+            }, 5000);
+        }
+
+        // Update financial data
+        function updateFinancialData() {
+            // Simulate small changes in balance
+            const currentBalance = parseFloat(document.getElementById('totalBalance').textContent.replace('$', '').replace(',', ''));
+            const change = (Math.random() - 0.5) * 100;
+            const newBalance = currentBalance + change;
+            
+            document.getElementById('totalBalance').textContent = `$${newBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            
+            // Update portfolio value
+            const currentPortfolio = parseFloat(document.getElementById('portfolioValue').textContent.replace('$', '').replace(',', ''));
+            const portfolioChange = (Math.random() - 0.5) * 50;
+            const newPortfolio = currentPortfolio + portfolioChange;
+            
+            document.getElementById('portfolioValue').textContent = `$${newPortfolio.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            
+            // Update charts with new data
+            if (financialChart) {
+                const newData = [...financialChart.data.datasets[0].data];
+                newData.push(newBalance);
+                newData.shift();
+                financialChart.data.datasets[0].data = newData;
+                financialChart.update();
+            }
+        }
+
+        // Show random notification
+        function showRandomNotification() {
+            const notifications = [
+                { title: 'New Transaction', message: 'Your salary deposit has been processed.' },
+                { title: 'Goal Update', message: 'You\'re getting closer to your emergency fund goal!' },
+                { title: 'Market Alert', message: 'Your portfolio is up 2% today.' },
+                { title: 'Budget Reminder', message: 'You\'ve used 75% of your monthly budget.' },
+                { title: 'Investment Opportunity', message: 'New investment opportunity available.' }
+            ];
+            
+            const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+            showRealTimeNotification(randomNotification.title, randomNotification.message);
+        }
+
+        // Show real-time notification
+        function showRealTimeNotification(title, message) {
+            const notification = document.createElement('div');
+            notification.className = 'real-time-notification';
+            notification.innerHTML = `
+                <div class="notification-header">
+                    <div class="notification-title">${title}</div>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="notification-content">${message}</div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
         // Set up FAQ accordion
         function setupFAQ() {
             const faqQuestions = document.querySelectorAll('.faq-question');
@@ -2797,7 +3556,7 @@
                 });
             });
         }
-        
+
         // Setup article filter
         function setupArticleFilter() {
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -2813,7 +3572,7 @@
                 });
             });
         }
-        
+
         // Filter articles
         function filterArticles(category) {
             const articlesGrid = document.getElementById('articlesGrid');
@@ -2860,7 +3619,7 @@
                 articlesGrid.appendChild(articleCard);
             });
         }
-        
+
         // Load articles
         function loadArticles() {
             const articlesGrid = document.getElementById('articlesGrid');
@@ -2905,7 +3664,7 @@
                 });
             }
         }
-        
+
         // Show article detail
         function showArticle(articleId) {
             const article = articlesData.find(a => a.id === articleId);
@@ -2935,18 +3694,18 @@
             // Show article detail page
             showPage('article-detail-page');
         }
-        
+
         // Back to articles
         function backToArticles() {
             showPage('articles-page');
         }
-        
+
         // Start live chat
         function startLiveChat() {
             showNotification('Live Chat', 'Connecting you to our support team...', 'info');
             // In a real implementation, this would open a live chat widget
         }
-        
+
         // Show auth modal with 3D animation
         function showAuthModal(type) {
             const authModal = document.getElementById('authModal');
@@ -2970,13 +3729,13 @@
                 }
             }, 100);
         }
-        
+
         // Flip auth card for 3D animation
         function flipAuthCard() {
             const authContainer = document.getElementById('authContainer');
             authContainer.classList.toggle('flipped');
         }
-        
+
         // Handle sign up on page
         function handleSignup() {
             const name = document.getElementById('signupName').value;
@@ -2989,41 +3748,73 @@
                 return;
             }
             
+            // Create user object
+            const user = {
+                name: name,
+                email: email,
+                signupDate: new Date().toISOString()
+            };
+            
+            // Save user to localStorage
+            localStorage.setItem('wealthwise_user', JSON.stringify(user));
+            currentUser = user;
+            isSignedIn = true;
+            
+            // Update header
+            updateHeaderForSignedInUser();
+            
             // Simulate sign up
             showNotification('Account Created', `Welcome to WealthWise, ${name}! Please check your email to verify your account.`, 'success');
             
             // Reset form
             document.getElementById('signupForm').reset();
             
-            // Redirect to sign in modal
+            // Redirect to dashboard
             setTimeout(() => {
-                showAuthModal('signin');
-                document.getElementById('signInEmail').value = email;
+                showPage('dashboard-page');
             }, 2000);
         }
-        
+
         // Handle sign in
         function handleSignIn() {
             const email = document.getElementById('signInEmail').value;
             const password = document.getElementById('signInPassword').value;
             
+            // In a real app, this would be validated against a backend
+            // For demo purposes, we'll accept any non-empty credentials
+            
+            if (!email || !password) {
+                showNotification('Sign In Failed', 'Please enter your email and password.', 'error');
+                return;
+            }
+            
+            // Create user object (in real app, this would come from backend)
+            const user = {
+                name: email.split('@')[0],
+                email: email,
+                signupDate: new Date().toISOString()
+            };
+            
+            // Save user to localStorage
+            localStorage.setItem('wealthwise_user', JSON.stringify(user));
+            currentUser = user;
+            isSignedIn = true;
+            
+            // Update header
+            updateHeaderForSignedInUser();
+            
             // Simulate sign in
-            showNotification('Sign In Successful', `Welcome back, ${email}!`, 'success');
+            showNotification('Sign In Successful', `Welcome back, ${user.name}!`, 'success');
             
             // Close modal
             document.getElementById('authModal').classList.remove('active');
             
-            // Update UI for signed in state
-            isSignedIn = true;
-            document.getElementById('signInBtn').textContent = 'Dashboard';
-            document.getElementById('signUpBtn').textContent = 'Account';
-            
-            // Redirect to dashboard (in a real app, this would be a different page)
+            // Redirect to dashboard
             setTimeout(() => {
-                showNotification('Dashboard Access', 'You now have access to all WealthWise features!', 'info');
+                showPage('dashboard-page');
             }, 1000);
         }
-        
+
         // Handle sign up in modal
         function handleSignupModal() {
             const name = document.getElementById('signUpName').value;
@@ -3035,6 +3826,21 @@
                 showNotification('Password Mismatch', 'The passwords you entered do not match.', 'error');
                 return;
             }
+            
+            // Create user object
+            const user = {
+                name: name,
+                email: email,
+                signupDate: new Date().toISOString()
+            };
+            
+            // Save user to localStorage
+            localStorage.setItem('wealthwise_user', JSON.stringify(user));
+            currentUser = user;
+            isSignedIn = true;
+            
+            // Update header
+            updateHeaderForSignedInUser();
             
             // Simulate sign up
             showNotification('Account Created', `Welcome to WealthWise, ${name}! Please check your email to verify your account.`, 'success');
@@ -3049,8 +3855,13 @@
             setTimeout(() => {
                 document.getElementById('signInEmail').value = email;
             }, 600);
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                showPage('dashboard-page');
+            }, 2000);
         }
-        
+
         // Handle contact form
         function handleContactForm() {
             const firstName = document.getElementById('contactName').value;
@@ -3065,7 +3876,7 @@
             // Reset form
             document.getElementById('contactForm').reset();
         }
-        
+
         // Show notification
         function showNotification(title, message, type = 'success') {
             const notification = document.getElementById('notification');
@@ -3097,25 +3908,57 @@
                 notification.classList.remove('show');
             }, 5000);
         }
-        
+
+        // Refresh financial data
+        function refreshFinancialData() {
+            showNotification('Refreshing', 'Updating financial data...', 'info');
+            updateFinancialData();
+            initializeCharts();
+        }
+
+        // Logout
+        function logout() {
+            // Clear user data
+            localStorage.removeItem('wealthwise_user');
+            currentUser = null;
+            isSignedIn = false;
+            
+            // Stop real-time updates
+            if (realTimeInterval) {
+                clearInterval(realTimeInterval);
+            }
+            
+            // Update header
+            document.getElementById('signInBtn').textContent = 'Sign In';
+            document.getElementById('signUpBtn').textContent = 'Sign Up';
+            
+            // Show notification
+            showNotification('Logged Out', 'You have been successfully logged out.', 'info');
+            
+            // Redirect to home page
+            setTimeout(() => {
+                showPage('home-page');
+            }, 1000);
+        }
+
         // Social signup
         function socialSignup(provider) {
             showNotification('Social Sign Up', `Connecting with ${provider}...`, 'info');
             // In a real implementation, this would initiate OAuth flow
         }
-        
+
         // Select plan
         function selectPlan(plan) {
             showNotification('Plan Selected', `You selected the ${plan} plan. Redirecting to checkout...`, 'info');
             // In a real implementation, this would redirect to checkout
         }
-        
+
         // Share article
         function shareArticle(platform) {
             showNotification('Share Article', `Sharing article on ${platform}...`, 'info');
             // In a real implementation, this would open share dialog
         }
-        
+
         // Open social link
         function openSocialLink(platform) {
             showNotification('Social Link', `Opening ${platform} page...`, 'info');
