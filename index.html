@@ -1215,6 +1215,449 @@ font-size: 0.8rem;
 color: var(--text-dim);
 }
 
+/* Tutorial Styles */
+.tutorial {
+padding: 4rem 0;
+}
+
+.tutorial-container {
+max-width: 900px;
+margin: 0 auto;
+}
+
+.tutorial-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.tutorial-header h2 {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.tutorial-header p {
+color: var(--text-dim);
+max-width: 700px;
+margin: 0 auto;
+}
+
+.tutorial-tabs {
+display: flex;
+justify-content: center;
+margin-bottom: 2rem;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tutorial-tab {
+padding: 0.75rem 1.5rem;
+background: transparent;
+border: none;
+color: var(--text-dim);
+cursor: pointer;
+transition: all 0.3s;
+position: relative;
+}
+
+.tutorial-tab:hover {
+color: var(--text);
+}
+
+.tutorial-tab.active {
+color: var(--primary);
+}
+
+.tutorial-tab.active::after {
+content: '';
+position: absolute;
+bottom: -1px;
+left: 0;
+width: 100%;
+height: 2px;
+background: var(--primary);
+}
+
+.tutorial-content {
+display: none;
+}
+
+.tutorial-content.active {
+display: block;
+}
+
+.tutorial-step {
+display: flex;
+gap: 2rem;
+margin-bottom: 2rem;
+align-items: flex-start;
+}
+
+.tutorial-step-number {
+width: 40px;
+height: 40px;
+background: var(--gradient-1);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: 600;
+flex-shrink: 0;
+}
+
+.tutorial-step-content {
+flex: 1;
+}
+
+.tutorial-step-content h3 {
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
+}
+
+.tutorial-step-content p {
+color: var(--text-dim);
+margin-bottom: 1rem;
+}
+
+.tutorial-image {
+width: 100%;
+max-width: 400px;
+border-radius: 0.5rem;
+margin-top: 1rem;
+}
+
+/* Help Center Styles */
+.help-center {
+padding: 4rem 0;
+}
+
+.help-container {
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.help-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.help-header h2 {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.help-header p {
+color: var(--text-dim);
+max-width: 700px;
+margin: 0 auto;
+}
+
+.help-search {
+max-width: 600px;
+margin: 0 auto 3rem;
+}
+
+.help-search-input {
+width: 100%;
+padding: 1rem;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 2rem;
+color: var(--text);
+font-size: 1rem;
+}
+
+.help-categories {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.help-category {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.help-category:hover,
+.help-category:focus-within {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.help-category h3 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.help-category h3 i {
+color: var(--primary);
+}
+
+.help-category ul {
+list-style: none;
+}
+
+.help-category ul li {
+margin-bottom: 0.75rem;
+}
+
+.help-category ul li a {
+color: var(--text-dim);
+text-decoration: none;
+transition: color 0.3s;
+}
+
+.help-category ul li a:hover {
+color: var(--primary);
+}
+
+.help-articles {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+}
+
+.help-article {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 1.5rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.help-article:hover,
+.help-article:focus-within {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.help-article h3 {
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
+}
+
+.help-article p {
+color: var(--text-dim);
+margin-bottom: 1rem;
+}
+
+.help-article a {
+color: var(--primary);
+text-decoration: none;
+font-weight: 500;
+}
+
+.help-article a:hover {
+text-decoration: underline;
+}
+
+/* About Page */
+.about {
+padding: 4rem 0;
+}
+
+.about-container {
+max-width: 900px;
+margin: 0 auto;
+}
+
+.about-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.about-header h2 {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.about-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3rem;
+margin-bottom: 3rem;
+}
+
+.about-text h3 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+}
+
+.about-text p {
+color: var(--text-dim);
+margin-bottom: 1.5rem;
+}
+
+.about-image {
+width: 100%;
+border-radius: 1rem;
+}
+
+.team-section {
+margin-top: 4rem;
+}
+
+.team-header {
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.team-header h3 {
+font-size: 2rem;
+margin-bottom: 1rem;
+}
+
+.team-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+}
+
+.team-member {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+text-align: center;
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.team-member:hover,
+.team-member:focus-within {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.team-member img {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+margin-bottom: 1rem;
+}
+
+.team-member h4 {
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
+}
+
+.team-member p {
+color: var(--text-dim);
+margin-bottom: 1rem;
+}
+
+.team-member .social-links {
+display: flex;
+justify-content: center;
+gap: 0.5rem;
+}
+
+.team-member .social-links a {
+width: 36px;
+height: 36px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--text);
+transition: all 0.3s;
+}
+
+.team-member .social-links a:hover {
+background: var(--primary);
+transform: translateY(-3px);
+}
+
+/* Privacy Policy & Terms Pages */
+.policy-page {
+padding: 4rem 0;
+}
+
+.policy-container {
+max-width: 900px;
+margin: 0 auto;
+}
+
+.policy-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.policy-header h2 {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.policy-content {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.policy-content h3 {
+font-size: 1.5rem;
+margin: 2rem 0 1rem;
+}
+
+.policy-content h4 {
+font-size: 1.25rem;
+margin: 1.5rem 0 0.75rem;
+}
+
+.policy-content p {
+color: var(--text-dim);
+margin-bottom: 1rem;
+}
+
+.policy-content ul {
+margin-left: 2rem;
+margin-bottom: 1rem;
+}
+
+.policy-content li {
+color: var(--text-dim);
+margin-bottom: 0.5rem;
+}
+
+.policy-content .last-updated {
+text-align: right;
+color: var(--text-dim);
+font-style: italic;
+margin-top: 2rem;
+}
+
 /* Modal Styles */
 .modal {
 display: none;
@@ -1972,6 +2415,14 @@ gap: 2rem;
 .pricing-plans {
 flex-direction: column;
 }
+
+.about-content {
+grid-template-columns: 1fr;
+}
+
+.tutorial-step {
+flex-direction: column;
+}
 }
 
 /* Light Mode Styles */
@@ -2681,6 +3132,375 @@ background: rgba(255, 255, 255, 0.9);
 </section>
 </div>
 
+<!-- Tutorials Page -->
+<div id="tutorials-page" class="page">
+<section class="tutorial">
+<div class="tutorial-container">
+<div class="tutorial-header">
+<h2>Learn How to Use Our Tools</h2>
+<p>Step-by-step tutorials to help you make the most of WealthWise features.</p>
+</div>
+
+<div class="tutorial-tabs">
+<button class="tutorial-tab active" data-tab="calculators">Calculators</button>
+<button class="tutorial-tab" data-tab="planners">Planners</button>
+<button class="tutorial-tab" data-tab="trackers">Trackers</button>
+</div>
+
+<div class="tutorial-content active" id="calculators-content">
+<div class="tutorial-step">
+<div class="tutorial-step-number">1</div>
+<div class="tutorial-step-content">
+<h3>Choose the Right Calculator</h3>
+<p>Start by selecting the calculator that matches your financial goal. We have calculators for loans, savings, mortgages, investments, debt payoff, and retirement planning.</p>
+<img src="https://picsum.photos/seed/calculator-selection/600/300.jpg" alt="Calculator Selection" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">2</div>
+<div class="tutorial-step-content">
+<h3>Enter Your Information</h3>
+<p>Fill in the required fields with your financial information. Be as accurate as possible to get the most helpful results.</p>
+<img src="https://picsum.photos/seed/calculator-input/600/300.jpg" alt="Calculator Input" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">3</div>
+<div class="tutorial-step-content">
+<h3>Review Your Results</h3>
+<p>After clicking "Calculate," review the results carefully. Our calculators provide detailed breakdowns to help you understand your financial situation.</p>
+<img src="https://picsum.photos/seed/calculator-results/600/300.jpg" alt="Calculator Results" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">4</div>
+<div class="tutorial-step-content">
+<h3>Save or Export Your Results</h3>
+<p>You can save your calculations to your account or export them as PDFs for future reference or to share with financial advisors.</p>
+<img src="https://picsum.photos/seed/calculator-save/600/300.jpg" alt="Save Calculator Results" class="tutorial-image">
+</div>
+</div>
+</div>
+
+<div class="tutorial-content" id="planners-content">
+<div class="tutorial-step">
+<div class="tutorial-step-number">1</div>
+<div class="tutorial-step-content">
+<h3>Set Your Financial Goals</h3>
+<p>Start by defining what you want to achieve. Whether it's creating a monthly budget or planning for retirement, clear goals are essential.</p>
+<img src="https://picsum.photos/seed/financial-goals/600/300.jpg" alt="Financial Goals" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">2</div>
+<div class="tutorial-step-content">
+<h3>Input Your Financial Data</h3>
+<p>Enter your income, expenses, and other relevant financial information. The more accurate your data, the more effective your plan will be.</p>
+<img src="https://picsum.photos/seed/financial-data/600/300.jpg" alt="Financial Data Input" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">3</div>
+<div class="tutorial-step-content">
+<h3>Customize Your Plan</h3>
+<p>Adjust parameters to create a plan that works for your specific situation. Our planners offer flexibility to match your unique needs.</p>
+<img src="https://picsum.photos/seed/customize-plan/600/300.jpg" alt="Customize Financial Plan" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">4</div>
+<div class="tutorial-step-content">
+<h3>Track Your Progress</h3>
+<p>Regularly update your plan with new information to track your progress toward your financial goals.</p>
+<img src="https://picsum.photos/seed/track-progress/600/300.jpg" alt="Track Financial Progress" class="tutorial-image">
+</div>
+</div>
+</div>
+
+<div class="tutorial-content" id="trackers-content">
+<div class="tutorial-step">
+<div class="tutorial-step-number">1</div>
+<div class="tutorial-step-content">
+<h3>Connect Your Accounts</h3>
+<p>Link your bank accounts, credit cards, and investment accounts to automatically track your financial activity.</p>
+<img src="https://picsum.photos/seed/connect-accounts/600/300.jpg" alt="Connect Financial Accounts" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">2</div>
+<div class="tutorial-step-content">
+<h3>Categorize Your Transactions</h3>
+<p>Our system automatically categorizes your transactions, but you can customize categories to match your spending habits.</p>
+<img src="https://picsum.photos/seed/categorize-transactions/600/300.jpg" alt="Categorize Transactions" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">3</div>
+<div class="tutorial-step-content">
+<h3>Set Up Alerts</h3>
+<p>Create custom alerts for budget limits, unusual spending, or upcoming bills to stay on top of your finances.</p>
+<img src="https://picsum.photos/seed/financial-alerts/600/300.jpg" alt="Financial Alerts" class="tutorial-image">
+</div>
+</div>
+
+<div class="tutorial-step">
+<div class="tutorial-step-number">4</div>
+<div class="tutorial-step-content">
+<h3>Review Your Reports</h3>
+<p>Access detailed reports and visualizations to gain insights into your financial patterns and make informed decisions.</p>
+<img src="https://picsum.photos/seed/financial-reports/600/300.jpg" alt="Financial Reports" class="tutorial-image">
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Help Center Page -->
+<div id="help-page" class="page">
+<section class="help-center">
+<div class="help-container">
+<div class="help-header">
+<h2>Help Center</h2>
+<p>Find answers to common questions and learn how to make the most of WealthWise.</p>
+</div>
+
+<div class="help-search">
+<input type="text" class="help-search-input" placeholder="Search for help articles..." id="helpSearchInput">
+</div>
+
+<div class="help-categories">
+<div class="help-category">
+<h3><i class="fas fa-user-circle"></i> Getting Started</h3>
+<ul>
+<li><a href="#" onclick="showHelpArticle('getting-started')">Creating Your Account</a></li>
+<li><a href="#" onclick="showHelpArticle('dashboard')">Navigating Your Dashboard</a></li>
+<li><a href="#" onclick="showHelpArticle('profile')">Setting Up Your Profile</a></li>
+<li><a href="#" onclick="showHelpArticle('security')">Account Security</a></li>
+</ul>
+</div>
+
+<div class="help-category">
+<h3><i class="fas fa-calculator"></i> Using Calculators</h3>
+<ul>
+<li><a href="#" onclick="showHelpArticle('loan-calc')">Loan Calculator Guide</a></li>
+<li><a href="#" onclick="showHelpArticle('savings-calc')">Savings Calculator Guide</a></li>
+<li><a href="#" onclick="showHelpArticle('mortgage-calc')">Mortgage Calculator Guide</a></li>
+<li><a href="#" onclick="showHelpArticle('investment-calc')">Investment Calculator Guide</a></li>
+</ul>
+</div>
+
+<div class="help-category">
+<h3><i class="fas fa-chart-line"></i> Managing Your Finances</h3>
+<ul>
+<li><a href="#" onclick="showHelpArticle('budgeting')">Creating a Budget</a></li>
+<li><a href="#" onclick="showHelpArticle('tracking')">Tracking Expenses</a></li>
+<li><a href="#" onclick="showHelpArticle('goals')">Setting Financial Goals</a></li>
+<li><a href="#" onclick="showHelpArticle('reports')">Understanding Reports</a></li>
+</ul>
+</div>
+
+<div class="help-category">
+<h3><i class="fas fa-cog"></i> Account & Settings</h3>
+<ul>
+<li><a href="#" onclick="showHelpArticle('settings')">Account Settings</a></li>
+<li><a href="#" onclick="showHelpArticle('notifications')">Managing Notifications</a></li>
+<li><a href="#" onclick="showHelpArticle('data')">Managing Your Data</a></li>
+<li><a href="#" onclick="showHelpArticle('billing')">Billing & Subscriptions</a></li>
+</ul>
+</div>
+</div>
+
+<div class="help-articles">
+<div class="help-article">
+<h3>Popular Articles</h3>
+<p>How to create your first budget with WealthWise</p>
+<a href="#" onclick="showHelpArticle('first-budget')">Read more</a>
+</div>
+
+<div class="help-article">
+<h3>Popular Articles</h3>
+<p>Understanding your credit score and how to improve it</p>
+<a href="#" onclick="showHelpArticle('credit-score')">Read more</a>
+</div>
+
+<div class="help-article">
+<h3>Popular Articles</h3>
+<p>Tips for saving money on a tight budget</p>
+<a href="#" onclick="showHelpArticle('saving-tips')">Read more</a>
+</div>
+
+<div class="help-article">
+<h3>Popular Articles</h3>
+<p>How to use our retirement calculator effectively</p>
+<a href="#" onclick="showHelpArticle('retirement-guide')">Read more</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- About Us Page -->
+<div id="about-page" class="page">
+<section class="about">
+<div class="about-container">
+<div class="about-header">
+<h2>About WealthWise</h2>
+<p>Empowering individuals to take control of their financial future</p>
+</div>
+
+<div class="about-content">
+<div class="about-text">
+<h3>Our Mission</h3>
+<p>WealthWise was founded with a simple mission: to make personal finance management accessible to everyone. We believe that financial literacy and proper planning are the cornerstones of financial freedom, and we're committed to providing the tools and resources to help people achieve their financial goals.</p>
+
+<h3>Our Story</h3>
+<p>Founded in 2020 by a team of financial experts and software engineers, WealthWise was born out of a shared frustration with the complexity of existing financial tools. We saw a need for a platform that combines powerful financial tools with an intuitive, user-friendly interface.</p>
+
+<h3>Our Values</h3>
+<ul>
+<li><strong>Simplicity:</strong> Complex financial concepts made easy to understand</li>
+<li><strong>Accessibility:</strong> Financial tools available to everyone, regardless of their financial knowledge</li>
+<li><strong>Empowerment:</strong> Giving users the knowledge and tools to take control of their financial future</li>
+<li><strong>Innovation:</strong> Continuously improving our platform with new features and capabilities</li>
+</ul>
+</div>
+<div class="about-image">
+<img src="https://picsum.photos/seed/team-working/600/800.jpg" alt="WealthWise Team">
+</div>
+</div>
+
+<div class="team-section">
+<div class="team-header">
+<h3>Meet Our Team</h3>
+<p>The passionate people behind WealthWise</p>
+</div>
+
+<div class="team-grid">
+<div class="team-member">
+<img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith">
+<h4>John Smith</h4>
+<p>CEO & Co-Founder</p>
+<div class="social-links">
+<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+</div>
+</div>
+
+<div class="team-member">
+<img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+<h4>Sarah Johnson</h4>
+<p>CFO & Co-Founder</p>
+<div class="social-links">
+<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+</div>
+</div>
+
+<div class="team-member">
+<img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Chen">
+<h4>Michael Chen</h4>
+<p>CTO</p>
+<div class="social-links">
+<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+</div>
+</div>
+
+<div class="team-member">
+<img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez">
+<h4>Emily Rodriguez</h4>
+<p>Head of Product</p>
+<div class="social-links">
+<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Privacy Policy Page -->
+<div id="privacy-page" class="page">
+<section class="policy-page">
+<div class="policy-container">
+<div class="policy-header">
+<h2>Privacy Policy</h2>
+<p>Your privacy is important to us</p>
+</div>
+
+<div class="policy-content">
+<h3>Information We Collect</h3>
+<p>We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support. This may include your name, email address, financial information, and other details necessary to provide our services.</p>
+
+<h3>How We Use Your Information</h3>
+<p>We use the information we collect to provide, maintain, and improve our services, process transactions, send you technical notices and support messages, and communicate with you about products, services, and promotional offers.</p>
+
+<h3>Information Sharing</h3>
+<p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this Privacy Policy. We may share your information with trusted service providers who assist us in operating our platform, conducting our business, or servicing users.</p>
+
+<h3>Data Security</h3>
+<p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet or method of electronic storage is 100% secure.</p>
+
+<h3>Your Rights</h3>
+<p>You have the right to access, update, or delete your personal information. You can manage your account settings and preferences through your WealthWise account or by contacting our support team.</p>
+
+<h3>Changes to This Policy</h3>
+<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+
+<p class="last-updated">Last Updated: May 15, 2023</p>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Terms of Use Page -->
+<div id="terms-page" class="page">
+<section class="policy-page">
+<div class="policy-container">
+<div class="policy-header">
+<h2>Terms of Use</h2>
+<p>Rules and guidelines for using WealthWise</p>
+</div>
+
+<div class="policy-content">
+<h3>Acceptance of Terms</h3>
+<p>By accessing and using WealthWise, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+
+<h3>Description of Service</h3>
+<p>WealthWise is a personal finance management platform that provides tools and resources to help users manage their finances, track expenses, set financial goals, and make informed financial decisions.</p>
+
+<h3>User Accounts</h3>
+<p>To access certain features of our service, you must register for an account. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.</p>
+
+<h3>User Responsibilities</h3>
+<p>Users are responsible for maintaining the accuracy of their financial information and using the service in accordance with applicable laws and regulations. Users must not use the service for any illegal or unauthorized purpose.</p>
+
+<h3>Intellectual Property</h3>
+<p>The service and its original content, features, and functionality are and will remain the exclusive property of WealthWise and its licensors. The service is protected by copyright, trademark, and other laws.</p>
+
+<h3>Termination</h3>
+<p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+
+<h3>Limitation of Liability</h3>
+<p>In no event shall WealthWise, its directors, employees, partners, agents, suppliers, or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.</p>
+
+<p class="last-updated">Last Updated: May 15, 2023</p>
+</div>
+</div>
+</section>
+</div>
+
 <!-- Articles Page -->
 <div id="articles-page" class="page">
 <section class="articles">
@@ -2962,28 +3782,28 @@ Subscribe to our newsletter for financial tips and updates
 <div class="footer-column">
 <h3>Features</h3>
 <ul>
-<li><a href="#" onclick="showAuthModal('signup')">Budget Calculator</a></li>
-<li><a href="#" onclick="showAuthModal('signup')">Expense Tracker</a></li>
-<li><a href="#" onclick="showAuthModal('signup')">Investment Tools</a></li>
-<li><a href="#" onclick="showAuthModal('signup')">Goal Setting</a></li>
+<li><a href="#" onclick="showPage('tools-page')">Budget Calculator</a></li>
+<li><a href="#" onclick="showPage('tools-page')">Expense Tracker</a></li>
+<li><a href="#" onclick="showPage('tools-page')">Investment Tools</a></li>
+<li><a href="#" onclick="showPage('tools-page')">Goal Setting</a></li>
 </ul>
 </div>
 <div class="footer-column">
 <h3>Resources</h3>
 <ul>
 <li><a href="#" onclick="showPage('articles-page')">Blog</a></li>
-<li><a href="#" onclick="showAuthModal('signup')">Help Center</a></li>
-<li><a href="#" onclick="showAuthModal('signup')">Tutorials</a></li>
-<li><a href="#" onclick="showAuthModal('signup')">Webinars</a></li>
+<li><a href="#" onclick="showPage('help-page')">Help Center</a></li>
+<li><a href="#" onclick="showPage('tutorials-page')">Tutorials</a></li>
+<li><a href="#" onclick="showPage('tools-page')">Webinars</a></li>
 </ul>
 </div>
 <div class="footer-column">
 <h3>Company</h3>
 <ul>
-<li><a href="#" onclick="showPage('home-page')">About Us</a></li>
+<li><a href="#" onclick="showPage('about-page')">About Us</a></li>
 <li><a href="#" onclick="showPage('contact-page')">Careers</a></li>
-<li><a href="#" onclick="showPage('home-page')">Privacy Policy</a></li>
-<li><a href="#" onclick="showPage('home-page')">Terms of Service</a></li>
+<li><a href="#" onclick="showPage('privacy-page')">Privacy Policy</a></li>
+<li><a href="#" onclick="showPage('terms-page')">Terms of Service</a></li>
 </ul>
 </div>
 </div>
@@ -3824,6 +4644,12 @@ setupToolSearchAndFilter();
 // Setup tool ratings
 setupToolRatings();
 
+// Setup tutorial tabs
+setupTutorialTabs();
+
+// Setup help search
+setupHelpSearch();
+
 // Load articles
 loadArticles();
 
@@ -4554,6 +5380,65 @@ function resetStars(container) {
 container.querySelectorAll('.star').forEach(star => {
     star.classList.remove('active');
 });
+}
+
+// Setup tutorial tabs
+function setupTutorialTabs() {
+const tutorialTabs = document.querySelectorAll('.tutorial-tab');
+const tutorialContents = document.querySelectorAll('.tutorial-content');
+
+tutorialTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+        // Update active tab
+        tutorialTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Show corresponding content
+        const tabId = this.getAttribute('data-tab');
+        tutorialContents.forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(`${tabId}-content`).classList.add('active');
+    });
+});
+}
+
+// Setup help search
+function setupHelpSearch() {
+const helpSearchInput = document.getElementById('helpSearchInput');
+if (helpSearchInput) {
+    helpSearchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const helpCategories = document.querySelectorAll('.help-category');
+        const helpArticles = document.querySelectorAll('.help-article');
+        
+        // Filter categories
+        helpCategories.forEach(category => {
+            const categoryText = category.textContent.toLowerCase();
+            if (categoryText.includes(searchTerm) || searchTerm === '') {
+                category.style.display = 'block';
+            } else {
+                category.style.display = 'none';
+            }
+        });
+        
+        // Filter articles
+        helpArticles.forEach(article => {
+            const articleText = article.textContent.toLowerCase();
+            if (articleText.includes(searchTerm) || searchTerm === '') {
+                article.style.display = 'block';
+            } else {
+                article.style.display = 'none';
+            }
+        });
+    });
+}
+}
+
+// Show help article
+function showHelpArticle(articleId) {
+// For now, just show a notification
+showNotification('Help Article', `Opening help article: ${articleId}`, 'info');
 }
 
 // Show auth modal
