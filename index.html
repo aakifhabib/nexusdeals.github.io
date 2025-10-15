@@ -1434,6 +1434,438 @@ transform: scale(1.1);
 font-size: 1.5rem;
 }
 
+/* Footer */
+footer {
+background: rgba(15, 23, 42, 0.8);
+backdrop-filter: blur(10px);
+padding: 3rem 0 1rem;
+margin-top: 4rem;
+}
+
+.footer-container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 5%;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+}
+
+.footer-column h3 {
+font-size: 1.25rem;
+margin-bottom: 1.5rem;
+position: relative;
+padding-bottom: 0.75rem;
+}
+
+.footer-column h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: 0;
+width: 50px;
+height: 2px;
+background: var(--primary);
+}
+
+.footer-column ul {
+list-style: none;
+}
+
+.footer-column ul li {
+margin-bottom: 0.75rem;
+}
+
+.footer-column ul li a {
+color: var(--text-dim);
+text-decoration: none;
+transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+color: var(--primary);
+}
+
+.social-links {
+display: flex;
+gap: 1rem;
+margin-top: 1.5rem;
+}
+
+.social-links a {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--text);
+transition: all 0.3s;
+}
+
+.social-links a:hover {
+background: var(--primary);
+transform: translateY(-3px);
+}
+
+.footer-bottom {
+text-align: center;
+margin-top: 2rem;
+padding-top: 2rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+color: var(--text-dim);
+}
+
+/* Additional Styles */
+.result-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+padding-bottom: 1rem;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-item:last-child {
+margin-bottom: 0;
+padding-bottom: 0;
+border-bottom: none;
+}
+
+.result-item h3 {
+font-size: 1rem;
+color: var(--text-dim);
+}
+
+.result-value {
+font-size: 1.25rem;
+font-weight: 600;
+color: var(--primary);
+}
+
+.calculator-results {
+background: rgba(255, 255, 255, 0.05);
+border-radius: 0.5rem;
+padding: 1.5rem;
+margin-top: 1.5rem;
+}
+
+.form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+}
+
+.pricing-plans {
+display: flex;
+flex-direction: column;
+gap: 2rem;
+margin-top: 2rem;
+}
+
+.plan {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+position: relative;
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.plan.featured {
+border-color: var(--accent);
+transform: scale(1.03);
+}
+
+.plan-badge {
+position: absolute;
+top: -12px;
+left: 50%;
+transform: translateX(-50%);
+background: var(--accent);
+color: white;
+padding: 0.25rem 1rem;
+border-radius: 2rem;
+font-size: 0.8rem;
+font-weight: 600;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plan-header {
+text-align: center;
+margin-bottom: 1.5rem;
+}
+
+.plan-header h3 {
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
+}
+
+.plan-header .price {
+font-size: 2.5rem;
+font-weight: 700;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.plan-header .price span {
+font-size: 1rem;
+color: var(--text-dim);
+}
+
+.plan-features {
+list-style: none;
+margin-bottom: 2rem;
+}
+
+.plan-features li {
+padding: 0.75rem 0;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+display: flex;
+align-items: center;
+}
+
+.plan-features li:last-child {
+border-bottom: none;
+}
+
+.plan-features li i {
+color: var(--secondary);
+margin-right: 0.75rem;
+}
+
+.plan-button {
+width: 100%;
+padding: 0.75rem;
+border-radius: 0.5rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
+border: none;
+}
+
+.plan-button.primary {
+background: var(--gradient-1);
+color: white;
+}
+
+.plan-button.primary:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+}
+
+.plan-button.outline {
+background: transparent;
+color: var(--text);
+border: 1px solid var(--text-dim);
+}
+
+.plan-button.outline:hover {
+background: var(--text-dim);
+color: var(--darker);
+}
+
+.faq-container {
+max-width: 800px;
+margin: 0 auto;
+}
+
+.faq-item {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 0.5rem;
+margin-bottom: 1rem;
+border: 1px solid rgba(255, 255, 255, 0.1);
+overflow: hidden;
+}
+
+.faq-question {
+padding: 1.5rem;
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: background 0.3s;
+}
+
+.faq-question:hover {
+background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-question i {
+transition: transform 0.3s;
+}
+
+.faq-item.active .faq-question i {
+transform: rotate(180deg);
+}
+
+.faq-answer {
+padding: 0 1.5rem;
+max-height: 0;
+overflow: hidden;
+transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+padding: 0 1.5rem 1.5rem;
+max-height: 500px;
+}
+
+.contact-section {
+padding: 4rem 0;
+}
+
+.contact-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.contact-header h2 {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.contact-header p {
+color: var(--text-dim);
+max-width: 700px;
+margin: 0 auto;
+}
+
+.contact-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3rem;
+align-items: start;
+}
+
+.contact-info-grid {
+display: grid;
+gap: 1.5rem;
+}
+
+.contact-info-card {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: transform 0.3s;
+}
+
+.contact-info-card:hover {
+transform: translateY(-5px);
+}
+
+.contact-info-card h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+
+.contact-info-card h3 i {
+color: var(--primary);
+font-size: 1.5rem;
+}
+
+.contact-info-card p {
+color: var(--text-dim);
+margin-bottom: 0.5rem;
+}
+
+.contact-info-card a {
+color: var(--primary);
+text-decoration: none;
+transition: color 0.3s;
+}
+
+.contact-info-card a:hover {
+color: var(--primary-dark);
+text-decoration: underline;
+}
+
+.office-hours {
+margin-top: 1rem;
+padding-top: 1rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.office-hours h4 {
+font-size: 1rem;
+margin-bottom: 0.5rem;
+color: var(--text);
+}
+
+.office-hours p {
+font-size: 0.9rem;
+color: var(--text-dim);
+}
+
+.contact-form-container {
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-form-header {
+margin-bottom: 1.5rem;
+}
+
+.contact-form-header h3 {
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
+background: var(--gradient-1);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.contact-form-header p {
+color: var(--text-dim);
+}
+
+.map-container {
+margin-top: 3rem;
+border-radius: 1rem;
+overflow: hidden;
+height: 400px;
+background: rgba(255, 255, 255, 0.05);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--text-dim);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-placeholder {
+text-align: center;
+}
+
+.map-placeholder i {
+font-size: 3rem;
+margin-bottom: 1rem;
+color: var(--primary);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
 .header-container {
@@ -1527,6 +1959,50 @@ font-size: 1.5rem;
 .modal-content {
 padding: 1.5rem;
 }
+
+.form-row {
+grid-template-columns: 1fr;
+}
+
+.contact-content {
+grid-template-columns: 1fr;
+gap: 2rem;
+}
+
+.pricing-plans {
+flex-direction: column;
+}
+}
+
+/* Light Mode Styles */
+body.light-mode {
+--darker: #f9fafb;
+--dark: #1f2937;
+--card-bg: rgba(255, 255, 255, 0.9);
+--text: #1f2937;
+--text-dim: #6b7280;
+}
+
+body.light-mode header {
+background: rgba(255, 255, 255, 0.9);
+}
+
+body.light-mode .bg-animation span {
+background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .btn-outline {
+color: var(--dark);
+border-color: var(--dark);
+}
+
+body.light-mode .btn-outline:hover {
+background: var(--dark);
+color: var(--light);
+}
+
+body.light-mode footer {
+background: rgba(255, 255, 255, 0.9);
 }
 </style>
 </head>
@@ -2021,7 +2497,7 @@ padding: 1.5rem;
 
 <div class="tool-card" data-tool="retirement">
 <div class="tool-icon">
-<i class="fas fa-retirement"></i>
+<i class="fas fa-umbrella-beach"></i>
 </div>
 <h3>Retirement Calculator</h3>
 <p>Plan for your retirement and see how much you need to save.</p>
@@ -2516,7 +2992,82 @@ Subscribe to our newsletter for financial tips and updates
 </div>
 </footer>
 
-<!-- Modals -->
+<!-- Sign In Modal -->
+<div class="modal" id="signInModal" role="dialog" aria-modal="true" aria-labelledby="signInTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="signInTitle">Sign In to WealthWise</h2>
+<button class="modal-close" aria-label="Close sign in modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="signInForm">
+<div class="form-group">
+<label for="signInEmail">Email Address</label>
+<input type="email" id="signInEmail" placeholder="Enter your email" required>
+</div>
+<div class="form-group">
+<label for="signInPassword">Password</label>
+<input type="password" id="signInPassword" placeholder="Enter your password" required>
+</div>
+<div class="form-group">
+<label>
+<input type="checkbox" id="rememberMe" style="width: auto; margin-right: 0.5rem;">
+Remember me
+</label>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('signInModal')">Cancel</button>
+<button class="btn btn-primary" onclick="handleSignIn()">Sign In</button>
+</div>
+</div>
+</div>
+
+<!-- Sign Up Modal -->
+<div class="modal" id="signUpModal" role="dialog" aria-modal="true" aria-labelledby="signUpTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="signUpTitle">Create Your Account</h2>
+<button class="modal-close" aria-label="Close sign up modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="signUpFormModal">
+<div class="form-group">
+<label for="signUpNameModal">Full Name</label>
+<input type="text" id="signUpNameModal" placeholder="Enter your full name" required>
+</div>
+<div class="form-group">
+<label for="signUpEmailModal">Email Address</label>
+<input type="email" id="signUpEmailModal" placeholder="Enter your email" required>
+</div>
+<div class="form-group">
+<label for="signUpPasswordModal">Password</label>
+<input type="password" id="signUpPasswordModal" placeholder="Create a password" required>
+</div>
+<div class="form-group">
+<label for="signUpConfirmPasswordModal">Confirm Password</label>
+<input type="password" id="signUpConfirmPasswordModal" placeholder="Confirm your password" required>
+</div>
+<div class="form-group">
+<label>
+<input type="checkbox" id="agreeTerms" style="width: auto; margin-right: 0.5rem;" required>
+I agree to the Terms of Service and Privacy Policy
+</label>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('signUpModal')">Cancel</button>
+<button class="btn btn-primary" onclick="handleSignUpModal()">Create Account</button>
+</div>
+</div>
+</div>
+
 <!-- Loan Calculator Modal -->
 <div class="modal" id="loanCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="loanCalculatorTitle">
 <div class="modal-content">
@@ -2530,15 +3081,15 @@ Subscribe to our newsletter for financial tips and updates
 <form id="loanCalculatorForm">
 <div class="form-group">
 <label for="loanAmount">Loan Amount ($)</label>
-<input type="number" id="loanAmount" placeholder="10000" step="100" required>
+<input type="number" id="loanAmount" placeholder="10000" step="100" min="0" required>
 </div>
 <div class="form-group">
 <label for="loanInterestRate">Interest Rate (%)</label>
-<input type="number" id="loanInterestRate" placeholder="5.5" step="0.1" required>
+<input type="number" id="loanInterestRate" placeholder="5.5" step="0.1" min="0" max="100" required>
 </div>
 <div class="form-group">
 <label for="loanTerm">Loan Term (years)</label>
-<input type="number" id="loanTerm" placeholder="5" step="1" required>
+<input type="number" id="loanTerm" placeholder="5" step="1" min="1" max="30" required>
 </div>
 </form>
 <div class="calculator-results" id="loanCalculatorResults" style="margin-top: 1.5rem; display: none;">
@@ -2576,19 +3127,19 @@ Subscribe to our newsletter for financial tips and updates
 <form id="savingsCalculatorForm">
 <div class="form-group">
 <label for="savingsInitial">Initial Deposit ($)</label>
-<input type="number" id="savingsInitial" placeholder="1000" step="100" required>
+<input type="number" id="savingsInitial" placeholder="1000" step="100" min="0" required>
 </div>
 <div class="form-group">
 <label for="savingsMonthly">Monthly Contribution ($)</label>
-<input type="number" id="savingsMonthly" placeholder="200" step="10" required>
+<input type="number" id="savingsMonthly" placeholder="200" step="10" min="0" required>
 </div>
 <div class="form-group">
 <label for="savingsInterest">Interest Rate (%)</label>
-<input type="number" id="savingsInterest" placeholder="2.5" step="0.1" required>
+<input type="number" id="savingsInterest" placeholder="2.5" step="0.1" min="0" max="100" required>
 </div>
 <div class="form-group">
 <label for="savingsPeriod">Savings Period (years)</label>
-<input type="number" id="savingsPeriod" placeholder="5" step="1" required>
+<input type="number" id="savingsPeriod" placeholder="5" step="1" min="1" max="50" required>
 </div>
 </form>
 <div class="calculator-results" id="savingsCalculatorResults" style="margin-top: 1.5rem; display: none;">
@@ -2613,6 +3164,428 @@ Subscribe to our newsletter for financial tips and updates
 </div>
 </div>
 
+<!-- Mortgage Calculator Modal -->
+<div class="modal" id="mortgageCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="mortgageCalculatorTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="mortgageCalculatorTitle">Mortgage Calculator</h2>
+<button class="modal-close" aria-label="Close mortgage calculator modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="mortgageCalculatorForm">
+<div class="form-group">
+<label for="homePrice">Home Price ($)</label>
+<input type="number" id="homePrice" placeholder="300000" step="1000" min="0" required>
+</div>
+<div class="form-group">
+<label for="downPayment">Down Payment ($)</label>
+<input type="number" id="downPayment" placeholder="60000" step="1000" min="0" required>
+</div>
+<div class="form-group">
+<label for="mortgageInterestRate">Interest Rate (%)</label>
+<input type="number" id="mortgageInterestRate" placeholder="6.5" step="0.1" min="0" max="100" required>
+</div>
+<div class="form-group">
+<label for="mortgageTerm">Loan Term (years)</label>
+<input type="number" id="mortgageTerm" placeholder="30" step="1" min="1" max="30" required>
+</div>
+</form>
+<div class="calculator-results" id="mortgageCalculatorResults" style="margin-top: 1.5rem; display: none;">
+<div class="result-item">
+<h3>Monthly Payment</h3>
+<p class="result-value" id="mortgageMonthlyPayment">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Total Interest</h3>
+<p class="result-value" id="mortgageTotalInterest">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Total Payment</h3>
+<p class="result-value" id="mortgageTotalPayment">$0.00</p>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('mortgageCalculatorModal')">Close</button>
+<button class="btn btn-primary" onclick="calculateMortgage()">Calculate</button>
+</div>
+</div>
+</div>
+
+<!-- Investment Calculator Modal -->
+<div class="modal" id="investmentCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="investmentCalculatorTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="investmentCalculatorTitle">Investment Calculator</h2>
+<button class="modal-close" aria-label="Close investment calculator modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="investmentCalculatorForm">
+<div class="form-group">
+<label for="initialInvestment">Initial Investment ($)</label>
+<input type="number" id="initialInvestment" placeholder="10000" step="100" min="0" required>
+</div>
+<div class="form-group">
+<label for="monthlyContribution">Monthly Contribution ($)</label>
+<input type="number" id="monthlyContribution" placeholder="500" step="10" min="0" required>
+</div>
+<div class="form-group">
+<label for="annualReturn">Expected Annual Return (%)</label>
+<input type="number" id="annualReturn" placeholder="7" step="0.1" min="0" max="100" required>
+</div>
+<div class="form-group">
+<label for="investmentPeriod">Investment Period (years)</label>
+<input type="number" id="investmentPeriod" placeholder="10" step="1" min="1" max="50" required>
+</div>
+</form>
+<div class="calculator-results" id="investmentCalculatorResults" style="margin-top: 1.5rem; display: none;">
+<div class="result-item">
+<h3>Final Value</h3>
+<p class="result-value" id="investmentFinalValue">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Total Contributions</h3>
+<p class="result-value" id="investmentTotalContributions">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Total Returns</h3>
+<p class="result-value" id="investmentTotalReturns">$0.00</p>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('investmentCalculatorModal')">Close</button>
+<button class="btn btn-primary" onclick="calculateInvestment()">Calculate</button>
+</div>
+</div>
+</div>
+
+<!-- Debt Calculator Modal -->
+<div class="modal" id="debtCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="debtCalculatorTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="debtCalculatorTitle">Debt Payoff Calculator</h2>
+<button class="modal-close" aria-label="Close debt calculator modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="debtCalculatorForm">
+<div class="form-group">
+<label for="totalDebt">Total Debt ($)</label>
+<input type="number" id="totalDebt" placeholder="10000" step="100" min="0" required>
+</div>
+<div class="form-group">
+<label for="debtInterestRate">Interest Rate (%)</label>
+<input type="number" id="debtInterestRate" placeholder="18" step="0.1" min="0" max="100" required>
+</div>
+<div class="form-group">
+<label for="monthlyPayment">Monthly Payment ($)</label>
+<input type="number" id="monthlyPayment" placeholder="300" step="10" min="0" required>
+</div>
+</form>
+<div class="calculator-results" id="debtCalculatorResults" style="margin-top: 1.5rem; display: none;">
+<div class="result-item">
+<h3>Time to Pay Off</h3>
+<p class="result-value" id="debtPayoffTime">0 months</p>
+</div>
+<div class="result-item">
+<h3>Total Interest Paid</h3>
+<p class="result-value" id="debtTotalInterest">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Total Amount Paid</h3>
+<p class="result-value" id="debtTotalPaid">$0.00</p>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('debtCalculatorModal')">Close</button>
+<button class="btn btn-primary" onclick="calculateDebt()">Calculate</button>
+</div>
+</div>
+</div>
+
+<!-- Retirement Calculator Modal -->
+<div class="modal" id="retirementCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="retirementCalculatorTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="retirementCalculatorTitle">Retirement Calculator</h2>
+<button class="modal-close" aria-label="Close retirement calculator modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="retirementCalculatorForm">
+<div class="form-group">
+<label for="currentAge">Current Age</label>
+<input type="number" id="currentAge" placeholder="30" step="1" min="18" max="100" required>
+</div>
+<div class="form-group">
+<label for="retirementAge">Retirement Age</label>
+<input type="number" id="retirementAge" placeholder="65" step="1" min="50" max="100" required>
+</div>
+<div class="form-group">
+<label for="currentSavings">Current Savings ($)</label>
+<input type="number" id="currentSavings" placeholder="50000" step="1000" min="0" required>
+</div>
+<div class="form-group">
+<label for="monthlyRetirementSavings">Monthly Savings ($)</label>
+<input type="number" id="monthlyRetirementSavings" placeholder="1000" step="100" min="0" required>
+</div>
+<div class="form-group">
+<label for="retirementReturn">Expected Return (%)</label>
+<input type="number" id="retirementReturn" placeholder="6" step="0.1" min="0" max="100" required>
+</div>
+</form>
+<div class="calculator-results" id="retirementCalculatorResults" style="margin-top: 1.5rem; display: none;">
+<div class="result-item">
+<h3>Retirement Savings</h3>
+<p class="result-value" id="retirementSavings">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Total Contributions</h3>
+<p class="result-value" id="retirementContributions">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Investment Returns</h3>
+<p class="result-value" id="retirementReturns">$0.00</p>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('retirementCalculatorModal')">Close</button>
+<button class="btn btn-primary" onclick="calculateRetirement()">Calculate</button>
+</div>
+</div>
+</div>
+
+<!-- Budget Planner Modal -->
+<div class="modal" id="budgetPlannerModal" role="dialog" aria-modal="true" aria-labelledby="budgetPlannerTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="budgetPlannerTitle">Budget Planner</h2>
+<button class="modal-close" aria-label="Close budget planner modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="budgetPlannerForm">
+<div class="form-group">
+<label for="monthlyIncome">Monthly Income ($)</label>
+<input type="number" id="monthlyIncome" placeholder="5000" step="100" min="0" required>
+</div>
+<div class="form-group">
+<label for="housingExpense">Housing ($)</label>
+<input type="number" id="housingExpense" placeholder="1500" step="50" min="0" required>
+</div>
+<div class="form-group">
+<label for="foodExpense">Food & Dining ($)</label>
+<input type="number" id="foodExpense" placeholder="600" step="50" min="0" required>
+</div>
+<div class="form-group">
+<label for="transportExpense">Transportation ($)</label>
+<input type="number" id="transportExpense" placeholder="400" step="50" min="0" required>
+</div>
+<div class="form-group">
+<label for="utilitiesExpense">Utilities ($)</label>
+<input type="number" id="utilitiesExpense" placeholder="200" step="50" min="0" required>
+</div>
+<div class="form-group">
+<label for="entertainmentExpense">Entertainment ($)</label>
+<input type="number" id="entertainmentExpense" placeholder="300" step="50" min="0" required>
+</div>
+<div class="form-group">
+<label for="otherExpense">Other Expenses ($)</label>
+<input type="number" id="otherExpense" placeholder="500" step="50" min="0" required>
+</div>
+</form>
+<div class="calculator-results" id="budgetPlannerResults" style="margin-top: 1.5rem; display: none;">
+<div class="result-item">
+<h3>Total Expenses</h3>
+<p class="result-value" id="totalExpenses">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Remaining Income</h3>
+<p class="result-value" id="remainingIncome">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Savings Rate</h3>
+<p class="result-value" id="savingsRate">0%</p>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('budgetPlannerModal')">Close</button>
+<button class="btn btn-primary" onclick="calculateBudget()">Calculate Budget</button>
+</div>
+</div>
+</div>
+
+<!-- Retirement Planner Modal -->
+<div class="modal" id="retirementPlannerModal" role="dialog" aria-modal="true" aria-labelledby="retirementPlannerTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="retirementPlannerTitle">Retirement Planner</h2>
+<button class="modal-close" aria-label="Close retirement planner modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="retirementPlannerForm">
+<div class="form-group">
+<label for="plannerCurrentAge">Current Age</label>
+<input type="number" id="plannerCurrentAge" placeholder="30" step="1" min="18" max="100" required>
+</div>
+<div class="form-group">
+<label for="plannerRetirementAge">Desired Retirement Age</label>
+<input type="number" id="plannerRetirementAge" placeholder="65" step="1" min="50" max="100" required>
+</div>
+<div class="form-group">
+<label for="lifeExpectancy">Life Expectancy</label>
+<input type="number" id="lifeExpectancy" placeholder="90" step="1" min="70" max="120" required>
+</div>
+<div class="form-group">
+<label for="desiredRetirementIncome">Desired Monthly Income in Retirement ($)</label>
+<input type="number" id="desiredRetirementIncome" placeholder="5000" step="100" min="0" required>
+</div>
+<div class="form-group">
+<label for="expectedSocialSecurity">Expected Social Security ($/month)</label>
+<input type="number" id="expectedSocialSecurity" placeholder="2000" step="100" min="0" required>
+</div>
+<div class="form-group">
+<label for="currentRetirementSavings">Current Retirement Savings ($)</label>
+<input type="number" id="currentRetirementSavings" placeholder="50000" step="1000" min="0" required>
+</div>
+</form>
+<div class="calculator-results" id="retirementPlannerResults" style="margin-top: 1.5rem; display: none;">
+<div class="result-item">
+<h3>Total Needed for Retirement</h3>
+<p class="result-value" id="totalRetirementNeeded">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Additional Savings Needed</h3>
+<p class="result-value" id="additionalSavingsNeeded">$0.00</p>
+</div>
+<div class="result-item">
+<h3>Required Monthly Savings</h3>
+<p class="result-value" id="requiredMonthlySavings">$0.00</p>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('retirementPlannerModal')">Close</button>
+<button class="btn btn-primary" onclick="calculateRetirementPlanner()">Plan Retirement</button>
+</div>
+</div>
+</div>
+
+<!-- Expense Tracker Modal -->
+<div class="modal" id="expenseTrackerModal" role="dialog" aria-modal="true" aria-labelledby="expenseTrackerTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="expenseTrackerTitle">Expense Tracker</h2>
+<button class="modal-close" aria-label="Close expense tracker modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="expenseTrackerForm">
+<div class="form-group">
+<label for="expenseDescription">Description</label>
+<input type="text" id="expenseDescription" placeholder="e.g., Grocery Shopping" required>
+</div>
+<div class="form-group">
+<label for="expenseAmount">Amount ($)</label>
+<input type="number" id="expenseAmount" placeholder="0.00" step="0.01" min="0" required>
+</div>
+<div class="form-group">
+<label for="expenseCategory">Category</label>
+<select id="expenseCategory" required>
+<option value="">Select category</option>
+<option value="food">Food & Dining</option>
+<option value="transportation">Transportation</option>
+<option value="shopping">Shopping</option>
+<option value="entertainment">Entertainment</option>
+<option value="bills">Bills & Utilities</option>
+<option value="healthcare">Healthcare</option>
+<option value="education">Education</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="form-group">
+<label for="expenseDate">Date</label>
+<input type="date" id="expenseDate" required>
+</div>
+</form>
+<div id="expenseList" style="margin-top: 2rem;">
+<h3>Recent Expenses</h3>
+<div id="expenseItems"></div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('expenseTrackerModal')">Close</button>
+<button class="btn btn-primary" onclick="addExpense()">Add Expense</button>
+</div>
+</div>
+</div>
+
+<!-- Investment Tracker Modal -->
+<div class="modal" id="investmentTrackerModal" role="dialog" aria-modal="true" aria-labelledby="investmentTrackerTitle">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="investmentTrackerTitle">Investment Tracker</h2>
+<button class="modal-close" aria-label="Close investment tracker modal">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="modal-body">
+<form id="investmentTrackerForm">
+<div class="form-group">
+<label for="investmentName">Investment Name</label>
+<input type="text" id="investmentName" placeholder="e.g., Apple Stock" required>
+</div>
+<div class="form-group">
+<label for="investmentType">Type</label>
+<select id="investmentType" required>
+<option value="">Select type</option>
+<option value="stock">Stock</option>
+<option value="bond">Bond</option>
+<option value="etf">ETF</option>
+<option value="crypto">Cryptocurrency</option>
+<option value="real-estate">Real Estate</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="form-group">
+<label for="investmentAmount">Amount Invested ($)</label>
+<input type="number" id="investmentAmount" placeholder="1000" step="0.01" min="0" required>
+</div>
+<div class="form-group">
+<label for="currentValue">Current Value ($)</label>
+<input type="number" id="currentValue" placeholder="1200" step="0.01" min="0" required>
+</div>
+<div class="form-group">
+<label for="purchaseDate">Purchase Date</label>
+<input type="date" id="purchaseDate" required>
+</div>
+</form>
+<div id="investmentList" style="margin-top: 2rem;">
+<h3>Investment Portfolio</h3>
+<div id="investmentItems"></div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-outline" onclick="closeModal('investmentTrackerModal')">Close</button>
+<button class="btn btn-primary" onclick="addInvestment()">Add Investment</button>
+</div>
+</div>
+</div>
+
 <!-- Income Modal -->
 <div class="modal" id="incomeModal" role="dialog" aria-modal="true" aria-labelledby="incomeModalTitle">
 <div class="modal-content">
@@ -2630,7 +3603,7 @@ Subscribe to our newsletter for financial tips and updates
 </div>
 <div class="form-group">
 <label for="incomeAmount">Amount ($)</label>
-<input type="number" id="incomeAmount" placeholder="0.00" step="0.01" required>
+<input type="number" id="incomeAmount" placeholder="0.00" step="0.01" min="0" required>
 </div>
 <div class="form-group">
 <label for="incomeDate">Date</label>
@@ -2668,20 +3641,20 @@ Subscribe to our newsletter for financial tips and updates
 <div class="modal-body">
 <form id="expenseForm">
 <div class="form-group">
-<label for="expenseDescription">Description</label>
-<input type="text" id="expenseDescription" placeholder="e.g., Grocery Shopping" required>
+<label for="expenseModalDescription">Description</label>
+<input type="text" id="expenseModalDescription" placeholder="e.g., Grocery Shopping" required>
 </div>
 <div class="form-group">
-<label for="expenseAmount">Amount ($)</label>
-<input type="number" id="expenseAmount" placeholder="0.00" step="0.01" required>
+<label for="expenseModalAmount">Amount ($)</label>
+<input type="number" id="expenseModalAmount" placeholder="0.00" step="0.01" min="0" required>
 </div>
 <div class="form-group">
-<label for="expenseDate">Date</label>
-<input type="date" id="expenseDate" required>
+<label for="expenseModalDate">Date</label>
+<input type="date" id="expenseModalDate" required>
 </div>
 <div class="form-group">
-<label for="expenseCategory">Category</label>
-<select id="expenseCategory" required>
+<label for="expenseModalCategory">Category</label>
+<select id="expenseModalCategory" required>
 <option value="">Select category</option>
 <option value="food">Food & Dining</option>
 <option value="transportation">Transportation</option>
@@ -2733,7 +3706,7 @@ Subscribe to our newsletter for financial tips and updates
 </div>
 <div class="form-group">
 <label for="transferAmount">Amount ($)</label>
-<input type="number" id="transferAmount" placeholder="0.00" step="0.01" required>
+<input type="number" id="transferAmount" placeholder="0.00" step="0.01" min="0" required>
 </div>
 <div class="form-group">
 <label for="transferDate">Date</label>
@@ -2775,6 +3748,8 @@ let financialChart = null;
 let budgetChart = null;
 let portfolioChart = null;
 let realTimeInterval = null;
+let expenses = [];
+let investments = [];
 
 // Sample data for dashboard
 const sampleTransactions = [
@@ -2927,7 +3902,7 @@ document.getElementById('signInBtn').addEventListener('click', function() {
     if (isSignedIn) {
         showPage('dashboard-page');
     } else {
-        showAuthModal('signin');
+        showModal('signInModal');
     }
 });
 
@@ -2936,14 +3911,15 @@ document.getElementById('signUpBtn').addEventListener('click', function() {
     if (isSignedIn) {
         showNotification('Account', 'Opening account settings...', 'info');
     } else {
-        showAuthModal('signup');
+        showModal('signUpModal');
     }
 });
 
 // Show Sign Up link
 document.getElementById('showSignInLink').addEventListener('click', function(e) {
     e.preventDefault();
-    showAuthModal('signin');
+    closeModal('signUpModal');
+    showModal('signInModal');
 });
 
 // Sign Up form on page
@@ -3582,7 +4558,11 @@ container.querySelectorAll('.star').forEach(star => {
 
 // Show auth modal
 function showAuthModal(type) {
-showNotification('Authentication', `Please ${type} to continue`, 'info');
+if (type === 'signup') {
+    showModal('signUpModal');
+} else {
+    showModal('signInModal');
+}
 }
 
 // Handle sign up
@@ -3617,6 +4597,86 @@ showNotification('Account Created', `Welcome to WealthWise, ${name}! Please chec
 
 // Reset form
 document.getElementById('signupForm').reset();
+
+// Redirect to dashboard
+setTimeout(() => {
+    showPage('dashboard-page');
+}, 2000);
+}
+
+// Handle sign in
+function handleSignIn() {
+const email = document.getElementById('signInEmail').value;
+const password = document.getElementById('signInPassword').value;
+
+// Check if user exists in localStorage
+const savedUser = localStorage.getItem('wealthwise_user');
+if (savedUser) {
+    const user = JSON.parse(savedUser);
+    if (user.email === email) {
+        currentUser = user;
+        isSignedIn = true;
+        
+        // Update header
+        updateHeaderForSignedInUser();
+        
+        // Show success notification
+        showNotification('Sign In Successful', `Welcome back, ${user.name}!`, 'success');
+        
+        // Close modal
+        closeModal('signInModal');
+        
+        // Redirect to dashboard
+        setTimeout(() => {
+            showPage('dashboard-page');
+        }, 1000);
+        
+        return;
+    }
+}
+
+// If user doesn't exist or password doesn't match
+showNotification('Sign In Failed', 'Invalid email or password. Please try again.', 'error');
+}
+
+// Handle sign up modal
+function handleSignUpModal() {
+const name = document.getElementById('signUpNameModal').value;
+const email = document.getElementById('signUpEmailModal').value;
+const password = document.getElementById('signUpPasswordModal').value;
+const confirmPassword = document.getElementById('signUpConfirmPasswordModal').value;
+const agreeTerms = document.getElementById('agreeTerms').checked;
+
+if (!agreeTerms) {
+    showNotification('Terms Required', 'Please agree to the Terms of Service and Privacy Policy.', 'error');
+    return;
+}
+
+if (password !== confirmPassword) {
+    showNotification('Password Mismatch', 'The passwords you entered do not match.', 'error');
+    return;
+}
+
+// Create user object
+const user = {
+    name: name,
+    email: email,
+    signupDate: new Date().toISOString()
+};
+
+// Save user to localStorage
+localStorage.setItem('wealthwise_user', JSON.stringify(user));
+currentUser = user;
+isSignedIn = true;
+
+// Update header
+updateHeaderForSignedInUser();
+
+// Simulate sign up
+showNotification('Account Created', `Welcome to WealthWise, ${name}! Please check your email to verify your account.`, 'success');
+
+// Close modal
+closeModal('signUpModal');
 
 // Redirect to dashboard
 setTimeout(() => {
@@ -3769,10 +4829,10 @@ updateBalance();
 
 // Save expense
 function saveExpense() {
-const description = document.getElementById('expenseDescription').value;
-const amount = document.getElementById('expenseAmount').value;
-const date = document.getElementById('expenseDate').value;
-const category = document.getElementById('expenseCategory').value;
+const description = document.getElementById('expenseModalDescription').value;
+const amount = document.getElementById('expenseModalAmount').value;
+const date = document.getElementById('expenseModalDate').value;
+const category = document.getElementById('expenseModalCategory').value;
 
 // Add to transactions
 const newTransaction = {
@@ -3886,394 +4946,281 @@ document.getElementById('interestEarned').textContent = `$${interestEarned.toFix
 document.getElementById('savingsCalculatorResults').style.display = 'block';
 }
 
+function calculateMortgage() {
+const homePrice = parseFloat(document.getElementById('homePrice').value);
+const downPayment = parseFloat(document.getElementById('downPayment').value);
+const annualRate = parseFloat(document.getElementById('mortgageInterestRate').value) / 100;
+const years = parseFloat(document.getElementById('mortgageTerm').value);
+
+const principal = homePrice - downPayment;
+const monthlyRate = annualRate / 12;
+const numPayments = years * 12;
+
+// Calculate monthly payment
+const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+const totalPayment = monthlyPayment * numPayments;
+const totalInterest = totalPayment - principal;
+
+// Display results
+document.getElementById('mortgageMonthlyPayment').textContent = `$${monthlyPayment.toFixed(2)}`;
+document.getElementById('mortgageTotalInterest').textContent = `$${totalInterest.toFixed(2)}`;
+document.getElementById('mortgageTotalPayment').textContent = `$${totalPayment.toFixed(2)}`;
+document.getElementById('mortgageCalculatorResults').style.display = 'block';
+}
+
+function calculateInvestment() {
+const initial = parseFloat(document.getElementById('initialInvestment').value);
+const monthly = parseFloat(document.getElementById('monthlyContribution').value);
+const annualRate = parseFloat(document.getElementById('annualReturn').value) / 100;
+const years = parseFloat(document.getElementById('investmentPeriod').value);
+
+const monthlyRate = annualRate / 12;
+const numMonths = years * 12;
+
+// Calculate final value
+let value = initial;
+for (let i = 0; i < numMonths; i++) {
+    value = value * (1 + monthlyRate) + monthly;
+}
+
+const totalContributions = initial + (monthly * numMonths);
+const totalReturns = value - totalContributions;
+
+// Display results
+document.getElementById('investmentFinalValue').textContent = `$${value.toFixed(2)}`;
+document.getElementById('investmentTotalContributions').textContent = `$${totalContributions.toFixed(2)}`;
+document.getElementById('investmentTotalReturns').textContent = `$${totalReturns.toFixed(2)}`;
+document.getElementById('investmentCalculatorResults').style.display = 'block';
+}
+
+function calculateDebt() {
+const principal = parseFloat(document.getElementById('totalDebt').value);
+const annualRate = parseFloat(document.getElementById('debtInterestRate').value) / 100;
+const monthlyPayment = parseFloat(document.getElementById('monthlyPayment').value);
+
+const monthlyRate = annualRate / 12;
+
+// Calculate months to pay off
+let balance = principal;
+let months = 0;
+let totalInterest = 0;
+
+while (balance > 0.01 && months < 600) { // Max 50 years to prevent infinite loop
+    const interestPayment = balance * monthlyRate;
+    const principalPayment = monthlyPayment - interestPayment;
+    
+    if (principalPayment <= 0) {
+        showNotification('Payment Too Low', 'Your monthly payment is too low to cover the interest. Please increase your payment.', 'error');
+        return;
+    }
+    
+    totalInterest += interestPayment;
+    balance -= principalPayment;
+    months++;
+}
+
+const totalPaid = principal + totalInterest;
+
+// Display results
+document.getElementById('debtPayoffTime').textContent = `${months} months`;
+document.getElementById('debtTotalInterest').textContent = `$${totalInterest.toFixed(2)}`;
+document.getElementById('debtTotalPaid').textContent = `$${totalPaid.toFixed(2)}`;
+document.getElementById('debtCalculatorResults').style.display = 'block';
+}
+
+function calculateRetirement() {
+const currentAge = parseInt(document.getElementById('currentAge').value);
+const retirementAge = parseInt(document.getElementById('retirementAge').value);
+const currentSavings = parseFloat(document.getElementById('currentSavings').value);
+const monthlySavings = parseFloat(document.getElementById('monthlyRetirementSavings').value);
+const annualRate = parseFloat(document.getElementById('retirementReturn').value) / 100;
+
+const yearsToRetirement = retirementAge - currentAge;
+const monthlyRate = annualRate / 12;
+const numMonths = yearsToRetirement * 12;
+
+// Calculate retirement savings
+let balance = currentSavings;
+for (let i = 0; i < numMonths; i++) {
+    balance = balance * (1 + monthlyRate) + monthlySavings;
+}
+
+const totalContributions = currentSavings + (monthlySavings * numMonths);
+const investmentReturns = balance - totalContributions;
+
+// Display results
+document.getElementById('retirementSavings').textContent = `$${balance.toFixed(2)}`;
+document.getElementById('retirementContributions').textContent = `$${totalContributions.toFixed(2)}`;
+document.getElementById('retirementReturns').textContent = `$${investmentReturns.toFixed(2)}`;
+document.getElementById('retirementCalculatorResults').style.display = 'block';
+}
+
+function calculateBudget() {
+const income = parseFloat(document.getElementById('monthlyIncome').value);
+const housing = parseFloat(document.getElementById('housingExpense').value);
+const food = parseFloat(document.getElementById('foodExpense').value);
+const transport = parseFloat(document.getElementById('transportExpense').value);
+const utilities = parseFloat(document.getElementById('utilitiesExpense').value);
+const entertainment = parseFloat(document.getElementById('entertainmentExpense').value);
+const other = parseFloat(document.getElementById('otherExpense').value);
+
+const totalExpenses = housing + food + transport + utilities + entertainment + other;
+const remaining = income - totalExpenses;
+const savingsRate = (remaining / income) * 100;
+
+// Display results
+document.getElementById('totalExpenses').textContent = `$${totalExpenses.toFixed(2)}`;
+document.getElementById('remainingIncome').textContent = `$${remaining.toFixed(2)}`;
+document.getElementById('savingsRate').textContent = `${savingsRate.toFixed(1)}%`;
+document.getElementById('budgetPlannerResults').style.display = 'block';
+}
+
+function calculateRetirementPlanner() {
+const currentAge = parseInt(document.getElementById('plannerCurrentAge').value);
+const retirementAge = parseInt(document.getElementById('plannerRetirementAge').value);
+const lifeExpectancy = parseInt(document.getElementById('lifeExpectancy').value);
+const desiredIncome = parseFloat(document.getElementById('desiredRetirementIncome').value);
+const socialSecurity = parseFloat(document.getElementById('expectedSocialSecurity').value);
+const currentSavings = parseFloat(document.getElementById('currentRetirementSavings').value);
+
+const yearsToRetirement = retirementAge - currentAge;
+const yearsInRetirement = lifeExpectancy - retirementAge;
+const monthlyIncomeNeeded = desiredIncome - socialSecurity;
+const totalNeeded = monthlyIncomeNeeded * 12 * yearsInRetirement;
+const additionalNeeded = totalNeeded - currentSavings;
+const monthlySavingsNeeded = additionalNeeded / (yearsToRetirement * 12);
+
+// Display results
+document.getElementById('totalRetirementNeeded').textContent = `$${totalNeeded.toFixed(2)}`;
+document.getElementById('additionalSavingsNeeded').textContent = `$${additionalNeeded.toFixed(2)}`;
+document.getElementById('requiredMonthlySavings').textContent = `$${monthlySavingsNeeded.toFixed(2)}`;
+document.getElementById('retirementPlannerResults').style.display = 'block';
+}
+
+function addExpense() {
+const description = document.getElementById('expenseDescription').value;
+const amount = parseFloat(document.getElementById('expenseAmount').value);
+const category = document.getElementById('expenseCategory').value;
+const date = document.getElementById('expenseDate').value;
+
+// Add to expenses array
+const newExpense = {
+    id: expenses.length + 1,
+    description: description,
+    amount: amount,
+    category: category,
+    date: date
+};
+
+expenses.push(newExpense);
+displayExpenses();
+
+// Show notification
+showNotification('Expense Added', `${description} of $${amount} has been added to your expenses.`, 'success');
+
+// Reset form
+document.getElementById('expenseTrackerForm').reset();
+}
+
+function displayExpenses() {
+const expenseItems = document.getElementById('expenseItems');
+expenseItems.innerHTML = '';
+
+if (expenses.length === 0) {
+    expenseItems.innerHTML = '<p>No expenses added yet.</p>';
+    return;
+}
+
+expenses.forEach(expense => {
+    const expenseItem = document.createElement('div');
+    expenseItem.className = 'transaction-item';
+    
+    expenseItem.innerHTML = `
+        <div class="transaction-info">
+            <div class="transaction-icon expense">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="transaction-details">
+                <h4>${expense.description}</h4>
+                <p>${expense.category} • ${formatDate(expense.date)}</p>
+            </div>
+        </div>
+        <div class="transaction-amount expense">
+            $${expense.amount.toFixed(2)}
+        </div>
+    `;
+    
+    expenseItems.appendChild(expenseItem);
+});
+}
+
+function addInvestment() {
+const name = document.getElementById('investmentName').value;
+const type = document.getElementById('investmentType').value;
+const amount = parseFloat(document.getElementById('investmentAmount').value);
+const currentValue = parseFloat(document.getElementById('currentValue').value);
+const purchaseDate = document.getElementById('purchaseDate').value;
+
+// Add to investments array
+const newInvestment = {
+    id: investments.length + 1,
+    name: name,
+    type: type,
+    amount: amount,
+    currentValue: currentValue,
+    purchaseDate: purchaseDate,
+    return: ((currentValue - amount) / amount) * 100
+};
+
+investments.push(newInvestment);
+displayInvestments();
+
+// Show notification
+showNotification('Investment Added', `${name} has been added to your portfolio.`, 'success');
+
+// Reset form
+document.getElementById('investmentTrackerForm').reset();
+}
+
+function displayInvestments() {
+const investmentItems = document.getElementById('investmentItems');
+investmentItems.innerHTML = '';
+
+if (investments.length === 0) {
+    investmentItems.innerHTML = '<p>No investments added yet.</p>';
+    return;
+}
+
+investments.forEach(investment => {
+    const investmentItem = document.createElement('div');
+    investmentItem.className = 'transaction-item';
+    
+    const returnClass = investment.return >= 0 ? 'income' : 'expense';
+    const returnPrefix = investment.return >= 0 ? '+' : '';
+    
+    investmentItem.innerHTML = `
+        <div class="transaction-info">
+            <div class="transaction-icon income">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="transaction-details">
+                <h4>${investment.name}</h4>
+                <p>${investment.type} • ${formatDate(investment.purchaseDate)}</p>
+            </div>
+        </div>
+        <div class="transaction-amount ${returnClass}">
+            ${returnPrefix}${investment.return.toFixed(2)}%
+        </div>
+    `;
+    
+    investmentItems.appendChild(investmentItem);
+});
+}
+
 // Start live chat
 function startLiveChat() {
 showNotification('Live Chat', 'Connecting you to our support team...', 'info');
 }
-
-// Add result-item styles dynamically
-const style = document.createElement('style');
-style.textContent = `
-.result-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.result-item:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-
-.result-item h3 {
-    font-size: 1rem;
-    color: var(--text-dim);
-}
-
-.result-value {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary);
-}
-
-.calculator-results {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.pricing-plans {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.plan {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 1rem;
-    padding: 2rem;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.plan:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-}
-
-.plan.featured {
-    border-color: var(--accent);
-    transform: scale(1.03);
-}
-
-.plan-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: white;
-    padding: 0.25rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.plan-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.plan-header h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.plan-header .price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.plan-header .price span {
-    font-size: 1rem;
-    color: var(--text-dim);
-}
-
-.plan-features {
-    list-style: none;
-    margin-bottom: 2rem;
-}
-
-.plan-features li {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-}
-
-.plan-features li:last-child {
-    border-bottom: none;
-}
-
-.plan-features li i {
-    color: var(--secondary);
-    margin-right: 0.75rem;
-}
-
-.plan-button {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    border: none;
-}
-
-.plan-button.primary {
-    background: var(--gradient-1);
-    color: white;
-}
-
-.plan-button.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
-}
-
-.plan-button.outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--text-dim);
-}
-
-.plan-button.outline:hover {
-    background: var(--text-dim);
-    color: var(--darker);
-}
-
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-}
-
-.contact-info-grid {
-    display: grid;
-    gap: 1.5rem;
-}
-
-.contact-info-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s;
-}
-
-.contact-info-card:hover {
-    transform: translateY(-5px);
-}
-
-.contact-info-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.contact-info-card h3 i {
-    color: var(--primary);
-    font-size: 1.5rem;
-}
-
-.contact-info-card p {
-    color: var(--text-dim);
-    margin-bottom: 0.5rem;
-}
-
-.contact-info-card a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.contact-info-card a:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
-}
-
-.office-hours {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.office-hours h4 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--text);
-}
-
-.office-hours p {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-}
-
-.contact-form-container {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.contact-form-header {
-    margin-bottom: 1.5rem;
-}
-
-.contact-form-header h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.contact-form-header p {
-    color: var(--text-dim);
-}
-
-.map-container {
-    margin-top: 3rem;
-    border-radius: 1rem;
-    overflow: hidden;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-dim);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.map-placeholder {
-    text-align: center;
-}
-
-.map-placeholder i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: var(--primary);
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.footer-column h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    padding-bottom: 0.75rem;
-}
-
-.footer-column h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 50px;
-    height: 2px;
-    background: var(--primary);
-}
-
-.footer-column ul {
-    list-style: none;
-}
-
-.footer-column ul li {
-    margin-bottom: 0.75rem;
-}
-
-.footer-column ul li a {
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-column ul li a:hover {
-    color: var(--primary);
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.social-links a {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
-    transition: all 0.3s;
-}
-
-.social-links a:hover {
-    background: var(--primary);
-    transform: translateY(-3px);
-}
-
-.footer-bottom {
-    text-align: center;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-dim);
-}
-
-@media (max-width: 768px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .pricing-plans {
-        flex-direction: column;
-    }
-    
-    .tools-search-container {
-        flex-direction: column;
-    }
-    
-    .tools-search {
-        max-width: 100%;
-    }
-    
-    .tools-filter {
-        width: 100%;
-        justify-content: center;
-    }
-}
-`;
-document.head.appendChild(style);
 </script>
 </body>
 </html>
