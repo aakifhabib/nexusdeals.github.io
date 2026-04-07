@@ -26,14 +26,14 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
         
-        // Make auth functions available globally
+        // Store auth instance globally
         window.auth = auth;
         
+        // Google Sign-In
         window.signInWithGoogle = async function() {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 console.log("Google sign-in successful:", result.user);
-                // Close any open modals first
                 closeAllModals();
                 return result.user;
             } catch (error) {
@@ -48,6 +48,7 @@
             }
         };
         
+        // Show modals
         window.showSignupModal = function() {
             closeAllModals();
             document.getElementById('signupModal').classList.add('active');
@@ -58,6 +59,7 @@
             document.getElementById('loginModal').classList.add('active');
         };
         
+        // Email Sign-Up
         window.signUpWithEmail = async function() {
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
@@ -75,7 +77,6 @@
                 const result = await createUserWithEmailAndPassword(auth, email, password);
                 console.log("Sign-up successful:", result.user);
                 closeAllModals();
-                // Clear form fields
                 document.getElementById('signupEmail').value = '';
                 document.getElementById('signupPassword').value = '';
             } catch (error) {
@@ -92,6 +93,7 @@
             }
         };
         
+        // Email Login
         window.loginWithEmail = async function() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
@@ -105,7 +107,6 @@
                 const result = await signInWithEmailAndPassword(auth, email, password);
                 console.log("Login successful:", result.user);
                 closeAllModals();
-                // Clear form fields
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
             } catch (error) {
@@ -120,6 +121,7 @@
             }
         };
         
+        // Logout
         window.logoutUser = async function() {
             try {
                 await signOut(auth);
@@ -127,6 +129,12 @@
             } catch (error) {
                 console.error("Logout error:", error);
             }
+        };
+        
+        // Close modals
+        window.closeModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.remove('active');
         };
         
         function closeAllModals() {
@@ -137,27 +145,22 @@
             });
         }
         
-        window.closeModal = function(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        };
-        
-        // Monitor auth state and handle UI
+        // Auth state listener
         onAuthStateChanged(auth, (user) => {
             const authScreen = document.getElementById('authScreen');
             const appContent = document.getElementById('appContent');
             
             if (user) {
                 console.log("User is signed in:", user.email);
-                authScreen.style.display = 'none';
-                appContent.style.display = 'block';
-                // Initialize user-specific data
+                if (authScreen) authScreen.style.display = 'none';
+                if (appContent) appContent.style.display = 'block';
                 if (typeof window.initializeAppData === 'function') {
                     window.initializeAppData();
                 }
             } else {
                 console.log("User is signed out");
-                authScreen.style.display = 'flex';
-                appContent.style.display = 'none';
+                if (authScreen) authScreen.style.display = 'flex';
+                if (appContent) appContent.style.display = 'none';
                 if (typeof window.clearUserData === 'function') {
                     window.clearUserData();
                 }
@@ -612,14 +615,14 @@
         <h1>Financify Pro</h1>
         <p>Secure Financial Management with Firebase</p>
         <div class="auth-buttons">
-            <button class="google-btn" onclick="window.signInWithGoogle()">
+            <button class="google-btn" onclick="signInWithGoogle()">
                 <i class="fab fa-google"></i> Continue with Google
             </button>
             <div class="divider">or</div>
-            <button class="email-btn" onclick="window.showLoginModal()">
+            <button class="email-btn" onclick="showLoginModal()">
                 <i class="fas fa-sign-in-alt"></i> Sign In with Email
             </button>
-            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" onclick="window.showSignupModal()">
+            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" onclick="showSignupModal()">
                 <i class="fas fa-user-plus"></i> Create New Account
             </button>
         </div>
@@ -645,7 +648,7 @@
                     <button class="mode-btn" data-mode="household">🏠 Household</button>
                     <button class="mode-btn" data-mode="business">💼 Business</button>
                 </div>
-                <button class="logout-btn" onclick="window.logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button class="logout-btn" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
     </div>
@@ -729,9 +732,9 @@
         <h3><i class="fas fa-sign-in-alt"></i> Sign In</h3>
         <input type="email" id="loginEmail" placeholder="Email">
         <input type="password" id="loginPassword" placeholder="Password">
-        <button class="btn-primary" onclick="window.loginWithEmail()" style="width: 100%;">Login</button>
-        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="window.closeModal('loginModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" onclick="window.closeModal('loginModal'); window.showSignupModal(); return false;" style="color: #2c9a80;">Sign up</a></p>
+        <button class="btn-primary" onclick="loginWithEmail()" style="width: 100%;">Login</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" onclick="closeModal('loginModal'); showSignupModal(); return false;" style="color: #2c9a80;">Sign up</a></p>
     </div>
 </div>
 
@@ -741,9 +744,9 @@
         <h3><i class="fas fa-user-plus"></i> Create Account</h3>
         <input type="email" id="signupEmail" placeholder="Email">
         <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
-        <button class="btn-primary" onclick="window.signUpWithEmail()" style="width: 100%;">Sign Up</button>
-        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="window.closeModal('signupModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" onclick="window.closeModal('signupModal'); window.showLoginModal(); return false;" style="color: #2c9a80;">Sign in</a></p>
+        <button class="btn-primary" onclick="signUpWithEmail()" style="width: 100%;">Sign Up</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" onclick="closeModal('signupModal'); showLoginModal(); return false;" style="color: #2c9a80;">Sign in</a></p>
     </div>
 </div>
 
@@ -755,7 +758,7 @@
         <select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select>
         <select id="txnCategory"></select>
         <button class="btn-primary" id="saveTransactionBtn" style="width: 100%;">Save Transaction</button>
-        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="window.closeModal('transactionModal')">Cancel</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('transactionModal')">Cancel</button>
     </div>
 </div>
 
@@ -765,7 +768,7 @@
         <div id="calcInputsArea"></div>
         <div id="calcResultArea" style="background:rgba(0,0,0,0.3); padding:16px; border-radius:20px; margin-top:16px;">Enter values</div>
         <button class="btn-primary" id="runCalcBtn" style="margin-top:16px; width:100%;">Calculate</button>
-        <button class="btn-outline" style="margin-top:12px; width:100%;" onclick="window.closeModal('calculatorModal')">Close</button>
+        <button class="btn-outline" style="margin-top:12px; width:100%;" onclick="closeModal('calculatorModal')">Close</button>
     </div>
 </div>
 
@@ -903,7 +906,7 @@
         let cat = document.getElementById("txnCategory").value;
         if(!desc || isNaN(amt) || amt <= 0) { alert("Please enter valid description and amount"); return; }
         transactions.push({ id: Date.now(), desc, amount: amt, type, category: cat, date: new Date().toISOString().slice(0,10) });
-        saveUserData(); updateAllUI(); window.closeModal('transactionModal');
+        saveUserData(); updateAllUI(); closeModal('transactionModal');
         document.getElementById("txnDesc").value = ""; document.getElementById("txnAmount").value = "";
     }
 
@@ -911,6 +914,8 @@
     function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    window.closeModal = closeModal;
 
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.page-btn').forEach(b=>b.addEventListener('click',()=>setActivePage(b.getAttribute('data-page'))));
