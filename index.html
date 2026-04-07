@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Dual Auth Finance Suite</title>
+    <title>Financify Pro | Hybrid Auth Finance Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Firebase SDKs -->
+    <!-- Firebase SDK for Google Login only -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     
@@ -470,20 +470,20 @@
 <div id="authScreen">
     <div class="auth-card">
         <h1>Financify Pro</h1>
-        <p>Secure Financial Management</p>
+        <p>Google Login (Firebase) + Local Email Auth</p>
         <div class="auth-buttons">
             <button class="google-btn" id="googleSignInBtn">
                 <i class="fab fa-google"></i> Continue with Google
             </button>
             <div class="divider">or</div>
             <button class="email-btn" id="showLoginBtn">
-                <i class="fas fa-sign-in-alt"></i> Sign In with Email
+                <i class="fas fa-sign-in-alt"></i> Sign In with Email (Local)
             </button>
             <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
-                <i class="fas fa-user-plus"></i> Create New Account
+                <i class="fas fa-user-plus"></i> Create Account (Local)
             </button>
         </div>
-        <p style="font-size: 12px; margin-top: 24px; color: #64748b;">✓ Google Sign-In with Firebase</p>
+        <p style="font-size: 11px; margin-top: 20px; color: #64748b;">✓ Google Login via Firebase | ✓ Email login via Local Storage</p>
     </div>
 </div>
 
@@ -493,7 +493,7 @@
         <div class="container nav-container">
             <div class="logo">
                 <h1>Financify Pro</h1>
-                <p>Firebase Auth • Smart Finance</p>
+                <p>Hybrid Auth • Smart Finance</p>
             </div>
             <div class="nav-controls">
                 <div class="page-tabs">
@@ -580,7 +580,7 @@
     <div class="footer">
         <div class="container">
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
-                <div><h3 style="color:white;">Financify Pro</h3><p>Firebase Authentication</p><p>© 2026</p></div>
+                <div><h3 style="color:white;">Financify Pro</h3><p>Hybrid Authentication</p><p>© 2026</p></div>
                 <div><h4>Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p></div>
             </div>
         </div>
@@ -590,7 +590,7 @@
 <!-- Login Modal -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
-        <h3><i class="fas fa-sign-in-alt"></i> Sign In</h3>
+        <h3><i class="fas fa-sign-in-alt"></i> Sign In (Local)</h3>
         <input type="email" id="loginEmail" placeholder="Email">
         <input type="password" id="loginPassword" placeholder="Password">
         <button class="btn-primary" id="loginEmailBtn" style="width: 100%;">Login</button>
@@ -602,9 +602,10 @@
 <!-- Signup Modal -->
 <div id="signupModal" class="modal">
     <div class="modal-content">
-        <h3><i class="fas fa-user-plus"></i> Create Account</h3>
+        <h3><i class="fas fa-user-plus"></i> Create Account (Local)</h3>
         <input type="email" id="signupEmail" placeholder="Email">
         <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
+        <input type="text" id="signupName" placeholder="Full Name (Optional)">
         <button class="btn-primary" id="signupEmailBtn" style="width: 100%;">Sign Up</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
         <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" id="switchToLogin" style="color: #2c9a80;">Sign in</a></p>
@@ -634,7 +635,7 @@
 </div>
 
 <script>
-    // ============ FIREBASE CONFIGURATION ============
+    // ============ FIREBASE CONFIGURATION (ONLY FOR GOOGLE LOGIN) ============
     const firebaseConfig = {
         apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
         authDomain: "financify-pro.firebaseapp.com",
@@ -644,88 +645,180 @@
         appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
     };
     
-    // Initialize Firebase
+    // Initialize Firebase (only for Google Login)
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     
-    // Global variables
+    // ============ LOCAL STORAGE AUTHENTICATION (FOR EMAIL LOGIN) ============
     let currentUser = null;
+    let authType = null; // 'google' or 'local'
+    
+    // Get users from localStorage
+    function getLocalUsers() {
+        const users = localStorage.getItem('financify_local_users');
+        return users ? JSON.parse(users) : [];
+    }
+    
+    // Save users to localStorage
+    function saveLocalUsers(users) {
+        localStorage.setItem('financify_local_users', JSON.stringify(users));
+    }
+    
+    // Local Sign Up
+    function localSignUp(email, password, name) {
+        const users = getLocalUsers();
+        const existingUser = users.find(u => u.email === email);
+        
+        if (existingUser) {
+            alert("Email already registered. Please login instead.");
+            return false;
+        }
+        
+        if (password.length < 6) {
+            alert("Password must be at least 6 characters");
+            return false;
+        }
+        
+        const newUser = {
+            email: email,
+            password: password,
+            name: name || email.split('@')[0],
+            createdAt: new Date().toISOString()
+        };
+        
+        users.push(newUser);
+        saveLocalUsers(users);
+        return true;
+    }
+    
+    // Local Login
+    function localLogin(email, password) {
+        const users = getLocalUsers();
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+            return user;
+        }
+        return null;
+    }
     
     // ============ AUTHENTICATION FUNCTIONS ============
     
-    // Google Sign In
+    // Google Sign In (Firebase)
     function signInWithGoogle() {
         auth.signInWithPopup(googleProvider)
             .then((result) => {
                 console.log("Google sign-in successful:", result.user);
+                currentUser = {
+                    email: result.user.email,
+                    name: result.user.displayName || result.user.email.split('@')[0],
+                    uid: result.user.uid
+                };
+                authType = 'google';
+                saveSession(currentUser);
                 closeAllModals();
+                showAppAfterLogin();
             })
             .catch((error) => {
                 console.error("Google sign-in error:", error);
                 if (error.code === 'auth/popup-blocked') {
                     alert("Popup was blocked. Please allow popups for this site.");
                 } else if (error.code === 'auth/unauthorized-domain') {
-                    alert("Please add this domain to Firebase authorized domains in Firebase Console > Authentication > Settings.");
+                    alert("Please add this domain to Firebase authorized domains.\n\nGo to Firebase Console > Authentication > Settings > Authorized domains");
                 } else {
                     alert("Google Sign-In failed: " + error.message);
                 }
             });
     }
     
-    // Email Sign Up
-    function signUpWithEmail(email, password) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((result) => {
-                console.log("Sign-up successful:", result.user);
-                closeAllModals();
-                alert("Account created successfully! Welcome!");
-            })
-            .catch((error) => {
-                console.error("Sign-up error:", error);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert("Email already in use. Please login instead.");
-                } else if (error.code === 'auth/weak-password') {
-                    alert("Password is too weak. Please use at least 6 characters.");
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format.");
-                } else {
-                    alert("Sign-up failed: " + error.message);
-                }
-            });
+    // Local Email Sign Up
+    function localSignUpHandler() {
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const name = document.getElementById('signupName').value.trim();
+        
+        if (!email || !password) {
+            alert("Please enter email and password");
+            return;
+        }
+        
+        if (!email.includes('@') || !email.includes('.')) {
+            alert("Please enter a valid email address");
+            return;
+        }
+        
+        if (localSignUp(email, password, name)) {
+            alert("Account created successfully! Please login.");
+            closeModal('signupModal');
+            showLoginModal();
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupPassword').value = '';
+            document.getElementById('signupName').value = '';
+        }
     }
     
-    // Email Login
-    function loginWithEmail(email, password) {
-        auth.signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                console.log("Login successful:", result.user);
-                closeAllModals();
-                alert("Welcome back!");
-            })
-            .catch((error) => {
-                console.error("Login error:", error);
-                if (error.code === 'auth/user-not-found') {
-                    alert("No account found with this email. Please sign up first.");
-                } else if (error.code === 'auth/wrong-password') {
-                    alert("Incorrect password. Please try again.");
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format.");
-                } else {
-                    alert("Login failed: " + error.message);
-                }
-            });
+    // Local Email Login
+    function localLoginHandler() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            alert("Please enter email and password");
+            return;
+        }
+        
+        const user = localLogin(email, password);
+        if (user) {
+            currentUser = user;
+            authType = 'local';
+            saveSession(currentUser);
+            closeAllModals();
+            showAppAfterLogin();
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        } else {
+            alert("Invalid email or password. Please try again or sign up.");
+        }
+    }
+    
+    // Save session
+    function saveSession(user) {
+        localStorage.setItem('financify_current_session', JSON.stringify({
+            user: user,
+            authType: authType,
+            loginTime: new Date().toISOString()
+        }));
+    }
+    
+    // Get session
+    function getSession() {
+        const session = localStorage.getItem('financify_current_session');
+        return session ? JSON.parse(session) : null;
+    }
+    
+    // Clear session
+    function clearSession() {
+        localStorage.removeItem('financify_current_session');
+        currentUser = null;
+        authType = null;
     }
     
     // Logout
     function logout() {
-        auth.signOut()
-            .then(() => {
-                console.log("User signed out");
-            })
-            .catch((error) => {
+        if (authType === 'google') {
+            auth.signOut().then(() => {
+                clearSession();
+                showLoginScreen();
+            }).catch((error) => {
                 console.error("Logout error:", error);
+                clearSession();
+                showLoginScreen();
             });
+        } else {
+            clearSession();
+            showLoginScreen();
+        }
     }
     
     // ============ UI FUNCTIONS ============
@@ -733,6 +826,7 @@
     function showAppAfterLogin() {
         document.getElementById('authScreen').style.display = 'none';
         document.getElementById('appContent').style.display = 'block';
+        updateUserDisplay();
         if (typeof window.initializeAppData === 'function') {
             window.initializeAppData();
         }
@@ -743,12 +837,12 @@
         document.getElementById('appContent').style.display = 'none';
     }
     
-    function updateUserDisplay(user) {
+    function updateUserDisplay() {
         const userEmailSpan = document.getElementById('userEmailDisplay');
-        if (userEmailSpan && user) {
-            const email = user.email;
-            const displayName = email ? email.split('@')[0] : 'User';
-            userEmailSpan.innerHTML = `<i class="fas fa-user-circle"></i> ${displayName}`;
+        if (userEmailSpan && currentUser) {
+            const displayName = currentUser.name || currentUser.email.split('@')[0];
+            const authIcon = authType === 'google' ? '<i class="fab fa-google"></i>' : '<i class="fas fa-envelope"></i>';
+            userEmailSpan.innerHTML = `${authIcon} ${displayName}`;
         }
     }
     
@@ -799,7 +893,7 @@
 
     function loadUserData() {
         if (!currentUser) return;
-        const userKey = currentUser.uid || currentUser.email;
+        const userKey = currentUser.email;
         const stored = localStorage.getItem(`financify_data_${userKey}`);
         if(stored) {
             try { transactions = JSON.parse(stored).transactions || []; } catch(e) {}
@@ -816,7 +910,7 @@
 
     function saveUserData() {
         if (!currentUser) return;
-        const userKey = currentUser.uid || currentUser.email;
+        const userKey = currentUser.email;
         localStorage.setItem(`financify_data_${userKey}`, JSON.stringify({ transactions }));
     }
 
@@ -914,21 +1008,17 @@
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
 
-    // ============ EVENT LISTENERS & AUTH STATE ============
-    
-    auth.onAuthStateChanged((user) => {
-        currentUser = user;
-        if (user) {
-            console.log("User signed in:", user.email);
-            updateUserDisplay(user);
+    // ============ CHECK EXISTING SESSION ============
+    function checkSession() {
+        const session = getSession();
+        if (session && session.user) {
+            currentUser = session.user;
+            authType = session.authType;
             showAppAfterLogin();
-        } else {
-            console.log("User signed out");
-            showLoginScreen();
         }
-    });
+    }
     
-    // Set up event listeners after DOM loads
+    // ============ EVENT LISTENERS ============
     document.addEventListener('DOMContentLoaded', () => {
         // Auth buttons
         document.getElementById('googleSignInBtn')?.addEventListener('click', signInWithGoogle);
@@ -937,17 +1027,8 @@
         document.getElementById('logoutBtn')?.addEventListener('click', logout);
         
         // Modal buttons
-        document.getElementById('loginEmailBtn')?.addEventListener('click', () => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            loginWithEmail(email, password);
-        });
-        
-        document.getElementById('signupEmailBtn')?.addEventListener('click', () => {
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            signUpWithEmail(email, password);
-        });
+        document.getElementById('loginEmailBtn')?.addEventListener('click', localLoginHandler);
+        document.getElementById('signupEmailBtn')?.addEventListener('click', localSignUpHandler);
         
         document.getElementById('switchToSignup')?.addEventListener('click', (e) => {
             e.preventDefault();
@@ -973,6 +1054,7 @@
         
         setMode("household");
         setActivePage("dashboard");
+        checkSession();
     });
     
     window.closeModal = closeModal;
