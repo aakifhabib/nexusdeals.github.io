@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Firebase SDKs -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    
+    <script>
         // Your Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
@@ -22,44 +22,47 @@
         };
         
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
         
-        // Store auth instance globally
-        window.auth = auth;
+        // Global variables
+        let currentUser = null;
         
-        // Google Sign-In
-        window.signInWithGoogle = async function() {
-            try {
-                const result = await signInWithPopup(auth, googleProvider);
-                console.log("Google sign-in successful:", result.user);
-                closeAllModals();
-                return result.user;
-            } catch (error) {
-                console.error("Google sign-in error:", error);
-                if (error.code === 'auth/popup-blocked') {
-                    alert("Popup was blocked. Please allow popups for this site and try again.");
-                } else if (error.code === 'auth/unauthorized-domain') {
-                    alert("This domain is not authorized. Please add your domain to Firebase console.");
-                } else {
-                    alert("Google Sign-In failed: " + error.message);
-                }
-            }
+        // DOM Elements
+        const authScreen = document.getElementById('authScreen');
+        const appContent = document.getElementById('appContent');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        
+        // Close modal function
+        window.closeModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.remove('active');
         };
         
         // Show modals
-        window.showSignupModal = function() {
-            closeAllModals();
-            document.getElementById('signupModal').classList.add('active');
-        };
-        
         window.showLoginModal = function() {
-            closeAllModals();
-            document.getElementById('loginModal').classList.add('active');
+            if (loginModal) loginModal.classList.add('active');
         };
         
-        // Email Sign-Up
+        window.showSignupModal = function() {
+            if (signupModal) signupModal.classList.add('active');
+        };
+        
+        // Google Sign In
+        window.signInWithGoogle = async function() {
+            try {
+                const result = await auth.signInWithPopup(provider);
+                console.log("Google sign-in successful:", result.user);
+                closeAllModals();
+            } catch (error) {
+                console.error("Google sign-in error:", error);
+                alert("Google Sign-In failed: " + error.message);
+            }
+        };
+        
+        // Email Sign Up
         window.signUpWithEmail = async function() {
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
@@ -74,7 +77,7 @@
             }
             
             try {
-                const result = await createUserWithEmailAndPassword(auth, email, password);
+                const result = await auth.createUserWithEmailAndPassword(email, password);
                 console.log("Sign-up successful:", result.user);
                 closeAllModals();
                 document.getElementById('signupEmail').value = '';
@@ -86,7 +89,7 @@
                 } else if (error.code === 'auth/weak-password') {
                     alert("Password is too weak. Please use a stronger password.");
                 } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format. Please enter a valid email.");
+                    alert("Invalid email format.");
                 } else {
                     alert("Sign-up failed: " + error.message);
                 }
@@ -104,17 +107,17 @@
             }
             
             try {
-                const result = await signInWithEmailAndPassword(auth, email, password);
+                const result = await auth.signInWithEmailAndPassword(email, password);
                 console.log("Login successful:", result.user);
                 closeAllModals();
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
             } catch (error) {
                 console.error("Login error:", error);
-                if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    alert("Invalid email or password. Please try again or sign up.");
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    alert("Invalid email or password. Please try again.");
                 } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format. Please enter a valid email.");
+                    alert("Invalid email format.");
                 } else {
                     alert("Login failed: " + error.message);
                 }
@@ -124,51 +127,43 @@
         // Logout
         window.logoutUser = async function() {
             try {
-                await signOut(auth);
+                await auth.signOut();
                 console.log("User signed out");
             } catch (error) {
                 console.error("Logout error:", error);
             }
         };
         
-        // Close modals
-        window.closeModal = function(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) modal.classList.remove('active');
-        };
-        
+        // Close all modals
         function closeAllModals() {
             const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
-            modals.forEach(modalId => {
-                const modal = document.getElementById(modalId);
+            modals.forEach(id => {
+                const modal = document.getElementById(id);
                 if (modal) modal.classList.remove('active');
             });
         }
         
         // Auth state listener
-        onAuthStateChanged(auth, (user) => {
-            const authScreen = document.getElementById('authScreen');
-            const appContent = document.getElementById('appContent');
-            
+        auth.onAuthStateChanged((user) => {
+            currentUser = user;
             if (user) {
-                console.log("User is signed in:", user.email);
-                if (authScreen) authScreen.style.display = 'none';
-                if (appContent) appContent.style.display = 'block';
+                console.log("User signed in:", user.email);
+                authScreen.style.display = 'none';
+                appContent.style.display = 'block';
                 if (typeof window.initializeAppData === 'function') {
                     window.initializeAppData();
                 }
             } else {
-                console.log("User is signed out");
-                if (authScreen) authScreen.style.display = 'flex';
-                if (appContent) appContent.style.display = 'none';
+                console.log("User signed out");
+                authScreen.style.display = 'flex';
+                appContent.style.display = 'none';
                 if (typeof window.clearUserData === 'function') {
                     window.clearUserData();
                 }
             }
         });
-        
-        window.closeAllModals = closeAllModals;
     </script>
+    
     <style>
         * {
             margin: 0;
