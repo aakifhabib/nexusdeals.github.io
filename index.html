@@ -3,165 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Secure Finance Suite</title>
+    <title>Financify Pro | Dual Auth Finance Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    
-    <script>
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
-            authDomain: "financify-pro.firebaseapp.com",
-            projectId: "financify-pro",
-            storageBucket: "financify-pro.firebasestorage.app",
-            messagingSenderId: "221687807451",
-            appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
-        };
-        
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const provider = new firebase.auth.GoogleAuthProvider();
-        
-        // Global variables
-        let currentUser = null;
-        
-        // ✅ FIX: All modal functions look up elements lazily at call-time (not at script parse time)
-        window.closeModal = function(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) modal.classList.remove('active');
-        };
-        
-        window.showLoginModal = function() {
-            const modal = document.getElementById('loginModal');
-            if (modal) modal.classList.add('active');
-        };
-        
-        window.showSignupModal = function() {
-            const modal = document.getElementById('signupModal');
-            if (modal) modal.classList.add('active');
-        };
-        
-        // Google Sign In
-        window.signInWithGoogle = async function() {
-            try {
-                const result = await auth.signInWithPopup(provider);
-                console.log("Google sign-in successful:", result.user);
-                closeAllModals();
-            } catch (error) {
-                console.error("Google sign-in error:", error);
-                alert("Google Sign-In failed: " + error.message);
-            }
-        };
-        
-        // Email Sign Up
-        window.signUpWithEmail = async function() {
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            
-            if (!email || !password) {
-                alert("Please enter email and password");
-                return;
-            }
-            if (password.length < 6) {
-                alert("Password must be at least 6 characters");
-                return;
-            }
-            
-            try {
-                const result = await auth.createUserWithEmailAndPassword(email, password);
-                console.log("Sign-up successful:", result.user);
-                closeAllModals();
-                document.getElementById('signupEmail').value = '';
-                document.getElementById('signupPassword').value = '';
-            } catch (error) {
-                console.error("Sign-up error:", error);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert("Email already in use. Please login instead.");
-                } else if (error.code === 'auth/weak-password') {
-                    alert("Password is too weak. Please use a stronger password.");
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format.");
-                } else {
-                    alert("Sign-up failed: " + error.message);
-                }
-            }
-        };
-        
-        // Email Login
-        window.loginWithEmail = async function() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                alert("Please enter email and password");
-                return;
-            }
-            
-            try {
-                const result = await auth.signInWithEmailAndPassword(email, password);
-                console.log("Login successful:", result.user);
-                closeAllModals();
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-            } catch (error) {
-                console.error("Login error:", error);
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    alert("Invalid email or password. Please try again.");
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format.");
-                } else {
-                    alert("Login failed: " + error.message);
-                }
-            }
-        };
-        
-        // Logout
-        window.logoutUser = async function() {
-            try {
-                await auth.signOut();
-                console.log("User signed out");
-            } catch (error) {
-                console.error("Logout error:", error);
-            }
-        };
-        
-        // Close all modals
-        function closeAllModals() {
-            const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
-            modals.forEach(id => {
-                const modal = document.getElementById(id);
-                if (modal) modal.classList.remove('active');
-            });
-        }
-        
-        // ✅ FIX: Auth state listener wrapped in DOMContentLoaded so DOM exists when it fires
-        document.addEventListener('DOMContentLoaded', () => {
-            auth.onAuthStateChanged((user) => {
-                currentUser = user;
-                const authScreen = document.getElementById('authScreen');
-                const appContent = document.getElementById('appContent');
-                if (user) {
-                    console.log("User signed in:", user.email);
-                    authScreen.style.display = 'none';
-                    appContent.style.display = 'block';
-                    if (typeof window.initializeAppData === 'function') {
-                        window.initializeAppData();
-                    }
-                } else {
-                    console.log("User signed out");
-                    authScreen.style.display = 'flex';
-                    appContent.style.display = 'none';
-                    if (typeof window.clearUserData === 'function') {
-                        window.clearUserData();
-                    }
-                }
-            });
-        });
-    </script>
     
     <style>
         * {
@@ -235,7 +82,7 @@
             padding: 48px;
             text-align: center;
             border: 1px solid rgba(44, 154, 128, 0.5);
-            max-width: 450px;
+            max-width: 480px;
             width: 90%;
             animation: fadeInUp 0.5s ease;
         }
@@ -403,6 +250,20 @@
             background: linear-gradient(135deg, #1e6f5c, #2c9a80);
             color: white;
             box-shadow: 0 0 15px rgba(30, 111, 92, 0.5);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 40px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #2c9a80;
         }
 
         .logout-btn {
@@ -591,6 +452,8 @@
             .hero-stats { padding: 28px 20px; flex-direction: column; text-align: center; }
             .stat-number { font-size: 28px; }
             .page-btn, .mode-btn { padding: 6px 14px; font-size: 12px; }
+            .nav-controls { flex-direction: column; }
+            .user-info { order: -1; }
         }
     </style>
 </head>
@@ -607,19 +470,20 @@
 <div id="authScreen">
     <div class="auth-card">
         <h1>Financify Pro</h1>
-        <p>Secure Financial Management with Firebase</p>
+        <p>Secure Financial Management</p>
         <div class="auth-buttons">
-            <button class="google-btn" onclick="signInWithGoogle()">
+            <button class="google-btn" id="googleSignInBtn">
                 <i class="fab fa-google"></i> Continue with Google
             </button>
             <div class="divider">or</div>
-            <button class="email-btn" onclick="showLoginModal()">
+            <button class="email-btn" id="showLoginBtn">
                 <i class="fas fa-sign-in-alt"></i> Sign In with Email
             </button>
-            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" onclick="showSignupModal()">
+            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
                 <i class="fas fa-user-plus"></i> Create New Account
             </button>
         </div>
+        <p style="font-size: 12px; margin-top: 24px; color: #64748b;">✓ Google Sign-In with Firebase</p>
     </div>
 </div>
 
@@ -629,7 +493,7 @@
         <div class="container nav-container">
             <div class="logo">
                 <h1>Financify Pro</h1>
-                <p>Firebase Auth • Animated • Smart Finance</p>
+                <p>Firebase Auth • Smart Finance</p>
             </div>
             <div class="nav-controls">
                 <div class="page-tabs">
@@ -642,7 +506,10 @@
                     <button class="mode-btn" data-mode="household">🏠 Household</button>
                     <button class="mode-btn" data-mode="business">💼 Business</button>
                 </div>
-                <button class="logout-btn" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <div class="user-info">
+                    <span class="user-email" id="userEmailDisplay">user@example.com</span>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
             </div>
         </div>
     </div>
@@ -726,9 +593,9 @@
         <h3><i class="fas fa-sign-in-alt"></i> Sign In</h3>
         <input type="email" id="loginEmail" placeholder="Email">
         <input type="password" id="loginPassword" placeholder="Password">
-        <button class="btn-primary" onclick="loginWithEmail()" style="width: 100%;">Login</button>
+        <button class="btn-primary" id="loginEmailBtn" style="width: 100%;">Login</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" onclick="closeModal('loginModal'); showSignupModal(); return false;" style="color: #2c9a80;">Sign up</a></p>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" id="switchToSignup" style="color: #2c9a80;">Sign up</a></p>
     </div>
 </div>
 
@@ -738,9 +605,9 @@
         <h3><i class="fas fa-user-plus"></i> Create Account</h3>
         <input type="email" id="signupEmail" placeholder="Email">
         <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
-        <button class="btn-primary" onclick="signUpWithEmail()" style="width: 100%;">Sign Up</button>
+        <button class="btn-primary" id="signupEmailBtn" style="width: 100%;">Sign Up</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" onclick="closeModal('signupModal'); showLoginModal(); return false;" style="color: #2c9a80;">Sign in</a></p>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" id="switchToLogin" style="color: #2c9a80;">Sign in</a></p>
     </div>
 </div>
 
@@ -767,7 +634,148 @@
 </div>
 
 <script>
-    // 20+ Calculators Data
+    // ============ FIREBASE CONFIGURATION ============
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
+        authDomain: "financify-pro.firebaseapp.com",
+        projectId: "financify-pro",
+        storageBucket: "financify-pro.firebasestorage.app",
+        messagingSenderId: "221687807451",
+        appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    
+    // Global variables
+    let currentUser = null;
+    
+    // ============ AUTHENTICATION FUNCTIONS ============
+    
+    // Google Sign In
+    function signInWithGoogle() {
+        auth.signInWithPopup(googleProvider)
+            .then((result) => {
+                console.log("Google sign-in successful:", result.user);
+                closeAllModals();
+            })
+            .catch((error) => {
+                console.error("Google sign-in error:", error);
+                if (error.code === 'auth/popup-blocked') {
+                    alert("Popup was blocked. Please allow popups for this site.");
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    alert("Please add this domain to Firebase authorized domains in Firebase Console > Authentication > Settings.");
+                } else {
+                    alert("Google Sign-In failed: " + error.message);
+                }
+            });
+    }
+    
+    // Email Sign Up
+    function signUpWithEmail(email, password) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((result) => {
+                console.log("Sign-up successful:", result.user);
+                closeAllModals();
+                alert("Account created successfully! Welcome!");
+            })
+            .catch((error) => {
+                console.error("Sign-up error:", error);
+                if (error.code === 'auth/email-already-in-use') {
+                    alert("Email already in use. Please login instead.");
+                } else if (error.code === 'auth/weak-password') {
+                    alert("Password is too weak. Please use at least 6 characters.");
+                } else if (error.code === 'auth/invalid-email') {
+                    alert("Invalid email format.");
+                } else {
+                    alert("Sign-up failed: " + error.message);
+                }
+            });
+    }
+    
+    // Email Login
+    function loginWithEmail(email, password) {
+        auth.signInWithEmailAndPassword(email, password)
+            .then((result) => {
+                console.log("Login successful:", result.user);
+                closeAllModals();
+                alert("Welcome back!");
+            })
+            .catch((error) => {
+                console.error("Login error:", error);
+                if (error.code === 'auth/user-not-found') {
+                    alert("No account found with this email. Please sign up first.");
+                } else if (error.code === 'auth/wrong-password') {
+                    alert("Incorrect password. Please try again.");
+                } else if (error.code === 'auth/invalid-email') {
+                    alert("Invalid email format.");
+                } else {
+                    alert("Login failed: " + error.message);
+                }
+            });
+    }
+    
+    // Logout
+    function logout() {
+        auth.signOut()
+            .then(() => {
+                console.log("User signed out");
+            })
+            .catch((error) => {
+                console.error("Logout error:", error);
+            });
+    }
+    
+    // ============ UI FUNCTIONS ============
+    
+    function showAppAfterLogin() {
+        document.getElementById('authScreen').style.display = 'none';
+        document.getElementById('appContent').style.display = 'block';
+        if (typeof window.initializeAppData === 'function') {
+            window.initializeAppData();
+        }
+    }
+    
+    function showLoginScreen() {
+        document.getElementById('authScreen').style.display = 'flex';
+        document.getElementById('appContent').style.display = 'none';
+    }
+    
+    function updateUserDisplay(user) {
+        const userEmailSpan = document.getElementById('userEmailDisplay');
+        if (userEmailSpan && user) {
+            const email = user.email;
+            const displayName = email ? email.split('@')[0] : 'User';
+            userEmailSpan.innerHTML = `<i class="fas fa-user-circle"></i> ${displayName}`;
+        }
+    }
+    
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.remove('active');
+    }
+    
+    function closeAllModals() {
+        const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
+        modals.forEach(id => {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
+        });
+    }
+    
+    function showLoginModal() {
+        closeAllModals();
+        document.getElementById('loginModal').classList.add('active');
+    }
+    
+    function showSignupModal() {
+        closeAllModals();
+        document.getElementById('signupModal').classList.add('active');
+    }
+    
+    // ============ APP DATA MANAGEMENT ============
     const householdCalculators = [
         { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)}`; } },
         { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly SIP ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)}`; } },
@@ -790,8 +798,9 @@
     let spendingChart, categoryChart, trendsChart;
 
     function loadUserData() {
-        const userId = localStorage.getItem('financify_user_id') || 'default_user';
-        const stored = localStorage.getItem(`financify_data_${userId}`);
+        if (!currentUser) return;
+        const userKey = currentUser.uid || currentUser.email;
+        const stored = localStorage.getItem(`financify_data_${userKey}`);
         if(stored) {
             try { transactions = JSON.parse(stored).transactions || []; } catch(e) {}
         }
@@ -806,17 +815,13 @@
     }
 
     function saveUserData() {
-        const userId = localStorage.getItem('financify_user_id') || 'default_user';
-        localStorage.setItem(`financify_data_${userId}`, JSON.stringify({ transactions }));
+        if (!currentUser) return;
+        const userKey = currentUser.uid || currentUser.email;
+        localStorage.setItem(`financify_data_${userKey}`, JSON.stringify({ transactions }));
     }
 
     window.clearUserData = function() { transactions = []; updateAllUI(); };
-    window.initializeAppData = function() {
-        if (!localStorage.getItem('financify_user_id')) {
-            localStorage.setItem('financify_user_id', 'user_' + Date.now());
-        }
-        loadUserData();
-    };
+    window.initializeAppData = function() { loadUserData(); };
 
     function updateAllUI() {
         let inc = transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
@@ -908,18 +913,69 @@
     function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    window.closeModal = closeModal;
 
+    // ============ EVENT LISTENERS & AUTH STATE ============
+    
+    auth.onAuthStateChanged((user) => {
+        currentUser = user;
+        if (user) {
+            console.log("User signed in:", user.email);
+            updateUserDisplay(user);
+            showAppAfterLogin();
+        } else {
+            console.log("User signed out");
+            showLoginScreen();
+        }
+    });
+    
+    // Set up event listeners after DOM loads
     document.addEventListener('DOMContentLoaded', () => {
+        // Auth buttons
+        document.getElementById('googleSignInBtn')?.addEventListener('click', signInWithGoogle);
+        document.getElementById('showLoginBtn')?.addEventListener('click', showLoginModal);
+        document.getElementById('showSignupBtn')?.addEventListener('click', showSignupModal);
+        document.getElementById('logoutBtn')?.addEventListener('click', logout);
+        
+        // Modal buttons
+        document.getElementById('loginEmailBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            loginWithEmail(email, password);
+        });
+        
+        document.getElementById('signupEmailBtn')?.addEventListener('click', () => {
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            signUpWithEmail(email, password);
+        });
+        
+        document.getElementById('switchToSignup')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal('loginModal');
+            showSignupModal();
+        });
+        
+        document.getElementById('switchToLogin')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal('signupModal');
+            showLoginModal();
+        });
+        
+        // Page navigation
         document.querySelectorAll('.page-btn').forEach(b=>b.addEventListener('click',()=>setActivePage(b.getAttribute('data-page'))));
         document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>setMode(b.getAttribute('data-mode'))));
+        
+        // Other buttons
         document.getElementById('exploreCalculatorsBtn')?.addEventListener('click',()=>setActivePage('calculators'));
         document.getElementById('addTransactionBtn')?.addEventListener('click',openTxnModal);
         document.getElementById('saveTransactionBtn')?.addEventListener('click',addTransaction);
         document.getElementById('runCalcBtn')?.addEventListener('click',()=>window.runCalculator());
-        loadUserData(); setMode("household"); setActivePage("dashboard");
+        
+        setMode("household");
+        setActivePage("dashboard");
     });
+    
+    window.closeModal = closeModal;
 </script>
 </body>
 </html>
