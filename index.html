@@ -523,4 +523,260 @@
         { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)} | Total Interest: $${(emi*n-v.amt).toFixed(2)}`; } },
         { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly SIP ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)} | Invested: $${(v.sip*n).toFixed(2)}`; } },
         { id: "lumpsum", name: "💰 Lumpsum Growth", inputs: [{l:"Principal ($)",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Maturity: $${a.toFixed(2)} | Gain: $${(a-v.p).toFixed(2)}`; } },
-        { id: "budget", name: "📋 Budget Planner", inputs: [{l:"Monthly Income",k:"inc"},{l:"Expenses",k:"exp"}], calc: (v)=>{ let s=v.inc-v.exp, p=(s/v.inc*100).t
+        { id: "budget", name: "📋 Budget Planner", inputs: [{l:"Monthly Income",k:"inc"},{l:"Expenses",k:"exp"}], calc: (v)=>{ let s=v.inc-v.exp, p=(s/v.inc*100).toFixed(1); return `${s>=0?"Surplus":"Deficit"}: $${Math.abs(s)} (${p}% savings)`; } },
+        { id: "rd", name: "🏦 Recurring Deposit", inputs: [{l:"Monthly Deposit",k:"dep"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, mv=v.dep*((Math.pow(1+r,n)-1)/r); return `Maturity: $${mv.toFixed(2)}`; } },
+        { id: "fd", name: "📀 Fixed Deposit", inputs: [{l:"Principal",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Final: $${a.toFixed(2)}`; } },
+        { id: "inflation", name: "📉 Inflation Effect", inputs: [{l:"Current Amount",k:"amt"},{l:"Inflation (%)",k:"inf"},{l:"Years",k:"y"}], calc: (v)=>{ let fv=v.amt/Math.pow(1+v.inf/100,v.y); return `Real Value: $${fv.toFixed(2)}`; } },
+        { id: "retirement", name: "👴 Retirement Corpus", inputs: [{l:"Monthly Need",k:"need"},{l:"Years",k:"years"},{l:"Return (%)",k:"rate"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, corpus=v.need*((1-Math.pow(1+r,-n))/r); return `Required: $${corpus.toFixed(2)}`; } },
+        { id: "cagr", name: "📈 CAGR", inputs: [{l:"Start Value",k:"sv"},{l:"End Value",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let cagr=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `CAGR: ${cagr.toFixed(2)}%`; } },
+        { id: "loanTenure", name: "⏱️ Loan Tenure", inputs: [{l:"Loan Amount",k:"amt"},{l:"EMI",k:"emi"},{l:"Rate (%)",k:"rate"}], calc: (v)=>{ let r=v.rate/12/100, tenure=Math.log(v.emi/(v.emi-v.amt*r))/Math.log(1+r); return `Tenure: ${Math.ceil(tenure)} months`; } }
+    ];
+    const businessCalculators = [
+        { id: "profitMargin", name: "📊 Profit Margin", inputs: [{l:"Revenue ($)",k:"rev"},{l:"Cost ($)",k:"cost"}], calc: (v)=>{ let p=v.rev-v.cost, m=(p/v.rev*100).toFixed(1); return `Profit: $${p.toFixed(2)} (${m}% margin)`; } },
+        { id: "gst", name: "🧾 GST Calculator", inputs: [{l:"Base Amount",k:"amt"},{l:"GST Rate (%)",k:"rate"}], calc: (v)=>{ let g=v.amt*v.rate/100; return `GST: $${g.toFixed(2)} | Total: $${(v.amt+g).toFixed(2)}`; } },
+        { id: "roi", name: "📈 ROI", inputs: [{l:"Investment",k:"inv"},{l:"Returns",k:"ret"}], calc: (v)=>{ return `ROI: ${(((v.ret-v.inv)/v.inv)*100).toFixed(1)}%`; } },
+        { id: "breakEven", name: "⚖️ Break-Even", inputs: [{l:"Fixed Cost",k:"fixed"},{l:"Price/Unit",k:"price"},{l:"Var Cost/Unit",k:"varCost"}], calc: (v)=>{ let be=v.fixed/(v.price-v.varCost); return `Break-even units: ${Math.ceil(be)}`; } },
+        { id: "cagrBiz", name: "📊 Business CAGR", inputs: [{l:"Start Revenue",k:"sv"},{l:"End Revenue",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let cagr=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `CAGR: ${cagr.toFixed(2)}%`; } },
+        { id: "ebitda", name: "💰 EBITDA Margin", inputs: [{l:"Revenue",k:"rev"},{l:"EBITDA",k:"ebitda"}], calc: (v)=>{ let m=(v.ebitda/v.rev*100).toFixed(1); return `EBITDA Margin: ${m}%`; } },
+        { id: "payback", name: "⏱️ Payback Period", inputs: [{l:"Initial Investment",k:"inv"},{l:"Annual CF",k:"cf"}], calc: (v)=>{ return `Payback: ${(v.inv/v.cf).toFixed(1)} years`; } },
+        { id: "npv", name: "📉 NPV", inputs: [{l:"Outlay",k:"out"},{l:"Annual CF",k:"cf"},{l:"Years",k:"y"},{l:"Discount %",k:"rate"}], calc: (v)=>{ let npv=-v.out; for(let i=1;i<=v.y;i++) npv+=v.cf/Math.pow(1+v.rate/100,i); return `NPV: $${npv.toFixed(2)}`; } },
+        { id: "debtEquity", name: "🏦 D/E Ratio", inputs: [{l:"Debt",k:"debt"},{l:"Equity",k:"eq"}], calc: (v)=>{ return `D/E: ${(v.debt/v.eq).toFixed(2)}`; } },
+        { id: "liquidity", name: "💧 Current Ratio", inputs: [{l:"Current Assets",k:"ca"},{l:"Liabilities",k:"cl"}], calc: (v)=>{ return `Ratio: ${(v.ca/v.cl).toFixed(2)}`; } }
+    ];
+
+    let currentMode = "household";
+    let transactions = [];
+    let activeCalculator = null;
+    let spendingChart, categoryChart, trendsChart;
+
+    // Data Management
+    function loadData() {
+        const stored = localStorage.getItem("financify_pro_final_v2");
+        if(stored) {
+            try { transactions = JSON.parse(stored).transactions || []; } catch(e) {}
+        }
+        if(!transactions.length) {
+            transactions = [
+                { id: 1, desc: "Salary Deposit", amount: 5800, type: "income", category: "Salary", date: "2026-03-01" },
+                { id: 2, desc: "Groceries", amount: 450, type: "expense", category: "Food", date: "2026-03-05" },
+                { id: 3, desc: "Rent", amount: 1450, type: "expense", category: "Housing", date: "2026-03-01" },
+                { id: 4, desc: "Freelance", amount: 950, type: "income", category: "Extra", date: "2026-03-10" },
+                { id: 5, desc: "Utilities", amount: 210, type: "expense", category: "Bills", date: "2026-03-08" }
+            ];
+        }
+        updateAllUI();
+    }
+    function saveData() { localStorage.setItem("financify_pro_final_v2", JSON.stringify({ transactions })); }
+
+    function updateAllUI() {
+        let inc = transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
+        let exp = transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+        let bal = inc - exp;
+        let mainBalanceEl = document.getElementById("mainBalance");
+        if(mainBalanceEl) mainBalanceEl.innerText = `$${bal.toLocaleString()}`;
+        let totalIncomeEl = document.getElementById("totalIncome");
+        if(totalIncomeEl) totalIncomeEl.innerText = `$${inc.toLocaleString()}`;
+        let totalExpenseEl = document.getElementById("totalExpense");
+        if(totalExpenseEl) totalExpenseEl.innerText = `$${exp.toLocaleString()}`;
+        let rate = inc>0 ? ((bal/inc)*100).toFixed(1) : 0;
+        let savingsRateEl = document.getElementById("savingsRate");
+        if(savingsRateEl) savingsRateEl.innerText = rate;
+        let fill = Math.min(100, Math.max(0, (bal/inc)*100));
+        let progressFill = document.getElementById("savingsProgressFill");
+        if(progressFill) progressFill.style.width = `${fill}%`;
+        renderTransactions();
+        updateCharts();
+        updateRecommendations();
+    }
+
+    function renderTransactions() {
+        const container = document.getElementById("allTransactionsList");
+        if(container) {
+            container.innerHTML = [...transactions].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(t => 
+                `<div class="transaction-item"><span><i class="fas ${t.type==='income'?'fa-arrow-up':'fa-arrow-down'}"></i> ${t.desc}</span><span>$${t.amount.toFixed(2)}</span><span style="font-size:12px;">${t.category}</span></div>`
+            ).join("");
+        }
+    }
+
+    function updateCharts() {
+        const expMap = {};
+        transactions.filter(t=>t.type==="expense").forEach(e=>expMap[e.category]=(expMap[e.category]||0)+e.amount);
+        const ctx = document.getElementById('spendingChart')?.getContext('2d');
+        if(ctx) { if(spendingChart) spendingChart.destroy(); spendingChart = new Chart(ctx, { type: 'doughnut', data: { labels: Object.keys(expMap), datasets: [{ data: Object.values(expMap), backgroundColor: ['#2c9a80','#1e6f5c','#0f2b3d','#54b4a0'] }] }, options: { plugins: { legend: { labels: { color: '#e2e8f0' } } } } }); }
+        const catCtx = document.getElementById('categoryChart')?.getContext('2d');
+        if(catCtx) { if(categoryChart) categoryChart.destroy(); categoryChart = new Chart(catCtx, { type: 'bar', data: { labels: Object.keys(expMap), datasets: [{ label: 'Expenses', data: Object.values(expMap), backgroundColor: '#2c9a80' }] }, options: { scales: { y: { ticks: { color: '#e2e8f0' } }, x: { ticks: { color: '#e2e8f0' } } } } }); }
+        const monthly = {};
+        transactions.forEach(t=>{ let m=t.date.slice(0,7); monthly[m]=(monthly[m]||0)+(t.type==='income'?t.amount:-t.amount); });
+        const trendCtx = document.getElementById('trendsChart')?.getContext('2d');
+        if(trendCtx) { if(trendsChart) trendsChart.destroy(); trendsChart = new Chart(trendCtx, { type: 'line', data: { labels: Object.keys(monthly), datasets: [{ label: 'Net Flow', data: Object.values(monthly), borderColor: '#2c9a80', tension: 0.3 }] }, options: { scales: { y: { ticks: { color: '#e2e8f0' } }, x: { ticks: { color: '#e2e8f0' } } } } }); }
+    }
+
+    function updateRecommendations() {
+        const recDiv = document.getElementById("recommendationsList");
+        if(recDiv) recDiv.innerHTML = `<ul><li>✅ ${currentMode === 'household' ? 'Use SIP for long-term goals' : 'Analyze break-even for profitability'}</li><li>✅ Track expense categories regularly</li><li>✅ Explore all 20+ calculators</li></ul>`;
+    }
+
+    function renderCalculatorsGrid() {
+        const lib = currentMode === "household" ? householdCalculators : businessCalculators;
+        const container = document.getElementById("calculatorsGridContainer");
+        if(container) {
+            container.innerHTML = lib.map(c => `<div class="calc-card" data-calc-id="${c.id}"><div class="calc-icon"><i class="fas fa-chart-line"></i></div><h4>${c.name}</h4></div>`).join("");
+            // Attach event listeners to calculator cards
+            document.querySelectorAll('.calc-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const id = card.getAttribute('data-calc-id');
+                    openCalculator(id);
+                });
+            });
+        }
+        let modeIndicator = document.getElementById("calcModeIndicator");
+        if(modeIndicator) modeIndicator.innerText = currentMode === "household" ? "🏠 Household (10+ tools)" : "💼 Business (10+ tools)";
+    }
+
+    function openCalculator(id) {
+        const lib = currentMode === "household" ? householdCalculators : businessCalculators;
+        activeCalculator = lib.find(c => c.id === id);
+        if(activeCalculator) {
+            document.getElementById("calcModalTitle").innerHTML = `<i class="fas fa-calculator"></i> ${activeCalculator.name}`;
+            document.getElementById("calcInputsArea").innerHTML = activeCalculator.inputs.map(inp => `<label style="color:#e2e8f0;">${inp.l}</label><input type="number" id="calc_${inp.k}" placeholder="${inp.l}" step="any" value="0">`).join("");
+            document.getElementById("calcResultArea").innerHTML = "Enter values & calculate";
+            document.getElementById("calculatorModal").classList.add("active");
+        }
+    }
+
+    function runCalculator() {
+        if(activeCalculator) {
+            let vals = {};
+            activeCalculator.inputs.forEach(inp => {
+                vals[inp.k] = parseFloat(document.getElementById(`calc_${inp.k}`)?.value) || 0;
+            });
+            document.getElementById("calcResultArea").innerHTML = `<strong>Result:</strong> ${activeCalculator.calc(vals)}`;
+        }
+    }
+
+    function addTransaction() {
+        let desc = document.getElementById("txnDesc").value.trim();
+        let amt = parseFloat(document.getElementById("txnAmount").value);
+        let type = document.getElementById("txnType").value;
+        let cat = document.getElementById("txnCategory").value;
+        if(!desc || isNaN(amt) || amt <= 0) { alert("Please enter valid description and amount"); return; }
+        transactions.push({ id: Date.now(), desc, amount: amt, type, category: cat, date: new Date().toISOString().slice(0,10) });
+        saveData();
+        updateAllUI();
+        closeModal('transactionModal');
+        document.getElementById("txnDesc").value = "";
+        document.getElementById("txnAmount").value = "";
+    }
+
+    function updateCategorySelect() {
+        let sel = document.getElementById("txnCategory");
+        if(sel) {
+            sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join("");
+        }
+    }
+
+    function openTxnModal() { updateCategorySelect(); document.getElementById("transactionModal").classList.add("active"); }
+    function closeModal(id) { document.getElementById(id).classList.remove("active"); }
+
+    function setMode(mode) {
+        currentMode = mode;
+        document.querySelectorAll(".mode-btn").forEach(btn => {
+            if(btn.getAttribute("data-mode") === mode) btn.classList.add("active");
+            else btn.classList.remove("active");
+        });
+        renderCalculatorsGrid();
+        updateCategorySelect();
+        updateRecommendations();
+    }
+
+    // CRITICAL FIX: Page switching function that works reliably
+    function setActivePage(pageId) {
+        // Hide all pages
+        document.querySelectorAll('.page-content').forEach(page => {
+            page.classList.remove('active-page');
+        });
+        // Show selected page
+        const targetPage = document.getElementById(`${pageId}Page`);
+        if(targetPage) {
+            targetPage.classList.add('active-page');
+        }
+        // Update active button state
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            if(btn.getAttribute('data-page') === pageId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        // Refresh data when switching to certain pages
+        if(pageId === 'calculators') renderCalculatorsGrid();
+        if(pageId !== 'calculators') updateAllUI();
+    }
+
+    // ========== EVENT LISTENERS (ensuring they work after deployment) ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        // Page buttons
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = btn.getAttribute('data-page');
+                if(page) setActivePage(page);
+            });
+        });
+        // Mode buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const mode = btn.getAttribute('data-mode');
+                if(mode) setMode(mode);
+            });
+        });
+        // Explore calculators button
+        const exploreBtn = document.getElementById('exploreCalculatorsBtn');
+        if(exploreBtn) exploreBtn.addEventListener('click', () => setActivePage('calculators'));
+        // Add transaction button
+        const addTxnBtn = document.getElementById('addTransactionBtn');
+        if(addTxnBtn) addTxnBtn.addEventListener('click', openTxnModal);
+        // Save transaction button
+        const saveBtn = document.getElementById('saveTransactionBtn');
+        if(saveBtn) saveBtn.addEventListener('click', addTransaction);
+        // Close modal buttons
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        if(closeModalBtn) closeModalBtn.addEventListener('click', () => closeModal('transactionModal'));
+        const closeCalcBtn = document.getElementById('closeCalcModalBtn');
+        if(closeCalcBtn) closeCalcBtn.addEventListener('click', () => closeModal('calculatorModal'));
+        // Calculate button
+        const runCalcBtn = document.getElementById('runCalcBtn');
+        if(runCalcBtn) runCalcBtn.addEventListener('click', runCalculator);
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if(e.target.classList && e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    });
+
+    // Particles generation
+    function createParticles() {
+        const container = document.getElementById('particles');
+        if(container) {
+            for(let i=0;i<50;i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.width = Math.random() * 4 + 2 + 'px';
+                p.style.height = p.style.width;
+                p.style.left = Math.random() * 100 + '%';
+                p.style.bottom = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 15 + 's';
+                p.style.animationDuration = 8 + Math.random() * 10 + 's';
+                container.appendChild(p);
+            }
+        }
+    }
+    createParticles();
+    loadData();
+    setMode("household");
+    setActivePage("dashboard");
+</script>
+</body>
+</html>
