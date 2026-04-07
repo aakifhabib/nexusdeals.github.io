@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Complete Finance Suite</title>
+    <title>Financify Pro | Google Sign-In Only</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Firebase SDK for Google Login only -->
@@ -82,7 +82,7 @@
             padding: 48px;
             text-align: center;
             border: 1px solid rgba(44, 154, 128, 0.5);
-            max-width: 480px;
+            max-width: 450px;
             width: 90%;
             animation: fadeInUp 0.5s ease;
         }
@@ -108,7 +108,7 @@
             margin-top: 32px;
         }
 
-        .google-btn, .email-btn {
+        .google-btn {
             padding: 14px;
             border-radius: 60px;
             font-size: 16px;
@@ -120,9 +120,6 @@
             justify-content: center;
             gap: 12px;
             border: none;
-        }
-
-        .google-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
@@ -132,34 +129,6 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
-
-        .email-btn {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            color: white;
-        }
-
-        .email-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(44, 154, 128, 0.5);
-        }
-
-        .divider {
-            margin: 24px 0;
-            text-align: center;
-            color: #94a3b8;
-            position: relative;
-        }
-
-        .divider::before, .divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
 
         .navbar {
             background: rgba(15, 23, 42, 0.85);
@@ -470,20 +439,13 @@
 <div id="authScreen">
     <div class="auth-card">
         <h1>Financify Pro</h1>
-        <p>Secure Financial Management</p>
+        <p>Secure Financial Management with Google</p>
         <div class="auth-buttons">
             <button class="google-btn" id="googleSignInBtn">
                 <i class="fab fa-google"></i> Continue with Google
             </button>
-            <div class="divider">or</div>
-            <button class="email-btn" id="showLoginBtn">
-                <i class="fas fa-sign-in-alt"></i> Sign In with Email
-            </button>
-            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
-                <i class="fas fa-user-plus"></i> Create New Account
-            </button>
         </div>
-        <p style="font-size: 11px; margin-top: 20px; color: #64748b;">✓ Google Login via Firebase | ✓ Email login via Local Storage</p>
+        <p style="font-size: 11px; margin-top: 24px; color: #64748b;">✓ Secure Firebase Authentication</p>
     </div>
 </div>
 
@@ -493,7 +455,7 @@
         <div class="container nav-container">
             <div class="logo">
                 <h1>Financify Pro</h1>
-                <p>Hybrid Auth • Smart Finance</p>
+                <p>Google Auth • Smart Finance</p>
             </div>
             <div class="nav-controls">
                 <div class="page-tabs">
@@ -580,35 +542,10 @@
     <div class="footer">
         <div class="container">
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
-                <div><h3 style="color:white;">Financify Pro</h3><p>Hybrid Authentication</p><p>© 2026</p></div>
+                <div><h3 style="color:white;">Financify Pro</h3><p>Google Authentication</p><p>© 2026</p></div>
                 <div><h4>Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p></div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Login Modal -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h3><i class="fas fa-sign-in-alt"></i> Sign In (Local)</h3>
-        <input type="email" id="loginEmail" placeholder="Email">
-        <input type="password" id="loginPassword" placeholder="Password">
-        <button class="btn-primary" onclick="performLocalLogin()" style="width: 100%;">Login</button>
-        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" onclick="closeModal('loginModal'); showSignupModal(); return false;" style="color: #2c9a80;">Sign up</a></p>
-    </div>
-</div>
-
-<!-- Signup Modal -->
-<div id="signupModal" class="modal">
-    <div class="modal-content">
-        <h3><i class="fas fa-user-plus"></i> Create Account (Local)</h3>
-        <input type="email" id="signupEmail" placeholder="Email">
-        <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
-        <input type="text" id="signupName" placeholder="Full Name (Optional)">
-        <button class="btn-primary" onclick="performLocalSignup()" style="width: 100%;">Sign Up</button>
-        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" onclick="closeModal('signupModal'); showLoginModal(); return false;" style="color: #2c9a80;">Sign in</a></p>
     </div>
 </div>
 
@@ -635,7 +572,7 @@
 </div>
 
 <script>
-    // ============ FIREBASE CONFIGURATION (ONLY FOR GOOGLE LOGIN) ============
+    // ============ FIREBASE CONFIGURATION ============
     const firebaseConfig = {
         apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
         authDomain: "financify-pro.firebaseapp.com",
@@ -645,70 +582,15 @@
         appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
     };
     
-    // Initialize Firebase (only for Google Login)
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     
-    // ============ LOCAL STORAGE AUTHENTICATION (FOR EMAIL LOGIN) ============
+    // Global variables
     let currentUser = null;
-    let authType = null; // 'google' or 'local'
     
-    // Get users from localStorage
-    function getLocalUsers() {
-        const users = localStorage.getItem('financify_local_users');
-        return users ? JSON.parse(users) : [];
-    }
-    
-    // Save users to localStorage
-    function saveLocalUsers(users) {
-        localStorage.setItem('financify_local_users', JSON.stringify(users));
-    }
-    
-    // Local Sign Up
-    function localSignUp(email, password, name) {
-        const users = getLocalUsers();
-        const existingUser = users.find(u => u.email === email);
-        
-        if (existingUser) {
-            alert("❌ Email already registered. Please login instead.");
-            return false;
-        }
-        
-        if (password.length < 6) {
-            alert("❌ Password must be at least 6 characters");
-            return false;
-        }
-        
-        if (!email.includes('@') || !email.includes('.')) {
-            alert("❌ Please enter a valid email address");
-            return false;
-        }
-        
-        const newUser = {
-            email: email,
-            password: password,
-            name: name || email.split('@')[0],
-            createdAt: new Date().toISOString()
-        };
-        
-        users.push(newUser);
-        saveLocalUsers(users);
-        return true;
-    }
-    
-    // Local Login
-    function localLogin(email, password) {
-        const users = getLocalUsers();
-        const user = users.find(u => u.email === email && u.password === password);
-        
-        if (user) {
-            return user;
-        }
-        return null;
-    }
-    
-    // ============ AUTHENTICATION FUNCTIONS (DIRECTLY CALLABLE) ============
+    // ============ AUTHENTICATION FUNCTIONS ============
     
     // Google Sign In
     window.signInWithGoogle = function() {
@@ -718,11 +600,10 @@
                 currentUser = {
                     email: result.user.email,
                     name: result.user.displayName || result.user.email.split('@')[0],
-                    uid: result.user.uid
+                    uid: result.user.uid,
+                    photoURL: result.user.photoURL
                 };
-                authType = 'google';
                 saveSession(currentUser);
-                closeAllModals();
                 showAppAfterLogin();
             })
             .catch((error) => {
@@ -730,100 +611,44 @@
                 if (error.code === 'auth/popup-blocked') {
                     alert("Popup was blocked. Please allow popups for this site.");
                 } else if (error.code === 'auth/unauthorized-domain') {
-                    alert("Please add this domain to Firebase authorized domains.");
+                    alert("Please add this domain to Firebase authorized domains.\n\nGo to Firebase Console > Authentication > Settings > Authorized domains");
                 } else {
                     alert("Google Sign-In failed: " + error.message);
                 }
             });
     };
     
-    // Local Email Sign Up - DIRECT FUNCTION
-    window.performLocalSignup = function() {
-        console.log("Signup function called!");
-        const email = document.getElementById('signupEmail').value.trim();
-        const password = document.getElementById('signupPassword').value;
-        const name = document.getElementById('signupName').value.trim();
-        
-        if (!email || !password) {
-            alert("❌ Please enter email and password");
-            return;
-        }
-        
-        if (localSignUp(email, password, name)) {
-            alert("✅ Account created successfully! Please login.");
-            closeModal('signupModal');
-            showLoginModal();
-            document.getElementById('signupEmail').value = '';
-            document.getElementById('signupPassword').value = '';
-            document.getElementById('signupName').value = '';
-        }
-    };
-    
-    // Local Email Login - DIRECT FUNCTION
-    window.performLocalLogin = function() {
-        console.log("Login function called!");
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
-        
-        if (!email || !password) {
-            alert("❌ Please enter email and password");
-            return;
-        }
-        
-        const user = localLogin(email, password);
-        if (user) {
-            currentUser = user;
-            authType = 'local';
-            saveSession(currentUser);
-            closeAllModals();
-            showAppAfterLogin();
-            document.getElementById('loginEmail').value = '';
-            document.getElementById('loginPassword').value = '';
-            alert("✅ Login successful! Welcome " + (user.name || user.email));
-        } else {
-            alert("❌ Invalid email or password. Please try again or sign up.");
-        }
+    // Logout
+    window.logout = function() {
+        auth.signOut().then(() => {
+            clearSession();
+            showLoginScreen();
+        }).catch((error) => {
+            console.error("Logout error:", error);
+            clearSession();
+            showLoginScreen();
+        });
     };
     
     // Save session
     function saveSession(user) {
-        localStorage.setItem('financify_current_session', JSON.stringify({
+        localStorage.setItem('financify_session', JSON.stringify({
             user: user,
-            authType: authType,
             loginTime: new Date().toISOString()
         }));
     }
     
     // Get session
     function getSession() {
-        const session = localStorage.getItem('financify_current_session');
+        const session = localStorage.getItem('financify_session');
         return session ? JSON.parse(session) : null;
     }
     
     // Clear session
     function clearSession() {
-        localStorage.removeItem('financify_current_session');
+        localStorage.removeItem('financify_session');
         currentUser = null;
-        authType = null;
     }
-    
-    // Logout
-    window.logout = function() {
-        if (authType === 'google') {
-            auth.signOut().then(() => {
-                clearSession();
-                showLoginScreen();
-            }).catch((error) => {
-                console.error("Logout error:", error);
-                clearSession();
-                showLoginScreen();
-            });
-        } else {
-            clearSession();
-            showLoginScreen();
-            alert("✅ You have been logged out.");
-        }
-    };
     
     // ============ UI FUNCTIONS ============
     
@@ -831,9 +656,7 @@
         document.getElementById('authScreen').style.display = 'none';
         document.getElementById('appContent').style.display = 'block';
         updateUserDisplay();
-        if (typeof window.initializeAppData === 'function') {
-            window.initializeAppData();
-        }
+        loadUserData();
     }
     
     function showLoginScreen() {
@@ -845,32 +668,13 @@
         const userEmailSpan = document.getElementById('userEmailDisplay');
         if (userEmailSpan && currentUser) {
             const displayName = currentUser.name || currentUser.email.split('@')[0];
-            const authIcon = authType === 'google' ? '<i class="fab fa-google"></i>' : '<i class="fas fa-envelope"></i>';
-            userEmailSpan.innerHTML = `${authIcon} ${displayName}`;
+            userEmailSpan.innerHTML = `<i class="fab fa-google"></i> ${displayName}`;
         }
     }
     
     window.closeModal = function(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) modal.classList.remove('active');
-    };
-    
-    function closeAllModals() {
-        const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
-        modals.forEach(id => {
-            const modal = document.getElementById(id);
-            if (modal) modal.classList.remove('active');
-        });
-    }
-    
-    window.showLoginModal = function() {
-        closeAllModals();
-        document.getElementById('loginModal').classList.add('active');
-    };
-    
-    window.showSignupModal = function() {
-        closeAllModals();
-        document.getElementById('signupModal').classList.add('active');
     };
     
     // ============ APP DATA MANAGEMENT ============
@@ -897,16 +701,16 @@
 
     function loadUserData() {
         if (!currentUser) return;
-        const userKey = currentUser.email;
+        const userKey = currentUser.uid || currentUser.email;
         const stored = localStorage.getItem(`financify_data_${userKey}`);
         if(stored) {
             try { transactions = JSON.parse(stored).transactions || []; } catch(e) {}
         }
         if(!transactions.length) {
             transactions = [
-                { id: 1, desc: "Salary Deposit", amount: 5800, type: "income", category: "Salary", date: "2026-03-01" },
-                { id: 2, desc: "Groceries", amount: 450, type: "expense", category: "Food", date: "2026-03-05" },
-                { id: 3, desc: "Rent", amount: 1450, type: "expense", category: "Housing", date: "2026-03-01" }
+                { id: 1, desc: "Salary Deposit", amount: 5800, type: "income", category: "Salary", date: new Date().toISOString().slice(0,10) },
+                { id: 2, desc: "Groceries", amount: 450, type: "expense", category: "Food", date: new Date().toISOString().slice(0,10) },
+                { id: 3, desc: "Rent", amount: 1450, type: "expense", category: "Housing", date: new Date().toISOString().slice(0,10) }
             ];
         }
         updateAllUI();
@@ -914,12 +718,9 @@
 
     function saveUserData() {
         if (!currentUser) return;
-        const userKey = currentUser.email;
+        const userKey = currentUser.uid || currentUser.email;
         localStorage.setItem(`financify_data_${userKey}`, JSON.stringify({ transactions }));
     }
-
-    window.clearUserData = function() { transactions = []; updateAllUI(); };
-    window.initializeAppData = function() { loadUserData(); };
 
     function updateAllUI() {
         let inc = transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
@@ -1011,13 +812,14 @@
     function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    window.closeModal = closeModal;
 
     // ============ CHECK EXISTING SESSION ============
     function checkSession() {
         const session = getSession();
         if (session && session.user) {
             currentUser = session.user;
-            authType = session.authType;
             showAppAfterLogin();
         }
     }
@@ -1026,16 +828,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         console.log("Page loaded, setting up event listeners...");
         
-        // Auth buttons
+        // Google Sign In button
         const googleBtn = document.getElementById('googleSignInBtn');
         if (googleBtn) googleBtn.onclick = function() { window.signInWithGoogle(); };
         
-        const showLoginBtn = document.getElementById('showLoginBtn');
-        if (showLoginBtn) showLoginBtn.onclick = function() { window.showLoginModal(); };
-        
-        const showSignupBtn = document.getElementById('showSignupBtn');
-        if (showSignupBtn) showSignupBtn.onclick = function() { window.showSignupModal(); };
-        
+        // Logout button
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) logoutBtn.onclick = function() { window.logout(); };
         
@@ -1066,7 +863,24 @@
         checkSession();
     });
     
-    window.closeModal = closeModal;
+    // Firebase Auth State Listener
+    auth.onAuthStateChanged((user) => {
+        if (user && !currentUser) {
+            // User signed in via Firebase but session not set
+            currentUser = {
+                email: user.email,
+                name: user.displayName || user.email.split('@')[0],
+                uid: user.uid,
+                photoURL: user.photoURL
+            };
+            saveSession(currentUser);
+            showAppAfterLogin();
+        } else if (!user && currentUser) {
+            // User signed out
+            clearSession();
+            showLoginScreen();
+        }
+    });
 </script>
 </body>
 </html>
