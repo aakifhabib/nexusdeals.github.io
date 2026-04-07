@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Working Auth</title>
+    <title>Financify Pro | Fully Working Auth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Firebase ONLY for Google Sign-In -->
@@ -110,7 +110,7 @@
             </button>
             <div class="divider">or</div>
             <button class="email-btn" id="showLoginBtn">
-                <i class="fas fa-sign-in-alt"></i> Sign In
+                <i class="fas fa-sign-in-alt"></i> Sign In with Email
             </button>
             <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
                 <i class="fas fa-user-plus"></i> Create Account
@@ -213,7 +213,7 @@
     <div class="footer">
         <div class="container">
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
-                <div><h3 style="color:white;">Financify Pro</h3><p>Simple Working Auth</p><p>© 2026</p></div>
+                <div><h3 style="color:white;">Financify Pro</h3><p>Working Auth</p><p>© 2026</p></div>
                 <div><h4>Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p></div>
             </div>
         </div>
@@ -272,8 +272,27 @@
     
     let currentUser = null;
     
+    // Initialize default users if none exist
+    function initUsers() {
+        let users = localStorage.getItem('app_users');
+        if (!users) {
+            // Create some default users for testing
+            const defaultUsers = [
+                {
+                    email: "demo@example.com",
+                    password: "demo123",
+                    name: "Demo User",
+                    created: new Date().toISOString()
+                }
+            ];
+            localStorage.setItem('app_users', JSON.stringify(defaultUsers));
+            console.log("Default users created");
+        }
+    }
+    
     // Get users from localStorage
     function getUsers() {
+        initUsers();
         const users = localStorage.getItem('app_users');
         return users ? JSON.parse(users) : [];
     }
@@ -284,16 +303,13 @@
     }
     
     // Sign Up Function
-    function signUp(email, password, name) {
-        const users = getUsers();
+    window.doSignUp = function() {
+        console.log("SignUp function called");
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const name = document.getElementById('signupName').value.trim();
         
-        // Check if email exists
-        if (users.find(u => u.email === email)) {
-            alert("❌ Email already registered! Please login.");
-            return false;
-        }
-        
-        // Validate
+        // Validation
         if (!email || !password) {
             alert("❌ Please enter email and password");
             return false;
@@ -302,26 +318,52 @@
             alert("❌ Password must be at least 6 characters");
             return false;
         }
-        if (!email.includes('@')) {
-            alert("❌ Please enter a valid email");
+        if (!email.includes('@') || !email.includes('.')) {
+            alert("❌ Please enter a valid email address");
+            return false;
+        }
+        
+        const users = getUsers();
+        
+        // Check if email exists
+        if (users.find(u => u.email === email)) {
+            alert("❌ Email already registered! Please login.");
             return false;
         }
         
         // Create user
-        users.push({
+        const newUser = {
             email: email,
             password: password,
             name: name || email.split('@')[0],
             created: new Date().toISOString()
-        });
+        };
         
+        users.push(newUser);
         saveUsers(users);
+        
+        // Clear form
+        document.getElementById('signupEmail').value = '';
+        document.getElementById('signupPassword').value = '';
+        document.getElementById('signupName').value = '';
+        
         alert("✅ Account created successfully! Please login.");
+        closeModal('signupModal');
+        showLoginModal();
         return true;
-    }
+    };
     
     // Login Function
-    function login(email, password) {
+    window.doLogin = function() {
+        console.log("Login function called");
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            alert("❌ Please enter email and password");
+            return false;
+        }
+        
         const users = getUsers();
         const user = users.find(u => u.email === email && u.password === password);
         
@@ -332,22 +374,32 @@
                 name: user.name,
                 loginTime: new Date().toISOString()
             }));
+            
+            // Clear form
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            
+            closeModal('loginModal');
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('appContent').style.display = 'block';
+            document.getElementById('userEmailDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${user.name}`;
+            loadUserData();
             alert("✅ Welcome back, " + user.name + "!");
             return true;
         } else {
             alert("❌ Invalid email or password. Please try again or sign up.");
             return false;
         }
-    }
+    };
     
     // Logout
-    function logout() {
+    window.doLogout = function() {
         localStorage.removeItem('current_session');
         currentUser = null;
         document.getElementById('authScreen').style.display = 'flex';
         document.getElementById('appContent').style.display = 'none';
         alert("✅ You have been logged out.");
-    }
+    };
     
     // Check session on load
     function checkSession() {
@@ -378,27 +430,61 @@
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     
-    function signInWithGoogle() {
+    window.doGoogleSignIn = function() {
+        console.log("Google Sign-In called");
         auth.signInWithPopup(googleProvider)
             .then((result) => {
-                currentUser = {
+                const user = {
                     email: result.user.email,
                     name: result.user.displayName || result.user.email.split('@')[0],
-                    isGoogle: true
+                    isGoogle: true,
+                    googleId: result.user.uid
                 };
-                localStorage.setItem('current_session', JSON.stringify(currentUser));
+                currentUser = user;
+                localStorage.setItem('current_session', JSON.stringify(user));
                 document.getElementById('authScreen').style.display = 'none';
                 document.getElementById('appContent').style.display = 'block';
-                document.getElementById('userEmailDisplay').innerHTML = `<i class="fab fa-google"></i> ${currentUser.name}`;
+                document.getElementById('userEmailDisplay').innerHTML = `<i class="fab fa-google"></i> ${user.name}`;
                 loadUserData();
-                alert("✅ Google sign-in successful!");
+                alert("✅ Google sign-in successful! Welcome " + user.name);
             })
             .catch((error) => {
-                alert("Google Sign-In failed: " + error.message);
+                console.error("Google Sign-In error:", error);
+                if (error.code === 'auth/popup-blocked') {
+                    alert("Popup was blocked. Please allow popups for this site.");
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    alert("Please add this domain to Firebase authorized domains.");
+                } else {
+                    alert("Google Sign-In failed: " + error.message);
+                }
             });
+    };
+    
+    // ============ UI HELPER FUNCTIONS ============
+    window.closeModal = function(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.remove('active');
+    };
+    
+    window.showLoginModal = function() {
+        closeAllModals();
+        document.getElementById('loginModal').classList.add('active');
+    };
+    
+    window.showSignupModal = function() {
+        closeAllModals();
+        document.getElementById('signupModal').classList.add('active');
+    };
+    
+    function closeAllModals() {
+        const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
+        modals.forEach(id => {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
+        });
     }
     
-    // ============ APP DATA ============
+    // ============ APP DATA MANAGEMENT ============
     const householdCalculators = [
         { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)}`; } },
         { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly SIP ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)}`; } },
@@ -427,7 +513,7 @@
         if(stored) {
             try { transactions = JSON.parse(stored); } catch(e) {}
         }
-        if(!transactions.length) {
+        if(!transactions || !transactions.length) {
             transactions = [
                 { id: 1, desc: "Salary Deposit", amount: 5800, type: "income", category: "Salary", date: new Date().toISOString().slice(0,10) },
                 { id: 2, desc: "Groceries", amount: 450, type: "expense", category: "Food", date: new Date().toISOString().slice(0,10) },
@@ -533,61 +619,35 @@
     function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    window.closeModal = closeModal;
 
-    // ============ EVENT LISTENERS ============
+    // ============ INITIALIZE EVERYTHING ============
     document.addEventListener('DOMContentLoaded', () => {
+        console.log("Page loaded - initializing...");
+        
+        // Initialize users
+        initUsers();
+        
         // Auth buttons
-        document.getElementById('googleSignInBtn').onclick = () => signInWithGoogle();
-        document.getElementById('showLoginBtn').onclick = () => { closeAllModals(); document.getElementById('loginModal').classList.add('active'); };
-        document.getElementById('showSignupBtn').onclick = () => { closeAllModals(); document.getElementById('signupModal').classList.add('active'); };
-        document.getElementById('logoutBtn').onclick = () => logout();
+        document.getElementById('googleSignInBtn').onclick = () => window.doGoogleSignIn();
+        document.getElementById('showLoginBtn').onclick = () => window.showLoginModal();
+        document.getElementById('showSignupBtn').onclick = () => window.showSignupModal();
+        document.getElementById('logoutBtn').onclick = () => window.doLogout();
         
-        // Form submissions
-        document.getElementById('doLoginBtn').onclick = () => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            if (login(email, password)) {
-                closeModal('loginModal');
-                document.getElementById('authScreen').style.display = 'none';
-                document.getElementById('appContent').style.display = 'block';
-                document.getElementById('userEmailDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser.name}`;
-                loadUserData();
-            }
-        };
-        
-        document.getElementById('doSignupBtn').onclick = () => {
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const name = document.getElementById('signupName').value;
-            if (signUp(email, password, name)) {
-                closeModal('signupModal');
-                document.getElementById('signupEmail').value = '';
-                document.getElementById('signupPassword').value = '';
-                document.getElementById('signupName').value = '';
-                document.getElementById('loginModal').classList.add('active');
-            }
-        };
+        // Form submission buttons
+        document.getElementById('doLoginBtn').onclick = () => window.doLogin();
+        document.getElementById('doSignupBtn').onclick = () => window.doSignUp();
         
         // Switch between modals
         document.getElementById('switchToSignupLink').onclick = (e) => {
             e.preventDefault();
-            closeModal('loginModal');
-            document.getElementById('signupModal').classList.add('active');
+            window.closeModal('loginModal');
+            window.showSignupModal();
         };
         document.getElementById('switchToLoginLink').onclick = (e) => {
             e.preventDefault();
-            closeModal('signupModal');
-            document.getElementById('loginModal').classList.add('active');
+            window.closeModal('signupModal');
+            window.showLoginModal();
         };
-        
-        function closeAllModals() {
-            document.getElementById('loginModal').classList.remove('active');
-            document.getElementById('signupModal').classList.remove('active');
-            document.getElementById('transactionModal').classList.remove('active');
-            document.getElementById('calculatorModal').classList.remove('active');
-        }
         
         // Page navigation
         document.querySelectorAll('.page-btn').forEach(b => {
