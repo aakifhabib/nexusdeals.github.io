@@ -3,9 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Multi-Page Finance Suite</title>
+    <title>Financify Pro | Secure Finance Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        // Your Firebase configuration (provided by user)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
+            authDomain: "financify-pro.firebaseapp.com",
+            projectId: "financify-pro",
+            storageBucket: "financify-pro.firebasestorage.app",
+            messagingSenderId: "221687807451",
+            appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+        
+        // Make auth functions available globally
+        window.auth = auth;
+        
+        window.signInWithGoogle = async function() {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                console.log("Google sign-in successful:", result.user);
+                showAppAfterLogin();
+                closeModal('loginModal');
+                return result.user;
+            } catch (error) {
+                console.error("Google sign-in error:", error);
+                if (error.code === 'auth/popup-blocked') {
+                    alert("Popup was blocked. Please allow popups for this site and try again.");
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    alert("This domain is not authorized. Please add your domain to Firebase console > Authentication > Settings > Authorized domains.");
+                } else {
+                    alert("Google Sign-In failed: " + error.message);
+                }
+            }
+        };
+        
+        window.signUpWithEmail = async function() {
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            if (!email || !password) {
+                alert("Please enter email and password");
+                return;
+            }
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters");
+                return;
+            }
+            try {
+                const result = await createUserWithEmailAndPassword(auth, email, password);
+                console.log("Sign-up successful:", result.user);
+                showAppAfterLogin();
+                closeModal('signupModal');
+                closeModal('loginModal');
+            } catch (error) {
+                console.error("Sign-up error:", error);
+                if (error.code === 'auth/email-already-in-use') {
+                    alert("Email already in use. Please login instead.");
+                } else if (error.code === 'auth/weak-password') {
+                    alert("Password is too weak. Please use a stronger password.");
+                } else {
+                    alert("Sign-up failed: " + error.message);
+                }
+            }
+        };
+        
+        window.loginWithEmail = async function() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            if (!email || !password) {
+                alert("Please enter email and password");
+                return;
+            }
+            try {
+                const result = await signInWithEmailAndPassword(auth, email, password);
+                console.log("Login successful:", result.user);
+                showAppAfterLogin();
+                closeModal('loginModal');
+            } catch (error) {
+                console.error("Login error:", error);
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    alert("Invalid email or password. Please try again.");
+                } else {
+                    alert("Login failed: " + error.message);
+                }
+            }
+        };
+        
+        window.logoutUser = async function() {
+            try {
+                await signOut(auth);
+                console.log("User signed out");
+                showLoginScreen();
+            } catch (error) {
+                console.error("Logout error:", error);
+            }
+        };
+        
+        function showAppAfterLogin() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('appContent').style.display = 'block';
+            // Initialize user-specific data
+            if (typeof window.initializeAppData === 'function') {
+                window.initializeAppData();
+            }
+        }
+        
+        function showLoginScreen() {
+            document.getElementById('authScreen').style.display = 'flex';
+            document.getElementById('appContent').style.display = 'none';
+            if (typeof window.clearUserData === 'function') {
+                window.clearUserData();
+            }
+        }
+        
+        // Monitor auth state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User is signed in:", user.email);
+                showAppAfterLogin();
+            } else {
+                console.log("User is signed out");
+                showLoginScreen();
+            }
+        });
+        
+        window.openLoginModal = function() {
+            document.getElementById('loginModal').classList.add('active');
+        };
+        
+        window.openSignupModal = function() {
+            document.getElementById('signupModal').classList.add('active');
+        };
+        
+        window.showLoginScreen = showLoginScreen;
+    </script>
     <style>
         * {
             margin: 0;
@@ -22,7 +163,7 @@
             background: #0a0f1a;
         }
 
-        /* ===== ANIMATED BACKGROUND - FULLY VISIBLE ===== */
+        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -52,28 +193,6 @@
             100% { transform: translate(-3%, 2%) scale(0.96); }
         }
 
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(44, 154, 128, 0.5);
-            border-radius: 50%;
-            animation: particleFloat 12s infinite linear;
-        }
-
-        @keyframes particleFloat {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.3; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -82,9 +201,107 @@
             z-index: 1;
         }
 
-        /* Glass Navbar */
+        /* Auth Screen */
+        #authScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+        }
+
+        .auth-card {
+            background: rgba(20, 30, 45, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 48px;
+            text-align: center;
+            border: 1px solid rgba(44, 154, 128, 0.5);
+            max-width: 450px;
+            width: 90%;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .auth-card h1 {
+            font-size: 36px;
+            background: linear-gradient(135deg, #e0f2fe, #2c9a80);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .google-btn, .email-btn {
+            padding: 14px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: none;
+        }
+
+        .google-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .google-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .email-btn {
+            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
+            color: white;
+        }
+
+        .email-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(44, 154, 128, 0.5);
+        }
+
+        .divider {
+            margin: 24px 0;
+            text-align: center;
+            color: #94a3b8;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        /* Navbar */
         .navbar {
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             position: sticky;
@@ -115,6 +332,13 @@
             color: #94a3b8;
         }
 
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
         .page-tabs {
             display: flex;
             gap: 8px;
@@ -122,7 +346,6 @@
             backdrop-filter: blur(8px);
             padding: 5px;
             border-radius: 60px;
-            flex-wrap: wrap;
         }
 
         .page-btn {
@@ -131,7 +354,7 @@
             border: none;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.3s;
             background: transparent;
             color: #e2e8f0;
             font-size: 13px;
@@ -168,7 +391,23 @@
             box-shadow: 0 0 15px rgba(30, 111, 92, 0.5);
         }
 
-        /* Glass Cards */
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #fca5a5;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
         .card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -182,11 +421,17 @@
         .card:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(44, 154, 128, 0.5);
         }
 
-        .card h3, .card h2 { color: #f1f5f9; }
-        .card p, .card span, .card div:not(.progress-bar) { color: #e2e8f0; }
+        .card h3, .card h2 { color: #f1f5f9; margin-bottom: 16px; }
+        .card p, .card span { color: #e2e8f0; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            margin: 32px 0;
+        }
 
         .hero-stats {
             display: flex;
@@ -198,17 +443,23 @@
             border-radius: 32px;
             padding: 40px 48px;
             margin: 32px 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .stat-number { font-size: 38px; font-weight: 800; }
-        .stat-label { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 28px;
-            margin: 32px 0;
+        .stat-number {
+            font-size: 38px;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-top: 6px;
         }
 
         .calculators-grid {
@@ -225,19 +476,26 @@
             padding: 24px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.12);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .calc-card:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-6px);
             background: rgba(255, 255, 255, 0.18);
             box-shadow: 0 0 25px rgba(44, 154, 128, 0.4);
             border-color: rgba(44, 154, 128, 0.6);
         }
 
-        .calc-icon { font-size: 44px; color: #2c9a80; margin-bottom: 16px; }
-        .calc-card h4 { color: #f1f5f9; }
+        .calc-icon {
+            font-size: 44px;
+            color: #2c9a80;
+            margin-bottom: 16px;
+        }
+
+        .calc-card h4 {
+            color: #f1f5f9;
+        }
 
         .transaction-list {
             max-height: 350px;
@@ -247,9 +505,9 @@
         .transaction-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 14px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e2e8f0;
         }
 
         .btn-primary {
@@ -260,35 +518,27 @@
             border: none;
             font-weight: 600;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 20px rgba(44, 154, 128, 0.7), 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(44, 154, 128, 0.7);
         }
 
         .btn-outline {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
             border: 1.5px solid rgba(44, 154, 128, 0.6);
             padding: 10px 20px;
             border-radius: 40px;
-            font-weight: 500;
             cursor: pointer;
             color: #e2e8f0;
             transition: all 0.3s;
         }
 
         .btn-outline:hover {
-            background: rgba(44, 154, 128, 0.25);
-            border-color: #2c9a80;
+            background: rgba(44, 154, 128, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(44, 154, 128, 0.4);
         }
 
         .modal {
@@ -308,37 +558,40 @@
         .modal.active { display: flex; }
 
         .modal-content {
-            background: rgba(20, 30, 45, 0.95);
+            background: rgba(20, 30, 45, 0.98);
             backdrop-filter: blur(16px);
             border-radius: 32px;
-            max-width: 520px;
+            max-width: 450px;
             width: 90%;
             padding: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(44, 154, 128, 0.3);
         }
 
-        .modal-content h3 { color: #f1f5f9; }
+        .modal-content h3 {
+            color: #f1f5f9;
+            margin-bottom: 20px;
+        }
 
         input, select {
             width: 100%;
             padding: 14px 18px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
-            font-size: 15px;
             margin-bottom: 18px;
             background: rgba(0, 0, 0, 0.4);
-            color: #f1f5f9;
-            transition: all 0.2s;
+            color: white;
+            font-size: 15px;
         }
 
         input:focus, select:focus {
             outline: none;
             border-color: #2c9a80;
-            box-shadow: 0 0 0 3px rgba(44, 154, 128, 0.3);
-            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 3px rgba(44, 154, 128, 0.2);
         }
 
-        input::placeholder { color: #94a3b8; }
+        input::placeholder {
+            color: #94a3b8;
+        }
 
         .progress-bar {
             height: 8px;
@@ -351,15 +604,13 @@
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #1e6f5c, #2c9a80);
-            border-radius: 10px;
             width: 0%;
             transition: width 0.6s ease;
         }
 
         .footer {
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
-            color: #94a3b8;
             padding: 40px 0 24px;
             margin-top: 60px;
             border-radius: 32px 32px 0 0;
@@ -368,22 +619,24 @@
 
         .result-area {
             background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(4px);
             border-radius: 20px;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 16px;
+            margin-top: 16px;
             text-align: center;
-            font-weight: 600;
             color: #e2e8f0;
         }
 
-        /* Page Content - CRITICAL FIX: Ensure display switching works */
         .page-content {
             display: none !important;
         }
 
         .page-content.active-page {
             display: block !important;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        #appContent {
+            display: none;
         }
 
         @keyframes fadeInUp {
@@ -391,157 +644,218 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .active-page {
-            animation: fadeInUp 0.4s ease;
-        }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: #2c9a80; border-radius: 10px; }
 
+        @media (max-width: 1024px) {
+            .nav-container { flex-direction: column; align-items: stretch; }
+            .nav-controls { justify-content: center; }
+        }
+
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
-            .hero-stats { padding: 28px 24px; }
+            .hero-stats { padding: 28px 20px; flex-direction: column; text-align: center; }
             .stat-number { font-size: 28px; }
+            .page-tabs, .mode-selector { flex-wrap: wrap; justify-content: center; }
             .page-btn, .mode-btn { padding: 6px 14px; font-size: 12px; }
+            .dashboard-grid { grid-template-columns: 1fr; gap: 20px; }
+            .calculators-grid { grid-template-columns: 1fr; }
+            .auth-card { padding: 32px 24px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ANIMATED BACKGROUND -->
 <div class="animated-bg">
     <div class="gradient-orb orb1"></div>
     <div class="gradient-orb orb2"></div>
     <div class="gradient-orb orb3"></div>
     <div class="gradient-orb orb4"></div>
 </div>
-<div class="particles" id="particles"></div>
 
-<div class="navbar">
-    <div class="container nav-container">
-        <div class="logo">
-            <h1>Financify Pro</h1>
-            <p>Animated • Glass • 20+ Calculators</p>
-        </div>
-        <div class="page-tabs">
-            <button class="page-btn" data-page="dashboard">📊 Dashboard</button>
-            <button class="page-btn" data-page="calculators">🧮 Calculators</button>
-            <button class="page-btn" data-page="transactions">📝 Transactions</button>
-            <button class="page-btn" data-page="insights">💡 Insights</button>
-        </div>
-        <div class="mode-selector">
-            <button class="mode-btn" data-mode="household">🏠 Household</button>
-            <button class="mode-btn" data-mode="business">💼 Business</button>
+<!-- Auth Screen -->
+<div id="authScreen">
+    <div class="auth-card">
+        <h1>Financify Pro</h1>
+        <p style="color: #94a3b8; margin-top: 8px;">Secure Financial Management with Firebase</p>
+        <div class="auth-buttons">
+            <button class="google-btn" onclick="window.signInWithGoogle()">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <div class="divider">or</div>
+            <button class="email-btn" onclick="window.openLoginModal()">
+                <i class="fas fa-envelope"></i> Sign in with Email
+            </button>
+            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" onclick="window.openSignupModal()">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
         </div>
     </div>
 </div>
 
-<main class="container">
-    <!-- DASHBOARD PAGE -->
-    <div id="dashboardPage" class="page-content">
-        <div class="hero-stats">
-            <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Advanced Tools</div></div>
-            <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Accuracy Rate</div></div>
-            <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Smart Support</div></div>
-            <div class="stat-item"><div class="stat-number">$12B+</div><div class="stat-label">Value Tracked</div></div>
-        </div>
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3><i class="fas fa-chart-line"></i> Financial Snapshot</h3>
-                <div class="stat-value" id="mainBalance" style="font-size: 42px; margin: 16px 0; color: #f1f5f9;">$0</div>
-                <div>📈 Income: <strong id="totalIncome" style="color:#2c9a80;">$0</strong> &nbsp;|&nbsp; 📉 Expenses: <strong id="totalExpense" style="color:#ef4444;">$0</strong></div>
-                <div class="progress-bar"><div class="progress-fill" id="savingsProgressFill"></div></div>
-                <div>🎯 Savings Rate: <span id="savingsRate">0</span>%</div>
+<!-- Main App Content -->
+<div id="appContent">
+    <div class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>Financify Pro</h1>
+                <p>Firebase Auth • Animated • Smart Finance</p>
             </div>
-            <div class="card">
-                <h3><i class="fas fa-chart-pie"></i> Spending Distribution</h3>
-                <div style="height: 220px;"><canvas id="spendingChart"></canvas></div>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-lightbulb"></i> Smart Tip</h3>
-                <p id="tipText" style="margin-top: 12px;">Use calculators to optimize finances</p>
-                <button class="btn-primary" style="margin-top: 20px;" id="exploreCalculatorsBtn">Explore 20+ Tools →</button>
+            <div class="nav-controls">
+                <div class="page-tabs">
+                    <button class="page-btn" data-page="dashboard">📊 Dashboard</button>
+                    <button class="page-btn" data-page="calculators">🧮 Calculators</button>
+                    <button class="page-btn" data-page="transactions">📝 Transactions</button>
+                    <button class="page-btn" data-page="insights">💡 Insights</button>
+                </div>
+                <div class="mode-selector">
+                    <button class="mode-btn" data-mode="household">🏠 Household</button>
+                    <button class="mode-btn" data-mode="business">💼 Business</button>
+                </div>
+                <button class="logout-btn" onclick="window.logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
     </div>
 
-    <!-- CALCULATORS PAGE -->
-    <div id="calculatorsPage" class="page-content">
-        <div class="card">
-            <h2><i class="fas fa-calculator"></i> Advanced Financial Calculators <span id="calcModeIndicator" style="font-size:14px; background:rgba(0,0,0,0.3); padding:4px 12px; border-radius:40px; margin-left:12px;">Household</span></h2>
-            <div id="calculatorsGridContainer" class="calculators-grid"></div>
-        </div>
-    </div>
-
-    <!-- TRANSACTIONS PAGE -->
-    <div id="transactionsPage" class="page-content">
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3><i class="fas fa-list"></i> All Transactions</h3>
-                <button class="btn-outline" style="margin: 16px 0;" id="addTransactionBtn"><i class="fas fa-plus"></i> Add Transaction</button>
-                <div id="allTransactionsList" class="transaction-list" style="max-height: 450px;"></div>
+    <main class="container">
+        <div id="dashboardPage" class="page-content">
+            <div class="hero-stats">
+                <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Advanced Tools</div></div>
+                <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Accuracy Rate</div></div>
+                <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Smart Support</div></div>
+                <div class="stat-item"><div class="stat-number">$12B+</div><div class="stat-label">Value Tracked</div></div>
             </div>
-            <div class="card">
-                <h3><i class="fas fa-chart-simple"></i> Category Breakdown</h3>
-                <div style="height: 260px;"><canvas id="categoryChart"></canvas></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- INSIGHTS PAGE -->
-    <div id="insightsPage" class="page-content">
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3><i class="fas fa-chart-line"></i> Monthly Trends</h3>
-                <div style="height: 260px;"><canvas id="trendsChart"></canvas></div>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-bullhorn"></i> Financial Recommendations</h3>
-                <div id="recommendationsList" style="margin-top: 16px; color:#e2e8f0;"></div>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Financial Snapshot</h3>
+                    <div class="stat-value" id="mainBalance" style="font-size: 42px; margin: 16px 0; color: #f1f5f9;">$0</div>
+                    <div>📈 Income: <strong id="totalIncome" style="color:#2c9a80;">$0</strong> &nbsp;|&nbsp; 📉 Expenses: <strong id="totalExpense" style="color:#ef4444;">$0</strong></div>
+                    <div class="progress-bar"><div class="progress-fill" id="savingsProgressFill"></div></div>
+                    <div>🎯 Savings Rate: <span id="savingsRate">0</span>%</div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-pie"></i> Spending Distribution</h3>
+                    <div style="height: 220px;"><canvas id="spendingChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-lightbulb"></i> Smart Tip</h3>
+                    <p id="tipText" style="margin-top: 8px;">Use calculators to optimize your financial goals</p>
+                    <button class="btn-primary" style="margin-top: 20px;" id="exploreCalculatorsBtn">Explore 20+ Tools →</button>
+                </div>
             </div>
         </div>
-    </div>
-</main>
 
-<div class="footer">
-    <div class="container">
-        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px;">
-            <div><h3 style="color:white;">Financify Pro</h3><p>Animated Glass UI</p><p>© 2026 All rights reserved.</p></div>
-            <div><h4 style="color:white;">Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p><p><i class="fas fa-phone"></i> +1 (888) 456-7890</p></div>
+        <div id="calculatorsPage" class="page-content">
+            <div class="card">
+                <h2><i class="fas fa-calculator"></i> Advanced Financial Calculators</h2>
+                <p style="margin-bottom: 16px;">Choose from 20+ professional calculators for household and business finance</p>
+                <span id="calcModeIndicator" style="display: inline-block; background: rgba(0,0,0,0.3); padding: 4px 16px; border-radius: 40px; font-size: 14px;">🏠 Household Mode</span>
+                <div id="calculatorsGridContainer" class="calculators-grid"></div>
+            </div>
+        </div>
+
+        <div id="transactionsPage" class="page-content">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> All Transactions</h3>
+                    <button class="btn-outline" style="margin: 16px 0;" id="addTransactionBtn"><i class="fas fa-plus"></i> Add Transaction</button>
+                    <div id="allTransactionsList" class="transaction-list"></div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-simple"></i> Category Breakdown</h3>
+                    <div style="height: 260px;"><canvas id="categoryChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="insightsPage" class="page-content">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Monthly Trends</h3>
+                    <div style="height: 260px;"><canvas id="trendsChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-bullhorn"></i> Financial Recommendations</h3>
+                    <div id="recommendationsList" style="margin-top: 16px;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="footer">
+        <div class="container">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+                <div><h3 style="color: white;">Financify Pro</h3><p>Secure Firebase Authentication</p><p>© 2026 All rights reserved.</p></div>
+                <div><h4 style="color: white;">Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p><p><i class="fas fa-phone"></i> +1 (888) 456-7890</p></div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- MODALS -->
-<div id="transactionModal" class="modal"><div class="modal-content"><h3><i class="fas fa-plus-circle"></i> Add Transaction</h3><input type="text" id="txnDesc" placeholder="Description"><input type="number" id="txnAmount" placeholder="Amount"><select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select><select id="txnCategory"></select><button class="btn-primary" id="saveTransactionBtn">Save</button><button class="btn-outline" style="margin-top:12px;" id="closeModalBtn">Cancel</button></div></div>
-<div id="calculatorModal" class="modal"><div class="modal-content"><h3 id="calcModalTitle">Calculator</h3><div id="calcInputsArea"></div><div id="calcResultArea" class="result-area">Enter values and calculate</div><button class="btn-primary" id="runCalcBtn">Calculate</button><button class="btn-outline" style="margin-top:12px;" id="closeCalcModalBtn">Close</button></div></div>
+<!-- Modals -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-sign-in-alt"></i> Sign In</h3>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button class="btn-primary" onclick="window.loginWithEmail()" style="width: 100%;">Login</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
+    </div>
+</div>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-user-plus"></i> Create Account</h3>
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
+        <button class="btn-primary" onclick="window.signUpWithEmail()" style="width: 100%;">Sign Up</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
+    </div>
+</div>
+
+<div id="transactionModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-plus-circle"></i> Add Transaction</h3>
+        <input type="text" id="txnDesc" placeholder="Description">
+        <input type="number" id="txnAmount" placeholder="Amount">
+        <select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select>
+        <select id="txnCategory"></select>
+        <button class="btn-primary" id="saveTransactionBtn" style="width: 100%;">Save Transaction</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('transactionModal')">Cancel</button>
+    </div>
+</div>
+
+<div id="calculatorModal" class="modal">
+    <div class="modal-content">
+        <h3 id="calcModalTitle">Calculator</h3>
+        <div id="calcInputsArea"></div>
+        <div id="calcResultArea" class="result-area">Enter values and click Calculate</div>
+        <button class="btn-primary" id="runCalcBtn" style="width: 100%; margin-top: 16px;">Calculate</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('calculatorModal')">Close</button>
+    </div>
+</div>
 
 <script>
-    // ========== 20+ CALCULATORS ==========
+    // 20+ Calculators Data
     const householdCalculators = [
-        { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)} | Total Interest: $${(emi*n-v.amt).toFixed(2)}`; } },
-        { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly SIP ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)} | Invested: $${(v.sip*n).toFixed(2)}`; } },
-        { id: "lumpsum", name: "💰 Lumpsum Growth", inputs: [{l:"Principal ($)",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Maturity: $${a.toFixed(2)} | Gain: $${(a-v.p).toFixed(2)}`; } },
-        { id: "budget", name: "📋 Budget Planner", inputs: [{l:"Monthly Income",k:"inc"},{l:"Expenses",k:"exp"}], calc: (v)=>{ let s=v.inc-v.exp, p=(s/v.inc*100).toFixed(1); return `${s>=0?"Surplus":"Deficit"}: $${Math.abs(s)} (${p}% savings)`; } },
+        { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)}`; } },
+        { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly SIP ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)}`; } },
+        { id: "lumpsum", name: "💰 Lumpsum Growth", inputs: [{l:"Principal ($)",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Maturity: $${a.toFixed(2)}`; } },
+        { id: "budget", name: "📋 Budget Planner", inputs: [{l:"Income ($)",k:"inc"},{l:"Expenses ($)",k:"exp"}], calc: (v)=>{ let s=v.inc-v.exp; return `${s>=0?"Surplus":"Deficit"}: $${Math.abs(s)}`; } },
         { id: "rd", name: "🏦 Recurring Deposit", inputs: [{l:"Monthly Deposit",k:"dep"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, mv=v.dep*((Math.pow(1+r,n)-1)/r); return `Maturity: $${mv.toFixed(2)}`; } },
         { id: "fd", name: "📀 Fixed Deposit", inputs: [{l:"Principal",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Final: $${a.toFixed(2)}`; } },
-        { id: "inflation", name: "📉 Inflation Effect", inputs: [{l:"Current Amount",k:"amt"},{l:"Inflation (%)",k:"inf"},{l:"Years",k:"y"}], calc: (v)=>{ let fv=v.amt/Math.pow(1+v.inf/100,v.y); return `Real Value: $${fv.toFixed(2)}`; } },
-        { id: "retirement", name: "👴 Retirement Corpus", inputs: [{l:"Monthly Need",k:"need"},{l:"Years",k:"years"},{l:"Return (%)",k:"rate"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, corpus=v.need*((1-Math.pow(1+r,-n))/r); return `Required: $${corpus.toFixed(2)}`; } },
-        { id: "cagr", name: "📈 CAGR", inputs: [{l:"Start Value",k:"sv"},{l:"End Value",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let cagr=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `CAGR: ${cagr.toFixed(2)}%`; } },
-        { id: "loanTenure", name: "⏱️ Loan Tenure", inputs: [{l:"Loan Amount",k:"amt"},{l:"EMI",k:"emi"},{l:"Rate (%)",k:"rate"}], calc: (v)=>{ let r=v.rate/12/100, tenure=Math.log(v.emi/(v.emi-v.amt*r))/Math.log(1+r); return `Tenure: ${Math.ceil(tenure)} months`; } }
+        { id: "cagr", name: "📈 CAGR Calculator", inputs: [{l:"Start Value",k:"sv"},{l:"End Value",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let cagr=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `CAGR: ${cagr.toFixed(2)}%`; } },
+        { id: "inflation", name: "📉 Inflation Effect", inputs: [{l:"Current Amount",k:"amt"},{l:"Inflation (%)",k:"inf"},{l:"Years",k:"y"}], calc: (v)=>{ let fv=v.amt/Math.pow(1+v.inf/100,v.y); return `Real Value: $${fv.toFixed(2)}`; } }
     ];
+    
     const businessCalculators = [
-        { id: "profitMargin", name: "📊 Profit Margin", inputs: [{l:"Revenue ($)",k:"rev"},{l:"Cost ($)",k:"cost"}], calc: (v)=>{ let p=v.rev-v.cost, m=(p/v.rev*100).toFixed(1); return `Profit: $${p.toFixed(2)} (${m}% margin)`; } },
-        { id: "gst", name: "🧾 GST Calculator", inputs: [{l:"Base Amount",k:"amt"},{l:"GST Rate (%)",k:"rate"}], calc: (v)=>{ let g=v.amt*v.rate/100; return `GST: $${g.toFixed(2)} | Total: $${(v.amt+g).toFixed(2)}`; } },
-        { id: "roi", name: "📈 ROI", inputs: [{l:"Investment",k:"inv"},{l:"Returns",k:"ret"}], calc: (v)=>{ return `ROI: ${(((v.ret-v.inv)/v.inv)*100).toFixed(1)}%`; } },
+        { id: "profit", name: "📊 Profit Margin", inputs: [{l:"Revenue ($)",k:"rev"},{l:"Cost ($)",k:"cost"}], calc: (v)=>{ let p=v.rev-v.cost, m=(p/v.rev*100).toFixed(1); return `Profit: $${p} (${m}% margin)`; } },
+        { id: "gst", name: "🧾 GST Calculator", inputs: [{l:"Amount ($)",k:"amt"},{l:"GST Rate (%)",k:"rate"}], calc: (v)=>{ let g=v.amt*v.rate/100; return `GST: $${g} | Total: $${v.amt+g}`; } },
+        { id: "roi", name: "📈 ROI Calculator", inputs: [{l:"Investment ($)",k:"inv"},{l:"Returns ($)",k:"ret"}], calc: (v)=>{ return `ROI: ${(((v.ret-v.inv)/v.inv)*100).toFixed(1)}%`; } },
         { id: "breakEven", name: "⚖️ Break-Even", inputs: [{l:"Fixed Cost",k:"fixed"},{l:"Price/Unit",k:"price"},{l:"Var Cost/Unit",k:"varCost"}], calc: (v)=>{ let be=v.fixed/(v.price-v.varCost); return `Break-even units: ${Math.ceil(be)}`; } },
-        { id: "cagrBiz", name: "📊 Business CAGR", inputs: [{l:"Start Revenue",k:"sv"},{l:"End Revenue",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let cagr=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `CAGR: ${cagr.toFixed(2)}%`; } },
         { id: "ebitda", name: "💰 EBITDA Margin", inputs: [{l:"Revenue",k:"rev"},{l:"EBITDA",k:"ebitda"}], calc: (v)=>{ let m=(v.ebitda/v.rev*100).toFixed(1); return `EBITDA Margin: ${m}%`; } },
-        { id: "payback", name: "⏱️ Payback Period", inputs: [{l:"Initial Investment",k:"inv"},{l:"Annual CF",k:"cf"}], calc: (v)=>{ return `Payback: ${(v.inv/v.cf).toFixed(1)} years`; } },
-        { id: "npv", name: "📉 NPV", inputs: [{l:"Outlay",k:"out"},{l:"Annual CF",k:"cf"},{l:"Years",k:"y"},{l:"Discount %",k:"rate"}], calc: (v)=>{ let npv=-v.out; for(let i=1;i<=v.y;i++) npv+=v.cf/Math.pow(1+v.rate/100,i); return `NPV: $${npv.toFixed(2)}`; } },
-        { id: "debtEquity", name: "🏦 D/E Ratio", inputs: [{l:"Debt",k:"debt"},{l:"Equity",k:"eq"}], calc: (v)=>{ return `D/E: ${(v.debt/v.eq).toFixed(2)}`; } },
-        { id: "liquidity", name: "💧 Current Ratio", inputs: [{l:"Current Assets",k:"ca"},{l:"Liabilities",k:"cl"}], calc: (v)=>{ return `Ratio: ${(v.ca/v.cl).toFixed(2)}`; } }
+        { id: "payback", name: "⏱️ Payback Period", inputs: [{l:"Investment",k:"inv"},{l:"Annual CF",k:"cf"}], calc: (v)=>{ return `Payback: ${(v.inv/v.cf).toFixed(1)} years`; } }
     ];
 
     let currentMode = "household";
@@ -549,9 +863,9 @@
     let activeCalculator = null;
     let spendingChart, categoryChart, trendsChart;
 
-    // Data Management
-    function loadData() {
-        const stored = localStorage.getItem("financify_pro_final_v2");
+    function loadUserData() {
+        const userId = localStorage.getItem('financify_user_id') || 'default_user';
+        const stored = localStorage.getItem(`financify_data_${userId}`);
         if(stored) {
             try { transactions = JSON.parse(stored).transactions || []; } catch(e) {}
         }
@@ -560,40 +874,47 @@
                 { id: 1, desc: "Salary Deposit", amount: 5800, type: "income", category: "Salary", date: "2026-03-01" },
                 { id: 2, desc: "Groceries", amount: 450, type: "expense", category: "Food", date: "2026-03-05" },
                 { id: 3, desc: "Rent", amount: 1450, type: "expense", category: "Housing", date: "2026-03-01" },
-                { id: 4, desc: "Freelance", amount: 950, type: "income", category: "Extra", date: "2026-03-10" },
-                { id: 5, desc: "Utilities", amount: 210, type: "expense", category: "Bills", date: "2026-03-08" }
+                { id: 4, desc: "Freelance", amount: 950, type: "income", category: "Extra", date: "2026-03-10" }
             ];
         }
         updateAllUI();
     }
-    function saveData() { localStorage.setItem("financify_pro_final_v2", JSON.stringify({ transactions })); }
+
+    function saveUserData() {
+        const userId = localStorage.getItem('financify_user_id') || 'default_user';
+        localStorage.setItem(`financify_data_${userId}`, JSON.stringify({ transactions }));
+    }
+
+    window.clearUserData = function() { transactions = []; updateAllUI(); };
+    window.initializeAppData = function() {
+        if (!localStorage.getItem('financify_user_id')) {
+            localStorage.setItem('financify_user_id', 'user_' + Date.now());
+        }
+        loadUserData();
+    };
 
     function updateAllUI() {
         let inc = transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
         let exp = transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
         let bal = inc - exp;
-        let mainBalanceEl = document.getElementById("mainBalance");
-        if(mainBalanceEl) mainBalanceEl.innerText = `$${bal.toLocaleString()}`;
-        let totalIncomeEl = document.getElementById("totalIncome");
-        if(totalIncomeEl) totalIncomeEl.innerText = `$${inc.toLocaleString()}`;
-        let totalExpenseEl = document.getElementById("totalExpense");
-        if(totalExpenseEl) totalExpenseEl.innerText = `$${exp.toLocaleString()}`;
+        document.getElementById("mainBalance") && (document.getElementById("mainBalance").innerText = `$${bal.toLocaleString()}`);
+        document.getElementById("totalIncome") && (document.getElementById("totalIncome").innerText = `$${inc.toLocaleString()}`);
+        document.getElementById("totalExpense") && (document.getElementById("totalExpense").innerText = `$${exp.toLocaleString()}`);
         let rate = inc>0 ? ((bal/inc)*100).toFixed(1) : 0;
-        let savingsRateEl = document.getElementById("savingsRate");
-        if(savingsRateEl) savingsRateEl.innerText = rate;
+        document.getElementById("savingsRate") && (document.getElementById("savingsRate").innerText = rate);
         let fill = Math.min(100, Math.max(0, (bal/inc)*100));
-        let progressFill = document.getElementById("savingsProgressFill");
-        if(progressFill) progressFill.style.width = `${fill}%`;
+        document.getElementById("savingsProgressFill") && (document.getElementById("savingsProgressFill").style.width = `${fill}%`);
         renderTransactions();
         updateCharts();
         updateRecommendations();
+        updateTip();
     }
 
     function renderTransactions() {
         const container = document.getElementById("allTransactionsList");
         if(container) {
-            container.innerHTML = [...transactions].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(t => 
-                `<div class="transaction-item"><span><i class="fas ${t.type==='income'?'fa-arrow-up':'fa-arrow-down'}"></i> ${t.desc}</span><span>$${t.amount.toFixed(2)}</span><span style="font-size:12px;">${t.category}</span></div>`
+            container.innerHTML = [...transactions].reverse().map(t => 
+                `<div class="transaction-item"><span><i class="fas ${t.type==='income'?'fa-arrow-up':'fa-arrow-down'}"></i> ${t.desc}</span><span style="color: ${t.type==='income'?'#2c9a80':'#ef4444'}">$${t.amount.toFixed(2)}</span><span style="font-size:12px;">${t.category}</span></div>`
             ).join("");
         }
     }
@@ -604,33 +925,28 @@
         const ctx = document.getElementById('spendingChart')?.getContext('2d');
         if(ctx) { if(spendingChart) spendingChart.destroy(); spendingChart = new Chart(ctx, { type: 'doughnut', data: { labels: Object.keys(expMap), datasets: [{ data: Object.values(expMap), backgroundColor: ['#2c9a80','#1e6f5c','#0f2b3d','#54b4a0'] }] }, options: { plugins: { legend: { labels: { color: '#e2e8f0' } } } } }); }
         const catCtx = document.getElementById('categoryChart')?.getContext('2d');
-        if(catCtx) { if(categoryChart) categoryChart.destroy(); categoryChart = new Chart(catCtx, { type: 'bar', data: { labels: Object.keys(expMap), datasets: [{ label: 'Expenses', data: Object.values(expMap), backgroundColor: '#2c9a80' }] }, options: { scales: { y: { ticks: { color: '#e2e8f0' } }, x: { ticks: { color: '#e2e8f0' } } } } }); }
+        if(catCtx) { if(categoryChart) categoryChart.destroy(); categoryChart = new Chart(catCtx, { type: 'bar', data: { labels: Object.keys(expMap), datasets: [{ label: 'Expenses ($)', data: Object.values(expMap), backgroundColor: '#2c9a80' }] }, options: { scales: { y: { ticks: { color: '#e2e8f0' } }, x: { ticks: { color: '#e2e8f0' } } } } }); }
         const monthly = {};
         transactions.forEach(t=>{ let m=t.date.slice(0,7); monthly[m]=(monthly[m]||0)+(t.type==='income'?t.amount:-t.amount); });
         const trendCtx = document.getElementById('trendsChart')?.getContext('2d');
-        if(trendCtx) { if(trendsChart) trendsChart.destroy(); trendsChart = new Chart(trendCtx, { type: 'line', data: { labels: Object.keys(monthly), datasets: [{ label: 'Net Flow', data: Object.values(monthly), borderColor: '#2c9a80', tension: 0.3 }] }, options: { scales: { y: { ticks: { color: '#e2e8f0' } }, x: { ticks: { color: '#e2e8f0' } } } } }); }
+        if(trendCtx) { if(trendsChart) trendsChart.destroy(); trendsChart = new Chart(trendCtx, { type: 'line', data: { labels: Object.keys(monthly), datasets: [{ label: 'Net Cashflow', data: Object.values(monthly), borderColor: '#2c9a80', tension: 0.3 }] }, options: { scales: { y: { ticks: { color: '#e2e8f0' } }, x: { ticks: { color: '#e2e8f0' } } } } }); }
     }
 
     function updateRecommendations() {
         const recDiv = document.getElementById("recommendationsList");
-        if(recDiv) recDiv.innerHTML = `<ul><li>✅ ${currentMode === 'household' ? 'Use SIP for long-term goals' : 'Analyze break-even for profitability'}</li><li>✅ Track expense categories regularly</li><li>✅ Explore all 20+ calculators</li></ul>`;
+        if(recDiv) recDiv.innerHTML = `<ul style="list-style:none;"><li><i class="fas fa-check-circle" style="color:#2c9a80;"></i> ${currentMode === 'household' ? 'Use SIP for long-term wealth' : 'Analyze break-even for pricing'}</li><li><i class="fas fa-check-circle" style="color:#2c9a80;"></i> Track expenses regularly</li><li><i class="fas fa-check-circle" style="color:#2c9a80;"></i> Explore all 20+ calculators</li></ul>`;
     }
+
+    function updateTip() { const tipText = document.getElementById("tipText"); const tips = ["📊 Save 20% of income", "📉 Track variable expenses", "💼 Business mode offers break-even", "🎯 Use SIP calculator"]; if(tipText) tipText.innerText = tips[Math.floor(Math.random() * tips.length)]; }
 
     function renderCalculatorsGrid() {
         const lib = currentMode === "household" ? householdCalculators : businessCalculators;
         const container = document.getElementById("calculatorsGridContainer");
         if(container) {
-            container.innerHTML = lib.map(c => `<div class="calc-card" data-calc-id="${c.id}"><div class="calc-icon"><i class="fas fa-chart-line"></i></div><h4>${c.name}</h4></div>`).join("");
-            // Attach event listeners to calculator cards
-            document.querySelectorAll('.calc-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    const id = card.getAttribute('data-calc-id');
-                    openCalculator(id);
-                });
-            });
+            container.innerHTML = lib.map(c => `<div class="calc-card" data-calc-id="${c.id}"><div class="calc-icon"><i class="fas fa-chart-line"></i></div><h4>${c.name}</h4><p style="font-size:12px; color:#94a3b8;">Click to calculate</p></div>`).join("");
+            document.querySelectorAll('.calc-card').forEach(card => card.addEventListener('click', () => openCalculator(card.getAttribute('data-calc-id'))));
         }
-        let modeIndicator = document.getElementById("calcModeIndicator");
-        if(modeIndicator) modeIndicator.innerText = currentMode === "household" ? "🏠 Household (10+ tools)" : "💼 Business (10+ tools)";
+        document.getElementById("calcModeIndicator") && (document.getElementById("calcModeIndicator").innerHTML = currentMode === "household" ? "🏠 Household Mode (8+ tools)" : "💼 Business Mode (6+ tools)");
     }
 
     function openCalculator(id) {
@@ -639,20 +955,18 @@
         if(activeCalculator) {
             document.getElementById("calcModalTitle").innerHTML = `<i class="fas fa-calculator"></i> ${activeCalculator.name}`;
             document.getElementById("calcInputsArea").innerHTML = activeCalculator.inputs.map(inp => `<label style="color:#e2e8f0;">${inp.l}</label><input type="number" id="calc_${inp.k}" placeholder="${inp.l}" step="any" value="0">`).join("");
-            document.getElementById("calcResultArea").innerHTML = "Enter values & calculate";
+            document.getElementById("calcResultArea").innerHTML = "Enter values and click Calculate";
             document.getElementById("calculatorModal").classList.add("active");
         }
     }
 
-    function runCalculator() {
+    window.runCalculator = function() {
         if(activeCalculator) {
             let vals = {};
-            activeCalculator.inputs.forEach(inp => {
-                vals[inp.k] = parseFloat(document.getElementById(`calc_${inp.k}`)?.value) || 0;
-            });
-            document.getElementById("calcResultArea").innerHTML = `<strong>Result:</strong> ${activeCalculator.calc(vals)}`;
+            activeCalculator.inputs.forEach(inp => vals[inp.k] = parseFloat(document.getElementById(`calc_${inp.k}`)?.value) || 0);
+            document.getElementById("calcResultArea").innerHTML = `<strong><i class="fas fa-chart-line"></i> Result:</strong> ${activeCalculator.calc(vals)}`;
         }
-    }
+    };
 
     function addTransaction() {
         let desc = document.getElementById("txnDesc").value.trim();
@@ -661,122 +975,26 @@
         let cat = document.getElementById("txnCategory").value;
         if(!desc || isNaN(amt) || amt <= 0) { alert("Please enter valid description and amount"); return; }
         transactions.push({ id: Date.now(), desc, amount: amt, type, category: cat, date: new Date().toISOString().slice(0,10) });
-        saveData();
-        updateAllUI();
-        closeModal('transactionModal');
-        document.getElementById("txnDesc").value = "";
-        document.getElementById("txnAmount").value = "";
-    }
-
-    function updateCategorySelect() {
-        let sel = document.getElementById("txnCategory");
-        if(sel) {
-            sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join("");
-        }
+        saveUserData(); updateAllUI(); closeModal('transactionModal');
+        document.getElementById("txnDesc").value = ""; document.getElementById("txnAmount").value = "";
     }
 
     function openTxnModal() { updateCategorySelect(); document.getElementById("transactionModal").classList.add("active"); }
-    function closeModal(id) { document.getElementById(id).classList.remove("active"); }
+    function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
+    function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
+    function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    window.closeModal = closeModal;
 
-    function setMode(mode) {
-        currentMode = mode;
-        document.querySelectorAll(".mode-btn").forEach(btn => {
-            if(btn.getAttribute("data-mode") === mode) btn.classList.add("active");
-            else btn.classList.remove("active");
-        });
-        renderCalculatorsGrid();
-        updateCategorySelect();
-        updateRecommendations();
-    }
-
-    // CRITICAL FIX: Page switching function that works reliably
-    function setActivePage(pageId) {
-        // Hide all pages
-        document.querySelectorAll('.page-content').forEach(page => {
-            page.classList.remove('active-page');
-        });
-        // Show selected page
-        const targetPage = document.getElementById(`${pageId}Page`);
-        if(targetPage) {
-            targetPage.classList.add('active-page');
-        }
-        // Update active button state
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            if(btn.getAttribute('data-page') === pageId) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-        // Refresh data when switching to certain pages
-        if(pageId === 'calculators') renderCalculatorsGrid();
-        if(pageId !== 'calculators') updateAllUI();
-    }
-
-    // ========== EVENT LISTENERS (ensuring they work after deployment) ==========
     document.addEventListener('DOMContentLoaded', () => {
-        // Page buttons
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const page = btn.getAttribute('data-page');
-                if(page) setActivePage(page);
-            });
-        });
-        // Mode buttons
-        document.querySelectorAll('.mode-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const mode = btn.getAttribute('data-mode');
-                if(mode) setMode(mode);
-            });
-        });
-        // Explore calculators button
-        const exploreBtn = document.getElementById('exploreCalculatorsBtn');
-        if(exploreBtn) exploreBtn.addEventListener('click', () => setActivePage('calculators'));
-        // Add transaction button
-        const addTxnBtn = document.getElementById('addTransactionBtn');
-        if(addTxnBtn) addTxnBtn.addEventListener('click', openTxnModal);
-        // Save transaction button
-        const saveBtn = document.getElementById('saveTransactionBtn');
-        if(saveBtn) saveBtn.addEventListener('click', addTransaction);
-        // Close modal buttons
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        if(closeModalBtn) closeModalBtn.addEventListener('click', () => closeModal('transactionModal'));
-        const closeCalcBtn = document.getElementById('closeCalcModalBtn');
-        if(closeCalcBtn) closeCalcBtn.addEventListener('click', () => closeModal('calculatorModal'));
-        // Calculate button
-        const runCalcBtn = document.getElementById('runCalcBtn');
-        if(runCalcBtn) runCalcBtn.addEventListener('click', runCalculator);
-        // Close modals when clicking outside
-        window.addEventListener('click', (e) => {
-            if(e.target.classList && e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-            }
-        });
+        document.querySelectorAll('.page-btn').forEach(b=>b.addEventListener('click',()=>setActivePage(b.getAttribute('data-page'))));
+        document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>setMode(b.getAttribute('data-mode'))));
+        document.getElementById('exploreCalculatorsBtn')?.addEventListener('click',()=>setActivePage('calculators'));
+        document.getElementById('addTransactionBtn')?.addEventListener('click',openTxnModal);
+        document.getElementById('saveTransactionBtn')?.addEventListener('click',addTransaction);
+        document.getElementById('runCalcBtn')?.addEventListener('click',()=>window.runCalculator());
+        loadUserData(); setMode("household"); setActivePage("dashboard");
     });
-
-    // Particles generation
-    function createParticles() {
-        const container = document.getElementById('particles');
-        if(container) {
-            for(let i=0;i<50;i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.width = Math.random() * 4 + 2 + 'px';
-                p.style.height = p.style.width;
-                p.style.left = Math.random() * 100 + '%';
-                p.style.bottom = Math.random() * 100 + '%';
-                p.style.animationDelay = Math.random() * 15 + 's';
-                p.style.animationDuration = 8 + Math.random() * 10 + 's';
-                container.appendChild(p);
-            }
-        }
-    }
-    createParticles();
-    loadData();
-    setMode("household");
-    setActivePage("dashboard");
 </script>
 </body>
 </html>
