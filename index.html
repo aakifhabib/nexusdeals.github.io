@@ -593,9 +593,9 @@
         <h3><i class="fas fa-sign-in-alt"></i> Sign In (Local)</h3>
         <input type="email" id="loginEmail" placeholder="Email">
         <input type="password" id="loginPassword" placeholder="Password">
-        <button class="btn-primary" id="loginEmailBtn" style="width: 100%;">Login</button>
+        <button class="btn-primary" onclick="performLocalLogin()" style="width: 100%;">Login</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" id="switchToSignup" style="color: #2c9a80;">Sign up</a></p>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" onclick="closeModal('loginModal'); showSignupModal(); return false;" style="color: #2c9a80;">Sign up</a></p>
     </div>
 </div>
 
@@ -606,9 +606,9 @@
         <input type="email" id="signupEmail" placeholder="Email">
         <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
         <input type="text" id="signupName" placeholder="Full Name (Optional)">
-        <button class="btn-primary" id="signupEmailBtn" style="width: 100%;">Sign Up</button>
+        <button class="btn-primary" onclick="performLocalSignup()" style="width: 100%;">Sign Up</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" id="switchToLogin" style="color: #2c9a80;">Sign in</a></p>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" onclick="closeModal('signupModal'); showLoginModal(); return false;" style="color: #2c9a80;">Sign in</a></p>
     </div>
 </div>
 
@@ -671,17 +671,17 @@
         const existingUser = users.find(u => u.email === email);
         
         if (existingUser) {
-            alert("Email already registered. Please login instead.");
+            alert("❌ Email already registered. Please login instead.");
             return false;
         }
         
         if (password.length < 6) {
-            alert("Password must be at least 6 characters");
+            alert("❌ Password must be at least 6 characters");
             return false;
         }
         
         if (!email.includes('@') || !email.includes('.')) {
-            alert("Please enter a valid email address");
+            alert("❌ Please enter a valid email address");
             return false;
         }
         
@@ -708,9 +708,9 @@
         return null;
     }
     
-    // ============ AUTHENTICATION FUNCTIONS ============
+    // ============ AUTHENTICATION FUNCTIONS (DIRECTLY CALLABLE) ============
     
-    // Google Sign In (Firebase)
+    // Google Sign In
     window.signInWithGoogle = function() {
         auth.signInWithPopup(googleProvider)
             .then((result) => {
@@ -730,26 +730,27 @@
                 if (error.code === 'auth/popup-blocked') {
                     alert("Popup was blocked. Please allow popups for this site.");
                 } else if (error.code === 'auth/unauthorized-domain') {
-                    alert("Please add this domain to Firebase authorized domains.\n\nGo to Firebase Console > Authentication > Settings > Authorized domains");
+                    alert("Please add this domain to Firebase authorized domains.");
                 } else {
                     alert("Google Sign-In failed: " + error.message);
                 }
             });
     };
     
-    // Local Email Sign Up
-    window.localSignUpHandler = function() {
+    // Local Email Sign Up - DIRECT FUNCTION
+    window.performLocalSignup = function() {
+        console.log("Signup function called!");
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
         const name = document.getElementById('signupName').value.trim();
         
         if (!email || !password) {
-            alert("Please enter email and password");
+            alert("❌ Please enter email and password");
             return;
         }
         
         if (localSignUp(email, password, name)) {
-            alert("Account created successfully! Please login.");
+            alert("✅ Account created successfully! Please login.");
             closeModal('signupModal');
             showLoginModal();
             document.getElementById('signupEmail').value = '';
@@ -758,13 +759,14 @@
         }
     };
     
-    // Local Email Login
-    window.localLoginHandler = function() {
+    // Local Email Login - DIRECT FUNCTION
+    window.performLocalLogin = function() {
+        console.log("Login function called!");
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
         
         if (!email || !password) {
-            alert("Please enter email and password");
+            alert("❌ Please enter email and password");
             return;
         }
         
@@ -777,8 +779,9 @@
             showAppAfterLogin();
             document.getElementById('loginEmail').value = '';
             document.getElementById('loginPassword').value = '';
+            alert("✅ Login successful! Welcome " + (user.name || user.email));
         } else {
-            alert("Invalid email or password. Please try again or sign up.");
+            alert("❌ Invalid email or password. Please try again or sign up.");
         }
     };
     
@@ -818,6 +821,7 @@
         } else {
             clearSession();
             showLoginScreen();
+            alert("✅ You have been logged out.");
         }
     };
     
@@ -1020,7 +1024,9 @@
     
     // ============ SETUP EVENT LISTENERS ============
     document.addEventListener('DOMContentLoaded', () => {
-        // Auth buttons - using direct onclick assignments to ensure they work
+        console.log("Page loaded, setting up event listeners...");
+        
+        // Auth buttons
         const googleBtn = document.getElementById('googleSignInBtn');
         if (googleBtn) googleBtn.onclick = function() { window.signInWithGoogle(); };
         
@@ -1032,28 +1038,6 @@
         
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) logoutBtn.onclick = function() { window.logout(); };
-        
-        // Modal action buttons
-        const loginEmailBtn = document.getElementById('loginEmailBtn');
-        if (loginEmailBtn) loginEmailBtn.onclick = function() { window.localLoginHandler(); };
-        
-        const signupEmailBtn = document.getElementById('signupEmailBtn');
-        if (signupEmailBtn) signupEmailBtn.onclick = function() { window.localSignUpHandler(); };
-        
-        // Switch between modals
-        const switchToSignup = document.getElementById('switchToSignup');
-        if (switchToSignup) switchToSignup.onclick = function(e) {
-            e.preventDefault();
-            window.closeModal('loginModal');
-            window.showSignupModal();
-        };
-        
-        const switchToLogin = document.getElementById('switchToLogin');
-        if (switchToLogin) switchToLogin.onclick = function(e) {
-            e.preventDefault();
-            window.closeModal('signupModal');
-            window.showLoginModal();
-        };
         
         // Page navigation
         document.querySelectorAll('.page-btn').forEach(b => {
