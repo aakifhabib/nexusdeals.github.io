@@ -3,450 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Cross-Platform Auth</title>
+    <title>Financify Pro | Working Auth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Firebase SDK -->
+    <!-- Firebase ONLY for Google Sign-In -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: #f1f5f9;
-            line-height: 1.5;
-            min-height: 100vh;
-            background: #0a0f1a;
-        }
-
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(135deg, #0a1922 0%, #0d2b2a 50%, #1a3a3a 100%);
-        }
-
-        .gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            animation: floatOrb 22s infinite alternate ease-in-out;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: #f1f5f9; line-height: 1.5; min-height: 100vh; background: #0a0f1a; }
+        .animated-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: linear-gradient(135deg, #0a1922 0%, #0d2b2a 50%, #1a3a3a 100%); }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(100px); animation: floatOrb 22s infinite alternate ease-in-out; }
         .orb1 { width: 70vh; height: 70vh; background: radial-gradient(circle, rgba(30,111,92,0.6), rgba(15,43,61,0.3)); top: -20%; left: -10%; animation-duration: 18s; }
         .orb2 { width: 80vh; height: 80vh; background: radial-gradient(circle, rgba(44,154,128,0.5), rgba(30,111,92,0.2)); bottom: -30%; right: -15%; animation-duration: 25s; animation-delay: -5s; }
         .orb3 { width: 60vh; height: 60vh; background: radial-gradient(circle, rgba(15,43,61,0.7), rgba(30,111,92,0.3)); top: 40%; left: 30%; animation-duration: 20s; animation-delay: -10s; }
         .orb4 { width: 50vh; height: 50vh; background: radial-gradient(circle, rgba(30,111,92,0.45), rgba(44,154,128,0.25)); bottom: 10%; left: 20%; animation-duration: 28s; animation-delay: -3s; }
-
         @keyframes floatOrb {
             0% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(4%, 3%) scale(1.08); }
             100% { transform: translate(-3%, 2%) scale(0.96); }
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 28px;
-            position: relative;
-            z-index: 1;
-        }
-
-        #authScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-        }
-
-        .auth-card {
-            background: rgba(20, 30, 45, 0.95);
-            backdrop-filter: blur(16px);
-            border-radius: 48px;
-            padding: 48px;
-            text-align: center;
-            border: 1px solid rgba(44, 154, 128, 0.5);
-            max-width: 480px;
-            width: 90%;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .auth-card h1 {
-            font-size: 36px;
-            background: linear-gradient(135deg, #e0f2fe, #2c9a80);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-        }
-
-        .auth-card p {
-            color: #94a3b8;
-            margin-top: 8px;
-        }
-
-        .auth-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .google-btn, .email-btn {
-            padding: 14px;
-            border-radius: 60px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            border: none;
-        }
-
-        .google-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .google-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .email-btn {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            color: white;
-        }
-
-        .email-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(44, 154, 128, 0.5);
-        }
-
-        .divider {
-            margin: 24px 0;
-            text-align: center;
-            color: #94a3b8;
-            position: relative;
-        }
-
-        .divider::before, .divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+        #authScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 3000; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); }
+        .auth-card { background: rgba(20, 30, 45, 0.95); backdrop-filter: blur(16px); border-radius: 48px; padding: 48px; text-align: center; border: 1px solid rgba(44, 154, 128, 0.5); max-width: 450px; width: 90%; animation: fadeInUp 0.5s ease; }
+        .auth-card h1 { font-size: 36px; background: linear-gradient(135deg, #e0f2fe, #2c9a80); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 8px; }
+        .auth-card p { color: #94a3b8; margin-top: 8px; }
+        .auth-buttons { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+        .google-btn, .email-btn { padding: 14px; border-radius: 60px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px; border: none; }
+        .google-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; }
+        .google-btn:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+        .email-btn { background: linear-gradient(135deg, #1e6f5c, #2c9a80); color: white; }
+        .email-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(44, 154, 128, 0.5); }
+        .divider { margin: 24px 0; text-align: center; color: #94a3b8; position: relative; }
+        .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: rgba(255, 255, 255, 0.2); }
         .divider::before { left: 0; }
         .divider::after { right: 0; }
-
-        .navbar {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 16px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .logo h1 {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #e0f2fe, #2c9a80);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .logo p {
-            font-size: 11px;
-            color: #94a3b8;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .page-tabs {
-            display: flex;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            padding: 5px;
-            border-radius: 60px;
-        }
-
-        .page-btn {
-            padding: 8px 22px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: transparent;
-            color: #e2e8f0;
-            font-size: 13px;
-        }
-
-        .page-btn.active {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            color: white;
-            box-shadow: 0 0 20px rgba(30, 111, 92, 0.6);
-        }
-
-        .mode-selector {
-            display: flex;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 5px;
-            border-radius: 60px;
-        }
-
-        .mode-btn {
-            padding: 8px 22px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            background: transparent;
-            color: #e2e8f0;
-            transition: all 0.3s;
-        }
-
-        .mode-btn.active {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            color: white;
-            box-shadow: 0 0 15px rgba(30, 111, 92, 0.5);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 5px 15px;
-            border-radius: 40px;
-        }
-
-        .user-email {
-            font-size: 12px;
-            color: #2c9a80;
-        }
-
-        .logout-btn {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 8px 20px;
-            border-radius: 40px;
-            color: #fca5a5;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 28px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: all 0.35s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 28px;
-            margin: 32px 0;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            background: linear-gradient(135deg, rgba(15, 43, 61, 0.8), rgba(26, 74, 111, 0.7));
-            backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 40px 48px;
-            margin: 32px 0;
-        }
-
+        .navbar { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.15); position: sticky; top: 0; z-index: 1000; padding: 16px 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .logo h1 { font-size: 26px; font-weight: 800; background: linear-gradient(135deg, #e0f2fe, #2c9a80); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo p { font-size: 11px; color: #94a3b8; }
+        .nav-controls { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .page-tabs { display: flex; gap: 8px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(8px); padding: 5px; border-radius: 60px; }
+        .page-btn { padding: 8px 22px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s; background: transparent; color: #e2e8f0; font-size: 13px; }
+        .page-btn.active { background: linear-gradient(135deg, #1e6f5c, #2c9a80); color: white; box-shadow: 0 0 20px rgba(30, 111, 92, 0.6); }
+        .mode-selector { display: flex; gap: 10px; background: rgba(0, 0, 0, 0.3); padding: 5px; border-radius: 60px; }
+        .mode-btn { padding: 8px 22px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; background: transparent; color: #e2e8f0; transition: all 0.3s; }
+        .mode-btn.active { background: linear-gradient(135deg, #1e6f5c, #2c9a80); color: white; box-shadow: 0 0 15px rgba(30, 111, 92, 0.5); }
+        .user-info { display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.3); padding: 5px 15px; border-radius: 40px; }
+        .user-email { font-size: 12px; color: #2c9a80; }
+        .logout-btn { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); padding: 8px 20px; border-radius: 40px; color: #fca5a5; cursor: pointer; transition: all 0.3s; font-weight: 600; }
+        .logout-btn:hover { background: rgba(239, 68, 68, 0.4); transform: translateY(-2px); }
+        .card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); border-radius: 28px; padding: 28px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.12); transition: all 0.35s ease; }
+        .card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.12); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; margin: 32px 0; }
+        .hero-stats { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; background: linear-gradient(135deg, rgba(15, 43, 61, 0.8), rgba(26, 74, 111, 0.7)); backdrop-filter: blur(12px); border-radius: 32px; padding: 40px 48px; margin: 32px 0; }
         .stat-number { font-size: 38px; font-weight: 800; }
-
-        .calculators-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 24px;
-            margin-top: 28px;
-        }
-
-        .calc-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .calc-card:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.18);
-            box-shadow: 0 0 25px rgba(44, 154, 128, 0.4);
-        }
-
+        .calculators-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 24px; margin-top: 28px; }
+        .calc-card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border-radius: 24px; padding: 24px; cursor: pointer; transition: all 0.3s ease; text-align: center; }
+        .calc-card:hover { transform: translateY(-6px); background: rgba(255, 255, 255, 0.18); box-shadow: 0 0 25px rgba(44, 154, 128, 0.4); }
         .calc-icon { font-size: 44px; color: #2c9a80; margin-bottom: 16px; }
-
         .transaction-list { max-height: 350px; overflow-y: auto; }
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px rgba(44, 154, 128, 0.7);
-        }
-
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1.5px solid rgba(44, 154, 128, 0.6);
-            padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            color: #e2e8f0;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(12px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
+        .transaction-item { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-primary { background: linear-gradient(135deg, #1e6f5c, #2c9a80); color: white; padding: 12px 28px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 20px rgba(44, 154, 128, 0.7); }
+        .btn-outline { background: rgba(255, 255, 255, 0.1); border: 1.5px solid rgba(44, 154, 128, 0.6); padding: 10px 20px; border-radius: 40px; cursor: pointer; color: #e2e8f0; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(12px); z-index: 2000; justify-content: center; align-items: center; }
         .modal.active { display: flex; }
-
-        .modal-content {
-            background: rgba(20, 30, 45, 0.98);
-            backdrop-filter: blur(16px);
-            border-radius: 32px;
-            max-width: 450px;
-            width: 90%;
-            padding: 32px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            margin-bottom: 18px;
-            background: rgba(0, 0, 0, 0.4);
-            color: white;
-            font-size: 15px;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #2c9a80;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            margin: 12px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1e6f5c, #2c9a80);
-            width: 0%;
-        }
-
-        .footer {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 40px 0 24px;
-            margin-top: 60px;
-            border-radius: 32px 32px 0 0;
-        }
-
+        .modal-content { background: rgba(20, 30, 45, 0.98); backdrop-filter: blur(16px); border-radius: 32px; max-width: 450px; width: 90%; padding: 32px; }
+        input, select { width: 100%; padding: 14px 18px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; margin-bottom: 18px; background: rgba(0, 0, 0, 0.4); color: white; font-size: 15px; }
+        input:focus, select:focus { outline: none; border-color: #2c9a80; }
+        .progress-bar { height: 8px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; margin: 12px 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #1e6f5c, #2c9a80); width: 0%; }
+        .footer { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); padding: 40px 0 24px; margin-top: 60px; border-radius: 32px 32px 0 0; }
         .page-content { display: none !important; }
         .page-content.active-page { display: block !important; animation: fadeInUp 0.4s ease; }
         #appContent { display: none; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             .hero-stats { padding: 28px 20px; flex-direction: column; text-align: center; }
@@ -473,17 +106,17 @@
         <p>Secure Financial Management</p>
         <div class="auth-buttons">
             <button class="google-btn" id="googleSignInBtn">
-                <i class="fab fa-google"></i> Continue with Google (Web)
+                <i class="fab fa-google"></i> Continue with Google
             </button>
             <div class="divider">or</div>
             <button class="email-btn" id="showLoginBtn">
-                <i class="fas fa-envelope"></i> Sign In with Email (Web + Mobile)
+                <i class="fas fa-sign-in-alt"></i> Sign In
             </button>
             <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
-                <i class="fas fa-user-plus"></i> Create Account (Web + Mobile)
+                <i class="fas fa-user-plus"></i> Create Account
             </button>
         </div>
-        <p style="font-size: 11px; margin-top: 20px; color: #64748b;">✓ Email login works on ALL platforms | ✓ Google login works on Web</p>
+        <p style="font-size: 11px; margin-top: 20px; color: #64748b;">✓ Works immediately • No setup required</p>
     </div>
 </div>
 
@@ -493,7 +126,7 @@
         <div class="container nav-container">
             <div class="logo">
                 <h1>Financify Pro</h1>
-                <p>Cross-Platform Auth</p>
+                <p>Smart Finance</p>
             </div>
             <div class="nav-controls">
                 <div class="page-tabs">
@@ -507,7 +140,7 @@
                     <button class="mode-btn" data-mode="business">💼 Business</button>
                 </div>
                 <div class="user-info">
-                    <span class="user-email" id="userEmailDisplay">user@example.com</span>
+                    <span class="user-email" id="userEmailDisplay">User</span>
                     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
             </div>
@@ -580,7 +213,7 @@
     <div class="footer">
         <div class="container">
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
-                <div><h3 style="color:white;">Financify Pro</h3><p>Cross-Platform Authentication</p><p>© 2026</p></div>
+                <div><h3 style="color:white;">Financify Pro</h3><p>Simple Working Auth</p><p>© 2026</p></div>
                 <div><h4>Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p></div>
             </div>
         </div>
@@ -590,25 +223,25 @@
 <!-- Login Modal -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
-        <h3><i class="fas fa-sign-in-alt"></i> Sign In (Works on Mobile)</h3>
+        <h3><i class="fas fa-sign-in-alt"></i> Sign In</h3>
         <input type="email" id="loginEmail" placeholder="Email">
         <input type="password" id="loginPassword" placeholder="Password">
-        <button class="btn-primary" id="loginEmailBtn" style="width: 100%;">Login</button>
+        <button class="btn-primary" id="doLoginBtn" style="width: 100%;">Login</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" id="switchToSignup" style="color: #2c9a80;">Sign up</a></p>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" id="switchToSignupLink" style="color: #2c9a80;">Sign up</a></p>
     </div>
 </div>
 
 <!-- Signup Modal -->
 <div id="signupModal" class="modal">
     <div class="modal-content">
-        <h3><i class="fas fa-user-plus"></i> Create Account (Works on Mobile)</h3>
+        <h3><i class="fas fa-user-plus"></i> Create Account</h3>
         <input type="email" id="signupEmail" placeholder="Email">
         <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
-        <input type="text" id="signupName" placeholder="Full Name (Optional)">
-        <button class="btn-primary" id="signupEmailBtn" style="width: 100%;">Sign Up</button>
+        <input type="text" id="signupName" placeholder="Your Name">
+        <button class="btn-primary" id="doSignupBtn" style="width: 100%;">Create Account</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
-        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" id="switchToLogin" style="color: #2c9a80;">Sign in</a></p>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" id="switchToLoginLink" style="color: #2c9a80;">Sign in</a></p>
     </div>
 </div>
 
@@ -619,7 +252,7 @@
         <input type="number" id="txnAmount" placeholder="Amount">
         <select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select>
         <select id="txnCategory"></select>
-        <button class="btn-primary" id="saveTransactionBtn" style="width: 100%;">Save Transaction</button>
+        <button class="btn-primary" id="saveTransactionBtn" style="width: 100%;">Save</button>
         <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('transactionModal')">Cancel</button>
     </div>
 </div>
@@ -635,7 +268,103 @@
 </div>
 
 <script>
-    // Firebase Configuration
+    // ============ SIMPLE LOCAL STORAGE AUTH - 100% WORKING ============
+    
+    let currentUser = null;
+    
+    // Get users from localStorage
+    function getUsers() {
+        const users = localStorage.getItem('app_users');
+        return users ? JSON.parse(users) : [];
+    }
+    
+    // Save users
+    function saveUsers(users) {
+        localStorage.setItem('app_users', JSON.stringify(users));
+    }
+    
+    // Sign Up Function
+    function signUp(email, password, name) {
+        const users = getUsers();
+        
+        // Check if email exists
+        if (users.find(u => u.email === email)) {
+            alert("❌ Email already registered! Please login.");
+            return false;
+        }
+        
+        // Validate
+        if (!email || !password) {
+            alert("❌ Please enter email and password");
+            return false;
+        }
+        if (password.length < 6) {
+            alert("❌ Password must be at least 6 characters");
+            return false;
+        }
+        if (!email.includes('@')) {
+            alert("❌ Please enter a valid email");
+            return false;
+        }
+        
+        // Create user
+        users.push({
+            email: email,
+            password: password,
+            name: name || email.split('@')[0],
+            created: new Date().toISOString()
+        });
+        
+        saveUsers(users);
+        alert("✅ Account created successfully! Please login.");
+        return true;
+    }
+    
+    // Login Function
+    function login(email, password) {
+        const users = getUsers();
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+            currentUser = user;
+            localStorage.setItem('current_session', JSON.stringify({
+                email: user.email,
+                name: user.name,
+                loginTime: new Date().toISOString()
+            }));
+            alert("✅ Welcome back, " + user.name + "!");
+            return true;
+        } else {
+            alert("❌ Invalid email or password. Please try again or sign up.");
+            return false;
+        }
+    }
+    
+    // Logout
+    function logout() {
+        localStorage.removeItem('current_session');
+        currentUser = null;
+        document.getElementById('authScreen').style.display = 'flex';
+        document.getElementById('appContent').style.display = 'none';
+        alert("✅ You have been logged out.");
+    }
+    
+    // Check session on load
+    function checkSession() {
+        const session = localStorage.getItem('current_session');
+        if (session) {
+            const data = JSON.parse(session);
+            currentUser = data;
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('appContent').style.display = 'block';
+            document.getElementById('userEmailDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${data.name}`;
+            loadUserData();
+            return true;
+        }
+        return false;
+    }
+    
+    // ============ FIREBASE FOR GOOGLE LOGIN ONLY ============
     const firebaseConfig = {
         apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
         authDomain: "financify-pro.firebaseapp.com",
@@ -645,199 +374,31 @@
         appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
     };
     
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     
-    let currentUser = null;
-    
-    // ============ AUTHENTICATION FUNCTIONS ============
-    
-    // Google Sign In (Works on Web)
-    window.signInWithGoogle = function() {
+    function signInWithGoogle() {
         auth.signInWithPopup(googleProvider)
             .then((result) => {
-                console.log("Google sign-in successful:", result.user);
                 currentUser = {
                     email: result.user.email,
                     name: result.user.displayName || result.user.email.split('@')[0],
-                    uid: result.user.uid
+                    isGoogle: true
                 };
-                saveSession(currentUser, 'google');
-                showAppAfterLogin();
+                localStorage.setItem('current_session', JSON.stringify(currentUser));
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('appContent').style.display = 'block';
+                document.getElementById('userEmailDisplay').innerHTML = `<i class="fab fa-google"></i> ${currentUser.name}`;
+                loadUserData();
+                alert("✅ Google sign-in successful!");
             })
             .catch((error) => {
-                console.error("Google sign-in error:", error);
-                if (error.code === 'auth/popup-blocked') {
-                    alert("Popup was blocked. Please allow popups for this site.");
-                } else if (error.code === 'auth/unauthorized-domain') {
-                    alert("Please add this domain to Firebase authorized domains.");
-                } else {
-                    alert("Google Sign-In failed: " + error.message);
-                }
+                alert("Google Sign-In failed: " + error.message);
             });
-    };
-    
-    // Email Sign Up (Works on ALL platforms - Web + Mobile)
-    window.signUpWithEmail = function() {
-        const email = document.getElementById('signupEmail').value.trim();
-        const password = document.getElementById('signupPassword').value;
-        const name = document.getElementById('signupName').value.trim();
-        
-        if (!email || !password) {
-            alert("Please enter email and password");
-            return;
-        }
-        if (password.length < 6) {
-            alert("Password must be at least 6 characters");
-            return;
-        }
-        
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((result) => {
-                console.log("Sign-up successful:", result.user);
-                // Update profile with name
-                if (name) {
-                    result.user.updateProfile({ displayName: name });
-                }
-                currentUser = {
-                    email: result.user.email,
-                    name: name || result.user.email.split('@')[0],
-                    uid: result.user.uid
-                };
-                saveSession(currentUser, 'email');
-                closeAllModals();
-                showAppAfterLogin();
-                alert("✅ Account created successfully!");
-            })
-            .catch((error) => {
-                console.error("Sign-up error:", error);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert("Email already in use. Please login instead.");
-                } else if (error.code === 'auth/weak-password') {
-                    alert("Password is too weak. Please use at least 6 characters.");
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format.");
-                } else {
-                    alert("Sign-up failed: " + error.message);
-                }
-            });
-    };
-    
-    // Email Login (Works on ALL platforms - Web + Mobile)
-    window.loginWithEmail = function() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
-        
-        if (!email || !password) {
-            alert("Please enter email and password");
-            return;
-        }
-        
-        auth.signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                console.log("Login successful:", result.user);
-                currentUser = {
-                    email: result.user.email,
-                    name: result.user.displayName || result.user.email.split('@')[0],
-                    uid: result.user.uid
-                };
-                saveSession(currentUser, 'email');
-                closeAllModals();
-                showAppAfterLogin();
-                alert("✅ Login successful! Welcome " + currentUser.name);
-            })
-            .catch((error) => {
-                console.error("Login error:", error);
-                if (error.code === 'auth/user-not-found') {
-                    alert("No account found with this email. Please sign up first.");
-                } else if (error.code === 'auth/wrong-password') {
-                    alert("Incorrect password. Please try again.");
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Invalid email format.");
-                } else {
-                    alert("Login failed: " + error.message);
-                }
-            });
-    };
-    
-    // Logout
-    window.logout = function() {
-        auth.signOut().then(() => {
-            clearSession();
-            showLoginScreen();
-        }).catch((error) => {
-            console.error("Logout error:", error);
-            clearSession();
-            showLoginScreen();
-        });
-    };
-    
-    // Session management
-    function saveSession(user, type) {
-        localStorage.setItem('financify_session', JSON.stringify({
-            user: user,
-            authType: type,
-            loginTime: new Date().toISOString()
-        }));
     }
     
-    function getSession() {
-        const session = localStorage.getItem('financify_session');
-        return session ? JSON.parse(session) : null;
-    }
-    
-    function clearSession() {
-        localStorage.removeItem('financify_session');
-        currentUser = null;
-    }
-    
-    // ============ UI FUNCTIONS ============
-    
-    function showAppAfterLogin() {
-        document.getElementById('authScreen').style.display = 'none';
-        document.getElementById('appContent').style.display = 'block';
-        updateUserDisplay();
-        loadUserData();
-    }
-    
-    function showLoginScreen() {
-        document.getElementById('authScreen').style.display = 'flex';
-        document.getElementById('appContent').style.display = 'none';
-    }
-    
-    function updateUserDisplay() {
-        const userEmailSpan = document.getElementById('userEmailDisplay');
-        if (userEmailSpan && currentUser) {
-            userEmailSpan.innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser.name}`;
-        }
-    }
-    
-    window.closeModal = function(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) modal.classList.remove('active');
-    };
-    
-    function closeAllModals() {
-        const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
-        modals.forEach(id => {
-            const modal = document.getElementById(id);
-            if (modal) modal.classList.remove('active');
-        });
-    }
-    
-    window.showLoginModal = function() {
-        closeAllModals();
-        document.getElementById('loginModal').classList.add('active');
-    };
-    
-    window.showSignupModal = function() {
-        closeAllModals();
-        document.getElementById('signupModal').classList.add('active');
-    };
-    
-    // ============ APP DATA MANAGEMENT ============
+    // ============ APP DATA ============
     const householdCalculators = [
         { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)}`; } },
         { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly SIP ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)}`; } },
@@ -861,10 +422,10 @@
 
     function loadUserData() {
         if (!currentUser) return;
-        const userKey = currentUser.uid || currentUser.email;
-        const stored = localStorage.getItem(`financify_data_${userKey}`);
+        const userKey = currentUser.email;
+        const stored = localStorage.getItem(`app_data_${userKey}`);
         if(stored) {
-            try { transactions = JSON.parse(stored).transactions || []; } catch(e) {}
+            try { transactions = JSON.parse(stored); } catch(e) {}
         }
         if(!transactions.length) {
             transactions = [
@@ -878,8 +439,8 @@
 
     function saveUserData() {
         if (!currentUser) return;
-        const userKey = currentUser.uid || currentUser.email;
-        localStorage.setItem(`financify_data_${userKey}`, JSON.stringify({ transactions }));
+        const userKey = currentUser.email;
+        localStorage.setItem(`app_data_${userKey}`, JSON.stringify(transactions));
     }
 
     function updateAllUI() {
@@ -972,39 +533,61 @@
     function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    window.closeModal = closeModal;
 
-    // ============ CHECK EXISTING SESSION ============
-    function checkSession() {
-        const session = getSession();
-        if (session && session.user) {
-            currentUser = session.user;
-            showAppAfterLogin();
-        }
-    }
-    
-    // ============ SETUP EVENT LISTENERS ============
+    // ============ EVENT LISTENERS ============
     document.addEventListener('DOMContentLoaded', () => {
         // Auth buttons
-        document.getElementById('googleSignInBtn').onclick = () => window.signInWithGoogle();
-        document.getElementById('showLoginBtn').onclick = () => window.showLoginModal();
-        document.getElementById('showSignupBtn').onclick = () => window.showSignupModal();
-        document.getElementById('logoutBtn').onclick = () => window.logout();
+        document.getElementById('googleSignInBtn').onclick = () => signInWithGoogle();
+        document.getElementById('showLoginBtn').onclick = () => { closeAllModals(); document.getElementById('loginModal').classList.add('active'); };
+        document.getElementById('showSignupBtn').onclick = () => { closeAllModals(); document.getElementById('signupModal').classList.add('active'); };
+        document.getElementById('logoutBtn').onclick = () => logout();
         
-        // Modal buttons
-        document.getElementById('loginEmailBtn').onclick = () => window.loginWithEmail();
-        document.getElementById('signupEmailBtn').onclick = () => window.signUpWithEmail();
+        // Form submissions
+        document.getElementById('doLoginBtn').onclick = () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            if (login(email, password)) {
+                closeModal('loginModal');
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('appContent').style.display = 'block';
+                document.getElementById('userEmailDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser.name}`;
+                loadUserData();
+            }
+        };
+        
+        document.getElementById('doSignupBtn').onclick = () => {
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const name = document.getElementById('signupName').value;
+            if (signUp(email, password, name)) {
+                closeModal('signupModal');
+                document.getElementById('signupEmail').value = '';
+                document.getElementById('signupPassword').value = '';
+                document.getElementById('signupName').value = '';
+                document.getElementById('loginModal').classList.add('active');
+            }
+        };
         
         // Switch between modals
-        document.getElementById('switchToSignup').onclick = (e) => {
+        document.getElementById('switchToSignupLink').onclick = (e) => {
             e.preventDefault();
             closeModal('loginModal');
-            showSignupModal();
+            document.getElementById('signupModal').classList.add('active');
         };
-        document.getElementById('switchToLogin').onclick = (e) => {
+        document.getElementById('switchToLoginLink').onclick = (e) => {
             e.preventDefault();
             closeModal('signupModal');
-            showLoginModal();
+            document.getElementById('loginModal').classList.add('active');
         };
+        
+        function closeAllModals() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('signupModal').classList.remove('active');
+            document.getElementById('transactionModal').classList.remove('active');
+            document.getElementById('calculatorModal').classList.remove('active');
+        }
         
         // Page navigation
         document.querySelectorAll('.page-btn').forEach(b => {
@@ -1023,19 +606,6 @@
         setMode("household");
         setActivePage("dashboard");
         checkSession();
-    });
-    
-    // Firebase Auth State Listener
-    auth.onAuthStateChanged((user) => {
-        if (user && !currentUser) {
-            currentUser = {
-                email: user.email,
-                name: user.displayName || user.email.split('@')[0],
-                uid: user.uid
-            };
-            saveSession(currentUser, user.providerData[0]?.providerId || 'email');
-            showAppAfterLogin();
-        }
     });
 </script>
 </body>
