@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Google Sign-In Only</title>
+    <title>Financify Pro | Cross-Platform Auth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Firebase SDK for Google Login only -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     
@@ -82,7 +82,7 @@
             padding: 48px;
             text-align: center;
             border: 1px solid rgba(44, 154, 128, 0.5);
-            max-width: 450px;
+            max-width: 480px;
             width: 90%;
             animation: fadeInUp 0.5s ease;
         }
@@ -108,7 +108,7 @@
             margin-top: 32px;
         }
 
-        .google-btn {
+        .google-btn, .email-btn {
             padding: 14px;
             border-radius: 60px;
             font-size: 16px;
@@ -120,6 +120,9 @@
             justify-content: center;
             gap: 12px;
             border: none;
+        }
+
+        .google-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
@@ -129,6 +132,34 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
+
+        .email-btn {
+            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
+            color: white;
+        }
+
+        .email-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(44, 154, 128, 0.5);
+        }
+
+        .divider {
+            margin: 24px 0;
+            text-align: center;
+            color: #94a3b8;
+            position: relative;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
 
         .navbar {
             background: rgba(15, 23, 42, 0.85);
@@ -439,13 +470,20 @@
 <div id="authScreen">
     <div class="auth-card">
         <h1>Financify Pro</h1>
-        <p>Secure Financial Management with Google</p>
+        <p>Secure Financial Management</p>
         <div class="auth-buttons">
             <button class="google-btn" id="googleSignInBtn">
-                <i class="fab fa-google"></i> Continue with Google
+                <i class="fab fa-google"></i> Continue with Google (Web)
+            </button>
+            <div class="divider">or</div>
+            <button class="email-btn" id="showLoginBtn">
+                <i class="fas fa-envelope"></i> Sign In with Email (Web + Mobile)
+            </button>
+            <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
+                <i class="fas fa-user-plus"></i> Create Account (Web + Mobile)
             </button>
         </div>
-        <p style="font-size: 11px; margin-top: 24px; color: #64748b;">✓ Secure Firebase Authentication</p>
+        <p style="font-size: 11px; margin-top: 20px; color: #64748b;">✓ Email login works on ALL platforms | ✓ Google login works on Web</p>
     </div>
 </div>
 
@@ -455,7 +493,7 @@
         <div class="container nav-container">
             <div class="logo">
                 <h1>Financify Pro</h1>
-                <p>Google Auth • Smart Finance</p>
+                <p>Cross-Platform Auth</p>
             </div>
             <div class="nav-controls">
                 <div class="page-tabs">
@@ -542,10 +580,35 @@
     <div class="footer">
         <div class="container">
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
-                <div><h3 style="color:white;">Financify Pro</h3><p>Google Authentication</p><p>© 2026</p></div>
+                <div><h3 style="color:white;">Financify Pro</h3><p>Cross-Platform Authentication</p><p>© 2026</p></div>
                 <div><h4>Contact</h4><p><i class="fas fa-envelope"></i> pro@financify.com</p></div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-sign-in-alt"></i> Sign In (Works on Mobile)</h3>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button class="btn-primary" id="loginEmailBtn" style="width: 100%;">Login</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('loginModal')">Cancel</button>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Don't have an account? <a href="#" id="switchToSignup" style="color: #2c9a80;">Sign up</a></p>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-user-plus"></i> Create Account (Works on Mobile)</h3>
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
+        <input type="text" id="signupName" placeholder="Full Name (Optional)">
+        <button class="btn-primary" id="signupEmailBtn" style="width: 100%;">Sign Up</button>
+        <button class="btn-outline" style="width: 100%; margin-top: 12px;" onclick="closeModal('signupModal')">Cancel</button>
+        <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #94a3b8;">Already have an account? <a href="#" id="switchToLogin" style="color: #2c9a80;">Sign in</a></p>
     </div>
 </div>
 
@@ -572,7 +635,7 @@
 </div>
 
 <script>
-    // ============ FIREBASE CONFIGURATION ============
+    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
         authDomain: "financify-pro.firebaseapp.com",
@@ -587,12 +650,11 @@
     const auth = firebase.auth();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     
-    // Global variables
     let currentUser = null;
     
     // ============ AUTHENTICATION FUNCTIONS ============
     
-    // Google Sign In
+    // Google Sign In (Works on Web)
     window.signInWithGoogle = function() {
         auth.signInWithPopup(googleProvider)
             .then((result) => {
@@ -600,10 +662,9 @@
                 currentUser = {
                     email: result.user.email,
                     name: result.user.displayName || result.user.email.split('@')[0],
-                    uid: result.user.uid,
-                    photoURL: result.user.photoURL
+                    uid: result.user.uid
                 };
-                saveSession(currentUser);
+                saveSession(currentUser, 'google');
                 showAppAfterLogin();
             })
             .catch((error) => {
@@ -611,9 +672,92 @@
                 if (error.code === 'auth/popup-blocked') {
                     alert("Popup was blocked. Please allow popups for this site.");
                 } else if (error.code === 'auth/unauthorized-domain') {
-                    alert("Please add this domain to Firebase authorized domains.\n\nGo to Firebase Console > Authentication > Settings > Authorized domains");
+                    alert("Please add this domain to Firebase authorized domains.");
                 } else {
                     alert("Google Sign-In failed: " + error.message);
+                }
+            });
+    };
+    
+    // Email Sign Up (Works on ALL platforms - Web + Mobile)
+    window.signUpWithEmail = function() {
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const name = document.getElementById('signupName').value.trim();
+        
+        if (!email || !password) {
+            alert("Please enter email and password");
+            return;
+        }
+        if (password.length < 6) {
+            alert("Password must be at least 6 characters");
+            return;
+        }
+        
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((result) => {
+                console.log("Sign-up successful:", result.user);
+                // Update profile with name
+                if (name) {
+                    result.user.updateProfile({ displayName: name });
+                }
+                currentUser = {
+                    email: result.user.email,
+                    name: name || result.user.email.split('@')[0],
+                    uid: result.user.uid
+                };
+                saveSession(currentUser, 'email');
+                closeAllModals();
+                showAppAfterLogin();
+                alert("✅ Account created successfully!");
+            })
+            .catch((error) => {
+                console.error("Sign-up error:", error);
+                if (error.code === 'auth/email-already-in-use') {
+                    alert("Email already in use. Please login instead.");
+                } else if (error.code === 'auth/weak-password') {
+                    alert("Password is too weak. Please use at least 6 characters.");
+                } else if (error.code === 'auth/invalid-email') {
+                    alert("Invalid email format.");
+                } else {
+                    alert("Sign-up failed: " + error.message);
+                }
+            });
+    };
+    
+    // Email Login (Works on ALL platforms - Web + Mobile)
+    window.loginWithEmail = function() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            alert("Please enter email and password");
+            return;
+        }
+        
+        auth.signInWithEmailAndPassword(email, password)
+            .then((result) => {
+                console.log("Login successful:", result.user);
+                currentUser = {
+                    email: result.user.email,
+                    name: result.user.displayName || result.user.email.split('@')[0],
+                    uid: result.user.uid
+                };
+                saveSession(currentUser, 'email');
+                closeAllModals();
+                showAppAfterLogin();
+                alert("✅ Login successful! Welcome " + currentUser.name);
+            })
+            .catch((error) => {
+                console.error("Login error:", error);
+                if (error.code === 'auth/user-not-found') {
+                    alert("No account found with this email. Please sign up first.");
+                } else if (error.code === 'auth/wrong-password') {
+                    alert("Incorrect password. Please try again.");
+                } else if (error.code === 'auth/invalid-email') {
+                    alert("Invalid email format.");
+                } else {
+                    alert("Login failed: " + error.message);
                 }
             });
     };
@@ -630,21 +774,20 @@
         });
     };
     
-    // Save session
-    function saveSession(user) {
+    // Session management
+    function saveSession(user, type) {
         localStorage.setItem('financify_session', JSON.stringify({
             user: user,
+            authType: type,
             loginTime: new Date().toISOString()
         }));
     }
     
-    // Get session
     function getSession() {
         const session = localStorage.getItem('financify_session');
         return session ? JSON.parse(session) : null;
     }
     
-    // Clear session
     function clearSession() {
         localStorage.removeItem('financify_session');
         currentUser = null;
@@ -667,14 +810,31 @@
     function updateUserDisplay() {
         const userEmailSpan = document.getElementById('userEmailDisplay');
         if (userEmailSpan && currentUser) {
-            const displayName = currentUser.name || currentUser.email.split('@')[0];
-            userEmailSpan.innerHTML = `<i class="fab fa-google"></i> ${displayName}`;
+            userEmailSpan.innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser.name}`;
         }
     }
     
     window.closeModal = function(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) modal.classList.remove('active');
+    };
+    
+    function closeAllModals() {
+        const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
+        modals.forEach(id => {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
+        });
+    }
+    
+    window.showLoginModal = function() {
+        closeAllModals();
+        document.getElementById('loginModal').classList.add('active');
+    };
+    
+    window.showSignupModal = function() {
+        closeAllModals();
+        document.getElementById('signupModal').classList.add('active');
     };
     
     // ============ APP DATA MANAGEMENT ============
@@ -812,8 +972,6 @@
     function updateCategorySelect() { let sel = document.getElementById("txnCategory"); if(sel) sel.innerHTML = (currentMode === "household" ? ["Food","Housing","Transport","Entertainment","Bills"] : ["Marketing","Operations","Salaries","Tax","Software"]).map(c => `<option>${c}</option>`).join(""); }
     function setMode(mode) { currentMode = mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); updateRecommendations(); }
     function setActivePage(pageId) { document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn').forEach(b=>b.classList.toggle("active",b.getAttribute("data-page")===pageId)); if(pageId === 'calculators') renderCalculatorsGrid(); if(pageId !== 'calculators') updateAllUI(); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    window.closeModal = closeModal;
 
     // ============ CHECK EXISTING SESSION ============
     function checkSession() {
@@ -826,37 +984,41 @@
     
     // ============ SETUP EVENT LISTENERS ============
     document.addEventListener('DOMContentLoaded', () => {
-        console.log("Page loaded, setting up event listeners...");
+        // Auth buttons
+        document.getElementById('googleSignInBtn').onclick = () => window.signInWithGoogle();
+        document.getElementById('showLoginBtn').onclick = () => window.showLoginModal();
+        document.getElementById('showSignupBtn').onclick = () => window.showSignupModal();
+        document.getElementById('logoutBtn').onclick = () => window.logout();
         
-        // Google Sign In button
-        const googleBtn = document.getElementById('googleSignInBtn');
-        if (googleBtn) googleBtn.onclick = function() { window.signInWithGoogle(); };
+        // Modal buttons
+        document.getElementById('loginEmailBtn').onclick = () => window.loginWithEmail();
+        document.getElementById('signupEmailBtn').onclick = () => window.signUpWithEmail();
         
-        // Logout button
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) logoutBtn.onclick = function() { window.logout(); };
+        // Switch between modals
+        document.getElementById('switchToSignup').onclick = (e) => {
+            e.preventDefault();
+            closeModal('loginModal');
+            showSignupModal();
+        };
+        document.getElementById('switchToLogin').onclick = (e) => {
+            e.preventDefault();
+            closeModal('signupModal');
+            showLoginModal();
+        };
         
         // Page navigation
         document.querySelectorAll('.page-btn').forEach(b => {
             b.onclick = () => setActivePage(b.getAttribute('data-page'));
         });
-        
         document.querySelectorAll('.mode-btn').forEach(b => {
             b.onclick = () => setMode(b.getAttribute('data-mode'));
         });
         
         // Other buttons
-        const exploreBtn = document.getElementById('exploreCalculatorsBtn');
-        if (exploreBtn) exploreBtn.onclick = () => setActivePage('calculators');
-        
-        const addTxnBtn = document.getElementById('addTransactionBtn');
-        if (addTxnBtn) addTxnBtn.onclick = openTxnModal;
-        
-        const saveTxnBtn = document.getElementById('saveTransactionBtn');
-        if (saveTxnBtn) saveTxnBtn.onclick = addTransaction;
-        
-        const runCalcBtn = document.getElementById('runCalcBtn');
-        if (runCalcBtn) runCalcBtn.onclick = () => window.runCalculator();
+        document.getElementById('exploreCalculatorsBtn').onclick = () => setActivePage('calculators');
+        document.getElementById('addTransactionBtn').onclick = openTxnModal;
+        document.getElementById('saveTransactionBtn').onclick = addTransaction;
+        document.getElementById('runCalcBtn').onclick = () => window.runCalculator();
         
         setMode("household");
         setActivePage("dashboard");
@@ -866,19 +1028,13 @@
     // Firebase Auth State Listener
     auth.onAuthStateChanged((user) => {
         if (user && !currentUser) {
-            // User signed in via Firebase but session not set
             currentUser = {
                 email: user.email,
                 name: user.displayName || user.email.split('@')[0],
-                uid: user.uid,
-                photoURL: user.photoURL
+                uid: user.uid
             };
-            saveSession(currentUser);
+            saveSession(currentUser, user.providerData[0]?.providerId || 'email');
             showAppAfterLogin();
-        } else if (!user && currentUser) {
-            // User signed out
-            clearSession();
-            showLoginScreen();
         }
     });
 </script>
