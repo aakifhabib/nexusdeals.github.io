@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Financify Pro | Hybrid Auth Finance Suite</title>
+    <title>Financify Pro | Complete Finance Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Firebase SDK for Google Login only -->
@@ -470,17 +470,17 @@
 <div id="authScreen">
     <div class="auth-card">
         <h1>Financify Pro</h1>
-        <p>Google Login (Firebase) + Local Email Auth</p>
+        <p>Secure Financial Management</p>
         <div class="auth-buttons">
             <button class="google-btn" id="googleSignInBtn">
                 <i class="fab fa-google"></i> Continue with Google
             </button>
             <div class="divider">or</div>
             <button class="email-btn" id="showLoginBtn">
-                <i class="fas fa-sign-in-alt"></i> Sign In with Email (Local)
+                <i class="fas fa-sign-in-alt"></i> Sign In with Email
             </button>
             <button class="email-btn" style="background: transparent; border: 1px solid #2c9a80;" id="showSignupBtn">
-                <i class="fas fa-user-plus"></i> Create Account (Local)
+                <i class="fas fa-user-plus"></i> Create New Account
             </button>
         </div>
         <p style="font-size: 11px; margin-top: 20px; color: #64748b;">✓ Google Login via Firebase | ✓ Email login via Local Storage</p>
@@ -680,6 +680,11 @@
             return false;
         }
         
+        if (!email.includes('@') || !email.includes('.')) {
+            alert("Please enter a valid email address");
+            return false;
+        }
+        
         const newUser = {
             email: email,
             password: password,
@@ -706,7 +711,7 @@
     // ============ AUTHENTICATION FUNCTIONS ============
     
     // Google Sign In (Firebase)
-    function signInWithGoogle() {
+    window.signInWithGoogle = function() {
         auth.signInWithPopup(googleProvider)
             .then((result) => {
                 console.log("Google sign-in successful:", result.user);
@@ -730,21 +735,16 @@
                     alert("Google Sign-In failed: " + error.message);
                 }
             });
-    }
+    };
     
     // Local Email Sign Up
-    function localSignUpHandler() {
+    window.localSignUpHandler = function() {
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
         const name = document.getElementById('signupName').value.trim();
         
         if (!email || !password) {
             alert("Please enter email and password");
-            return;
-        }
-        
-        if (!email.includes('@') || !email.includes('.')) {
-            alert("Please enter a valid email address");
             return;
         }
         
@@ -756,10 +756,10 @@
             document.getElementById('signupPassword').value = '';
             document.getElementById('signupName').value = '';
         }
-    }
+    };
     
     // Local Email Login
-    function localLoginHandler() {
+    window.localLoginHandler = function() {
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
         
@@ -780,7 +780,7 @@
         } else {
             alert("Invalid email or password. Please try again or sign up.");
         }
-    }
+    };
     
     // Save session
     function saveSession(user) {
@@ -805,7 +805,7 @@
     }
     
     // Logout
-    function logout() {
+    window.logout = function() {
         if (authType === 'google') {
             auth.signOut().then(() => {
                 clearSession();
@@ -819,7 +819,7 @@
             clearSession();
             showLoginScreen();
         }
-    }
+    };
     
     // ============ UI FUNCTIONS ============
     
@@ -846,10 +846,10 @@
         }
     }
     
-    function closeModal(modalId) {
+    window.closeModal = function(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) modal.classList.remove('active');
-    }
+    };
     
     function closeAllModals() {
         const modals = ['loginModal', 'signupModal', 'transactionModal', 'calculatorModal'];
@@ -859,15 +859,15 @@
         });
     }
     
-    function showLoginModal() {
+    window.showLoginModal = function() {
         closeAllModals();
         document.getElementById('loginModal').classList.add('active');
-    }
+    };
     
-    function showSignupModal() {
+    window.showSignupModal = function() {
         closeAllModals();
         document.getElementById('signupModal').classList.add('active');
-    }
+    };
     
     // ============ APP DATA MANAGEMENT ============
     const householdCalculators = [
@@ -1018,39 +1018,64 @@
         }
     }
     
-    // ============ EVENT LISTENERS ============
+    // ============ SETUP EVENT LISTENERS ============
     document.addEventListener('DOMContentLoaded', () => {
-        // Auth buttons
-        document.getElementById('googleSignInBtn')?.addEventListener('click', signInWithGoogle);
-        document.getElementById('showLoginBtn')?.addEventListener('click', showLoginModal);
-        document.getElementById('showSignupBtn')?.addEventListener('click', showSignupModal);
-        document.getElementById('logoutBtn')?.addEventListener('click', logout);
+        // Auth buttons - using direct onclick assignments to ensure they work
+        const googleBtn = document.getElementById('googleSignInBtn');
+        if (googleBtn) googleBtn.onclick = function() { window.signInWithGoogle(); };
         
-        // Modal buttons
-        document.getElementById('loginEmailBtn')?.addEventListener('click', localLoginHandler);
-        document.getElementById('signupEmailBtn')?.addEventListener('click', localSignUpHandler);
+        const showLoginBtn = document.getElementById('showLoginBtn');
+        if (showLoginBtn) showLoginBtn.onclick = function() { window.showLoginModal(); };
         
-        document.getElementById('switchToSignup')?.addEventListener('click', (e) => {
+        const showSignupBtn = document.getElementById('showSignupBtn');
+        if (showSignupBtn) showSignupBtn.onclick = function() { window.showSignupModal(); };
+        
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) logoutBtn.onclick = function() { window.logout(); };
+        
+        // Modal action buttons
+        const loginEmailBtn = document.getElementById('loginEmailBtn');
+        if (loginEmailBtn) loginEmailBtn.onclick = function() { window.localLoginHandler(); };
+        
+        const signupEmailBtn = document.getElementById('signupEmailBtn');
+        if (signupEmailBtn) signupEmailBtn.onclick = function() { window.localSignUpHandler(); };
+        
+        // Switch between modals
+        const switchToSignup = document.getElementById('switchToSignup');
+        if (switchToSignup) switchToSignup.onclick = function(e) {
             e.preventDefault();
-            closeModal('loginModal');
-            showSignupModal();
-        });
+            window.closeModal('loginModal');
+            window.showSignupModal();
+        };
         
-        document.getElementById('switchToLogin')?.addEventListener('click', (e) => {
+        const switchToLogin = document.getElementById('switchToLogin');
+        if (switchToLogin) switchToLogin.onclick = function(e) {
             e.preventDefault();
-            closeModal('signupModal');
-            showLoginModal();
-        });
+            window.closeModal('signupModal');
+            window.showLoginModal();
+        };
         
         // Page navigation
-        document.querySelectorAll('.page-btn').forEach(b=>b.addEventListener('click',()=>setActivePage(b.getAttribute('data-page'))));
-        document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>setMode(b.getAttribute('data-mode'))));
+        document.querySelectorAll('.page-btn').forEach(b => {
+            b.onclick = () => setActivePage(b.getAttribute('data-page'));
+        });
+        
+        document.querySelectorAll('.mode-btn').forEach(b => {
+            b.onclick = () => setMode(b.getAttribute('data-mode'));
+        });
         
         // Other buttons
-        document.getElementById('exploreCalculatorsBtn')?.addEventListener('click',()=>setActivePage('calculators'));
-        document.getElementById('addTransactionBtn')?.addEventListener('click',openTxnModal);
-        document.getElementById('saveTransactionBtn')?.addEventListener('click',addTransaction);
-        document.getElementById('runCalcBtn')?.addEventListener('click',()=>window.runCalculator());
+        const exploreBtn = document.getElementById('exploreCalculatorsBtn');
+        if (exploreBtn) exploreBtn.onclick = () => setActivePage('calculators');
+        
+        const addTxnBtn = document.getElementById('addTransactionBtn');
+        if (addTxnBtn) addTxnBtn.onclick = openTxnModal;
+        
+        const saveTxnBtn = document.getElementById('saveTransactionBtn');
+        if (saveTxnBtn) saveTxnBtn.onclick = addTransaction;
+        
+        const runCalcBtn = document.getElementById('runCalcBtn');
+        if (runCalcBtn) runCalcBtn.onclick = () => window.runCalculator();
         
         setMode("household");
         setActivePage("dashboard");
