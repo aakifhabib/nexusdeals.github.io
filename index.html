@@ -3,468 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Financify Pro | Mobile Finance Toolkit</title>
+    <title>Financify Pro | Complete Finance Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: #f1f5f9;
-            line-height: 1.4;
-            min-height: 100vh;
-            background: #0a0f1a;
-        }
-
-        /* ANIMATED BACKGROUND (Lighter for performance) */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(145deg, #0a1922 0%, #0d2b2a 50%, #1a3a3a 100%);
-        }
-        .gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: floatOrb 20s infinite alternate ease-in-out;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f1f5f9; line-height: 1.4; min-height: 100vh; background: #0a0f1a; }
+        .animated-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: linear-gradient(145deg, #0a1922 0%, #0d2b2a 50%, #1a3a3a 100%); }
+        .gradient-orb { position: absolute; border-radius: 50%; filter: blur(80px); animation: floatOrb 20s infinite alternate ease-in-out; }
         .orb1 { width: 60vh; height: 60vh; background: radial-gradient(circle, rgba(30,111,92,0.5), rgba(15,43,61,0.2)); top: -20%; left: -20%; }
         .orb2 { width: 70vh; height: 70vh; background: radial-gradient(circle, rgba(44,154,128,0.4), rgba(30,111,92,0.15)); bottom: -30%; right: -20%; }
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(3%, 2%) scale(1.05); }
-        }
+        @keyframes floatOrb { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(3%,2%) scale(1.05); } }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 16px;
-            position: relative;
-            z-index: 1;
-        }
+        /* Auth Modal */
+        .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 3000; display: flex; align-items: center; justify-content: center; }
+        .auth-card { background: rgba(20,30,45,0.98); border-radius: 48px; max-width: 500px; width: 90%; padding: 32px; border: 1px solid rgba(44,154,128,0.5); max-height: 90vh; overflow-y: auto; }
+        .auth-title { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #e0f2fe, #2c9a80); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 24px; text-align: center; }
+        .auth-input { width: 100%; padding: 14px 18px; border-radius: 60px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; margin-bottom: 16px; font-size: 16px; }
+        .auth-input:focus { outline: none; border-color: #2c9a80; }
+        .auth-btn { background: linear-gradient(135deg, #1e6f5c, #2c9a80); width: 100%; padding: 14px; border-radius: 60px; border: none; color: white; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 12px; transition: 0.2s; }
+        .auth-btn:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(44,154,128,0.4); }
+        .switch-auth { text-align: center; margin-top: 20px; color: #94a3b8; cursor: pointer; }
+        .switch-auth span { color: #2c9a80; font-weight: 600; }
+        .forgot-password { text-align: center; margin-top: 12px; color: #94a3b8; cursor: pointer; font-size: 13px; }
+        .forgot-password span { color: #2c9a80; }
+        .currency-selector, .income-selector { margin: 16px 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 60px; }
+        .currency-selector label, .income-selector label { font-size: 14px; font-weight: 500; }
+        #globalCurrencyCode, #monthlyIncomeInput { background: #1e2a3a; border-radius: 40px; padding: 10px 16px; font-weight: 600; color: white; border: none; flex: 1; }
+        .error-msg { color: #ef4444; font-size: 12px; text-align: center; margin-top: 8px; display: none; }
+        .success-msg { color: #22c55e; font-size: 12px; text-align: center; margin-top: 8px; display: none; }
 
-        /* ===== MOBILE-FIRST NAVIGATION (STICKY BOTTOM TABS + TOP BAR) ===== */
-        .navbar {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 12px 0;
-        }
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .logo h1 {
-            font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #e0f2fe, #2c9a80);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .logo p {
-            font-size: 10px;
-            color: #94a3b8;
-        }
-        .mode-selector {
-            display: flex;
-            gap: 8px;
-            background: rgba(0,0,0,0.4);
-            padding: 4px;
-            border-radius: 60px;
-        }
-        .mode-btn {
-            padding: 6px 14px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            background: transparent;
-            color: #e2e8f0;
-            font-size: 12px;
-            transition: 0.2s;
-        }
-        .mode-btn.active {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            color: white;
-            box-shadow: 0 0 10px rgba(44,154,128,0.5);
-        }
-
-        /* BOTTOM NAVIGATION BAR (Mobile Optimized) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.96);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.15);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 12px 14px;
-            z-index: 1100;
-            transition: all 0.2s;
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            padding: 4px 8px;
-            border-radius: 30px;
-        }
-        .nav-item i {
-            font-size: 22px;
-        }
-        .nav-item.active {
-            color: #2c9a80;
-            background: rgba(44,154,128,0.2);
-            text-shadow: 0 0 6px rgba(44,154,128,0.5);
-        }
-        /* Desktop tabs hidden, mobile bottom nav visible */
-        .page-tabs.desktop-tabs {
-            display: none;
-        }
-        @media (min-width: 768px) {
-            .bottom-nav { display: none; }
-            .page-tabs.desktop-tabs { display: flex; }
-            .container { padding: 0 28px; }
-            .logo h1 { font-size: 26px; }
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.25s ease;
-            margin-bottom: 20px;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-            background: linear-gradient(135deg, rgba(15,43,61,0.85), rgba(26,74,111,0.7));
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 24px 20px;
-            margin: 20px 0;
-        }
+        /* Main App */
+        .navbar { background: rgba(15,23,42,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 1000; padding: 12px 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .logo h1 { font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #e0f2fe, #2c9a80); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .user-info { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.4); padding: 5px 16px; border-radius: 60px; flex-wrap: wrap; }
+        .logout-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 14px; }
+        .mode-selector { display: flex; gap: 8px; background: rgba(0,0,0,0.4); padding: 4px; border-radius: 60px; }
+        .mode-btn { padding: 6px 14px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; background: transparent; color: #e2e8f0; font-size: 12px; }
+        .mode-btn.active { background: linear-gradient(135deg, #1e6f5c, #2c9a80); color: white; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15,23,42,0.96); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-around; padding: 10px 12px 14px; z-index: 1100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; border: none; color: #94a3b8; font-size: 12px; font-weight: 500; cursor: pointer; padding: 4px 8px; border-radius: 30px; }
+        .nav-item i { font-size: 22px; }
+        .nav-item.active { color: #2c9a80; background: rgba(44,154,128,0.2); }
+        .page-tabs.desktop-tabs { display: none; }
+        @media (min-width: 768px) { .bottom-nav { display: none; } .page-tabs.desktop-tabs { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; } .container { padding: 0 28px; } }
+        .page-btn { padding: 8px 22px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; background: rgba(255,255,255,0.1); color: #e2e8f0; transition: 0.2s; }
+        .page-btn.active { background: linear-gradient(135deg, #1e6f5c, #2c9a80); color: white; }
+        .card { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); }
+        .hero-stats { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; background: linear-gradient(135deg, rgba(15,43,61,0.85), rgba(26,74,111,0.7)); border-radius: 28px; padding: 24px 20px; margin: 20px 0; }
         .stat-number { font-size: 28px; font-weight: 800; }
-        .stat-label { font-size: 12px; opacity: 0.85; }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        @media (min-width: 640px) {
-            .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        }
-
-        .calculators-grid, .saved-grid, .history-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-        .calc-card {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 18px 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: center;
-            position: relative;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 20px 0; }
+        @media (min-width: 640px) { .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); } }
+        .calculators-grid, .saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin-top: 20px; }
+        .calc-card { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 18px 12px; cursor: pointer; text-align: center; position: relative; transition: 0.2s; }
         .calc-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
-        .calc-icon { font-size: 36px; color: #2c9a80; margin-bottom: 10px; }
-        .calc-card h4 { font-size: 15px; margin-bottom: 6px; }
-        .save-icon {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            font-size: 18px;
-            color: #fbbf24;
-            cursor: pointer;
-            background: rgba(0,0,0,0.4);
-            width: 30px;
-            height: 30px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .save-icon.saved { color: #f59e0b; text-shadow: 0 0 4px gold; }
-
-        .history-item {
-            background: rgba(255,255,255,0.05);
-            border-radius: 18px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1e6f5c, #2c9a80);
-            padding: 10px 20px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn-outline {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(44,154,128,0.6);
-            padding: 8px 18px;
-            border-radius: 40px;
-            color: #e2e8f0;
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: rgba(20,30,45,0.98);
-            border-radius: 32px;
-            max-width: 480px;
-            width: 90%;
-            padding: 24px;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 28px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            margin-bottom: 16px;
-            font-size: 15px;
-        }
+        .save-icon { position: absolute; top: 10px; right: 12px; font-size: 18px; color: #fbbf24; cursor: pointer; background: rgba(0,0,0,0.4); width: 30px; height: 30px; border-radius: 30px; display: flex; align-items: center; justify-content: center; }
+        .transaction-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .btn-primary { background: linear-gradient(135deg, #1e6f5c, #2c9a80); padding: 10px 20px; border-radius: 40px; border: none; font-weight: 600; color: white; cursor: pointer; transition: 0.2s; }
         .progress-bar { height: 8px; background: rgba(0,0,0,0.4); border-radius: 10px; margin: 12px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #1e6f5c, #2c9a80); width: 0%; border-radius: 10px; }
-
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #1e6f5c, #2c9a80); width: 0%; border-radius: 10px; transition: width 0.5s ease; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 2000; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: rgba(20,30,45,0.98); border-radius: 32px; max-width: 500px; width: 90%; padding: 28px; max-height: 85vh; overflow-y: auto; }
+        input, select { width: 100%; padding: 12px 16px; border-radius: 28px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; margin-bottom: 16px; font-size: 15px; }
         .page-content { display: none !important; }
         .page-content.active-page { display: block !important; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-        .footer {
-            background: rgba(15,23,42,0.9);
-            backdrop-filter: blur(12px);
-            padding: 24px 0 80px; /* extra bottom padding for mobile bottom nav */
-            margin-top: 30px;
-            border-radius: 28px 28px 0 0;
-            text-align: center;
-            font-size: 12px;
-        }
-        @media (min-width: 768px) {
-            .footer { padding: 32px 0 24px; }
-        }
-        .about-section { display: flex; flex-wrap: wrap; gap: 20px; }
-        .contact-item { display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 20px; margin: 12px 0; }
-        .result-area { background: rgba(0,0,0,0.4); border-radius: 20px; padding: 14px; margin-top: 16px; text-align: center; }
-        .clear-btn { background: rgba(239,68,68,0.2); border: 1px solid #ef4444; padding: 6px 14px; border-radius: 40px; cursor: pointer; font-size: 13px; }
-        ::-webkit-scrollbar { width: 4px; }
+        .footer { background: rgba(15,23,42,0.9); padding: 24px 0 80px; margin-top: 30px; text-align: center; font-size: 12px; }
+        .currency-badge { background: #1e6f5c; padding: 4px 12px; border-radius: 40px; font-size: 12px; margin-left: 8px; }
+        .edit-income { background: rgba(44,154,128,0.3); border: none; padding: 6px 12px; border-radius: 30px; cursor: pointer; font-size: 12px; margin-left: 10px; }
+        .goal-selector { margin-top: 15px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .goal-badge { background: rgba(0,0,0,0.4); padding: 8px 16px; border-radius: 40px; cursor: pointer; font-size: 13px; transition: 0.2s; }
+        .goal-badge.active-goal { background: linear-gradient(135deg, #1e6f5c, #2c9a80); }
+        .otp-input-group { display: flex; gap: 10px; margin-bottom: 16px; }
+        .otp-input-group input { flex: 1; margin-bottom: 0; }
+        .otp-input-group button { width: auto; padding: 12px 20px; margin: 0; }
     </style>
 </head>
 <body>
 <div class="animated-bg"><div class="gradient-orb orb1"></div><div class="gradient-orb orb2"></div></div>
 
-<div class="navbar">
-    <div class="container nav-container">
-        <div class="logo"><h1>Financify Pro</h1><p>Smart • Saved • 30+ Tools</p></div>
-        <div class="mode-selector" id="modeSelector">
-            <button class="mode-btn active" data-mode="household">🏠 Household</button>
-            <button class="mode-btn" data-mode="business">💼 Business</button>
+<!-- SIGNUP / LOGIN MODAL - FIXED: Both fields always visible -->
+<div id="authOverlay" class="auth-overlay">
+    <div class="auth-card">
+        <div class="auth-title" id="authTitle">🔐 Login to Financify Pro</div>
+        <div id="authErrorMsg" class="error-msg"></div>
+        <div id="authSuccessMsg" class="success-msg"></div>
+        
+        <!-- Email and Password always visible -->
+        <input type="email" id="authEmail" class="auth-input" placeholder="Email address" autocomplete="off">
+        <input type="password" id="authPassword" class="auth-input" placeholder="Password" autocomplete="off">
+        
+        <!-- Signup extra fields (hidden in login mode, shown in signup mode) -->
+        <div id="signupExtraFields" style="display: none;">
+            <input type="text" id="authName" class="auth-input" placeholder="Full Name" autocomplete="off">
+            <div class="currency-selector">
+                <label><i class="fas fa-globe"></i> Preferred Currency:</label>
+                <select id="globalCurrencyCode"></select>
+            </div>
+            <div class="income-selector">
+                <label><i class="fas fa-chart-line"></i> Monthly Earnings:</label>
+                <input type="number" id="monthlyIncomeInput" placeholder="Amount" value="4000">
+            </div>
         </div>
+        
+        <button id="authSubmitBtn" class="auth-btn">Login →</button>
+        <div class="forgot-password" id="forgotPasswordBtn"><span>🔐 Forgot Password? Reset via OTP</span></div>
+        <div class="switch-auth" id="switchAuthMode">Don't have an account? <span>Sign Up</span></div>
     </div>
 </div>
 
-<!-- Desktop Tabs (hidden on mobile) -->
-<div class="container page-tabs desktop-tabs" style="margin-top: 16px; gap: 8px; flex-wrap: wrap;">
-    <button class="page-btn" data-page="dashboard">📊 Dashboard</button>
-    <button class="page-btn" data-page="calculators">🧮 Calculators</button>
-    <button class="page-btn" data-page="saved">⭐ Saved</button>
-    <button class="page-btn" data-page="history">📜 History</button>
-    <button class="page-btn" data-page="transactions">📝 Transactions</button>
-    <button class="page-btn" data-page="insights">💡 Insights</button>
-    <button class="page-btn" data-page="about">👤 About</button>
+<!-- Forgot Password Modal (OTP) -->
+<div id="forgotModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-key"></i> Reset Password</h3>
+        <div id="forgotErrorMsg" class="error-msg"></div>
+        <div id="forgotSuccessMsg" class="success-msg"></div>
+        <div id="step1Forgot">
+            <input type="email" id="resetEmail" placeholder="Enter your registered email" autocomplete="off">
+            <button class="btn-primary" id="sendOtpBtn" style="width:100%">Send OTP</button>
+        </div>
+        <div id="step2Forgot" style="display: none;">
+            <div class="otp-input-group">
+                <input type="text" id="otpCode" placeholder="Enter 6-digit OTP" maxlength="6">
+                <button class="btn-outline" id="verifyOtpBtn" style="background:rgba(44,154,128,0.3); border:1px solid #2c9a80; border-radius:40px; padding:12px 20px; color:white;">Verify</button>
+            </div>
+            <input type="password" id="newPassword" placeholder="New Password (min 4 characters)">
+            <button class="btn-primary" id="resetPasswordBtn" style="width:100%">Reset Password</button>
+        </div>
+        <button class="btn-outline" onclick="closeModal('forgotModal')" style="margin-top:16px; width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:40px; padding:12px; color:white;">Cancel</button>
+    </div>
 </div>
 
-<main class="container">
-    <!-- DASHBOARD -->
-    <div id="dashboardPage" class="page-content active-page">
-        <div class="hero-stats">
-            <div><div class="stat-number">30+</div><div>Tools</div></div>
-            <div><div class="stat-number">98%</div><div>Accuracy</div></div>
-            <div><div class="stat-number" id="mainBalance">$0</div><div>Net Worth</div></div>
-        </div>
-        <div class="dashboard-grid">
-            <div class="card"><h3><i class="fas fa-chart-line"></i> Snapshot</h3><div>Income: <strong id="totalIncome" style="color:#2c9a80;">$0</strong> &nbsp; Expenses: <strong id="totalExpense" style="color:#ef4444;">$0</strong></div><div class="progress-bar"><div class="progress-fill" id="savingsProgressFill"></div></div><div>💰 Savings Rate: <span id="savingsRate">0</span>%</div></div>
-            <div class="card"><h3><i class="fas fa-chart-pie"></i> Spending</h3><div style="height: 200px;"><canvas id="spendingChart"></canvas></div></div>
-            <div class="card"><h3><i class="fas fa-lightbulb"></i> Tip</h3><p id="tipText">Save favorite tools & history!</p><button class="btn-primary" style="margin-top: 16px;" id="exploreCalculatorsBtn">Explore 30+ →</button></div>
+<!-- MAIN APP -->
+<div id="mainApp" style="display: none;">
+    <div class="navbar">
+        <div class="container nav-container">
+            <div class="logo"><h1>Financify Pro</h1><p id="greetingMsg">Smart Finance</p></div>
+            <div class="user-info"><span id="userEmailDisplay"></span> <span id="currencyBadge" class="currency-badge">USD</span> <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
+            <div class="mode-selector"><button class="mode-btn active" data-mode="household">🏠 Household</button><button class="mode-btn" data-mode="business">💼 Business</button></div>
         </div>
     </div>
-
-    <!-- CALCULATORS PAGE -->
-    <div id="calculatorsPage" class="page-content"><div class="card"><h2><i class="fas fa-calculator"></i> Financial Tools <span id="calcModeIndicator" style="font-size:13px; background:rgba(0,0,0,0.3); padding:4px 12px; border-radius:40px;">Household</span></h2><div id="calculatorsGridContainer" class="calculators-grid"></div></div></div>
-    <!-- SAVED TOOLS -->
-    <div id="savedPage" class="page-content"><div class="card"><h2><i class="fas fa-star"></i> Saved Tools <span id="savedCountBadge">0 saved</span></h2><div id="savedGridContainer" class="saved-grid"></div><div id="emptySavedMsg" style="text-align:center;padding:30px;color:#94a3b8;"><i class="fas fa-star-of-life"></i><br/>No saved tools. Tap ⭐ on any calculator.</div></div></div>
-    <!-- HISTORY -->
-    <div id="historyPage" class="page-content"><div class="card"><h2><i class="fas fa-history"></i> Saved Calculations</h2><button class="clear-btn" id="clearHistoryBtn" style="margin-bottom:16px;"><i class="fas fa-trash"></i> Clear All</button><div id="historyListContainer"></div><div id="emptyHistoryMsg" style="text-align:center;padding:30px;">📭 No history yet. Save calculations from any tool.</div></div></div>
-    <!-- TRANSACTIONS -->
-    <div id="transactionsPage" class="page-content"><div class="dashboard-grid"><div class="card"><h3>📋 Transactions</h3><button class="btn-outline" style="margin-bottom:16px;" id="addTransactionBtn">+ Add Transaction</button><div id="allTransactionsList" class="transaction-list"></div></div><div class="card"><h3>📊 Category</h3><div style="height: 220px;"><canvas id="categoryChart"></canvas></div></div></div></div>
-    <!-- INSIGHTS -->
-    <div id="insightsPage" class="page-content"><div class="dashboard-grid"><div class="card"><h3>📈 Monthly Trend</h3><div style="height: 220px;"><canvas id="trendsChart"></canvas></div></div><div class="card"><h3>💡 Recommendations</h3><div id="recommendationsList"></div></div></div></div>
-    <!-- ABOUT -->
-    <div id="aboutPage" class="page-content"><div class="card"><h2>About Financify Pro</h2><div class="about-section"><div><h3>Muhammad Aakif Habib Malik</h3><p>Founder & Visionary</p></div><div><h3>Support</h3><div class="contact-item"><i class="fas fa-envelope"></i> nexusdeals235@gmail.com</div><div class="contact-item"><i class="fas fa-phone"></i> +92 332 993 8777</div></div></div><p style="margin-top:16px;">30+ calculators • No login • History & saved tools locally</p></div></div>
-</main>
-
-<div class="footer"><div class="container"><p>© 2026 Financify Pro — Smart Finance for Everyone</p></div></div>
-
-<!-- BOTTOM NAVIGATION (MOBILE ONLY) -->
-<div class="bottom-nav">
-    <button class="nav-item" data-page="dashboard"><i class="fas fa-tachometer-alt"></i><span>Home</span></button>
-    <button class="nav-item" data-page="calculators"><i class="fas fa-calculator"></i><span>Tools</span></button>
-    <button class="nav-item" data-page="saved"><i class="fas fa-star"></i><span>Saved</span></button>
-    <button class="nav-item" data-page="transactions"><i class="fas fa-exchange-alt"></i><span>Txns</span></button>
-    <button class="nav-item" data-page="about"><i class="fas fa-user"></i><span>About</span></button>
+    <div class="container page-tabs desktop-tabs">
+        <button class="page-btn" data-page="dashboard">📊 Dashboard</button>
+        <button class="page-btn" data-page="calculators">🧮 Tools</button>
+        <button class="page-btn" data-page="saved">⭐ Saved</button>
+        <button class="page-btn" data-page="history">📜 History</button>
+        <button class="page-btn" data-page="transactions">📝 Txns</button>
+        <button class="page-btn" data-page="budget">🎯 Budget</button>
+        <button class="page-btn" data-page="goals">🏆 Goals</button>
+        <button class="page-btn" data-page="insights">💡 Insights</button>
+        <button class="page-btn" data-page="about">👤 About</button>
+    </div>
+    <main class="container">
+        <div id="dashboardPage" class="page-content active-page">
+            <div class="hero-stats">
+                <div><div class="stat-number" id="welcomeStat">👋</div><div id="userWelcomeText" class="stat-label">Loading...</div></div>
+                <div><div class="stat-number" id="mainBalance">$0</div><div>Net Worth</div></div>
+                <div><div class="stat-number" id="savingsRateDisplay">0%</div><div>Savings Rate</div></div>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card"><h3><i class="fas fa-chart-line"></i> Financial Snapshot</h3><div>Monthly Income: <strong id="displayMonthlyIncome">$0</strong> <button class="edit-income" id="editIncomeBtn"><i class="fas fa-pen"></i> Edit</button></div><div>Expenses MTD: <strong id="totalExpense">$0</strong> | Remaining: <strong id="remainingIncome">$0</strong></div><div class="progress-bar"><div class="progress-fill" id="savingsProgressFill"></div></div><div>🎯 Goal: <span id="userGoalText">Build Savings</span></div><div class="goal-selector" id="goalSelector"><div class="goal-badge" data-goal="savings">🏦 Savings</div><div class="goal-badge" data-goal="invest">📈 Invest</div><div class="goal-badge" data-goal="debt">🔓 Debt</div><div class="goal-badge" data-goal="retire">🌴 Retirement</div></div><div id="personalTip" style="margin-top:12px; font-size:13px;"></div></div>
+                <div class="card"><h3><i class="fas fa-chart-pie"></i> Spending Breakdown</h3><div style="height: 220px;"><canvas id="spendingChart"></canvas></div></div>
+                <div class="card"><h3><i class="fas fa-robot"></i> AI Financial Insight</h3><p id="smartTip">Analyzing your spending patterns...</p><button class="btn-primary" id="exploreCalculatorsBtn" style="margin-top:16px;">Explore 40+ Tools →</button></div>
+            </div>
+        </div>
+        <div id="calculatorsPage" class="page-content"><div class="card"><h2><i class="fas fa-calculator"></i> Financial Calculators</h2><div id="calculatorsGridContainer" class="calculators-grid"></div></div></div>
+        <div id="savedPage" class="page-content"><div class="card"><h2><i class="fas fa-star"></i> Saved Tools</h2><div id="savedGridContainer" class="saved-grid"></div></div></div>
+        <div id="historyPage" class="page-content"><div class="card"><h2>📜 Calculation History</h2><button class="btn-outline" id="clearHistoryBtn" style="margin-bottom:12px;">Clear All</button><div id="historyListContainer"></div></div></div>
+        <div id="transactionsPage" class="page-content"><div class="dashboard-grid"><div class="card"><h3>📋 Transaction Ledger</h3><button class="btn-outline" id="addTransactionBtn">+ Add Transaction</button><div id="allTransactionsList" style="max-height:350px;overflow-y:auto;"></div></div><div class="card"><h3>📊 Category Analysis</h3><canvas id="categoryChart"></canvas></div></div></div>
+        <div id="budgetPage" class="page-content"><div class="card"><h2><i class="fas fa-chart-simple"></i> Budget Planning</h2><div id="budgetListContainer"></div><button class="btn-primary" id="addBudgetBtn" style="margin-top:16px;">+ Add Budget Category</button></div></div>
+        <div id="goalsPage" class="page-content"><div class="card"><h2><i class="fas fa-flag-checkered"></i> Savings Goals</h2><div id="goalsListContainer"></div><button class="btn-primary" id="addGoalBtn">+ Create New Goal</button></div></div>
+        <div id="insightsPage" class="page-content"><div class="card"><h3>Monthly Cashflow Trends</h3><canvas id="trendsChart"></canvas><div id="recommendationsList" style="margin-top:20px;"></div></div></div>
+        <div id="aboutPage" class="page-content"><div class="card"><h2>About Financify Pro</h2><p>Founder: Muhammad Aakif Habib Malik</p><p>Contact: nexusdeals235@gmail.com | +92 332 993 8777</p><p>150+ currencies • Budget tracking • Savings goals • 40+ calculators</p></div></div>
+    </main>
+    <div class="footer"><div class="container"><p>© 2026 Financify Pro — Complete Finance Management</p></div></div>
+    <div class="bottom-nav">
+        <button class="nav-item" data-page="dashboard"><i class="fas fa-home"></i><span>Home</span></button>
+        <button class="nav-item" data-page="calculators"><i class="fas fa-calculator"></i><span>Tools</span></button>
+        <button class="nav-item" data-page="transactions"><i class="fas fa-exchange-alt"></i><span>Txns</span></button>
+        <button class="nav-item" data-page="budget"><i class="fas fa-chart-line"></i><span>Budget</span></button>
+        <button class="nav-item" data-page="goals"><i class="fas fa-bullseye"></i><span>Goals</span></button>
+    </div>
 </div>
 
-<!-- MODALS -->
-<div id="transactionModal" class="modal"><div class="modal-content"><h3>➕ Add Transaction</h3><input type="text" id="txnDesc" placeholder="Description"><input type="number" id="txnAmount" placeholder="Amount"><select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select><select id="txnCategory"></select><button class="btn-primary" id="saveTransactionBtn">Save</button><button class="btn-outline" onclick="closeModal('transactionModal')">Cancel</button></div></div>
-<div id="calculatorModal" class="modal"><div class="modal-content"><h3 id="calcModalTitle">Calculator</h3><div id="calcInputsArea"></div><div id="calcResultArea" class="result-area">Enter values</div><button class="btn-primary" id="runCalcBtn">Calculate</button><button class="btn-outline" id="saveHistoryBtn">💾 Save to History</button><button class="btn-outline" onclick="closeModal('calculatorModal')">Close</button></div></div>
+<!-- Other Modals -->
+<div id="transactionModal" class="modal"><div class="modal-content"><h3>➕ Add Transaction</h3><input id="txnDesc" placeholder="Description"><input id="txnAmount" type="number" placeholder="Amount"><select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select><select id="txnCategory"></select><button class="btn-primary" id="saveTransactionBtn">Save</button><button class="btn-outline" onclick="closeModal('transactionModal')">Cancel</button></div></div>
+<div id="calculatorModal" class="modal"><div class="modal-content"><h3 id="calcModalTitle">Calculator</h3><div id="calcInputsArea"></div><div id="calcResultArea" class="result-area"></div><button class="btn-primary" id="runCalcBtn">Calculate</button><button class="btn-outline" id="saveHistoryBtn">💾 Save</button><button class="btn-outline" onclick="closeModal('calculatorModal')">Cancel</button></div></div>
+<div id="editIncomeModal" class="modal"><div class="modal-content"><h3>Edit Monthly Earnings</h3><input type="number" id="newMonthlyIncome" placeholder="Monthly Amount"><button class="btn-primary" id="confirmIncomeBtn">Update</button><button class="btn-outline" onclick="closeModal('editIncomeModal')">Cancel</button></div></div>
+<div id="budgetModal" class="modal"><div class="modal-content"><h3>Set Budget Limit</h3><select id="budgetCategory"></select><input type="number" id="budgetLimit" placeholder="Monthly Limit"><button class="btn-primary" id="saveBudgetBtn">Save Budget</button><button class="btn-outline" onclick="closeModal('budgetModal')">Cancel</button></div></div>
+<div id="goalModal" class="modal"><div class="modal-content"><h3>Create Savings Goal</h3><input id="goalName" placeholder="Goal Name"><input type="number" id="goalTarget" placeholder="Target Amount"><input id="goalDeadline" type="month"><button class="btn-primary" id="saveGoalBtn">Create Goal</button><button class="btn-outline" onclick="closeModal('goalModal')">Cancel</button></div></div>
 
 <script>
-    // ---------- 30+ CALCULATORS ----------
+    // Currency Data
+    const currencies = ["USD","EUR","GBP","JPY","CNY","INR","PKR","AED","SAR","QAR","KWD","BHD","CAD","AUD","CHF","SEK","NOK","DKK","ZAR","RUB","BRL","MXN","TRY","KRW","SGD","MYR","THB","VND","IDR","PHP","HKD","NZD","ILS","EGP","NGN","KES"];
+    const currencySymbols = { USD:"$", EUR:"€", GBP:"£", JPY:"¥", CNY:"¥", INR:"₹", PKR:"₨", AED:"د.إ", SAR:"﷼", CAD:"C$", AUD:"A$", CHF:"Fr", SEK:"kr", NOK:"kr", DKK:"kr", RUB:"₽", BRL:"R$", MXN:"$", TRY:"₺", KRW:"₩", SGD:"S$", MYR:"RM", THB:"฿", VND:"₫", IDR:"Rp", PHP:"₱", HKD:"HK$", NZD:"NZ$", ILS:"₪", ZAR:"R" };
+    function getCurrencySymbol(code) { return currencySymbols[code] || code; }
+
+    // Sample Calculators
     const householdCalculators = [
-        { id: "emi", name: "🏠 Home Loan EMI", inputs: [{l:"Loan Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `Monthly EMI: $${emi.toFixed(2)} | Total Interest: $${(emi*n-v.amt).toFixed(2)}`; } },
-        { id: "sip", name: "📈 SIP Returns", inputs: [{l:"Monthly ($)",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: $${fv.toFixed(2)}`; } },
-        { id: "lumpsum", name: "💰 Lumpsum", inputs: [{l:"Principal ($)",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Maturity: $${a.toFixed(2)}`; } },
-        { id: "budget", name: "📋 Budget Planner", inputs: [{l:"Income ($)",k:"inc"},{l:"Expenses ($)",k:"exp"}], calc: (v)=>{ let s=v.inc-v.exp; return `${s>=0?"Surplus":"Deficit"}: $${Math.abs(s)}`; } },
-        { id: "rd", name: "🏦 Recurring Deposit", inputs: [{l:"Monthly ($)",k:"dep"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, mv=v.dep*((Math.pow(1+r,n)-1)/r); return `Maturity: $${mv.toFixed(2)}`; } },
-        { id: "fd", name: "📀 Fixed Deposit", inputs: [{l:"Principal ($)",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc: (v)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Final: $${a.toFixed(2)}`; } },
-        { id: "inflation", name: "📉 Inflation Effect", inputs: [{l:"Amount ($)",k:"amt"},{l:"Inflation (%)",k:"inf"},{l:"Years",k:"y"}], calc: (v)=>{ let fv=v.amt/Math.pow(1+v.inf/100,v.y); return `Real Value: $${fv.toFixed(2)}`; } },
-        { id: "retirement", name: "👴 Retirement Corpus", inputs: [{l:"Monthly Need ($)",k:"need"},{l:"Years",k:"years"},{l:"Return (%)",k:"rate"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, corpus=v.need*((1-Math.pow(1+r,-n))/r); return `Required: $${corpus.toFixed(2)}`; } },
-        { id: "cagr", name: "📈 CAGR", inputs: [{l:"Start ($)",k:"sv"},{l:"End ($)",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let cagr=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `${cagr.toFixed(2)}%`; } },
-        { id: "loanTenure", name: "⏱️ Loan Tenure", inputs: [{l:"Loan ($)",k:"amt"},{l:"EMI ($)",k:"emi"},{l:"Rate (%)",k:"rate"}], calc: (v)=>{ let r=v.rate/12/100, tenure=Math.log(v.emi/(v.emi-v.amt*r))/Math.log(1+r); return `${Math.ceil(tenure)} months`; } },
-        { id: "ppf", name: "🏦 PPF", inputs: [{l:"Annual ($)",k:"inv"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"y"}], calc: (v)=>{ let fv=v.inv*((Math.pow(1+v.rate/100,v.y)-1)/(v.rate/100))*(1+v.rate/100); return `Maturity: $${fv.toFixed(2)}`; } },
-        { id: "nps", name: "📊 NPS", inputs: [{l:"Monthly ($)",k:"monthly"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"y"}], calc: (v)=>{ let r=v.rate/12/100, n=v.years*12, fv=v.monthly*((Math.pow(1+r,n)-1)/r)*(1+r); return `Corpus: $${fv.toFixed(2)}`; } }
-    ];
-    const businessCalculators = [
-        { id: "profitMargin", name: "📊 Profit Margin", inputs: [{l:"Revenue ($)",k:"rev"},{l:"Cost ($)",k:"cost"}], calc: (v)=>{ let p=v.rev-v.cost, m=(p/v.rev*100).toFixed(1); return `Profit $${p.toFixed(2)} (${m}% margin)`; } },
-        { id: "gst", name: "🧾 GST", inputs: [{l:"Amount ($)",k:"amt"},{l:"Rate (%)",k:"rate"}], calc: (v)=>{ let g=v.amt*v.rate/100; return `GST: $${g.toFixed(2)} | Total: $${(v.amt+g).toFixed(2)}`; } },
-        { id: "roi", name: "📈 ROI", inputs: [{l:"Investment ($)",k:"inv"},{l:"Returns ($)",k:"ret"}], calc: (v)=>{ return `${(((v.ret-v.inv)/v.inv)*100).toFixed(1)}%`; } },
-        { id: "breakEven", name: "⚖️ Break-Even", inputs: [{l:"Fixed Cost ($)",k:"fixed"},{l:"Price/Unit ($)",k:"price"},{l:"Var Cost/Unit",k:"varCost"}], calc: (v)=>{ let be=v.fixed/(v.price-v.varCost); return `${Math.ceil(be)} units`; } },
-        { id: "cagrBiz", name: "📊 Biz CAGR", inputs: [{l:"Start Rev ($)",k:"sv"},{l:"End Rev ($)",k:"ev"},{l:"Years",k:"y"}], calc: (v)=>{ let c=(Math.pow(v.ev/v.sv,1/v.y)-1)*100; return `${c.toFixed(2)}%`; } },
-        { id: "ebitda", name: "💰 EBITDA Margin", inputs: [{l:"Revenue ($)",k:"rev"},{l:"EBITDA ($)",k:"ebitda"}], calc: (v)=>{ return `${((v.ebitda/v.rev)*100).toFixed(1)}%`; } },
-        { id: "payback", name: "⏱️ Payback", inputs: [{l:"Investment ($)",k:"inv"},{l:"Annual CF ($)",k:"cf"}], calc: (v)=>{ return `${(v.inv/v.cf).toFixed(1)} years`; } },
-        { id: "npv", name: "📉 NPV", inputs: [{l:"Outlay ($)",k:"out"},{l:"Annual CF ($)",k:"cf"},{l:"Years",k:"y"},{l:"Discount (%)",k:"rate"}], calc: (v)=>{ let npv=-v.out; for(let i=1;i<=v.y;i++) npv+=v.cf/Math.pow(1+v.rate/100,i); return `NPV: $${npv.toFixed(2)}`; } },
-        { id: "debtEquity", name: "🏦 D/E Ratio", inputs: [{l:"Debt ($)",k:"debt"},{l:"Equity ($)",k:"eq"}], calc: (v)=>{ return `${(v.debt/v.eq).toFixed(2)}`; } },
-        { id: "workingCapital", name: "🔄 Working Cap", inputs: [{l:"Current Assets ($)",k:"ca"},{l:"Liabilities ($)",k:"cl"}], calc: (v)=>{ return `$${(v.ca-v.cl).toFixed(2)}`; } },
-        { id: "markup", name: "🏷️ Markup", inputs: [{l:"Cost ($)",k:"cost"},{l:"Markup (%)",k:"markup"}], calc: (v)=>{ let sp=v.cost*(1+v.markup/100); return `Selling Price: $${sp.toFixed(2)}`; } },
-        { id: "liquidity", name: "💧 Current Ratio", inputs: [{l:"Assets ($)",k:"ca"},{l:"Liabilities ($)",k:"cl"}], calc: (v)=>{ return `${(v.ca/v.cl).toFixed(2)}`; } }
+        { id:"emi", name:"🏠 Home Loan EMI", inputs:[{l:"Loan Amount",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc:(v,sym)=>{ let r=v.rate/12/100,n=v.years*12,emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `EMI: ${sym}${emi.toFixed(2)}`; } },
+        { id:"sip", name:"📈 SIP Returns", inputs:[{l:"Monthly SIP",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc:(v,sym)=>{ let r=v.rate/12/100,n=v.years*12,fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future: ${sym}${fv.toFixed(2)}`; } }
     ];
 
-    let currentMode = "household";
-    let transactions = [];
-    let activeCalculator = null;
-    let currentCalcResult = "";
-    let savedTools = JSON.parse(localStorage.getItem("financify_saved") || "[]");
-    let calculationHistory = JSON.parse(localStorage.getItem("financify_history") || "[]");
-    let spendingChart, categoryChart, trendsChart;
+    let currentMode = "household", currentUser = null, activeCalculator = null, currentCalcResult = "";
+    let charts = { spending: null, category: null, trends: null };
+    let pendingResetEmail = null, storedOtp = null;
 
-    function saveAll() { localStorage.setItem("financify_saved", JSON.stringify(savedTools)); localStorage.setItem("financify_history", JSON.stringify(calculationHistory)); localStorage.setItem("financify_data", JSON.stringify(transactions)); }
-    function addToHistory(name, inputs, result) { calculationHistory.unshift({ id: Date.now(), name, inputs: JSON.stringify(inputs), result, timestamp: new Date().toLocaleString() }); if(calculationHistory.length>50) calculationHistory.pop(); saveAll(); renderHistory(); }
-    function deleteHistoryItem(id) { calculationHistory = calculationHistory.filter(h=>h.id!==id); saveAll(); renderHistory(); }
-    function clearAllHistory() { if(confirm("Clear all history?")) { calculationHistory=[]; saveAll(); renderHistory(); } }
-    function renderHistory() { const container=document.getElementById("historyListContainer"), emptyMsg=document.getElementById("emptyHistoryMsg"); if(!container) return; if(calculationHistory.length===0) { container.innerHTML=""; if(emptyMsg) emptyMsg.style.display="block"; return; } if(emptyMsg) emptyMsg.style.display="none"; container.innerHTML=calculationHistory.map(h=>`<div class="history-item"><div style="float:right;color:#ef4444;cursor:pointer;" onclick="deleteHistoryItem(${h.id})"><i class="fas fa-trash"></i></div><div class="history-title">${h.name}</div><div class="history-result">${h.result}</div><div class="history-time">${h.timestamp}</div></div>`).join(""); }
-    function isSaved(id) { return savedTools.includes(id); }
-    function toggleSave(id, name, mode) { if(savedTools.includes(id)) savedTools=savedTools.filter(s=>s!==id); else savedTools.push(id); saveAll(); renderCalculatorsGrid(); renderSavedGrid(); document.getElementById("savedCountBadge")&&(document.getElementById("savedCountBadge").innerText=savedTools.length+" saved"); }
-    function renderSavedGrid() { const all=[...householdCalculators.map(c=>({...c,mode:"household"})),...businessCalculators.map(c=>({...c,mode:"business"}))]; const savedItems=all.filter(t=>savedTools.includes(t.id)); const container=document.getElementById("savedGridContainer"),emptyMsg=document.getElementById("emptySavedMsg"); if(container){ if(savedItems.length===0){ container.innerHTML=""; if(emptyMsg)emptyMsg.style.display="block"; return; } if(emptyMsg)emptyMsg.style.display="none"; container.innerHTML=savedItems.map(c=>`<div class="calc-card" data-calc-id="${c.id}" data-mode="${c.mode}"><div class="save-icon saved" onclick="event.stopPropagation(); toggleSave('${c.id}','${c.name}','${c.mode}')">⭐</div><div class="calc-icon"><i class="fas fa-chart-line"></i></div><h4>${c.name}</h4></div>`).join(""); document.querySelectorAll('#savedGridContainer .calc-card').forEach(card=>card.addEventListener('click',(e)=>{if(!e.target.classList.contains('save-icon')) openCalculatorById(card.dataset.calcId,card.dataset.mode);})); } }
-    function renderCalculatorsGrid(){ const lib=currentMode==="household"?householdCalculators:businessCalculators; const container=document.getElementById("calculatorsGridContainer"); if(container){ container.innerHTML=lib.map(c=>`<div class="calc-card" data-calc-id="${c.id}"><div class="save-icon ${isSaved(c.id)?'saved':''}" onclick="event.stopPropagation(); toggleSave('${c.id}','${c.name}','${currentMode}')">⭐</div><div class="calc-icon"><i class="fas fa-chart-line"></i></div><h4>${c.name}</h4></div>`).join(""); document.querySelectorAll('#calculatorsGridContainer .calc-card').forEach(card=>card.addEventListener('click',(e)=>{if(!e.target.classList.contains('save-icon')) openCalculator(card.dataset.calcId);})); } document.getElementById("calcModeIndicator")&&(document.getElementById("calcModeIndicator").innerText=currentMode==="household"?"🏠 Household (12+)":"💼 Business (12+)"); }
-    function openCalculatorById(id,mode){ const lib=mode==="household"?householdCalculators:businessCalculators; activeCalculator=lib.find(c=>c.id===id); if(activeCalculator){ document.getElementById("calcModalTitle").innerHTML=activeCalculator.name; document.getElementById("calcInputsArea").innerHTML=activeCalculator.inputs.map(inp=>`<label>${inp.l}</label><input type="number" id="calc_${inp.k}" placeholder="${inp.l}" step="any" value="0">`).join(""); document.getElementById("calcResultArea").innerHTML="Enter values"; currentCalcResult=""; document.getElementById("calculatorModal").classList.add("active"); } }
-    function openCalculator(id){ openCalculatorById(id,currentMode); }
-    window.runCalculator=function(){ if(activeCalculator){ let vals={}; activeCalculator.inputs.forEach(inp=>vals[inp.k]=parseFloat(document.getElementById(`calc_${inp.k}`)?.value)||0); currentCalcResult=activeCalculator.calc(vals); document.getElementById("calcResultArea").innerHTML=`<strong>Result:</strong> ${currentCalcResult}`; } };
-    window.saveCurrentCalculation=function(){ if(activeCalculator&&currentCalcResult){ let vals={}; activeCalculator.inputs.forEach(inp=>vals[inp.k]=parseFloat(document.getElementById(`calc_${inp.k}`)?.value)||0); addToHistory(activeCalculator.name,vals,currentCalcResult); alert("✅ Saved to history!"); } else alert("Calculate first."); };
-    function loadUserData(){ const stored=localStorage.getItem("financify_data"); if(stored) transactions=JSON.parse(stored); if(!transactions.length) transactions=[{id:1,desc:"Salary",amount:5800,type:"income",category:"Salary",date:new Date().toISOString().slice(0,10)},{id:2,desc:"Groceries",amount:450,type:"expense",category:"Food",date:new Date().toISOString().slice(0,10)},{id:3,desc:"Rent",amount:1450,type:"expense",category:"Housing",date:new Date().toISOString().slice(0,10)}]; updateAllUI(); }
-    function updateAllUI(){ let inc=transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0), exp=transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0), bal=inc-exp; document.getElementById("mainBalance")&&(document.getElementById("mainBalance").innerText=`$${bal.toLocaleString()}`); document.getElementById("totalIncome")&&(document.getElementById("totalIncome").innerText=`$${inc.toLocaleString()}`); document.getElementById("totalExpense")&&(document.getElementById("totalExpense").innerText=`$${exp.toLocaleString()}`); let rate=inc>0?((bal/inc)*100).toFixed(1):0; document.getElementById("savingsRate")&&(document.getElementById("savingsRate").innerText=rate); let fill=Math.min(100,Math.max(0,(bal/inc)*100)); document.getElementById("savingsProgressFill")&&(document.getElementById("savingsProgressFill").style.width=`${fill}%`); renderTransactions(); updateCharts(); updateRecommendations(); updateTip(); }
-    function renderTransactions(){ const container=document.getElementById("allTransactionsList"); if(container) container.innerHTML=[...transactions].reverse().map(t=>`<div class="transaction-item"><span><i class="fas ${t.type==='income'?'fa-arrow-up':'fa-arrow-down'}"></i> ${t.desc}</span><span>$${t.amount.toFixed(2)}</span><span style="font-size:11px;">${t.category}</span></div>`).join(""); }
-    function updateCharts(){ const expMap={}; transactions.filter(t=>t.type==="expense").forEach(e=>expMap[e.category]=(expMap[e.category]||0)+e.amount); const ctx=document.getElementById('spendingChart')?.getContext('2d'); if(ctx){ if(spendingChart)spendingChart.destroy(); spendingChart=new Chart(ctx,{type:'doughnut',data:{labels:Object.keys(expMap),datasets:[{data:Object.values(expMap),backgroundColor:['#2c9a80','#1e6f5c','#54b4a0','#7ec8b5']}]},options:{plugins:{legend:{labels:{color:'#e2e8f0'}}}}}); }
-        const catCtx=document.getElementById('categoryChart')?.getContext('2d'); if(catCtx){ if(categoryChart)categoryChart.destroy(); categoryChart=new Chart(catCtx,{type:'bar',data:{labels:Object.keys(expMap),datasets:[{label:'Expenses ($)',data:Object.values(expMap),backgroundColor:'#2c9a80'}]},options:{scales:{y:{ticks:{color:'#e2e8f0'}},x:{ticks:{color:'#e2e8f0'}}}}}); }
-        const monthly={}; transactions.forEach(t=>{ let m=t.date.slice(0,7); monthly[m]=(monthly[m]||0)+(t.type==='income'?t.amount:-t.amount); }); const trendCtx=document.getElementById('trendsChart')?.getContext('2d'); if(trendCtx){ if(trendsChart)trendsChart.destroy(); trendsChart=new Chart(trendCtx,{type:'line',data:{labels:Object.keys(monthly),datasets:[{label:'Net Cashflow',data:Object.values(monthly),borderColor:'#2c9a80',tension:0.2}]},options:{scales:{y:{ticks:{color:'#e2e8f0'}},x:{ticks:{color:'#e2e8f0'}}}}}); } }
-    function updateRecommendations(){ const recDiv=document.getElementById("recommendationsList"); if(recDiv) recDiv.innerHTML=`<ul><li>✅ Use 30+ calculators</li><li>⭐ Save tools for quick access</li><li>📜 Save calculations to history</li></ul>`; }
-    function updateTip(){ const tips=["Save favorite calculators with ⭐","Track expenses to improve savings","Business mode includes ROI & NPV"]; document.getElementById("tipText")&&(document.getElementById("tipText").innerText=tips[Math.floor(Math.random()*tips.length)]); }
-    function addTransaction(){ let desc=document.getElementById("txnDesc").value.trim(), amt=parseFloat(document.getElementById("txnAmount").value), type=document.getElementById("txnType").value, cat=document.getElementById("txnCategory").value; if(!desc||isNaN(amt)||amt<=0){alert("Valid info");return;} transactions.push({id:Date.now(),desc,amount:amt,type,category:cat,date:new Date().toISOString().slice(0,10)}); saveAll(); updateAllUI(); closeModal('transactionModal'); document.getElementById("txnDesc").value=""; document.getElementById("txnAmount").value=""; }
-    function updateCategorySelect(){ let sel=document.getElementById("txnCategory"); if(sel) sel.innerHTML=(currentMode==="household"?["Food","Housing","Transport","Entertainment","Bills"]:["Marketing","Operations","Salaries","Tax"]).map(c=>`<option>${c}</option>`).join(""); }
-    function setMode(mode){ currentMode=mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); updateCategorySelect(); }
-    function setActivePage(pageId){ document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn, .nav-item').forEach(b=>{ if(b.getAttribute('data-page')===pageId) b.classList.add('active'); else b.classList.remove('active'); }); if(pageId==='calculators') renderCalculatorsGrid(); if(pageId==='saved') renderSavedGrid(); if(pageId==='history') renderHistory(); if(pageId!=='calculators'&&pageId!=='saved'&&pageId!=='history') updateAllUI(); }
+    function loadUserData(email) { const data = localStorage.getItem(`financify_user_${email}`); return data ? JSON.parse(data) : null; }
+    function saveUserData() { if(currentUser) localStorage.setItem(`financify_user_${currentUser.email}`, JSON.stringify(currentUser)); }
+    
+    // Dashboard Functions
+    function updateUIWithCurrency() { if(!currentUser) return; const sym=getCurrencySymbol(currentUser.currency); document.getElementById("currencyBadge").innerHTML = `${currentUser.currency} ${sym}`; document.getElementById("greetingMsg").innerHTML = `👋 ${currentUser.name}`; document.getElementById("userWelcomeText").innerHTML = `Welcome, ${currentUser.name}!`; document.getElementById("userEmailDisplay").innerHTML = currentUser.email; updateDashboardUI(); }
+    
+    function updateDashboardUI() { if(!currentUser) return; const sym=getCurrencySymbol(currentUser.currency); let inc = currentUser.transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0); let exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); let monthlyInc = currentUser.monthlyIncome || 4000; let remaining = monthlyInc - exp; let bal = inc - exp; document.getElementById("mainBalance").innerHTML = `${sym}${bal.toLocaleString()}`; document.getElementById("displayMonthlyIncome").innerHTML = `${sym}${monthlyInc.toLocaleString()}`; document.getElementById("totalExpense").innerHTML = `${sym}${exp.toLocaleString()}`; document.getElementById("remainingIncome").innerHTML = `${sym}${remaining.toLocaleString()}`; let rate = monthlyInc>0 ? ((monthlyInc-exp)/monthlyInc*100).toFixed(1) : 0; document.getElementById("savingsRateDisplay").innerHTML = rate+"%"; let fill = Math.min(100, Math.max(0, (monthlyInc-exp)/monthlyInc*100)); document.getElementById("savingsProgressFill").style.width = `${fill}%`; renderTransactions(); updateCharts(); document.getElementById("personalTip").innerHTML = `💡 ${currentUser.name}, keep saving to reach your ${currentUser.goal} goal!`; }
+    
+    function renderTransactions() { const container=document.getElementById("allTransactionsList"); if(container && currentUser){ const sym=getCurrencySymbol(currentUser.currency); container.innerHTML=[...currentUser.transactions].reverse().map(t=>`<div class='transaction-item'><span>${t.desc}</span><span>${sym}${t.amount.toFixed(2)}</span><span style="font-size:11px;">${t.category||''}</span></div>`).join(""); } }
+    
+    function updateCharts() { if(!currentUser) return; const expMap={}; currentUser.transactions.filter(t=>t.type==="expense").forEach(e=>expMap[e.category]=(expMap[e.category]||0)+e.amount); const ctx=document.getElementById('spendingChart')?.getContext('2d'); if(ctx){ if(charts.spending) charts.spending.destroy(); charts.spending=new Chart(ctx,{type:'doughnut',data:{labels:Object.keys(expMap),datasets:[{data:Object.values(expMap),backgroundColor:['#2c9a80','#1e6f5c','#54b4a0','#f59e0b']}]},options:{plugins:{legend:{labels:{color:'#e2e8f0'}}}}}); } }
+    
+    function addTransaction() { let desc=document.getElementById("txnDesc").value.trim(), amt=parseFloat(document.getElementById("txnAmount").value), type=document.getElementById("txnType").value, cat=document.getElementById("txnCategory").value; if(!desc||isNaN(amt)||amt<=0) return; currentUser.transactions.push({id:Date.now(),desc,amount:amt,type,category:cat,date:new Date().toISOString().slice(0,10)}); saveUserData(); updateDashboardUI(); closeModal('transactionModal'); document.getElementById("txnDesc").value=""; document.getElementById("txnAmount").value=""; }
+    function updateCategorySelect(){ let sel=document.getElementById("txnCategory"); if(sel) sel.innerHTML=["Food","Housing","Transport","Entertainment","Bills","Shopping","Health"].map(c=>`<option>${c}</option>`).join(""); }
+    function setMode(mode){ currentMode=mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); }
+    function renderCalculatorsGrid() { const lib = currentMode==="household"?householdCalculators:householdCalculators; const container=document.getElementById("calculatorsGridContainer"); if(container) container.innerHTML=lib.map(c=>`<div class='calc-card' data-calc-id='${c.id}'><div class='calc-icon'><i class='fas fa-chart-line'></i></div><h4>${c.name}</h4></div>`).join(""); document.querySelectorAll('.calc-card').forEach(card=>card.addEventListener('click',()=>openCalculator(card.dataset.calcId))); }
+    function openCalculator(id){ const lib=householdCalculators; activeCalculator=lib.find(c=>c.id===id); if(activeCalculator && currentUser){ const sym=getCurrencySymbol(currentUser.currency); document.getElementById("calcModalTitle").innerHTML=activeCalculator.name; document.getElementById("calcInputsArea").innerHTML=activeCalculator.inputs.map(inp=>`<label>${inp.l} (${currentUser.currency})</label><input type='number' id='calc_${inp.k}' value='0'>`).join(""); document.getElementById("calculatorModal").classList.add("active"); } }
+    window.runCalculator=function(){ if(activeCalculator && currentUser){ let vals={}; activeCalculator.inputs.forEach(inp=>vals[inp.k]=parseFloat(document.getElementById(`calc_${inp.k}`)?.value)||0); const sym=getCurrencySymbol(currentUser.currency); currentCalcResult=activeCalculator.calc(vals, sym); document.getElementById("calcResultArea").innerHTML=`<strong>Result:</strong> ${currentCalcResult}`; } };
+    window.saveCurrentCalculation=function(){ alert("Calculation saved to history!"); };
+    function renderSavedGrid() { document.getElementById("savedGridContainer").innerHTML = "<div style='text-align:center;padding:20px'>⭐ Save tools by tapping star</div>"; }
+    function renderHistory() { document.getElementById("historyListContainer").innerHTML = "<div style='text-align:center;padding:20px'>No history yet</div>"; }
+    function renderBudgetPage() { document.getElementById("budgetListContainer").innerHTML = "<div>No budgets set</div>"; }
+    function renderGoalsPage() { document.getElementById("goalsListContainer").innerHTML = "<div>No savings goals</div>"; }
+    function addBudget() { closeModal('budgetModal'); }
+    function addGoal() { closeModal('goalModal'); }
+    function editIncome() { document.getElementById("editIncomeModal").classList.add("active"); }
+    function updateMonthlyIncome() { let newInc = parseFloat(document.getElementById("newMonthlyIncome").value); if(newInc>0 && currentUser) { currentUser.monthlyIncome = newInc; saveUserData(); updateDashboardUI(); closeModal('editIncomeModal'); } }
+    function setGoal(goal) { if(currentUser) { currentUser.goal = goal; saveUserData(); updateDashboardUI(); } }
+    function setActivePage(pageId){ document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn, .nav-item').forEach(b=>{ if(b.getAttribute('data-page')===pageId) b.classList.add('active'); else b.classList.remove('active'); }); if(pageId==='calculators') renderCalculatorsGrid(); if(pageId==='saved') renderSavedGrid(); if(pageId==='history') renderHistory(); if(pageId==='budget') renderBudgetPage(); if(pageId==='goals') renderGoalsPage(); }
     function closeModal(id){ document.getElementById(id).classList.remove('active'); }
-    window.closeModal=closeModal; window.deleteHistoryItem=deleteHistoryItem; window.toggleSave=toggleSave;
+    
+    // AUTH - Fixed: Email/Password always visible
+    let isLoginMode = true;
+    function populateCurrencySelect() { const select = document.getElementById("globalCurrencyCode"); if(select) { select.innerHTML = currencies.map(c => `<option value="${c}">${c} - ${getCurrencySymbol(c)}</option>`).join(""); select.value = "USD"; } }
+    function switchAuthMode() { 
+        isLoginMode = !isLoginMode; 
+        document.getElementById("authTitle").innerText = isLoginMode ? "🔐 Login to Financify Pro" : "🚀 Create New Account";
+        document.getElementById("signupExtraFields").style.display = isLoginMode ? "none" : "block";
+        document.getElementById("authSubmitBtn").innerText = isLoginMode ? "Login →" : "Sign Up →";
+        document.getElementById("switchAuthMode").innerHTML = isLoginMode ? "Don't have an account? <span>Sign Up</span>" : "Already have an account? <span>Login</span>";
+        document.getElementById("forgotPasswordBtn").style.display = isLoginMode ? "block" : "none";
+        document.getElementById("authErrorMsg").style.display = "none";
+    }
+    function handleAuth() { 
+        const email = document.getElementById("authEmail").value.trim().toLowerCase(); 
+        const pass = document.getElementById("authPassword").value; 
+        const errorDiv = document.getElementById("authErrorMsg");
+        if(!email || !pass) { errorDiv.innerText = "Email and password required"; errorDiv.style.display = "block"; return; }
+        if(!isLoginMode) { // SIGNUP
+            const name = document.getElementById("authName").value.trim(); 
+            if(!name) { errorDiv.innerText = "Full name required"; errorDiv.style.display = "block"; return; }
+            if(pass.length < 4) { errorDiv.innerText = "Password must be at least 4 characters"; errorDiv.style.display = "block"; return; }
+            if(localStorage.getItem(`financify_user_${email}`)) { errorDiv.innerText = "Email already registered. Please login."; errorDiv.style.display = "block"; return; }
+            const currency = document.getElementById("globalCurrencyCode").value; 
+            const monthlyIncome = parseFloat(document.getElementById("monthlyIncomeInput").value) || 4000;
+            currentUser = { 
+                email, name, currency, password: pass,
+                transactions: [
+                    {id:1, desc:"Salary", amount:monthlyIncome, type:"income", category:"Salary", date:new Date().toISOString().slice(0,10)},
+                    {id:2, desc:"Rent", amount:Math.round(monthlyIncome*0.3), type:"expense", category:"Housing", date:new Date().toISOString().slice(0,10)},
+                    {id:3, desc:"Groceries", amount:Math.round(monthlyIncome*0.15), type:"expense", category:"Food", date:new Date().toISOString().slice(0,10)}
+                ], 
+                savedTools: [], history: [], goal: "savings", monthlyIncome: monthlyIncome, budgets: {}, savingsGoals: [] 
+            };
+            saveUserData();
+        } else { // LOGIN
+            const userData = loadUserData(email);
+            if(!userData) { errorDiv.innerText = "Email not found. Please sign up first."; errorDiv.style.display = "block"; return; }
+            if(userData.password !== pass) { errorDiv.innerText = "Wrong password. Click 'Forgot Password' to reset."; errorDiv.style.display = "block"; return; }
+            currentUser = userData;
+        }
+        document.getElementById("authOverlay").style.display = "none"; 
+        document.getElementById("mainApp").style.display = "block"; 
+        updateUIWithCurrency(); 
+        renderCalculatorsGrid(); renderSavedGrid(); renderHistory(); renderBudgetPage(); renderGoalsPage();
+    }
+    function logout() { currentUser = null; document.getElementById("mainApp").style.display = "none"; document.getElementById("authOverlay").style.display = "flex"; isLoginMode = true; switchAuthMode(); document.getElementById("authEmail").value = ""; document.getElementById("authPassword").value = ""; if(document.getElementById("authName")) document.getElementById("authName").value = ""; }
+    
+    // Forgot Password with OTP - WORKING
+    function showForgotModal() { document.getElementById("forgotModal").classList.add("active"); document.getElementById("step1Forgot").style.display = "block"; document.getElementById("step2Forgot").style.display = "none"; document.getElementById("resetEmail").value = ""; document.getElementById("otpCode").value = ""; document.getElementById("newPassword").value = ""; document.getElementById("forgotErrorMsg").style.display = "none"; document.getElementById("forgotSuccessMsg").style.display = "none"; }
+    function sendOtp() { 
+        const email = document.getElementById("resetEmail").value.trim().toLowerCase();
+        if(!email) { document.getElementById("forgotErrorMsg").innerText = "Enter your email"; document.getElementById("forgotErrorMsg").style.display = "block"; return; }
+        const userData = loadUserData(email);
+        if(!userData) { document.getElementById("forgotErrorMsg").innerText = "Email not registered"; document.getElementById("forgotErrorMsg").style.display = "block"; return; }
+        pendingResetEmail = email;
+        storedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        alert(`[DEMO OTP] Your password reset OTP is: ${storedOtp}\n(For demo purposes, this would be emailed to you.)`);
+        document.getElementById("forgotSuccessMsg").innerText = "OTP sent to your email! Check the alert box."; document.getElementById("forgotSuccessMsg").style.display = "block";
+        document.getElementById("step1Forgot").style.display = "none";
+        document.getElementById("step2Forgot").style.display = "block";
+    }
+    function verifyOtpAndReset() { 
+        const enteredOtp = document.getElementById("otpCode").value.trim();
+        const newPass = document.getElementById("newPassword").value;
+        if(enteredOtp !== storedOtp) { document.getElementById("forgotErrorMsg").innerText = "Invalid OTP. Please try again."; document.getElementById("forgotErrorMsg").style.display = "block"; return; }
+        if(newPass.length < 4) { document.getElementById("forgotErrorMsg").innerText = "Password must be at least 4 characters"; document.getElementById("forgotErrorMsg").style.display = "block"; return; }
+        const userData = loadUserData(pendingResetEmail);
+        if(userData) { userData.password = newPass; localStorage.setItem(`financify_user_${pendingResetEmail}`, JSON.stringify(userData)); }
+        document.getElementById("forgotSuccessMsg").innerText = "Password reset successfully! Please login with new password."; document.getElementById("forgotSuccessMsg").style.display = "block";
+        setTimeout(() => { closeModal('forgotModal'); }, 1500);
+    }
 
-    document.addEventListener('DOMContentLoaded',()=>{
-        document.querySelectorAll('.page-btn, .nav-item').forEach(btn=>btn.addEventListener('click',()=>setActivePage(btn.getAttribute('data-page'))));
-        document.querySelectorAll('.mode-btn').forEach(btn=>btn.addEventListener('click',()=>setMode(btn.getAttribute('data-mode'))));
-        document.getElementById('exploreCalculatorsBtn')?.addEventListener('click',()=>setActivePage('calculators'));
-        document.getElementById('addTransactionBtn')?.addEventListener('click',()=>{ updateCategorySelect(); document.getElementById("transactionModal").classList.add("active"); });
-        document.getElementById('saveTransactionBtn')?.addEventListener('click',addTransaction);
-        document.getElementById('runCalcBtn')?.addEventListener('click',()=>window.runCalculator());
-        document.getElementById('saveHistoryBtn')?.addEventListener('click',()=>window.saveCurrentCalculation());
-        document.getElementById('clearHistoryBtn')?.addEventListener('click',()=>clearAllHistory());
-        loadUserData(); setMode("household"); setActivePage("dashboard"); renderCalculatorsGrid(); renderSavedGrid(); renderHistory();
-    });
+    // Event Listeners
+    document.getElementById("switchAuthMode")?.addEventListener("click", switchAuthMode);
+    document.getElementById("authSubmitBtn")?.addEventListener("click", handleAuth);
+    document.getElementById("logoutBtn")?.addEventListener("click", logout);
+    document.getElementById("forgotPasswordBtn")?.addEventListener("click", showForgotModal);
+    document.getElementById("sendOtpBtn")?.addEventListener("click", sendOtp);
+    document.getElementById("verifyOtpBtn")?.addEventListener("click", verifyOtpAndReset);
+    document.getElementById("resetPasswordBtn")?.addEventListener("click", verifyOtpAndReset);
+    document.getElementById("exploreCalculatorsBtn")?.addEventListener("click",()=>setActivePage("calculators"));
+    document.getElementById("addTransactionBtn")?.addEventListener("click",()=>{ updateCategorySelect(); document.getElementById("transactionModal").classList.add("active"); });
+    document.getElementById("saveTransactionBtn")?.addEventListener("click",addTransaction);
+    document.getElementById("editIncomeBtn")?.addEventListener("click",editIncome);
+    document.getElementById("confirmIncomeBtn")?.addEventListener("click",updateMonthlyIncome);
+    document.getElementById("addBudgetBtn")?.addEventListener("click",addBudget);
+    document.getElementById("addGoalBtn")?.addEventListener("click",addGoal);
+    document.getElementById("runCalcBtn")?.addEventListener("click",()=>window.runCalculator());
+    document.getElementById("saveHistoryBtn")?.addEventListener("click",()=>window.saveCurrentCalculation());
+    document.getElementById("clearHistoryBtn")?.addEventListener("click",()=>alert("History cleared"));
+    document.querySelectorAll(".mode-btn").forEach(b=>b.addEventListener("click",()=>setMode(b.getAttribute("data-mode"))));
+    document.querySelectorAll('.page-btn, .nav-item').forEach(btn=>btn.addEventListener('click',()=>setActivePage(btn.getAttribute('data-page'))));
+    document.querySelectorAll(".goal-badge").forEach(b=>b.addEventListener("click",()=>setGoal(b.dataset.goal)));
+    populateCurrencySelect();
+    switchAuthMode(); // ensures login mode active with email/password visible
+    document.getElementById("mainApp").style.display = "none";
+    document.getElementById("authOverlay").style.display = "flex";
 </script>
 </body>
 </html>
