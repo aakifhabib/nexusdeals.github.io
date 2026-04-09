@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Financify Pro | Bill Reminders + Subscriptions + PDF Export</title>
+    <title>Financify Pro | AI-Powered Financial Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
@@ -29,11 +28,8 @@
         .auth-input { width: 100%; padding: 14px 18px; border-radius: 60px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; margin-bottom: 16px; font-size: 16px; }
         .auth-btn { background: linear-gradient(135deg, #1e6f5c, #2c9a80); width: 100%; padding: 14px; border-radius: 60px; border: none; color: white; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 12px; transition: 0.2s; }
         .google-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); margin-top: 12px; }
-        .google-btn:hover { background: rgba(255,255,255,0.2); }
         .divider { text-align: center; margin: 20px 0; position: relative; }
         .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: rgba(255,255,255,0.2); }
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
         .switch-auth { text-align: center; margin-top: 20px; color: #94a3b8; cursor: pointer; }
         .switch-auth span { color: #2c9a80; font-weight: 600; }
         .error-msg { color: #ef4444; font-size: 12px; text-align: center; margin-top: 8px; display: none; }
@@ -71,13 +67,12 @@
         .stat-number { font-size: 28px; font-weight: 800; }
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 20px 0; }
         @media (min-width: 640px) { .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); } }
-        .calculators-grid, .saved-calculations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; margin-top: 20px; max-height: 550px; overflow-y: auto; padding-right: 8px; }
-        .calc-card, .saved-card { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 16px 12px; cursor: pointer; text-align: center; transition: 0.2s; position: relative; }
-        .calc-card:hover, .saved-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
-        .calc-card h4, .saved-card h4 { font-size: 13px; margin-top: 8px; }
+        .calculators-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; margin-top: 20px; max-height: 550px; overflow-y: auto; }
+        .calc-card { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 16px 12px; cursor: pointer; text-align: center; transition: 0.2s; position: relative; }
+        .calc-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
+        .calc-card h4 { font-size: 13px; margin-top: 8px; }
         .save-icon { position: absolute; top: 10px; right: 12px; font-size: 16px; color: #fbbf24; cursor: pointer; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .save-icon.saved { color: #f59e0b; }
-        .delete-saved { position: absolute; bottom: 8px; right: 12px; font-size: 10px; color: #ef4444; cursor: pointer; background: rgba(0,0,0,0.4); padding: 4px 8px; border-radius: 20px; }
         .transaction-item, .recurring-item, .subscription-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); align-items: center; flex-wrap: wrap; gap: 8px; }
         .btn-primary { background: linear-gradient(135deg, #1e6f5c, #2c9a80); padding: 10px 20px; border-radius: 40px; border: none; font-weight: 600; color: white; cursor: pointer; }
         .btn-outline { background: rgba(255,255,255,0.1); border: 1px solid rgba(44,154,128,0.6); padding: 8px 18px; border-radius: 40px; color: #e2e8f0; cursor: pointer; }
@@ -95,249 +90,204 @@
         .goal-badge { background: rgba(0,0,0,0.4); padding: 8px 16px; border-radius: 40px; cursor: pointer; font-size: 13px; }
         .goal-badge.active-goal { background: linear-gradient(135deg, #1e6f5c, #2c9a80); }
         .result-area { background: rgba(0,0,0,0.4); border-radius: 20px; padding: 16px; margin-top: 16px; text-align: center; }
+        .ai-insight-card { background: linear-gradient(135deg, rgba(44,154,128,0.2), rgba(30,111,92,0.2)); border-radius: 20px; padding: 16px; margin-top: 16px; border-left: 4px solid #2c9a80; }
         .badge-urgent { background: #ef4444; padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-left: 8px; }
-        .badge-upcoming { background: #f59e0b; padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-left: 8px; }
+        .badge-warning { background: #f59e0b; padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-left: 8px; }
+        .badge-success { background: #22c55e; padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-left: 8px; }
+        .chat-message { padding: 10px; margin: 8px 0; border-radius: 20px; max-width: 85%; }
+        .user-message { background: rgba(44,154,128,0.3); margin-left: auto; text-align: right; }
+        .ai-message { background: rgba(255,255,255,0.1); margin-right: auto; }
     </style>
 </head>
 <body>
 <div class="animated-bg"><div class="gradient-orb orb1"></div><div class="gradient-orb orb2"></div></div>
 
-<!-- AUTH MODAL -->
-<div id="authOverlay" class="auth-overlay">
-    <div class="auth-card">
-        <div class="auth-title" id="authTitle">🔐 Login to Financify Pro</div>
-        <div id="authErrorMsg" class="error-msg"></div>
-        <input type="email" id="authEmail" class="auth-input" placeholder="Email address">
-        <input type="password" id="authPassword" class="auth-input" placeholder="Password">
-        <div id="signupExtraFields" style="display: none;"><input type="text" id="authName" class="auth-input" placeholder="Full Name"></div>
-        <button id="authSubmitBtn" class="auth-btn">Login →</button>
-        <div class="divider">or</div>
-        <button id="googleLoginBtn" class="auth-btn google-btn"><i class="fab fa-google"></i> Continue with Google</button>
-        <div class="switch-auth" id="switchAuthMode">Don't have an account? <span>Sign Up</span></div>
-    </div>
-</div>
-
-<!-- ONBOARDING MODAL -->
-<div id="onboardingOverlay" class="onboarding-overlay">
-    <div class="onboarding-card">
-        <div id="onbStep1" class="question-step active-step">
-            <div class="onboarding-title">✨ Welcome! Let's Personalize</div>
-            <div class="question-text">What's your monthly income?</div>
-            <input type="number" id="userIncome" class="onboarding-input" value="4000">
-            <div class="nav-buttons"><button class="btn-next" onclick="nextOnboardingStep(2)">Continue →</button></div>
-        </div>
-        <div id="onbStep2" class="question-step">
-            <div class="question-text">🌍 Select your preferred currency</div>
-            <select id="userCurrency" class="onboarding-input"></select>
-            <div class="nav-buttons"><button class="btn-prev" onclick="prevOnboardingStep(1)">← Back</button><button class="btn-next" onclick="nextOnboardingStep(3)">Continue →</button></div>
-        </div>
-        <div id="onbStep3" class="question-step">
-            <div class="question-text">🎯 What's your primary financial goal?</div>
-            <div class="option-group" id="goalGroup">
-                <div class="option-btn" data-goal="savings">🏦 Build Savings</div>
-                <div class="option-btn" data-goal="invest">📈 Invest & Grow</div>
-                <div class="option-btn" data-goal="debt">🔓 Pay Down Debt</div>
-                <div class="option-btn" data-goal="retire">🌴 Retirement</div>
-                <div class="option-btn" data-goal="emergency">🛡️ Emergency Fund</div>
-            </div>
-            <div class="nav-buttons"><button class="btn-prev" onclick="prevOnboardingStep(2)">← Back</button><button class="btn-next" onclick="finishOnboarding()">Create Dashboard →</button></div>
-        </div>
-    </div>
-</div>
+<!-- AUTH MODAL (Same as before) -->
+<div id="authOverlay" class="auth-overlay"><div class="auth-card"><div class="auth-title" id="authTitle">🔐 Login to Financify Pro</div><div id="authErrorMsg" class="error-msg"></div><input type="email" id="authEmail" class="auth-input" placeholder="Email"><input type="password" id="authPassword" class="auth-input" placeholder="Password"><div id="signupExtraFields" style="display: none;"><input type="text" id="authName" class="auth-input" placeholder="Full Name"></div><button id="authSubmitBtn" class="auth-btn">Login →</button><div class="divider">or</div><button id="googleLoginBtn" class="auth-btn google-btn"><i class="fab fa-google"></i> Google Login</button><div class="switch-auth" id="switchAuthMode">Don't have an account? <span>Sign Up</span></div></div></div>
+<div id="onboardingOverlay" class="onboarding-overlay"><div class="onboarding-card"><div id="onbStep1" class="question-step active-step"><div class="onboarding-title">✨ Welcome!</div><div class="question-text">Monthly income?</div><input type="number" id="userIncome" class="onboarding-input" value="4000"><div class="nav-buttons"><button class="btn-next" onclick="nextOnboardingStep(2)">Continue →</button></div></div><div id="onbStep2" class="question-step"><div class="question-text">🌍 Currency</div><select id="userCurrency" class="onboarding-input"></select><div class="nav-buttons"><button class="btn-prev" onclick="prevOnboardingStep(1)">← Back</button><button class="btn-next" onclick="nextOnboardingStep(3)">Continue →</button></div></div><div id="onbStep3" class="question-step"><div class="question-text">🎯 Financial Goal</div><div class="option-group" id="goalGroup"><div class="option-btn" data-goal="savings">🏦 Savings</div><div class="option-btn" data-goal="invest">📈 Invest</div><div class="option-btn" data-goal="debt">🔓 Debt</div><div class="option-btn" data-goal="retire">🌴 Retirement</div></div><div class="nav-buttons"><button class="btn-prev" onclick="prevOnboardingStep(2)">← Back</button><button class="btn-next" onclick="finishOnboarding()">Create Dashboard →</button></div></div></div></div>
 
 <!-- MAIN APP -->
 <div id="mainApp" style="display: none;">
-    <div class="navbar">
-        <div class="container nav-container">
-            <div class="logo"><h1>Financify Pro</h1><p id="greetingMsg">Bill Reminders | Subscriptions | PDF Export</p></div>
-            <div class="user-info"><span id="userEmailDisplay"></span> <span id="currencyBadge" class="currency-badge">USD</span> <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
-            <div class="mode-selector"><button class="mode-btn active" data-mode="household">🏠 Household</button><button class="mode-btn" data-mode="business">💼 Business</button></div>
-        </div>
-    </div>
+    <div class="navbar"><div class="container nav-container"><div class="logo"><h1>Financify Pro</h1><p id="greetingMsg">AI-Powered Finance</p></div><div class="user-info"><span id="userEmailDisplay"></span> <span id="currencyBadge" class="currency-badge">USD</span> <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button></div><div class="mode-selector"><button class="mode-btn active" data-mode="household">🏠 Household</button><button class="mode-btn" data-mode="business">💼 Business</button></div></div></div>
     <div class="container page-tabs desktop-tabs">
         <button class="page-btn" data-page="dashboard">📊 Dashboard</button>
-        <button class="page-btn" data-page="calculators">🧮 Calculators</button>
-        <button class="page-btn" data-page="saved">⭐ Saved</button>
+        <button class="page-btn" data-page="calculators">🧮 Tools</button>
         <button class="page-btn" data-page="transactions">📝 Txns</button>
-        <button class="page-btn" data-page="recurring">🔄 Bills</button>
-        <button class="page-btn" data-page="subscriptions">📺 Subscriptions</button>
-        <button class="page-btn" data-page="investments">📈 Invest</button>
-        <button class="page-btn" data-page="debt">💳 Debt</button>
-        <button class="page-btn" data-page="reports">📄 Reports</button>
+        <button class="page-btn" data-page="ai-assistant">🤖 AI Assistant</button>
+        <button class="page-btn" data-page="insights">💡 Insights</button>
         <button class="page-btn" data-page="about">👤 About</button>
     </div>
     <main class="container">
-        <!-- Dashboard -->
+        <!-- Dashboard with AI Widgets -->
         <div id="dashboardPage" class="page-content active-page">
-            <div class="hero-stats">
-                <div><div class="stat-number" id="welcomeStat">👋</div><div id="userWelcomeText">Loading...</div></div>
-                <div><div class="stat-number" id="mainBalance">$0</div><div>Net Worth</div></div>
-                <div><div class="stat-number" id="savingsRateDisplay">0%</div><div>Savings Rate</div></div>
-            </div>
+            <div class="hero-stats"><div><div class="stat-number" id="welcomeStat">👋</div><div id="userWelcomeText">Loading...</div></div><div><div class="stat-number" id="mainBalance">$0</div><div>Net Worth</div></div><div><div class="stat-number" id="savingsRateDisplay">0%</div><div>Savings Rate</div></div></div>
             <div class="dashboard-grid">
-                <div class="card"><h3><i class="fas fa-chart-line"></i> Financial Snapshot</h3><div>Monthly Income: <strong id="displayMonthlyIncome">$0</strong></div><div>Expenses: <strong id="totalExpense">$0</strong> | Remaining: <strong id="remainingIncome">$0</strong></div><div class="progress-bar"><div class="progress-fill" id="savingsProgressFill"></div></div><div>🎯 Goal: <span id="userGoalText">Build Savings</span></div><div class="goal-selector" id="goalSelector"><div class="goal-badge" data-goal="savings">🏦 Savings</div><div class="goal-badge" data-goal="invest">📈 Invest</div><div class="goal-badge" data-goal="debt">🔓 Debt</div><div class="goal-badge" data-goal="retire">🌴 Retirement</div></div><div id="personalTip" style="margin-top:12px; font-size:13px;"></div></div>
+                <div class="card"><h3><i class="fas fa-chart-line"></i> Financial Snapshot</h3><div>Income: <strong id="displayMonthlyIncome">$0</strong></div><div>Expenses: <strong id="totalExpense">$0</strong> | Remaining: <strong id="remainingIncome">$0</strong></div><div class="progress-bar"><div class="progress-fill" id="savingsProgressFill"></div></div><div>🎯 Goal: <span id="userGoalText">Savings</span></div><div id="personalTip" style="margin-top:12px;"></div></div>
                 <div class="card"><h3><i class="fas fa-chart-pie"></i> Spending Breakdown</h3><div style="height: 220px;"><canvas id="spendingChart"></canvas></div></div>
-                <div class="card"><h3><i class="fas fa-robot"></i> AI Financial Insight</h3><p id="smartTip">Personalized recommendations based on your profile.</p><button class="btn-primary" id="exploreCalculatorsBtn">Explore 50+ Tools →</button></div>
+                <div class="card"><h3><i class="fas fa-brain"></i> AI Financial Insights</h3><div id="aiQuickInsights"></div><button class="btn-primary" id="exploreCalculatorsBtn" style="margin-top:12px;">Explore Tools →</button></div>
             </div>
-            <div class="card"><h3><i class="fas fa-bell"></i> Upcoming Bills</h3><div id="upcomingBillsPreview"></div></div>
+            <div class="card"><h3><i class="fas fa-bell"></i> Smart Alerts & Predictions</h3><div id="smartAlerts"></div></div>
         </div>
         
-        <!-- Calculators -->
         <div id="calculatorsPage" class="page-content"><div class="card"><h2><i class="fas fa-calculator"></i> Financial Calculators <span id="calcCountBadge"></span></h2><div id="calculatorsGridContainer" class="calculators-grid"></div></div></div>
-        <div id="savedPage" class="page-content"><div class="card"><h2><i class="fas fa-star"></i> Saved Calculators <span id="savedCountBadge"></span></h2><div id="savedCalculationsContainer" class="saved-calculations-grid"></div><div id="emptySavedMsg" style="text-align:center;padding:40px;">⭐ No saved calculators. Click the star on any calculator to save it.</div></div></div>
-        <div id="transactionsPage" class="page-content"><div class="card"><h3>📋 Transaction Ledger</h3><button class="btn-outline" id="addTransactionBtn" style="margin-bottom:16px;">+ Add Transaction</button><div id="allTransactionsList" style="max-height:350px;overflow-y:auto;"></div></div></div>
+        <div id="transactionsPage" class="page-content"><div class="card"><h3>📋 Transactions</h3><button class="btn-outline" id="addTransactionBtn">+ Add</button><div id="allTransactionsList" style="max-height:350px;overflow-y:auto; margin-top:16px;"></div></div></div>
         
-        <!-- Recurring Expenses / Bills -->
-        <div id="recurringPage" class="page-content"><div class="card"><h3><i class="fas fa-calendar-alt"></i> Recurring Bills & Reminders</h3><button class="btn-outline" id="addRecurringBtn" style="margin-bottom:16px;">+ Add Recurring Bill</button><div id="recurringList"></div><div id="billReminderAlert" class="emergency-fund-card" style="margin-top:16px;"></div></div></div>
+        <!-- AI Assistant Chat -->
+        <div id="ai-assistantPage" class="page-content">
+            <div class="card"><h3><i class="fas fa-robot"></i> AI Financial Assistant</h3><p>Ask me anything about your finances! Get personalized advice, spending insights, and financial tips.</p>
+            <div id="chatMessages" style="height: 300px; overflow-y: auto; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 16px; margin: 16px 0;"></div>
+            <div style="display: flex; gap: 10px;"><input type="text" id="chatInput" placeholder="Ask me anything..." style="flex:1;"><button id="sendChatBtn" class="btn-primary">Send</button></div>
+            <div class="ai-insight-card" style="margin-top:16px;"><i class="fas fa-lightbulb"></i> <strong>Suggested Questions:</strong><br>• "How can I save more money?"<br>• "Am I spending too much on Food?"<br>• "Give me investment advice"<br>• "Create a budget plan for me"</div></div>
+        </div>
         
-        <!-- Subscriptions Tracker -->
-        <div id="subscriptionsPage" class="page-content"><div class="card"><h3><i class="fas fa-tv"></i> Subscription Tracker</h3><p>Track all your monthly subscriptions and identify savings opportunities.</p><button class="btn-outline" id="addSubscriptionBtn" style="margin-bottom:16px;">+ Add Subscription</button><div id="subscriptionsList"></div><div class="investment-card" style="margin-top:16px;"><strong>📊 Total Monthly Subscriptions:</strong> <span id="totalSubscriptions">$0</span> | <strong>Yearly Cost:</strong> <span id="yearlySubscriptions">$0</strong></div></div></div>
+        <!-- AI Insights Page -->
+        <div id="insightsPage" class="page-content">
+            <div class="card"><h3><i class="fas fa-chart-line"></i> Spending Forecast (Next 30 Days)</h3><div id="forecastChart" style="height: 200px;"><canvas id="forecastCanvas"></canvas></div></div>
+            <div class="card"><h3><i class="fas fa-exclamation-triangle"></i> Anomaly Detection</h3><div id="anomalyList"></div></div>
+            <div class="card"><h3><i class="fas fa-chart-simple"></i> Smart Budget Recommendations</h3><div id="budgetRecommendations"></div></div>
+            <div class="card"><h3><i class="fas fa-tachometer-alt"></i> Financial Health Score</h3><div id="healthScoreDisplay"></div><div class="progress-bar"><div id="healthProgressFill" class="progress-fill" style="width:0%"></div></div></div>
+        </div>
         
-        <div id="investmentsPage" class="page-content"><div class="card"><h3><i class="fas fa-chart-line"></i> Investment Portfolio</h3><div id="investmentsList"></div><button class="btn-primary" id="addInvestmentBtn">+ Add Investment</button><div class="investment-card"><strong>💰 Total Portfolio:</strong> <span id="totalPortfolio">$0</span> | <strong>Avg Return:</strong> <span id="avgReturn">0</span>%</div></div></div>
-        <div id="debtPage" class="page-content"><div class="card"><h3><i class="fas fa-credit-card"></i> Debt Payoff Planner</h3><div id="debtsList"></div><button class="btn-primary" id="addDebtBtn">+ Add Debt</button><div class="debt-card"><strong>📊 Total Debt:</strong> <span id="totalDebt">$0</span> | <strong>Monthly Payments:</strong> <span id="totalMonthlyPayment">$0</span></div></div></div>
-        
-        <!-- PDF Reports Page -->
-        <div id="reportsPage" class="page-content"><div class="card"><h3><i class="fas fa-file-pdf"></i> Financial Reports</h3><p>Generate and download your financial report as PDF.</p><button class="btn-primary" id="generateReportBtn" style="margin:16px 0;"><i class="fas fa-download"></i> Download Monthly Report (PDF)</button><div id="reportPreview" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 20px; font-size: 12px;"></div></div></div>
-        
-        <div id="aboutPage" class="page-content"><div class="card"><div style="text-align:center;"><i class="fas fa-user-tie" style="font-size:48px; color:#2c9a80;"></i><h2>Muhammad Aakif Habib Malik</h2><p>Founder & CEO | FinTech Visionary</p></div><div style="display:flex; justify-content:center; gap:20px; margin:20px 0; flex-wrap:wrap;"><span><i class="fas fa-envelope"></i> nexusdeals235@gmail.com</span><span><i class="fas fa-phone"></i> +92 332 993 8777</span></div><p style="text-align:center;">© 2026 Financify Pro — Bill Reminders | Subscriptions | PDF Reports</p></div></div>
+        <div id="aboutPage" class="page-content"><div class="card"><div style="text-align:center;"><i class="fas fa-user-tie" style="font-size:48px; color:#2c9a80;"></i><h2>Muhammad Aakif Habib Malik</h2><p>Founder & CEO</p></div><div style="text-align:center; margin-top:16px;"><span><i class="fas fa-envelope"></i> nexusdeals235@gmail.com</span> | <span><i class="fas fa-phone"></i> +92 332 993 8777</span></div><p style="text-align:center; margin-top:16px;">© 2026 Financify Pro — AI-Powered Financial Management</p></div></div>
     </main>
-    <div class="footer"><div class="container"><p>© 2026 Financify Pro — Bill Reminders | Subscription Tracker | PDF Export</p></div></div>
+    <div class="footer"><div class="container"><p>© 2026 Financify Pro — AI-Powered Financial Intelligence</p></div></div>
     <div class="bottom-nav">
         <button class="nav-item" data-page="dashboard"><i class="fas fa-home"></i><span>Home</span></button>
         <button class="nav-item" data-page="calculators"><i class="fas fa-calculator"></i><span>Tools</span></button>
-        <button class="nav-item" data-page="recurring"><i class="fas fa-calendar-alt"></i><span>Bills</span></button>
-        <button class="nav-item" data-page="subscriptions"><i class="fas fa-tv"></i><span>Subs</span></button>
-        <button class="nav-item" data-page="reports"><i class="fas fa-file-pdf"></i><span>Reports</span></button>
+        <button class="nav-item" data-page="ai-assistant"><i class="fas fa-robot"></i><span>AI</span></button>
+        <button class="nav-item" data-page="insights"><i class="fas fa-chart-line"></i><span>Insights</span></button>
+        <button class="nav-item" data-page="about"><i class="fas fa-user"></i><span>About</span></button>
     </div>
 </div>
 
 <!-- Modals -->
 <div id="transactionModal" class="modal"><div class="modal-content"><h3>➕ Add Transaction</h3><input id="txnDesc" placeholder="Description"><input id="txnAmount" type="number" placeholder="Amount"><select id="txnType"><option value="expense">Expense</option><option value="income">Income</option></select><select id="txnCategory"></select><button class="btn-primary" id="saveTransactionBtn">Save</button><button onclick="closeModal('transactionModal')" class="btn-outline">Cancel</button></div></div>
-<div id="recurringModal" class="modal"><div class="modal-content"><h3>➕ Add Recurring Bill</h3><input id="recName" placeholder="Bill Name (e.g., Electricity, Rent)"><input id="recAmount" type="number" placeholder="Amount"><select id="recFrequency"><option value="monthly">Monthly</option><option value="weekly">Weekly</option><option value="quarterly">Quarterly</option><option value="yearly">Yearly</option></select><input type="date" id="recNextDue" placeholder="Next Due Date"><button class="btn-primary" id="saveRecurringBtn">Save</button><button onclick="closeModal('recurringModal')" class="btn-outline">Cancel</button></div></div>
-<div id="subscriptionModal" class="modal"><div class="modal-content"><h3>➕ Add Subscription</h3><input id="subName" placeholder="Service Name (Netflix, Spotify)"><input id="subAmount" type="number" placeholder="Monthly Cost"><input id="subBillingDate" type="number" placeholder="Billing Day (1-31)" min="1" max="31"><button class="btn-primary" id="saveSubscriptionBtn">Save</button><button onclick="closeModal('subscriptionModal')" class="btn-outline">Cancel</button></div></div>
-<div id="calculatorModal" class="modal"><div class="modal-content"><h3 id="calcModalTitle">Calculator</h3><div id="calcInputsArea"></div><div id="calcResultArea" class="result-area"></div><button class="btn-primary" id="runCalcBtn">Calculate</button><button class="btn-outline" id="saveCalcBtn">💾 Save</button><button onclick="closeModal('calculatorModal')" class="btn-outline">Close</button></div></div>
-<div id="investmentModal" class="modal"><div class="modal-content"><h3>➕ Add Investment</h3><input id="invName" placeholder="Investment Name"><input id="invAmount" type="number" placeholder="Amount"><input id="invReturns" type="number" placeholder="Expected Return %"><button class="btn-primary" id="saveInvestmentBtn">Save</button><button onclick="closeModal('investmentModal')" class="btn-outline">Cancel</button></div></div>
-<div id="debtModal" class="modal"><div class="modal-content"><h3>➕ Add Debt</h3><input id="debtName" placeholder="Debt Name"><input id="debtAmount" type="number" placeholder="Total Amount"><input id="debtRate" type="number" placeholder="Interest Rate %"><input id="debtMinPayment" type="number" placeholder="Min Monthly Payment"><button class="btn-primary" id="saveDebtBtn">Save</button><button onclick="closeModal('debtModal')" class="btn-outline">Cancel</button></div></div>
+<div id="calculatorModal" class="modal"><div class="modal-content"><h3 id="calcModalTitle">Calculator</h3><div id="calcInputsArea"></div><div id="calcResultArea" class="result-area"></div><button class="btn-primary" id="runCalcBtn">Calculate</button><button onclick="closeModal('calculatorModal')" class="btn-outline">Close</button></div></div>
 
 <script>
-    // ==================== FIREBASE CONFIGURATION ====================
-    const firebaseConfig = {
-        apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM",
-        authDomain: "financify-pro.firebaseapp.com",
-        projectId: "financify-pro",
-        storageBucket: "financify-pro.firebasestorage.app",
-        messagingSenderId: "221687807451",
-        appId: "1:221687807451:web:98997c6a3a12c94cc37bfe"
-    };
+    // Firebase Config
+    const firebaseConfig = { apiKey: "AIzaSyCzelIln6CxwjtYH8ykI04hCGP7Ldc0GdM", authDomain: "financify-pro.firebaseapp.com", projectId: "financify-pro", storageBucket: "financify-pro.firebasestorage.app", messagingSenderId: "221687807451", appId: "1:221687807451:web:98997c6a3a12c94cc37bfe" };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // ==================== CALCULATORS (Same as before) ====================
+    // Calculators
     const householdCalculators = [
         { id:"emi", name:"🏠 Home Loan EMI", inputs:[{l:"Loan Amount",k:"amt"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc:(v,sym)=>{ let r=v.rate/12/100,n=v.years*12,emi=v.amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); return `EMI: ${sym}${emi.toFixed(2)}`; } },
-        { id:"sip", name:"📈 SIP Returns", inputs:[{l:"Monthly SIP",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc:(v,sym)=>{ let r=v.rate/12/100,n=v.years*12,fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future Value: ${sym}${fv.toFixed(2)}`; } },
-        { id:"lumpsum", name:"💰 Lumpsum", inputs:[{l:"Principal",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc:(v,sym)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Maturity: ${sym}${a.toFixed(2)}`; } },
-        { id:"rd", name:"🏦 RD Calculator", inputs:[{l:"Monthly",k:"dep"},{l:"Rate (%)",k:"rate"},{l:"Years",k:"years"}], calc:(v,sym)=>{ let r=v.rate/12/100,n=v.years*12,mv=v.dep*((Math.pow(1+r,n)-1)/r); return `Maturity: ${sym}${mv.toFixed(2)}`; } }
+        { id:"sip", name:"📈 SIP Returns", inputs:[{l:"Monthly SIP",k:"sip"},{l:"Return (%)",k:"rate"},{l:"Years",k:"years"}], calc:(v,sym)=>{ let r=v.rate/12/100,n=v.years*12,fv=v.sip*((Math.pow(1+r,n)-1)/r)*(1+r); return `Future: ${sym}${fv.toFixed(2)}`; } },
+        { id:"lumpsum", name:"💰 Lumpsum", inputs:[{l:"Principal",k:"p"},{l:"Rate (%)",k:"r"},{l:"Years",k:"y"}], calc:(v,sym)=>{ let a=v.p*Math.pow(1+v.r/100,v.y); return `Maturity: ${sym}${a.toFixed(2)}`; } }
     ];
     const businessCalculators = [
         { id:"profit", name:"📊 Profit Margin", inputs:[{l:"Revenue",k:"rev"},{l:"Cost",k:"cost"}], calc:(v,sym)=>{ let p=v.rev-v.cost,m=(p/v.rev*100).toFixed(1); return `Profit ${sym}${p.toFixed(2)} (${m}%)`; } },
-        { id:"gst", name:"🧾 GST Calculator", inputs:[{l:"Amount",k:"amt"},{l:"Rate (%)",k:"rate"}], calc:(v,sym)=>{ let g=v.amt*v.rate/100; return `GST: ${sym}${g.toFixed(2)}`; } }
+        { id:"gst", name:"🧾 GST", inputs:[{l:"Amount",k:"amt"},{l:"Rate (%)",k:"rate"}], calc:(v,sym)=>{ let g=v.amt*v.rate/100; return `GST: ${sym}${g.toFixed(2)}`; } }
     ];
     const allCalculators = [...householdCalculators, ...businessCalculators];
 
-    let currentMode = "household", currentUser = null, activeCalculator = null, currentCalcResult = "";
-    let charts = { spending: null };
+    let currentMode = "household", currentUser = null, activeCalculator = null;
+    let charts = { spending: null, forecast: null };
     let selectedGoal = "savings";
     let pendingGoogleUser = null;
+    let forecastChart = null;
 
-    const currencies = ["USD","EUR","GBP","JPY","CNY","INR","PKR","AED","SAR","CAD","AUD","CHF"];
-    const currencySymbols = { USD:"$", EUR:"€", GBP:"£", JPY:"¥", CNY:"¥", INR:"₹", PKR:"₨", AED:"د.إ", CAD:"C$", AUD:"A$", CHF:"Fr" };
+    const currencies = ["USD","EUR","GBP","JPY","CNY","INR","PKR","AED","SAR","CAD","AUD"];
+    const currencySymbols = { USD:"$", EUR:"€", GBP:"£", JPY:"¥", CNY:"¥", INR:"₹", PKR:"₨", AED:"د.إ", CAD:"C$", AUD:"A$" };
     function getCurrencySymbol(code) { return currencySymbols[code] || code; }
     function populateCurrencySelect() { const sel = document.getElementById("userCurrency"); if(sel) sel.innerHTML = currencies.map(c => `<option value="${c}">${c} - ${getCurrencySymbol(c)}</option>`).join(""); }
 
     // Auth Functions
     let isLoginMode = true;
-    function switchAuthMode() { isLoginMode = !isLoginMode; document.getElementById("authTitle").innerText = isLoginMode ? "🔐 Login" : "🚀 Sign Up"; document.getElementById("signupExtraFields").style.display = isLoginMode ? "none" : "block"; document.getElementById("authSubmitBtn").innerText = isLoginMode ? "Login →" : "Sign Up →"; document.getElementById("switchAuthMode").innerHTML = isLoginMode ? "Don't have an account? <span>Sign Up</span>" : "Already have an account? <span>Login</span>"; document.getElementById("authErrorMsg").style.display = "none"; }
-    function handleEmailAuth() { const email = document.getElementById("authEmail").value.trim().toLowerCase(); const pass = document.getElementById("authPassword").value; const errorDiv = document.getElementById("authErrorMsg"); if(!email || !pass) { errorDiv.innerText = "Email and password required"; errorDiv.style.display = "block"; return; }
-        if(!isLoginMode) { const name = document.getElementById("authName").value.trim(); if(!name) { errorDiv.innerText = "Full name required"; return; } if(pass.length<4) { errorDiv.innerText = "Password min 4 chars"; return; } if(localStorage.getItem(`financify_user_${email}`)) { errorDiv.innerText = "Email exists"; return; } auth.createUserWithEmailAndPassword(email, pass).then(userCredential => { pendingGoogleUser = { uid: userCredential.user.uid, email: email, displayName: name }; document.getElementById("authOverlay").style.display = "none"; document.getElementById("onboardingOverlay").style.display = "flex"; selectedGoal = "savings"; document.querySelectorAll(".option-btn").forEach(b=>b.classList.remove("selected")); document.querySelector(".option-btn[data-goal='savings']")?.classList.add("selected"); }).catch(error => { errorDiv.innerText = error.message; errorDiv.style.display = "block"; }); }
-        else { auth.signInWithEmailAndPassword(email, pass).then(userCredential => { loadUserFromFirebase(userCredential.user); }).catch(error => { errorDiv.innerText = "Wrong email or password"; errorDiv.style.display = "block"; }); } }
-    function handleGoogleLogin() { const provider = new firebase.auth.GoogleAuthProvider(); auth.signInWithPopup(provider).then(result => { const user = result.user; const userData = localStorage.getItem(`financify_user_${user.uid}`); if(userData) { currentUser = JSON.parse(userData); document.getElementById("authOverlay").style.display = "none"; document.getElementById("mainApp").style.display = "block"; updateUI(); renderCalculatorsGrid(); renderSavedCalculations(); updateDashboard(); renderInvestments(); renderDebts(); renderRecurring(); renderSubscriptions(); } else { pendingGoogleUser = { uid: user.uid, email: user.email, displayName: user.displayName || user.email.split('@')[0] }; document.getElementById("authOverlay").style.display = "none"; document.getElementById("onboardingOverlay").style.display = "flex"; selectedGoal = "savings"; document.querySelectorAll(".option-btn").forEach(b=>b.classList.remove("selected")); document.querySelector(".option-btn[data-goal='savings']")?.classList.add("selected"); } }).catch(error => { alert("Google login failed: " + error.message); }); }
-    function loadUserFromFirebase(user) { const userData = localStorage.getItem(`financify_user_${user.uid}`); if(userData) { currentUser = JSON.parse(userData); document.getElementById("authOverlay").style.display = "none"; document.getElementById("mainApp").style.display = "block"; updateUI(); renderCalculatorsGrid(); renderSavedCalculations(); updateDashboard(); renderInvestments(); renderDebts(); renderRecurring(); renderSubscriptions(); } else { pendingGoogleUser = { uid: user.uid, email: user.email, displayName: user.displayName || user.email.split('@')[0] }; document.getElementById("authOverlay").style.display = "none"; document.getElementById("onboardingOverlay").style.display = "flex"; } }
-    function finishOnboarding() { const income = parseFloat(document.getElementById("userIncome").value); const currency = document.getElementById("userCurrency").value; if(isNaN(income) || income <= 0) { alert("Enter valid income"); return; } if(!pendingGoogleUser) return; currentUser = { uid: pendingGoogleUser.uid, email: pendingGoogleUser.email, name: pendingGoogleUser.displayName, currency: currency, monthlyIncome: income, goal: selectedGoal, savedCalculations: [], investments: [], debts: [], recurringExpenses: [], subscriptions: [], transactions: [{id:1, desc:"Salary", amount:income, type:"income", category:"Salary", date:new Date().toISOString().slice(0,10)}] }; localStorage.setItem(`financify_user_${currentUser.uid}`, JSON.stringify(currentUser)); document.getElementById("onboardingOverlay").style.display = "none"; document.getElementById("mainApp").style.display = "block"; updateUI(); renderCalculatorsGrid(); renderSavedCalculations(); updateDashboard(); renderInvestments(); renderDebts(); renderRecurring(); renderSubscriptions(); pendingGoogleUser = null; }
+    function switchAuthMode() { isLoginMode = !isLoginMode; document.getElementById("authTitle").innerText = isLoginMode ? "🔐 Login" : "🚀 Sign Up"; document.getElementById("signupExtraFields").style.display = isLoginMode ? "none" : "block"; document.getElementById("authSubmitBtn").innerText = isLoginMode ? "Login →" : "Sign Up →"; document.getElementById("switchAuthMode").innerHTML = isLoginMode ? "Don't have an account? <span>Sign Up</span>" : "Already have an account? <span>Login</span>"; }
+    function handleEmailAuth() { const email = document.getElementById("authEmail").value.trim().toLowerCase(); const pass = document.getElementById("authPassword").value; const errorDiv = document.getElementById("authErrorMsg"); if(!email||!pass) { errorDiv.innerText="Email and password required"; errorDiv.style.display="block"; return; }
+        if(!isLoginMode) { const name = document.getElementById("authName").value.trim(); if(!name) { errorDiv.innerText="Full name required"; return; } if(pass.length<4) { errorDiv.innerText="Password min 4 chars"; return; } if(localStorage.getItem(`financify_user_${email}`)) { errorDiv.innerText="Email exists"; return; } auth.createUserWithEmailAndPassword(email, pass).then(userCredential => { pendingGoogleUser = { uid: userCredential.user.uid, email, displayName: name }; document.getElementById("authOverlay").style.display = "none"; document.getElementById("onboardingOverlay").style.display = "flex"; }).catch(error => { errorDiv.innerText=error.message; errorDiv.style.display="block"; }); }
+        else { auth.signInWithEmailAndPassword(email, pass).then(userCredential => { loadUserFromFirebase(userCredential.user); }).catch(error => { errorDiv.innerText="Wrong email or password"; errorDiv.style.display="block"; }); } }
+    function handleGoogleLogin() { const provider = new firebase.auth.GoogleAuthProvider(); auth.signInWithPopup(provider).then(result => { const user = result.user; const userData = localStorage.getItem(`financify_user_${user.uid}`); if(userData) { currentUser = JSON.parse(userData); document.getElementById("authOverlay").style.display = "none"; document.getElementById("mainApp").style.display = "block"; updateUI(); renderCalculatorsGrid(); updateDashboard(); runAllAIAnalysis(); } else { pendingGoogleUser = { uid: user.uid, email: user.email, displayName: user.displayName || user.email.split('@')[0] }; document.getElementById("authOverlay").style.display = "none"; document.getElementById("onboardingOverlay").style.display = "flex"; } }).catch(error => { alert("Google login failed"); }); }
+    function loadUserFromFirebase(user) { const userData = localStorage.getItem(`financify_user_${user.uid}`); if(userData) { currentUser = JSON.parse(userData); document.getElementById("authOverlay").style.display = "none"; document.getElementById("mainApp").style.display = "block"; updateUI(); renderCalculatorsGrid(); updateDashboard(); runAllAIAnalysis(); } else { pendingGoogleUser = { uid: user.uid, email: user.email, displayName: user.displayName || user.email.split('@')[0] }; document.getElementById("authOverlay").style.display = "none"; document.getElementById("onboardingOverlay").style.display = "flex"; } }
+    function finishOnboarding() { const income = parseFloat(document.getElementById("userIncome").value); const currency = document.getElementById("userCurrency").value; if(isNaN(income)||income<=0) return; if(!pendingGoogleUser) return; currentUser = { uid: pendingGoogleUser.uid, email: pendingGoogleUser.email, name: pendingGoogleUser.displayName, currency, monthlyIncome: income, goal: selectedGoal, savedCalculations: [], transactions: [{id:1, desc:"Salary", amount:income, type:"income", category:"Salary", date:new Date().toISOString().slice(0,10)}] }; localStorage.setItem(`financify_user_${currentUser.uid}`, JSON.stringify(currentUser)); document.getElementById("onboardingOverlay").style.display = "none"; document.getElementById("mainApp").style.display = "block"; updateUI(); renderCalculatorsGrid(); updateDashboard(); runAllAIAnalysis(); pendingGoogleUser = null; }
     function nextOnboardingStep(step) { document.querySelector('.question-step.active-step').classList.remove('active-step'); document.getElementById(`onbStep${step}`).classList.add('active-step'); }
     function prevOnboardingStep(step) { document.querySelector('.question-step.active-step').classList.remove('active-step'); document.getElementById(`onbStep${step}`).classList.add('active-step'); }
     document.querySelectorAll(".option-btn").forEach(btn => btn.addEventListener("click", function() { document.querySelectorAll(".option-btn").forEach(b=>b.classList.remove("selected")); this.classList.add("selected"); selectedGoal = this.getAttribute("data-goal"); }));
 
     // Core Functions
     function updateUI() { if(!currentUser) return; const sym=getCurrencySymbol(currentUser.currency); document.getElementById("currencyBadge").innerHTML = `${currentUser.currency} ${sym}`; document.getElementById("greetingMsg").innerHTML = `👋 ${currentUser.name}`; document.getElementById("userWelcomeText").innerHTML = `Welcome, ${currentUser.name}!`; document.getElementById("userEmailDisplay").innerHTML = currentUser.email; }
-    function updateDashboard() { if(!currentUser) return; const sym=getCurrencySymbol(currentUser.currency); let inc = currentUser.transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0); let exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); let remaining = currentUser.monthlyIncome - exp; document.getElementById("mainBalance").innerHTML = `${sym}${(inc-exp).toLocaleString()}`; document.getElementById("displayMonthlyIncome").innerHTML = `${sym}${currentUser.monthlyIncome.toLocaleString()}`; document.getElementById("totalExpense").innerHTML = `${sym}${exp.toLocaleString()}`; document.getElementById("remainingIncome").innerHTML = `${sym}${remaining.toLocaleString()}`; let rate = currentUser.monthlyIncome>0 ? ((currentUser.monthlyIncome-exp)/currentUser.monthlyIncome*100).toFixed(1) : 0; document.getElementById("savingsRateDisplay").innerHTML = rate+"%"; document.getElementById("savingsProgressFill").style.width = `${Math.min(100,rate)}%`; document.getElementById("userGoalText").innerHTML = { savings:"🏦 Savings", invest:"📈 Invest", debt:"🔓 Debt", retire:"🌴 Retirement" }[currentUser.goal] || "Savings"; document.getElementById("personalTip").innerHTML = `💡 ${currentUser.name}, focus on ${currentUser.goal} goal!`; document.getElementById("smartTip").innerHTML = `✨ Based on ${currentUser.currency} ${currentUser.monthlyIncome} monthly, you can save ${rate}%.`; renderTransactions(); updateCharts(); renderUpcomingBillsPreview(); }
+    function updateDashboard() { if(!currentUser) return; const sym=getCurrencySymbol(currentUser.currency); let inc = currentUser.transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0); let exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); let remaining = currentUser.monthlyIncome - exp; document.getElementById("mainBalance").innerHTML = `${sym}${(inc-exp).toLocaleString()}`; document.getElementById("displayMonthlyIncome").innerHTML = `${sym}${currentUser.monthlyIncome.toLocaleString()}`; document.getElementById("totalExpense").innerHTML = `${sym}${exp.toLocaleString()}`; document.getElementById("remainingIncome").innerHTML = `${sym}${remaining.toLocaleString()}`; let rate = currentUser.monthlyIncome>0 ? ((currentUser.monthlyIncome-exp)/currentUser.monthlyIncome*100).toFixed(1) : 0; document.getElementById("savingsRateDisplay").innerHTML = rate+"%"; document.getElementById("savingsProgressFill").style.width = `${Math.min(100,rate)}%`; document.getElementById("userGoalText").innerHTML = { savings:"🏦 Savings", invest:"📈 Invest", debt:"🔓 Debt", retire:"🌴 Retirement" }[currentUser.goal] || "Savings"; document.getElementById("personalTip").innerHTML = `💡 ${currentUser.name}, focus on your ${currentUser.goal} goal!`; renderTransactions(); updateCharts(); }
     function renderTransactions() { const container=document.getElementById("allTransactionsList"); if(container && currentUser){ const sym=getCurrencySymbol(currentUser.currency); container.innerHTML=[...currentUser.transactions].reverse().map(t=>`<div class='transaction-item'><span>${t.desc}</span><span>${sym}${t.amount.toFixed(2)}</span><span style="font-size:11px;">${t.category||''}</span></div>`).join(""); } }
     function updateCharts() { if(!currentUser) return; const expMap={}; currentUser.transactions.filter(t=>t.type==="expense").forEach(e=>expMap[e.category]=(expMap[e.category]||0)+e.amount); const ctx=document.getElementById('spendingChart')?.getContext('2d'); if(ctx){ if(charts.spending) charts.spending.destroy(); charts.spending=new Chart(ctx,{type:'doughnut',data:{labels:Object.keys(expMap),datasets:[{data:Object.values(expMap),backgroundColor:['#2c9a80','#1e6f5c','#54b4a0','#f59e0b']}]},options:{plugins:{legend:{labels:{color:'#e2e8f0'}}}}}); } }
-    function addTransaction(){ let desc=document.getElementById("txnDesc").value.trim(), amt=parseFloat(document.getElementById("txnAmount").value), type=document.getElementById("txnType").value, cat=document.getElementById("txnCategory").value; if(!desc||isNaN(amt)||amt<=0) return; currentUser.transactions.push({id:Date.now(),desc,amount:amt,type,category:cat,date:new Date().toISOString().slice(0,10)}); saveUserData(); updateDashboard(); closeModal('transactionModal'); }
+    function addTransaction(){ let desc=document.getElementById("txnDesc").value.trim(), amt=parseFloat(document.getElementById("txnAmount").value), type=document.getElementById("txnType").value, cat=document.getElementById("txnCategory").value; if(!desc||isNaN(amt)||amt<=0) return; currentUser.transactions.push({id:Date.now(),desc,amount:amt,type,category:cat,date:new Date().toISOString().slice(0,10)}); saveUserData(); updateDashboard(); runAllAIAnalysis(); closeModal('transactionModal'); }
     function updateCategorySelect(){ let sel=document.getElementById("txnCategory"); if(sel) sel.innerHTML=["Food","Housing","Transport","Entertainment","Bills","Shopping","Health"].map(c=>`<option>${c}</option>`).join(""); }
     function saveUserData() { if(currentUser) localStorage.setItem(`financify_user_${currentUser.uid}`, JSON.stringify(currentUser)); }
+    function renderCalculatorsGrid() { const lib = currentMode==="household" ? householdCalculators : businessCalculators; const container=document.getElementById("calculatorsGridContainer"); if(container){ container.innerHTML=lib.map(c=>`<div class='calc-card' data-calc-id='${c.id}'><i class="fas fa-calculator" style="font-size:28px; color:#2c9a80;"></i><h4>${c.name}</h4></div>`).join(""); document.querySelectorAll('.calc-card').forEach(card=>card.addEventListener('click',()=>openCalculator(card.dataset.calcId))); document.getElementById("calcCountBadge").innerHTML = `(${lib.length} tools)`; } }
+    function openCalculator(id){ const lib = currentMode==="household" ? householdCalculators : businessCalculators; activeCalculator = lib.find(c=>c.id===id); if(activeCalculator && currentUser){ const sym=getCurrencySymbol(currentUser.currency); document.getElementById("calcModalTitle").innerHTML = activeCalculator.name; document.getElementById("calcInputsArea").innerHTML = activeCalculator.inputs.map(inp=>`<label>${inp.l} (${currentUser.currency})</label><input type='number' id='calc_${inp.k}' value='0'>`).join(""); document.getElementById("calcResultArea").innerHTML = ""; document.getElementById("calculatorModal").classList.add("active"); } }
+    window.runCalculator = function(){ if(activeCalculator && currentUser){ let vals={}; activeCalculator.inputs.forEach(inp=>vals[inp.k]=parseFloat(document.getElementById(`calc_${inp.k}`)?.value)||0); const sym=getCurrencySymbol(currentUser.currency); let result = activeCalculator.calc(vals, sym); document.getElementById("calcResultArea").innerHTML = `<strong>Result:</strong> ${result}`; } };
     
-    // Calculators
-    function renderCalculatorsGrid() { const lib = currentMode==="household" ? householdCalculators : businessCalculators; const container=document.getElementById("calculatorsGridContainer"); if(container){ container.innerHTML=lib.map(c=>`<div class='calc-card' data-calc-id='${c.id}'><div class='save-icon ${currentUser?.savedCalculations?.includes(c.id) ? 'saved' : ''}' onclick='event.stopPropagation(); toggleSaveCalculator("${c.id}")'>⭐</div><i class="fas fa-calculator" style="font-size:28px; color:#2c9a80;"></i><h4>${c.name}</h4></div>`).join(""); document.querySelectorAll('.calc-card').forEach(card=>card.addEventListener('click',(e)=>{if(!e.target.classList.contains('save-icon')) openCalculator(card.dataset.calcId);})); document.getElementById("calcCountBadge").innerHTML = `(${lib.length} tools)`; } }
-    function toggleSaveCalculator(id) { if(!currentUser) return; if(!currentUser.savedCalculations) currentUser.savedCalculations = []; if(currentUser.savedCalculations.includes(id)) currentUser.savedCalculations = currentUser.savedCalculations.filter(s=>s!==id); else currentUser.savedCalculations.push(id); saveUserData(); renderCalculatorsGrid(); renderSavedCalculations(); }
-    function renderSavedCalculations() { if(!currentUser) return; const savedIds = currentUser.savedCalculations || []; const savedItems = allCalculators.filter(c=>savedIds.includes(c.id)); const container=document.getElementById("savedCalculationsContainer"); const emptyMsg=document.getElementById("emptySavedMsg"); if(container){ if(savedItems.length===0){ container.innerHTML=""; if(emptyMsg) emptyMsg.style.display="block"; return; } if(emptyMsg) emptyMsg.style.display="none"; container.innerHTML=savedItems.map(c=>`<div class='saved-card' data-calc-id='${c.id}'><i class="fas fa-star" style="color:#fbbf24;"></i><h4>${c.name}</h4><div class='delete-saved' onclick='event.stopPropagation(); removeSavedCalculator("${c.id}")'>Remove</div></div>`).join(""); document.querySelectorAll('.saved-card').forEach(card=>card.addEventListener('click',()=>openCalculator(card.dataset.calcId))); document.getElementById("savedCountBadge").innerHTML = `(${savedItems.length} saved)`; } }
-    function removeSavedCalculator(id) { if(currentUser && currentUser.savedCalculations) { currentUser.savedCalculations = currentUser.savedCalculations.filter(s=>s!==id); saveUserData(); renderSavedCalculations(); renderCalculatorsGrid(); } }
-    function openCalculator(id){ const lib = currentMode==="household" ? householdCalculators : businessCalculators; activeCalculator = lib.find(c=>c.id===id); if(activeCalculator && currentUser){ const sym=getCurrencySymbol(currentUser.currency); document.getElementById("calcModalTitle").innerHTML = activeCalculator.name; document.getElementById("calcInputsArea").innerHTML = activeCalculator.inputs.map(inp=>`<label>${inp.l} (${currentUser.currency})</label><input type='number' id='calc_${inp.k}' value='0' step='any'>`).join(""); document.getElementById("calcResultArea").innerHTML = ""; document.getElementById("calculatorModal").classList.add("active"); } }
-    window.runCalculator = function(){ if(activeCalculator && currentUser){ let vals={}; activeCalculator.inputs.forEach(inp=>vals[inp.k]=parseFloat(document.getElementById(`calc_${inp.k}`)?.value)||0); const sym=getCurrencySymbol(currentUser.currency); currentCalcResult = activeCalculator.calc(vals, sym); document.getElementById("calcResultArea").innerHTML = `<strong>✅ Result:</strong> ${currentCalcResult}`; } };
-    window.saveCalculation = function(){ if(activeCalculator && currentCalcResult && currentUser){ if(!currentUser.savedCalculations) currentUser.savedCalculations = []; if(!currentUser.savedCalculations.includes(activeCalculator.id)){ currentUser.savedCalculations.push(activeCalculator.id); saveUserData(); renderCalculatorsGrid(); renderSavedCalculations(); alert("✅ Calculator saved!"); } else alert("Already saved"); } else alert("Calculate first"); };
+    // ==================== AI MANAGEMENT SYSTEMS ====================
+    function runAllAIAnalysis() { if(!currentUser) return; generateAIInsights(); detectAnomalies(); generateBudgetRecommendations(); calculateFinancialHealth(); generateSpendingForecast(); updateSmartAlerts(); }
     
-    // Investments & Debt
-    function renderInvestments() { if(!currentUser) return; const inv = currentUser.investments || []; const sym=getCurrencySymbol(currentUser.currency); const total = inv.reduce((s,i)=>s+i.amount,0); const avgRet = inv.length ? (inv.reduce((s,i)=>s+i.returns,0)/inv.length).toFixed(1) : 0; document.getElementById("totalPortfolio").innerHTML = `${sym}${total.toLocaleString()}`; document.getElementById("avgReturn").innerHTML = avgRet; const container=document.getElementById("investmentsList"); if(container) container.innerHTML = inv.map((i,idx)=>`<div style="display:flex; justify-content:space-between; padding:10px; background:rgba(255,255,255,0.05); border-radius:16px; margin-bottom:8px;"><span><strong>${i.name}</strong> | ${i.returns}% return</span><span>${sym}${i.amount.toFixed(2)}</span><button class="btn-outline" style="padding:4px 12px;" onclick="deleteInvestment(${idx})">Delete</button></div>`).join("") || "<div>No investments yet</div>"; }
-    function addInvestment() { document.getElementById("investmentModal").classList.add("active"); }
-    function saveInvestment() { let name=document.getElementById("invName").value.trim(), amount=parseFloat(document.getElementById("invAmount").value), returns=parseFloat(document.getElementById("invReturns").value); if(!name||isNaN(amount)||amount<=0) return; if(!currentUser.investments) currentUser.investments=[]; currentUser.investments.push({name,amount,returns}); saveUserData(); renderInvestments(); closeModal('investmentModal'); }
-    function deleteInvestment(idx) { if(currentUser.investments) { currentUser.investments.splice(idx,1); saveUserData(); renderInvestments(); } }
-    function renderDebts() { if(!currentUser) return; const debts = currentUser.debts || []; const sym=getCurrencySymbol(currentUser.currency); const totalDebt = debts.reduce((s,d)=>s+d.amount,0); const totalMonthly = debts.reduce((s,d)=>s+d.minPayment,0); document.getElementById("totalDebt").innerHTML = `${sym}${totalDebt.toLocaleString()}`; document.getElementById("totalMonthlyPayment").innerHTML = `${sym}${totalMonthly.toLocaleString()}`; const container=document.getElementById("debtsList"); if(container) container.innerHTML = debts.map((d,idx)=>`<div style="display:flex; justify-content:space-between; padding:10px; background:rgba(255,255,255,0.05); border-radius:16px; margin-bottom:8px;"><span><strong>${d.name}</strong> | ${d.rate}% APR</span><span>${sym}${d.amount.toFixed(2)}</span><button class="btn-outline" style="padding:4px 12px;" onclick="deleteDebt(${idx})">Delete</button></div>`).join("") || "<div>No debts added</div>"; }
-    function addDebt() { document.getElementById("debtModal").classList.add("active"); }
-    function saveDebt() { let name=document.getElementById("debtName").value.trim(), amount=parseFloat(document.getElementById("debtAmount").value), rate=parseFloat(document.getElementById("debtRate").value), minPayment=parseFloat(document.getElementById("debtMinPayment").value); if(!name||isNaN(amount)||amount<=0) return; if(!currentUser.debts) currentUser.debts=[]; currentUser.debts.push({name,amount,rate,minPayment}); saveUserData(); renderDebts(); closeModal('debtModal'); }
-    function deleteDebt(idx) { if(currentUser.debts) { currentUser.debts.splice(idx,1); saveUserData(); renderDebts(); } }
+    function generateAIInsights() { if(!currentUser) return; const exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); const inc = currentUser.monthlyIncome; const savings = inc - exp; const savingsRate = inc>0 ? (savings/inc*100).toFixed(0) : 0; const topCategory = getTopSpendingCategory(); let insight = `<div class="ai-insight-card"><i class="fas fa-brain"></i> <strong>AI Financial Analysis</strong><br>`;
+        if(savingsRate < 10) insight += `⚠️ Your savings rate is only ${savingsRate}%. Consider reducing expenses in ${topCategory}.<br>`;
+        else if(savingsRate > 30) insight += `🎉 Great job! You're saving ${savingsRate}% of your income. Keep it up!<br>`;
+        else insight += `✅ Your savings rate of ${savingsRate}% is good. Aim for 20%+ for faster wealth building.<br>`;
+        if(topCategory) insight += `📊 Your highest expense category is "${topCategory}". Try to optimize this area.<br>`;
+        insight += `💡 Tip: Use our calculators to plan for ${currentUser.goal === 'invest' ? 'investments' : 'savings'}.</div>`;
+        document.getElementById("aiQuickInsights").innerHTML = insight;
+    }
     
-    // NEW: Recurring Expenses / Bill Reminders
-    function renderRecurring() { if(!currentUser) return; const recurring = currentUser.recurringExpenses || []; const sym=getCurrencySymbol(currentUser.currency); const container=document.getElementById("recurringList"); if(container) container.innerHTML = recurring.map((r,idx)=>`<div class='recurring-item'><span><strong>${r.name}</strong> | ${r.frequency} | Due: ${r.nextDue}</span><span>${sym}${r.amount.toFixed(2)}</span><button class="btn-outline" style="padding:4px 12px;" onclick="deleteRecurring(${idx})">Delete</button></div>`).join("") || "<div>No recurring bills added</div>"; checkBillReminders(); }
-    function addRecurring() { document.getElementById("recurringModal").classList.add("active"); }
-    function saveRecurring() { let name=document.getElementById("recName").value.trim(), amount=parseFloat(document.getElementById("recAmount").value), frequency=document.getElementById("recFrequency").value, nextDue=document.getElementById("recNextDue").value; if(!name||isNaN(amount)||amount<=0||!nextDue) { alert("Fill all fields"); return; } if(!currentUser.recurringExpenses) currentUser.recurringExpenses=[]; currentUser.recurringExpenses.push({name,amount,frequency,nextDue}); saveUserData(); renderRecurring(); closeModal('recurringModal'); document.getElementById("recName").value=""; document.getElementById("recAmount").value=""; document.getElementById("recNextDue").value=""; }
-    function deleteRecurring(idx) { if(currentUser.recurringExpenses) { currentUser.recurringExpenses.splice(idx,1); saveUserData(); renderRecurring(); } }
-    function checkBillReminders() { if(!currentUser) return; const recurring = currentUser.recurringExpenses || []; const today = new Date(); const upcoming = recurring.filter(r => { const dueDate = new Date(r.nextDue); const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24)); return diffDays >= 0 && diffDays <= 7; }); const alertDiv = document.getElementById("billReminderAlert"); if(alertDiv) { if(upcoming.length > 0) { alertDiv.innerHTML = `<strong>⚠️ Upcoming Bills (next 7 days):</strong><br>${upcoming.map(u => `${u.name} - ${getCurrencySymbol(currentUser.currency)}${u.amount.toFixed(2)} due on ${u.nextDue}`).join('<br>')}`; } else { alertDiv.innerHTML = "<strong>✅ No upcoming bills in the next 7 days!</strong>"; } } }
-    function renderUpcomingBillsPreview() { if(!currentUser) return; const recurring = currentUser.recurringExpenses || []; const today = new Date(); const upcoming = recurring.filter(r => { const dueDate = new Date(r.nextDue); const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24)); return diffDays >= 0 && diffDays <= 7; }).slice(0,3); const container=document.getElementById("upcomingBillsPreview"); if(container) { if(upcoming.length>0) { container.innerHTML = upcoming.map(u => `<div class="transaction-item"><span>${u.name}</span><span>${getCurrencySymbol(currentUser.currency)}${u.amount.toFixed(2)}</span><span class="badge-upcoming">Due ${u.nextDue}</span></div>`).join(""); } else { container.innerHTML = "<div style='padding:12px; text-align:center'>No upcoming bills</div>"; } } }
+    function getTopSpendingCategory() { if(!currentUser) return null; const catMap = {}; currentUser.transactions.filter(t=>t.type==="expense").forEach(e=>catMap[e.category]=(catMap[e.category]||0)+e.amount); const entries = Object.entries(catMap); if(entries.length===0) return null; entries.sort((a,b)=>b[1]-a[1]); return entries[0][0]; }
     
-    // NEW: Subscriptions Tracker
-    function renderSubscriptions() { if(!currentUser) return; const subs = currentUser.subscriptions || []; const sym=getCurrencySymbol(currentUser.currency); const totalMonthly = subs.reduce((s,sub)=>s+sub.amount,0); const totalYearly = totalMonthly * 12; document.getElementById("totalSubscriptions").innerHTML = `${sym}${totalMonthly.toFixed(2)}`; document.getElementById("yearlySubscriptions").innerHTML = `${sym}${totalYearly.toFixed(2)}`; const container=document.getElementById("subscriptionsList"); if(container) container.innerHTML = subs.map((s,idx)=>`<div class='subscription-item'><span><strong>${s.name}</strong> | Billing day: ${s.billingDay}</span><span>${sym}${s.amount.toFixed(2)}/month</span><button class="btn-outline" style="padding:4px 12px;" onclick="deleteSubscription(${idx})">Delete</button></div>`).join("") || "<div>No subscriptions added</div>"; }
-    function addSubscription() { document.getElementById("subscriptionModal").classList.add("active"); }
-    function saveSubscription() { let name=document.getElementById("subName").value.trim(), amount=parseFloat(document.getElementById("subAmount").value), billingDay=parseInt(document.getElementById("subBillingDate").value); if(!name||isNaN(amount)||amount<=0||isNaN(billingDay)||billingDay<1||billingDay>31) { alert("Fill all fields correctly"); return; } if(!currentUser.subscriptions) currentUser.subscriptions=[]; currentUser.subscriptions.push({name,amount,billingDay}); saveUserData(); renderSubscriptions(); closeModal('subscriptionModal'); document.getElementById("subName").value=""; document.getElementById("subAmount").value=""; document.getElementById("subBillingDate").value=""; }
-    function deleteSubscription(idx) { if(currentUser.subscriptions) { currentUser.subscriptions.splice(idx,1); saveUserData(); renderSubscriptions(); } }
+    function detectAnomalies() { if(!currentUser) return; const avgSpend = {}; const count = {}; currentUser.transactions.filter(t=>t.type==="expense").forEach(t=>{ avgSpend[t.category] = (avgSpend[t.category]||0) + t.amount; count[t.category] = (count[t.category]||0) + 1; }); for(let cat in avgSpend) avgSpend[cat] = avgSpend[cat] / count[cat]; const anomalies = []; currentUser.transactions.filter(t=>t.type==="expense").forEach(t=>{ if(avgSpend[t.category] && t.amount > avgSpend[t.category] * 2) anomalies.push(`${t.desc}: ${getCurrencySymbol(currentUser.currency)}${t.amount.toFixed(2)} (2x avg for ${t.category})`); }); const container = document.getElementById("anomalyList"); if(container) container.innerHTML = anomalies.length > 0 ? anomalies.map(a=>`<div class="ai-insight-card"><i class="fas fa-exclamation-triangle"></i> ${a}</div>`).join("") : "<div class='ai-insight-card'><i class='fas fa-check-circle'></i> No unusual spending detected.</div>"; }
     
-    // NEW: PDF Report Generation
-    async function generatePDFReport() { if(!currentUser) return; const { jsPDF } = window.jspdf; const doc = new jsPDF(); const sym = getCurrencySymbol(currentUser.currency); let inc = currentUser.transactions.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0); let exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); let netWorth = inc - exp; doc.setFontSize(20); doc.setTextColor(44, 154, 128); doc.text("Financify Pro - Financial Report", 20, 20); doc.setFontSize(12); doc.setTextColor(255, 255, 255); doc.text(`Generated: ${new Date().toLocaleString()}`, 20, 35); doc.text(`User: ${currentUser.name} (${currentUser.email})`, 20, 45); doc.text(`Currency: ${currentUser.currency}`, 20, 55); doc.text(`Monthly Income: ${sym}${currentUser.monthlyIncome.toFixed(2)}`, 20, 65); doc.text(`Total Income (All Time): ${sym}${inc.toFixed(2)}`, 20, 75); doc.text(`Total Expenses (All Time): ${sym}${exp.toFixed(2)}`, 20, 85); doc.text(`Net Worth: ${sym}${netWorth.toFixed(2)}`, 20, 95); doc.text(`Savings Rate: ${currentUser.monthlyIncome>0 ? ((currentUser.monthlyIncome-exp)/currentUser.monthlyIncome*100).toFixed(1) : 0}%`, 20, 105); let y = 115; doc.text("Recent Transactions:", 20, y); y += 10; currentUser.transactions.slice(-5).reverse().forEach(t => { doc.text(`${t.desc}: ${sym}${t.amount.toFixed(2)} (${t.type})`, 20, y); y += 8; if(y > 270) { doc.addPage(); y = 20; } }); doc.save(`Financify_Report_${currentUser.name}_${new Date().toISOString().slice(0,10)}.pdf`); alert("PDF Report Downloaded!"); }
+    function generateBudgetRecommendations() { if(!currentUser) return; const exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); const idealBudget = currentUser.monthlyIncome * 0.7; let rec = `<div class="ai-insight-card"><i class="fas fa-chart-simple"></i> <strong>Smart Budget Recommendations</strong><br>`;
+        if(exp > idealBudget) rec += `⚠️ Your expenses (${getCurrencySymbol(currentUser.currency)}${exp.toFixed(0)}) exceed 70% of income. Aim to reduce spending by ${getCurrencySymbol(currentUser.currency)}${(exp-idealBudget).toFixed(0)}.<br>`;
+        else rec += `✅ Your spending is within the 70% guideline. Consider investing the surplus.<br>`;
+        rec += `📌 Recommended monthly budget: Housing 30%, Food 15%, Transport 10%, Savings 20%, Entertainment 5%<br>`;
+        rec += `🎯 Based on your goal (${currentUser.goal}), allocate extra funds to ${currentUser.goal === 'debt' ? 'debt repayment' : 'savings/investments'}.`;
+        rec += `</div>`;
+        document.getElementById("budgetRecommendations").innerHTML = rec;
+    }
+    
+    function calculateFinancialHealth() { if(!currentUser) return; const exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); const savingsRate = currentUser.monthlyIncome>0 ? ((currentUser.monthlyIncome-exp)/currentUser.monthlyIncome*100) : 0; let score = Math.min(100, Math.max(0, 30 + savingsRate * 0.7)); if(currentUser.goal === 'savings' && savingsRate > 20) score += 10; if(currentUser.goal === 'debt' && exp < currentUser.monthlyIncome * 0.6) score += 10; score = Math.min(100, score); document.getElementById("healthScoreDisplay").innerHTML = `<div class="ai-insight-card"><i class="fas fa-heartbeat"></i> <strong>Financial Health Score: ${score.toFixed(0)}/100</strong><br>${score>=80 ? "Excellent! You're on track!" : score>=60 ? "Good, but room for improvement." : "Needs attention. Review your budget."}</div>`;
+        document.getElementById("healthProgressFill").style.width = `${score}%`;
+    }
+    
+    function generateSpendingForecast() { if(!currentUser) return; const expenses = currentUser.transactions.filter(t=>t.type==="expense"); if(expenses.length < 3) { document.getElementById("forecastChart").innerHTML = "<div class='ai-insight-card'>Need at least 3 transactions for forecast.</div>"; return; } const last7Days = expenses.slice(-7).reduce((s,t)=>s+t.amount,0); const dailyAvg = last7Days / 7; const forecast30 = dailyAvg * 30; const ctx = document.getElementById('forecastCanvas')?.getContext('2d'); if(ctx){ if(forecastChart) forecastChart.destroy(); forecastChart = new Chart(ctx, { type:'line', data:{ labels:['Week 1','Week 2','Week 3','Week 4'], datasets:[{ label:'Projected Spending', data:[dailyAvg*7, dailyAvg*14, dailyAvg*21, dailyAvg*28], borderColor:'#2c9a80', backgroundColor:'rgba(44,154,128,0.1)', fill:true }] }, options:{ responsive:true, maintainAspectRatio:true, plugins:{ legend:{ labels:{ color:'#e2e8f0' } } } } }); } document.getElementById("forecastChart").innerHTML = `<div class="ai-insight-card"><i class="fas fa-chart-line"></i> <strong>30-Day Spending Forecast:</strong> ${getCurrencySymbol(currentUser.currency)}${forecast30.toFixed(0)} (based on last 7 days average)</div><canvas id="forecastCanvas" style="height:180px; margin-top:12px;"></canvas>`;
+        const newCtx = document.getElementById('forecastCanvas')?.getContext('2d'); if(newCtx && forecastChart) { forecastChart.destroy(); forecastChart = new Chart(newCtx, { type:'line', data:{ labels:['Week 1','Week 2','Week 3','Week 4'], datasets:[{ label:'Projected Spending', data:[dailyAvg*7, dailyAvg*14, dailyAvg*21, dailyAvg*28], borderColor:'#2c9a80', backgroundColor:'rgba(44,154,128,0.1)', fill:true }] }, options:{ responsive:true, maintainAspectRatio:true, plugins:{ legend:{ labels:{ color:'#e2e8f0' } } } } }); }
+    }
+    
+    function updateSmartAlerts() { if(!currentUser) return; const exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); const remaining = currentUser.monthlyIncome - exp; let alerts = ""; if(remaining < 0) alerts += `<div class="ai-insight-card"><i class="fas fa-bell"></i> 🚨 URGENT: You've overspent by ${getCurrencySymbol(currentUser.currency)}${Math.abs(remaining).toFixed(2)} this month!</div>`;
+        else if(remaining < currentUser.monthlyIncome * 0.1) alerts += `<div class="ai-insight-card"><i class="fas fa-bell"></i> ⚠️ Warning: Only ${getCurrencySymbol(currentUser.currency)}${remaining.toFixed(2)} left for the month. Spend carefully.</div>`;
+        else alerts += `<div class="ai-insight-card"><i class="fas fa-check-circle"></i> ✅ Good job! You have ${getCurrencySymbol(currentUser.currency)}${remaining.toFixed(2)} remaining this month.</div>`;
+        const topCat = getTopSpendingCategory(); if(topCat && topCat !== "Housing") alerts += `<div class="ai-insight-card"><i class="fas fa-lightbulb"></i> 💡 Tip: Your highest spending is on ${topCat}. Consider setting a budget limit for this category.</div>`;
+        document.getElementById("smartAlerts").innerHTML = alerts;
+    }
+    
+    // AI Chat Assistant
+    function addChatMessage(text, isUser) { const container = document.getElementById("chatMessages"); const msgDiv = document.createElement("div"); msgDiv.className = `chat-message ${isUser ? 'user-message' : 'ai-message'}`; msgDiv.innerHTML = `<i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i> ${text}`; container.appendChild(msgDiv); container.scrollTop = container.scrollHeight; }
+    function processAIQuery(query) { const lower = query.toLowerCase(); const exp = currentUser.transactions.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0); const inc = currentUser.monthlyIncome; const savings = inc - exp; const rate = inc>0 ? (savings/inc*100).toFixed(0) : 0; const topCat = getTopSpendingCategory();
+        if(lower.includes("save more") || lower.includes("save money")) return `To save more money, focus on reducing your ${topCat || "largest"} expenses. Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings. Your current savings rate is ${rate}%.`;
+        if(lower.includes("spending too much") || lower.includes("overspending")) return `Your top spending category is ${topCat || "unknown"}. Consider setting a monthly budget limit for this category. Would you like me to help create a budget?`;
+        if(lower.includes("invest") || lower.includes("investment")) return `For investments, consider starting with low-cost index funds or our SIP calculator. Based on your income of ${getCurrencySymbol(currentUser.currency)}${inc}, aim to invest at least 15% monthly.`;
+        if(lower.includes("budget")) return `Recommended budget: Housing 30%, Food 15%, Transport 10%, Savings ${rate}%, Entertainment 5%, Others 30%. Adjust based on your priorities.`;
+        if(lower.includes("debt")) return `To pay off debt faster, use the avalanche method (highest interest first) or snowball method (smallest balance first). Focus on high-interest debt above 10%.`;
+        if(lower.includes("emergency fund")) return `Your emergency fund should cover 3-6 months of expenses. Your monthly expenses are ${getCurrencySymbol(currentUser.currency)}${exp.toFixed(0)}. Target: ${getCurrencySymbol(currentUser.currency)}${(exp*3).toFixed(0)} to ${getCurrencySymbol(currentUser.currency)}${(exp*6).toFixed(0)}.`;
+        return `Based on your finances, you're saving ${rate}% of income. Your financial health score is ${((30 + rate * 0.7)).toFixed(0)}/100. Keep tracking expenses and use our calculators for specific financial goals!`;
+    }
+    function sendChatMessage() { const input = document.getElementById("chatInput"); const msg = input.value.trim(); if(!msg) return; addChatMessage(msg, true); setTimeout(() => { const response = processAIQuery(msg); addChatMessage(response, false); }, 300); input.value = ""; }
     
     function setMode(mode){ currentMode=mode; document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.getAttribute("data-mode")===mode)); renderCalculatorsGrid(); }
-    function setActivePage(pageId){ document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn, .nav-item').forEach(b=>{ if(b.getAttribute('data-page')===pageId) b.classList.add('active'); else b.classList.remove('active'); }); if(pageId==='calculators') renderCalculatorsGrid(); if(pageId==='saved') renderSavedCalculations(); if(pageId==='investments') renderInvestments(); if(pageId==='debt') renderDebts(); if(pageId==='recurring') renderRecurring(); if(pageId==='subscriptions') renderSubscriptions(); if(pageId==='dashboard') updateDashboard(); }
+    function setActivePage(pageId){ document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active-page')); document.getElementById(`${pageId}Page`).classList.add('active-page'); document.querySelectorAll('.page-btn, .nav-item').forEach(b=>{ if(b.getAttribute('data-page')===pageId) b.classList.add('active'); else b.classList.remove('active'); }); if(pageId==='calculators') renderCalculatorsGrid(); if(pageId==='insights') runAllAIAnalysis(); if(pageId==='dashboard') updateDashboard(); }
     function closeModal(id){ document.getElementById(id).classList.remove('active'); }
-    function setGoal(goal) { if(currentUser) { currentUser.goal = goal; saveUserData(); updateDashboard(); } }
-    function logout() { auth.signOut().then(() => { currentUser = null; document.getElementById("mainApp").style.display = "none"; document.getElementById("authOverlay").style.display = "flex"; isLoginMode = true; switchAuthMode(); document.getElementById("authEmail").value = ""; document.getElementById("authPassword").value = ""; document.getElementById("authName").value = ""; }).catch(e => console.log(e)); }
+    function setGoal(goal) { if(currentUser) { currentUser.goal = goal; saveUserData(); updateDashboard(); runAllAIAnalysis(); } }
+    function logout() { auth.signOut().then(() => { currentUser = null; document.getElementById("mainApp").style.display = "none"; document.getElementById("authOverlay").style.display = "flex"; isLoginMode = true; switchAuthMode(); }).catch(e => console.log(e)); }
 
     // Event Listeners
-    document.getElementById("switchAuthMode").addEventListener("click", switchAuthMode);
-    document.getElementById("authSubmitBtn").addEventListener("click", handleEmailAuth);
-    document.getElementById("googleLoginBtn").addEventListener("click", handleGoogleLogin);
-    document.getElementById("logoutBtn").addEventListener("click", logout);
-    document.getElementById("exploreCalculatorsBtn").addEventListener("click",()=>setActivePage("calculators"));
-    document.getElementById("addTransactionBtn").addEventListener("click",()=>{ updateCategorySelect(); document.getElementById("transactionModal").classList.add("active"); });
-    document.getElementById("saveTransactionBtn").addEventListener("click",addTransaction);
-    document.getElementById("runCalcBtn").addEventListener("click",()=>window.runCalculator());
-    document.getElementById("saveCalcBtn").addEventListener("click",()=>window.saveCalculation());
-    document.getElementById("addInvestmentBtn").addEventListener("click",addInvestment);
-    document.getElementById("saveInvestmentBtn").addEventListener("click",saveInvestment);
-    document.getElementById("addDebtBtn").addEventListener("click",addDebt);
-    document.getElementById("saveDebtBtn").addEventListener("click",saveDebt);
-    document.getElementById("addRecurringBtn").addEventListener("click",addRecurring);
-    document.getElementById("saveRecurringBtn").addEventListener("click",saveRecurring);
-    document.getElementById("addSubscriptionBtn").addEventListener("click",addSubscription);
-    document.getElementById("saveSubscriptionBtn").addEventListener("click",saveSubscription);
-    document.getElementById("generateReportBtn").addEventListener("click",generatePDFReport);
+    document.getElementById("switchAuthMode")?.addEventListener("click", switchAuthMode);
+    document.getElementById("authSubmitBtn")?.addEventListener("click", handleEmailAuth);
+    document.getElementById("googleLoginBtn")?.addEventListener("click", handleGoogleLogin);
+    document.getElementById("logoutBtn")?.addEventListener("click", logout);
+    document.getElementById("exploreCalculatorsBtn")?.addEventListener("click",()=>setActivePage("calculators"));
+    document.getElementById("addTransactionBtn")?.addEventListener("click",()=>{ updateCategorySelect(); document.getElementById("transactionModal").classList.add("active"); });
+    document.getElementById("saveTransactionBtn")?.addEventListener("click",addTransaction);
+    document.getElementById("runCalcBtn")?.addEventListener("click",()=>window.runCalculator());
+    document.getElementById("sendChatBtn")?.addEventListener("click",sendChatMessage);
+    document.getElementById("chatInput")?.addEventListener("keypress",(e)=>{ if(e.key==="Enter") sendChatMessage(); });
     document.querySelectorAll(".mode-btn").forEach(b=>b.addEventListener("click",()=>setMode(b.getAttribute("data-mode"))));
     document.querySelectorAll('.page-btn, .nav-item').forEach(btn=>btn.addEventListener('click',()=>setActivePage(btn.getAttribute('data-page'))));
     document.querySelectorAll(".goal-badge").forEach(b=>b.addEventListener("click",()=>setGoal(b.dataset.goal)));
